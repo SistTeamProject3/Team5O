@@ -15,11 +15,19 @@ a:hover{
 	background-position:5px 7px;
 	background-color:#000000;
 }
+
+ul {
+	list-style: none;
+	margin: 0px; 
+	padding: 0px;
+}
+
 </style> 
 
 
-	left_bbslist
+left_bbslist
 
-
-
+<ul>
+	<li><a href="event_calendar.do">일정</a></li>
+</ul>
 

@@ -42,7 +42,16 @@
 	<put-attribute name="login_main" value="/WEB-INF/views/member/regi.jsp"/>
 </definition>
 
-
+	
+	<!-- 이벤트 -->
+	<definition name="event_calendar.tiles" template="/WEB-INF/views/layouts-event_calendar.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
+		<put-attribute name="top_inc" value="/WEB-INF/views/common/top.jsp"/>
+		<put-attribute name="left_main" value="/WEB-INF/views/common/left_bbslist.jsp"/>
+		<put-attribute name="center_main" value="/WEB-INF/views/event/event_calendar.jsp"/>
+	</definition>
+	
+	<definition name="calendar_form.tiles" template="/WEB-INF/views/event/calendar_form.jsp"></definition>
 
 </tiles-definitions>	
 
