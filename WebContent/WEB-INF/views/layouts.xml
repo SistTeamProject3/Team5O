@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+	"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+	
+<tiles-definitions>
+
+<!-- <definition name="login.tiles" template="/WEB-INF/views/login/login.jsp">
+</definition>
+
+
+<definition name="bbswrite.tiles" template="/WEB-INF/views/bbs/bbswrite.jsp">
+</definition>
+ -->
+<!-- <definition name="first.tiles" template="/WEB-INF/views/ys/news_write.jsp">
+</definition> -->
+
+<!-- 
+<definition name="first.tiles" template="/WEB-INF/select-jquery.html">
+</definition>
+ -->
+ 
+
+<definition name="main.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
+
+	<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
+	<put-attribute name="top_inc" value="/WEB-INF/views/common/top.jsp"/>
+	<put-attribute name="top_menu" value="/WEB-INF/views/common/top_menu.jsp"/>
+	<put-attribute name="left_main" value="/WEB-INF/views/common/left_bbslist.jsp"/>
+	<put-attribute name="center_main" value="/WEB-INF/views/ys/news_write.jsp"/>
+	<put-attribute name="right_main" value="/WEB-INF/views/bbs/bbslist.jsp"/>
+	<put-attribute name="bottom_inc" value="/WEB-INF/views/common/bottom.jsp"/>
+</definition>
+
+  <definition name="login.tiles" template="/WEB-INF/views/layouts-login.jsp">
+	<put-attribute name="top_inc" value="/WEB-INF/views/member/top_login.jsp"/>
+	<put-attribute name="login_main" value="/WEB-INF/views/member/login_main.jsp"/>
+	<put-attribute name="bottom_inc" value="/WEB-INF/views/common/bottom.jsp"/>
+</definition>
+
+<definition name="regi.tiles" extends="login.tiles">
+	<put-attribute name="login_main" value="/WEB-INF/views/member/regi.jsp"/>
+</definition>
+
+
+
+</tiles-definitions>	
+
+
+
+
+
+
+
+
+
+
+
+
