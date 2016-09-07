@@ -8,6 +8,6 @@
 <body>
 
 <% response.sendRedirect("./login.do"); %>
-
+영선테스트
 </body>
 </html>
