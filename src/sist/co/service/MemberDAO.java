@@ -4,6 +4,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import sist.co.model.MemberDTO;
+
+
+
 
 @Repository	// 저장소
 public class MemberDAO {
@@ -13,7 +17,11 @@ public class MemberDAO {
 	
 	private String ns="Member.";
 	
-
+	
+	public int check_member(MemberDTO member)throws Exception {
+		
+		return (int)sqlSession.selectOne(ns+"check_member", member);
+	}
 	
 }
 
