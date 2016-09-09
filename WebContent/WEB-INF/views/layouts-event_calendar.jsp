@@ -12,7 +12,6 @@
 <head>
 	<tiles:insertAttribute name="header"/>
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/style.css"/>
-	<link rel="stylesheet" type="text/css" href="css/bootswatch.css"/>
 </head>
 
 <body>
@@ -30,23 +29,9 @@
 			<div id="content_wrap">
 				<tiles:insertAttribute name="center_main"/>
 			</div>		
-			<%-- 
-			<div id="content_wrap2">
-				<tiles:insertAttribute name="right_main"/>
-			</div> 
-			--%>	
 		</div>	
-		<%-- 
-		<div id="footer_wrap">
-			<tiles:insertAttribute name="bottom_inc"/>		
-		</div>
-		 --%>		
 	</div>
 </div>
 
 </body>
 </html>
-
-
-
-

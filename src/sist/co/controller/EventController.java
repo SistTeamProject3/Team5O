@@ -22,15 +22,15 @@ public class EventController {
 		return "event_calendar.tiles";
 	}
 	
-	@RequestMapping(value="calendar_form.do", method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="form_calendar.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String calendar_form(Model model, String year, String month, String day) throws Exception {
 		
-		logger.info("calendar_form.do 접근 " + new Date());
+		logger.info("form_calendar.do 접근 " + new Date());
 		
 		model.addAttribute("year", year);
 		model.addAttribute("year", month);
 		model.addAttribute("year", day);
 		
-		return "calendar_form.tiles";
+		return "form_calendar.tiles";
 	}
 }

@@ -7,17 +7,29 @@
 
 <fmt:requestEncoding value="UTF-8"/>
 
+<style type="text/css">
+
+.dayOfWeek {
+	text-align: center;
+}
+
+.day {
+	width: 100px; 
+	padding-top: 5px;
+	padding-left: 10px;
+	text-align: left;
+	vertical-align: top;
+	border-top: 1px solid #303030;
+}
+</style>
+
 <%
 
 Calendar cal = Calendar.getInstance();
 
-String tempYear = request.getParameter("year");
-String tempMonth = request.getParameter("month");
-String tempDay = request.getParameter("day");
-
-int year = Integer.parseInt(tempYear);
-int month = Integer.parseInt(tempMonth);
-int day = Integer.parseInt(tempDay);
+int year = Integer.parseInt(request.getParameter("year"));
+int month = Integer.parseInt(request.getParameter("month"));
+int day = Integer.parseInt(request.getParameter("day"));
 
 cal.set(year, month, 1);
 
@@ -40,19 +52,8 @@ startDay: ${ startDay } &nbsp;
 lastDay: ${ lastDay }
 <!-- // 확인용 테스트 -->
 
-<style type="text/css">
-.day {
-	width: 100px; 
-	padding-top: 5px;
-	padding-left: 10px;
-	text-align: left;
-	vertical-align: top;
-	border-top: 1px solid #303030;
-}
-</style>
-
 <div class="event_calendar">
-	<table style="width: 100%; border-collapse: separate; border-spacing: 10px; border-radius: 5px;">
+	<table style="width: 100%; border-collapse: separate; border-spacing: 10px; border-radius: 5px; background-color: #181818;">
 		<tr>
 			<td colspan="7" align="left" style="padding: 10px 0px;">
 				<span><img id="_prev_month" class="prev_month" src="image/left.png" alt="이전 달"/></span>
@@ -62,7 +63,13 @@ lastDay: ${ lastDay }
 		</tr>
 		
 		<tr class="active">
-			<td>월</td><td>화</td><td>수</td><td>목</td><td>금</td><td>토</td><td>일</td>
+			<td class="dayOfWeek">월</td>
+			<td class="dayOfWeek">화</td>
+			<td class="dayOfWeek">수</td>
+			<td class="dayOfWeek">목</td>
+			<td class="dayOfWeek">금</td>
+			<td class="dayOfWeek">토</td>
+			<td class="dayOfWeek">일</td>
 		</tr>
 		
 		<tr class="active" style="height: 130px;">

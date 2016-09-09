@@ -30,15 +30,13 @@ pageContext.setAttribute("day", day);
 
 <div id="_event_calendar_prev_month" class="event_calendar"></div>
 
-<jsp:include page="calendar_form.jsp">
+<jsp:include page="form_calendar.jsp">
 	<jsp:param name="year" value="${ year }"/>
 	<jsp:param name="month" value="${ month }"/>
 	<jsp:param name="day" value="${ day }"/>
 </jsp:include>
 
 <div id="_event_calendar_next_month" class="event_calendar"></div>
-
-<input type="button" id="_btn_next_month" value="다음달 출력"/>
 
 <!-- Script -->
 <script type="text/javascript">
@@ -64,7 +62,7 @@ $(document).on('click', '.prev_month', function() {
 	
 	$.ajax({
 		type: 'GET',
-		url: 'calendar_form.do?year=' + prevYear + '&month=' + prevMonth + "&day=" + prevDay,
+		url: 'form_calendar.do?year=' + prevYear + '&month=' + prevMonth + "&day=" + prevDay,
 		success: function(data) {
 			$('#_event_calendar_prev_month').prepend(data);
 		},
@@ -95,7 +93,7 @@ $(document).scroll(function() {
 		
 		$.ajax({
 			type: 'GET',
-			url: 'calendar_form.do?year=' + nextYear + '&month=' + nextMonth + "&day=" + nextDay,
+			url: 'form_calendar.do?year=' + nextYear + '&month=' + nextMonth + "&day=" + nextDay,
 			success: function(data) {
 				$('#_event_calendar_next_month').append(data);
 			},
@@ -126,7 +124,7 @@ $(document).ready(function() {
 	if ( windowHeight == documentHeight ) {
 		$.ajax({
 			type: 'GET',
-			url: 'calendar_form.do?year=' + nextYear + '&month=' + nextMonth + "&day=" + nextDay,
+			url: 'form_calendar.do?year=' + nextYear + '&month=' + nextMonth + "&day=" + nextDay,
 			success: function(data) {
 				$('#_event_calendar_next_month').append(data);
 			},

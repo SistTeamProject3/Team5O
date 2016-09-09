@@ -30,4 +30,3 @@ left_bbslist
 <ul>
 	<li><a href="event_calendar.do">일정</a></li>
 </ul>
-
