@@ -19,6 +19,7 @@ public class MemBerController {
 	public String login(Model model){
 		logger.info("환영합니다 SistMemberController login" + new Date());
 		System.out.println("꺄뀽");
+		logger.info("난 친구가 없다. 너도 없었으면 좋겠다. - K");
 		return "login.tiles";
 	}
 	@RequestMapping(value="loginAf.do", method=RequestMethod.GET)

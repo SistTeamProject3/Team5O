@@ -15,17 +15,22 @@ a:hover{
 	background-position:5px 7px;
 	background-color:#000000;
 }
+
+ul {
+	list-style: none;
+	margin: 0px; 
+	padding: 0px;
+}
+
 </style> 
 
 
-	left_bbslist
-
-
-
+left_bbslist
 
 <div id="top_menu_wrap">
 	<div id="_top_menu">
 		<ul class="navi">
+			<li><a href="event_calendar.do">일정</a></li>
 			<li><a href="infriendsearch.do" title="내 친구검색">내 친구 검색</a></li>
 			<li><a href="friendlist.do" title="친구목록">친구목록</a></li>	<!-- header에 놓일 anchor, right side menu에 나타날 목록(넣을까말까) -->
 			<!-- 해당회원의 SNS에 들어갔을 때 left side menu에 나타날 anchor : -->
@@ -39,4 +44,3 @@ a:hover{
 		</ul>
 	</div>
 </div>
-
