@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<% response.sendRedirect("./login.do"); %>
-dsfssadfasdfasdfsadf
+<% response.sendRedirect("./ys_first.do"); %>
+
 </body>
 </html>
