@@ -31,6 +31,7 @@ left_bbslist
 <div id="top_menu_wrap">
 	<div id="_top_menu">
 		<ul class="navi">
+			<li><a href="ys_first.do" title="뉴스피드">뉴스피드</a></li>
 			<li><a href="event_calendar.do">일정</a></li>
 			<li><a href="infriendsearch.do" title="내 친구검색">내 친구 검색</a></li>
 			<li><a href="friendlist.do" title="친구목록">친구목록</a></li>	<!-- header에 놓일 anchor, right side menu에 나타날 목록(넣을까말까) -->
