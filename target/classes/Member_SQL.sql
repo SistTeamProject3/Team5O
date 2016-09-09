@@ -5,7 +5,7 @@ column3 DATE_TYPE3,
 column4 DATE_TYPE4
 )
 
-CREATE TABLE TP_SISTMEMBER(
+CREATE TABLE TP3_MEMBER(
 m_id VARCHAR2(64) PRIMARY KEY,	
 m_name VARCHAR2(20) NOT NULL,
 m_nickname VARCHAR2(20) NOT NULL,
@@ -30,4 +30,4 @@ m_stopdate VARCHAR2(8)
 		 #{m_birthday}, #{m_profile},#{m_highschool}, #{m_university}, #{m_office}, #{m_marriage},
 		 #{m_address}, #{m_deactivation}, #{m_ask},#{m_content}, #{m_stopdate})	
 
-select * from TP_SISTMEMBER
+select * from TP3_MEMBER;
