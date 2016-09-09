@@ -18,6 +18,7 @@ public class MemBerController {
 	@RequestMapping(value="login.do", method=RequestMethod.GET)
 	public String login(Model model){
 		logger.info("환영합니다 SistMemberController login" + new Date());
+		System.out.println("꺄뀽");
 		return "login.tiles";
 	}
 	@RequestMapping(value="loginAf.do", method=RequestMethod.GET)
