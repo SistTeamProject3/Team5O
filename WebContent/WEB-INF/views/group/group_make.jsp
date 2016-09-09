@@ -14,7 +14,7 @@
 <body>
 <div style="width: 100%;">
 <form action="group_make.do" method="post">
-	<input type="hidden" value="aa" id="g_manager" name="g_manager">
+	<input type="hidden" value="AA" id="g_manager" name="g_manager">
 	<table border="1" style="width: 100%;">
 		<thead>
 			<tr>

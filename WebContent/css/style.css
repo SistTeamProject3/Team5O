@@ -17,9 +17,9 @@
 	#footer_wrap { width:100%; border:solid 0px navy; clear:both; background-color:#f1eff0; text-align:center;}
 			
 
-	#sidebar_wrap { float:left; width:23%;  height:100%; margin:0px; background-color: red; padding:1px;}
-	#content_wrap { float:left; width:58%;  height:100%;  margin-right:0px; border-left:solid 1px #EFEFEF;background-color: orange ; padding:1px;}
-	#content_wrap2 { float:right; width:19%;  height:100%;  margin-right:0px; border-left:solid 1px #EFEFEF; background-color: orange;  padding:1px;}
+	#sidebar_wrap { float:left; width:23%;  height:100%; margin:0px; padding:1px;}
+	#content_wrap { float:left; width:58%;  height:100%;  margin-right:0px; border-left:solid 1px #EFEFEF; padding:1px;}
+	#content_wrap2 { float:right; width:19%;  height:100%;  margin-right:0px; border-left:solid 1px #EFEFEF; padding:1px;}
 
 	
 

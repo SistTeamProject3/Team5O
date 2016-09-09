@@ -21,12 +21,24 @@ a:hover{
 
 
 	left_bbslist
+<script type="text/javascript">
+$(document).ready(function name() {
+	$("#group").click(function() {
+		$("#groupForm").attr({"target":"_self","action":"group_list.do?category=membership"}).submit();
+	});
+});
+</script>
+
 
 	
 <div class="menu_table">
 	<ul style="width:100%;">
 		<li class="menu_item">
-			<a href="#none" onclick="location.href='group_list.do'" title="그룹">그룹</a>
+			<!-- <a href="#none" onclick="location.href='group_list.do?category=membership&m_id=aa'" title="그룹">그룹</a> -->
+			<form action="" id="groupForm" method="post">
+			<input type="hidden" value="AA" id="m_id" name="m_id">
+			<a href="#none" id="group" title="그룹">그룹</a>
+			</form>
 		</li>
 		<li class="menu_item">
 		 		<a data-toggle="modal" data-target="#myModal">그룹 만들기</a>
@@ -34,11 +46,8 @@ a:hover{
 	</ul>
 </div>
 <!-- 여기부터 모달 입니다. -->
-
 <div class="container">
- 
   <!-- Trigger the modal with a button -->
-
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -48,15 +57,11 @@ a:hover{
           <button type="button" class="close" data-dismiss="modal">&times;</button>
          <jsp:include page="/WEB-INF/views/group/group_make.jsp"></jsp:include>
         </div>
-        <div class="modal-body">
-        	
+      	  <div class="modal-body">
         </div>
-     
       </div>
-      
     </div>
   </div>
-  
 </div>
 
 <!-- 여기까지 모달 입니다. -->
