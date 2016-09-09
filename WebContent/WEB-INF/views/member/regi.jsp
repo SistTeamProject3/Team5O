@@ -24,6 +24,7 @@ table {
 </style>
 
 <script>
+var a_number = "";
     function sample6_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -101,13 +102,16 @@ table {
 	  function a_number() {
 		alert("버튼 반응 안함?!");
 
-
-		var a_number = $("#abcd").val();
-		alert("a_number = "+a_number); 
-		var a_usernumber = $("#_a_number").val();
-		alert("a_usernumber = "+a_usernumber);
-				
-			
+		
+		/* if('${random}'==null){
+			alert("널이당");
+		}else{
+			var a_number = '${random}';
+			alert("a_number = "+a_number);  
+			var a_usernumber = $("#_a_number").val();
+			alert("a_usernumber = "+a_usernumber);
+		}
+ */
 		/* if(a_number==a_usernumber){
 		alert("정답입니다");
 		}else if(a_number!=a_usernumber){

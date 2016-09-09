@@ -56,8 +56,8 @@ public class MemBerController {
 		int random = (int)(Math.random()*10000000)+10000000;
 		System.out.println("random = "+random);
 		
-		request.getSession().setAttribute("random", random);
-		/*model.addAttribute("random",random);*/
+		/*request.getSession().setAttribute("random", random);*/
+		
 		MsgMember msg = new MsgMember();
 		if(count > 0){
 			
@@ -70,6 +70,7 @@ public class MemBerController {
 			System.out.println("들어옴???");
 			System.out.println("들어옴???");
 			System.out.println("들어옴???");
+			model.addAttribute("random",random);
 			
 		}
 		return msg;
