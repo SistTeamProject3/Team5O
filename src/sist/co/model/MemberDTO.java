@@ -1,27 +1,54 @@
 package sist.co.model;
 
 public class MemberDTO {
-
-	private String m_id;
+	
+	
+	private String m_id;	
 	private String m_name;
 	private String m_nickname;
 	private String m_password;
-	private int m_p_number;
-	private String m_r_date;//? date? string?
-	private String m_birthday;//?date? string?
+	private String m_phone;
+	private String m_regdate;
+	private String m_birthday;
 	private String m_profile;
 	private String m_highschool;
 	private String m_university;
 	private String m_office;
-	private String m_marriage;
+	private int m_marriage;
 	private String m_address;
 	private int m_deactivation;
 	private int m_ask;
 	private String m_content;
-	private String m_stopdate;//??date? string?
+	private String m_stopdate;
+	private int m_gender;
 	
-	public MemberDTO() {
+	public MemberDTO() {}
+
 		
+	public MemberDTO(String m_id, String m_name, String m_nickname, String m_password, String m_phone, String m_regdate,
+			String m_birthday, String m_profile, String m_highschool, String m_university, String m_office,
+			int m_marriage, String m_address, int m_deactivation, int m_ask, String m_content, String m_stopdate,
+			int m_gender) {
+		super();
+		this.m_id = m_id;
+		this.m_name = m_name;
+		this.m_nickname = m_nickname;
+		this.m_password = m_password;
+		this.m_phone = m_phone;
+		this.m_regdate = m_regdate;
+		this.m_birthday = m_birthday;
+		this.m_profile = m_profile;
+		this.m_highschool = m_highschool;
+		this.m_university = m_university;
+		this.m_office = m_office;
+		this.m_marriage = m_marriage;
+		this.m_address = m_address;
+		this.m_deactivation = m_deactivation;
+		this.m_ask = m_ask;
+		this.m_content = m_content;
+		this.m_stopdate = m_stopdate;
+		this.m_gender = m_gender;
+
 	}
 
 	public String getM_id() {
@@ -56,20 +83,21 @@ public class MemberDTO {
 		this.m_password = m_password;
 	}
 
-	public int getM_p_number() {
-		return m_p_number;
+	public String getM_phone() {
+		return m_phone;
 	}
 
-	public void setM_p_number(int m_p_number) {
-		this.m_p_number = m_p_number;
+	public void setM_phone(String m_phone) {
+		this.m_phone = m_phone;
 	}
 
-	public String getM_r_date() {
-		return m_r_date;
+	public String getM_regdate() {
+		return m_regdate;
 	}
 
-	public void setM_r_date(String m_r_date) {
-		this.m_r_date = m_r_date;
+	public void setM_regdate(String m_regdate) {
+		this.m_regdate = m_regdate;
+
 	}
 
 	public String getM_birthday() {
@@ -112,11 +140,13 @@ public class MemberDTO {
 		this.m_office = m_office;
 	}
 
-	public String getM_marriage() {
+
+	public int getM_marriage() {
 		return m_marriage;
 	}
 
-	public void setM_marriage(String m_marriage) {
+	public void setM_marriage(int m_marriage) {
+
 		this.m_marriage = m_marriage;
 	}
 
@@ -160,15 +190,25 @@ public class MemberDTO {
 		this.m_stopdate = m_stopdate;
 	}
 
+	public int getM_gender() {
+		return m_gender;
+	}
+
+	public void setM_gender(int m_gender) {
+		this.m_gender = m_gender;
+	}
+
+
 	@Override
 	public String toString() {
 		return "MemberDTO [m_id=" + m_id + ", m_name=" + m_name + ", m_nickname=" + m_nickname + ", m_password="
-				+ m_password + ", m_p_number=" + m_p_number + ", m_r_date=" + m_r_date + ", m_birthday=" + m_birthday
+				+ m_password + ", m_phone=" + m_phone + ", m_regdate=" + m_regdate + ", m_birthday=" + m_birthday
 				+ ", m_profile=" + m_profile + ", m_highschool=" + m_highschool + ", m_university=" + m_university
 				+ ", m_office=" + m_office + ", m_marriage=" + m_marriage + ", m_address=" + m_address
 				+ ", m_deactivation=" + m_deactivation + ", m_ask=" + m_ask + ", m_content=" + m_content
-				+ ", m_stopdate=" + m_stopdate + "]";
+				+ ", m_stopdate=" + m_stopdate + ", m_gender=" + m_gender + "]";
 	}
+
 	
 	
 	
