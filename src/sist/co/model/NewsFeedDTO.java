@@ -10,7 +10,7 @@ CREATE TABLE TP3_NEWSFEED(
 N_SEQ	NUMBER PRIMARY KEY,	
 G_SEQ	NUMBER,
 FROM_NUM	NUMBER(1),	
-M_NAME	VARCHAR2(20)	NOT NULL,
+M_ID	VARCHAR2(20)	NOT NULL,
 N_CONTENT	VARCHAR2(4000)	NOT NULL,
 N_TAG_FRIEND	VARCHAR2(1000),	
 N_TAG_WHERE	VARCHAR2(20),	
@@ -35,22 +35,22 @@ START WITH 1 INCREMENT BY 1
 public class NewsFeedDTO implements Serializable{
 	
 	private int n_seq;
-	private String name;
+	private String id;
 	private String content;
 	private String filename;
 	private String tag_friend;
 	private String tag_where;
-	private String tag_feel;
-	private int show;  //0-전체공개 / 1-친구만 / 2-나만보기
+	private String tag_feel;//1-기뻐요/2-슬퍼요/3-피곤해요
+	private int show;  //1-전체공개 / 2-친구만 / 3-나만보기
 	private String regidate;
 	
 	public NewsFeedDTO() {}
 
-	public NewsFeedDTO(int n_seq, String name, String content, String filename, String tag_friend, String tag_where,
+	public NewsFeedDTO(int n_seq, String id, String content, String filename, String tag_friend, String tag_where,
 			String tag_feel, int show, String regidate) {
 		super();
 		this.n_seq = n_seq;
-		this.name = name;
+		this.id = id;
 		this.content = content;
 		this.filename = filename;
 		this.tag_friend = tag_friend;
@@ -60,20 +60,20 @@ public class NewsFeedDTO implements Serializable{
 		this.regidate = regidate;
 	}
 
-	public int getn_seq() {
+	public int getN_seq() {
 		return n_seq;
 	}
 
-	public void setn_seq(int n_seq) {
+	public void setN_seq(int n_seq) {
 		this.n_seq = n_seq;
 	}
 
-	public String getName() {
-		return name;
+	public String getId() {
+		return id;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getContent() {
@@ -134,15 +134,10 @@ public class NewsFeedDTO implements Serializable{
 
 	@Override
 	public String toString() {
-		return "SistPDSDTO [n_seq=" + n_seq + ", name=" + name + ", content=" + content + ", filename=" + filename
+		return "NewsFeedDTO [n_seq=" + n_seq + ", id=" + id + ", content=" + content + ", filename=" + filename
 				+ ", tag_friend=" + tag_friend + ", tag_where=" + tag_where + ", tag_feel=" + tag_feel + ", show="
 				+ show + ", regidate=" + regidate + "]";
 	}
-
-	
-
-	
-	
 
 }
 

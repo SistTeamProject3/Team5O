@@ -43,10 +43,23 @@ public class YSController {
 							HttpServletRequest request,
 							@RequestParam(value="fileload", required=false)
 							MultipartFile fileload, Model model){
-		
-		logger.info("PdsController pdsupload " + new Date());
+	
+		logger.info("YSController writeNewsFeed " + new Date());
+		if(fileload!=null){
+			System.out.println(" 야호 null이 아니다");
+		System.out.println("fileload.getSize()=="+fileload.getSize());
+		}
+		else{
+			System.out.println("null이다");
+			System.out.println("null이다");
+			System.out.println("null이다");
+			System.out.println("null이다");
+			System.out.println("null이다");
+		}
+/*
 		newsfeeddto.setFilename(fileload.getOriginalFilename());
 
+		System.out.println(newsfeeddto.toString());
 		String fupload = request.getServletContext().getRealPath("/upload");
 		//String fupload = "c:\\upload";	
 		logger.info(": " + fupload);
@@ -66,8 +79,8 @@ public class YSController {
 			
 		}catch(IOException e){
 			logger.info("writeNewsFeed fail!");
-		}
-		
+		}*/
+
 		return "redirect:/ys_first.do";		
 	}
 	

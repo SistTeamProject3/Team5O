@@ -2,21 +2,20 @@
     pageEncoding="UTF-8"%>
     <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-    
+    <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  
-  <style>
+ <style>
 textarea
 {
   width:100%; 
@@ -39,12 +38,12 @@ width:20%;
 </head>
 <body>
 
-<form name="frmForm" id="_frmForm" action="pdsupload.do" method="post">
 
+<form name="frmForm" id="_frmForm" action="writeNewsFeed.do" method="post" enctype="multipart/form-data">
 
 WRITE
 
-<input type="hidden" name="name" value="영선" >
+<input type="hidden" name="id" value="영선" >
 
 <table class="ys_write_table" style="width: 80%" border="1px solid black">
 	<tr>
@@ -59,10 +58,13 @@ WRITE
 		
 		<div id="room_type">
 				<div id="image_preview2" >
-		    	  	<label for="image">
-			    		<input type=file  name="image" id="image" style='display: none;'> 
-						<img src='image/news_file.jpg' border='0' onclick='hideAll();add_div(); '>
-					</label>
+		    	  	  	
+		    	  	  	<label for="image">
+							 <input type=file  name="fileload2" id="image2" style='display: none;'> 
+							<img src='image/news_addfile.jpg' name="_file3" id="_file3" border='0' onclick='hideAll();'> 
+						</label>
+			    			
+			
 				</div> 
 				<div class="form-group">
 				
@@ -73,7 +75,6 @@ WRITE
 				</div>
 		</div>
 		
-		
 		<div id="field" ></div>
 
 		</td>
@@ -81,7 +82,6 @@ WRITE
 
 	<tr>
 		<td colspan="4">
-	
 			<div id="nowFriend" style='display: none;'>님과 함께&nbsp;&nbsp;<i class="fa fa-times" aria-hidden="true" onclick="deleteArea('nowFriend')"></i> </div>
 			<div id="nowWhere" style='display: none;'></div>
 			<div id="nowFeel"  style='display: none;'></div>
@@ -92,7 +92,7 @@ WRITE
 	
 	<tr id=friend style="display:none;">
 		<th>함께한 친구</th>
-		<td colspan="2"><input type ="text" id="_friend" name="friend"  onKeyDown="onKeyDown();"  onclick="this.value=''"></td>
+		<td colspan="2"><input type ="text" id="_friend" name="tag_friend"  onKeyDown="onKeyDown();"  onclick="this.value=''"></td>
 	</tr>
 
 	
@@ -104,28 +104,34 @@ WRITE
 		   		 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
 				 <span class="caret"></span></button>
 					  <ul class="dropdown-menu">
-					    <li onclick="getState('기뻐요')"><img src="image/happy.jpg">기뻐요</a></li>
-					    <li onclick="getState('슬퍼요')"><img src="image/sad.jpg">슬퍼요</a></li>
-					    <li onclick="getState('피곤해요')"><img src="image/tired.jpg">피곤해요</a></li>
+					    <li onclick="getState('기뻐요'); setState('1')" value="1"><img src="image/happy.jpg">기뻐요</a></li>
+					    <li onclick="getState('슬퍼요'); setState('2')" value="2"><img src="image/sad.jpg">슬퍼요</a></li>
+					    <li onclick="getState('피곤해요'); setState('3')" value="3"><img src="image/tired.jpg">피곤해요</a></li>
 					  </ul>
 		 	 </div>
+		 <!-- 	 <input type="hidden" name="tag_feel" value="1"/> -->
 		</td>
 	</tr>
 	
 	<tr id=where style="display:none;">
 				<th>장소</th>
-					<td colspan="3"><input type ="text" id="_where" name="where" onKeyDown="onKeyDown2();" onclick="this.value=''"></td>
+					<td colspan="3"><input type ="text" id="_where" name="tag_where" onKeyDown="onKeyDown2();" onclick="this.value=''"></td>
 	</tr>
 
 	<tr> 
 	<td colspan="4">
 	
-		    <label for="image">
-        <br />
-
+	<!-- 	
+ 			<br/> 
 		  	<input type=file  name="image" id="image" style='display: none;'> 
 			<img src='image/news_file.jpg' border='0' onclick='hideAll();'>
-  		 </label>
+				
+  		 -->
+ 	
+  		 <!--  <label for="image"> -->
+  		 	<input type=file  name="fileload" id="image" style='display: none;'> 
+			<img src='image/news_file.jpg' name="_file2" id="_file2" border='0' onclick='hideAll();'>
+		<!-- 	</label> -->
 	
 		<!-- <span class="fa fa-camera-retro fa-2x"></span> -->
 		&nbsp;&nbsp;&nbsp;&nbsp;
@@ -142,13 +148,16 @@ WRITE
 				<option value="3">나만보기</option>
 			</select>
 				
-			<img alt="게시하기" src="image/temp.jpg">
+			<img alt="게시하기"  id ="finish" src="image/temp.jpg">
 			</span>
 	</td>
 
 	</tr>
 </table>
 
+
+
+</form>
  <script type="text/javascript">
  var a ="";
  var countDiv=1;
@@ -205,6 +214,15 @@ function getState(val) {
 	$("#nowFeel").text("");
 	$("#nowFeel").text("나는지금  "+val);
 	$("#nowFeel").append("&nbsp;&nbsp;<i class='fa fa-times' aria-hidden='true' onclick=\"deleteArea('nowFeel')\"></i>"); 
+
+
+	
+}
+
+function setState(val){
+	
+/* 	$("#tag_feel").attr("value",val); */
+	$("#nowFeel").append("<input type='hidden' name='tag_feel' value="+val+">");
 }
 
 function onKeyDown()
@@ -249,18 +267,44 @@ $(function() {
     	$("#image_preview2").css("display","");
         file = $('#image').prop("files")[0];
         blobURL = window.URL.createObjectURL(file);
-        alert("blobURL=="+file.name);
+     //   alert("blobURL=="+file.name);
         
        	a = a+file.name +",";	//업로드파일이름
-        alert("a="+a);
+     //   alert("a="+a);
         
         $('#image_preview img').attr('src', blobURL);
         $('#image_preview').slideDown(); //업로드한 이미지 미리보기 
         $('#image_preview2').slideDown(); 
         $(this).slideUp(); //파일 양식 감춤
+      
+        
    } 
 });
+ $('#image2').on('change', function() {
+	   
+	    ext = $(this).val().split('.').pop().toLowerCase(); //확장자
+	    
+	    if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg','mp4']) == -1) {
+	        resetFormElement($(this)); //폼 초기화
+	        window.alert('파일 업로드 할 수 없습니다. 파일은 gif, png, jpg, jpeg 만 가능합니다.');
+	    } else { 
+	    	add_div();
+	    	$("#image_preview2").css("display","");
+	        file = $('#image2').prop("files")[0];
+	        blobURL = window.URL.createObjectURL(file);
+	    //    alert("blobURL=="+file.name);
+	        
+	       	a = a+file.name +",";	//업로드파일이름
+	    //    alert("a="+a);
+	        
+	        $('#image_preview img').attr('src', blobURL);
+	        $('#image_preview').slideDown(); //업로드한 이미지 미리보기 
+	        $('#image_preview2').slideDown(); 
+	        $(this).slideUp(); //파일 양식 감춤
+	   } 
+	});
 
+ 
 
  $('#image_preview a').bind('click', function() {
     resetFormElement($('#image')); //전달한 양식 초기화
@@ -289,11 +333,33 @@ function test(){
 	alert("test");
 }
 
+$(function(){ 
+   $("#_file2").click(function(){                    
+        $("#image").click(); 
+   }); 
+}); 
+
+$(function(){ 
+	   $("#_file3").click(function(){                    
+	        $("#image2").click(); 
+	 	   
+	       });
+	}); 
+
+
+
+$("#finish").click(function() {
+	alert("피니쉬!!!!");
+	$("#_frmForm").attr({"target":"_self", "action":"writeNewsFeed.do"}).submit();
+});
+
+
+
 
 </script>
 
 
-</form>
+
 </body>
 </html>
 
