@@ -64,6 +64,19 @@ ON TP3_SISTMEMBER.M_ID=TP3_GROUPMEMBER.M_ID
 WHERE G_SEQ=#{g_seq} AND G_AUTH=0 AND M_NAME LIKE '%'||#{keyword}||'%'
 </select>
 
+<select id="recommend_group_list" parameterType="sist.co.model.GroupMemberListDTO" resultType="sist.co.model.GroupMakeDTO" ><![CDATA[
+SELECT * FROM( 
+SELECT * FROM TP3_MAKEGROUP
+WHERE G_SEQ NOT IN(SELECT G_SEQ FROM TP3_GROUPMEMBER
+WHERE M_ID=#{m_id})
+ORDER BY DBMS_RANDOM.RANDOM 
+)WHERE ROWNUM < 11 AND G_TYPE=1 OR G_TYPE=2
+]]></select>
+
+<insert id="groupimageUpload" parameterType="sist.co.model.GroupMakeDTO">
+UPDATE TP3_MAKEGROUP SET G_PHOTO=#{g_photo}
+WHERE G_SEQ=#{g_seq}
+</insert>
 
 
 </mapper>

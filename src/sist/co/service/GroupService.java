@@ -25,4 +25,8 @@ public interface GroupService {
 	
 	public List<GroupMemberListDTO> group_mem_reply_list(GroupMakeDTO gmake)throws Exception;
 	public List<GroupMemberListDTO> group_mem_block_list(GroupMakeDTO gmake)throws Exception;
+	
+	public List<GroupMakeDTO> recommend_group_list(GroupListDTO glist)throws Exception;
+	
+	public boolean groupimageUpload(GroupMakeDTO gmake)throws Exception;
 }

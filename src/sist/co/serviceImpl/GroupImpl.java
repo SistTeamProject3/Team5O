@@ -1,4 +1,4 @@
-package sist.co.service.Impl;
+package sist.co.serviceImpl;
 
 
 import java.util.List;
@@ -64,6 +64,17 @@ public class GroupImpl implements GroupService {
 	public List<GroupMemberListDTO> group_mem_block_list(GroupMakeDTO gmake) throws Exception {
 		
 		return groupDAO.group_mem_block_list(gmake);
+	}
+
+	@Override
+	public List<GroupMakeDTO> recommend_group_list(GroupListDTO glist) throws Exception {
+		return groupDAO.recommend_group_list(glist);
+	}
+
+	@Override
+	public boolean groupimageUpload(GroupMakeDTO gmake) throws Exception {
+		groupDAO.groupimageUpload(gmake);
+		return true;
 	}
 	
 	

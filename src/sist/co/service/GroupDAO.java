@@ -59,4 +59,14 @@ public class GroupDAO {
 		List<GroupMemberListDTO> g_m_b_list = sqlSession.selectList(ns+"group_mem_block_list", gmake);
 		return g_m_b_list;
 	}
+	
+	public List<GroupMakeDTO> recommend_group_list(GroupListDTO glist)throws Exception{
+		
+		List<GroupMakeDTO> re_list = sqlSession.selectList(ns+"recommend_group_list", glist);
+		return re_list;
+	} 
+	public boolean groupimageUpload(GroupMakeDTO gmake)throws Exception{
+		sqlSession.update(ns+"groupimageUpload",gmake);
+		return true;
+	}
 }

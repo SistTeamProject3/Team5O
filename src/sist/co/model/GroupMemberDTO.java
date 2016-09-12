@@ -3,10 +3,11 @@ package sist.co.model;
 public class GroupMemberDTO {
 
 	/*
-	CREATE TABLE GROUPMEMBER(
+	CREATE TABLE TP3_GROUPMEMBER(
 		g_seq NUMBER NOT NULL,
 		m_id VARCHAR2(100) NOT NULL,
-		g_auth NUMBER(1) NOT NULL
+		g_auth NUMBER(1) NOT NULL,
+		g_sysdate date NOT NULL,
 	);
 	 */
 	private int g_seq;

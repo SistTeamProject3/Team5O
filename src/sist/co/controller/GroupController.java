@@ -1,10 +1,14 @@
 package sist.co.controller;
 
-import java.lang.ProcessBuilder.Redirect;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +16,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import sist.co.help.FUpUtil;
 import sist.co.model.GroupListDTO;
 import sist.co.model.GroupMakeDTO;
 import sist.co.model.GroupMemberDTO;
@@ -59,6 +66,13 @@ public class GroupController {
 
 			return "group_list.tiles";
 		}else if (category.equals("top")) {
+			
+			List<GroupMakeDTO> re_list = new ArrayList<GroupMakeDTO>();
+			
+			re_list = groupService.recommend_group_list(gdto);
+			
+			model.addAttribute("re_list", re_list);
+			
 			return "recommend_group_list.tiles";
 		}else {
 			return "recommend_group_list.tiles";
@@ -97,7 +111,7 @@ public class GroupController {
 		List<GroupMemberListDTO> g_m_r_list = groupService.group_mem_reply_list(gmake);
 		model.addAttribute("g_m_r_list", g_m_r_list);
 		
-		List<GroupMemberListDTO> g_m_b_list = groupService.group_mem_reply_list(gmake);
+		List<GroupMemberListDTO> g_m_b_list = groupService.group_mem_block_list(gmake);
 		model.addAttribute("g_m_b_list", g_m_b_list);
 		
 		if (type == 1) {
@@ -174,5 +188,36 @@ public class GroupController {
 		return "group_detail_share_flie.tiles";
 	}
 
+	
+	//그룹 사진 등록
+	
+	@RequestMapping(value="group_main_image.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public String group_main_image(Model model,GroupMakeDTO gmake,HttpServletRequest request,@RequestParam(value="fileload",required=false)
+    MultipartFile fileload ) throws Exception {
+		logger.info("CalendarController 메인이미지 " + new Date());
+	
+		 logger.info("fileload"+fileload);
+		 gmake.setG_photo(fileload.getOriginalFilename());
+		 String fupload= request.getServletContext().getRealPath("/upload");
+
+		   String f = gmake.getG_photo();
+	       String newFile = FUpUtil.getNewFile(f);
+	       logger.info(fupload+"/"+newFile);
+	       
+	       gmake.setG_photo(newFile);
+		
+	       try{
+	    	   File file = new File(fupload+"/"+newFile);
+	    	   FileUtils.writeByteArrayToFile(file, fileload.getBytes());
+	    	   
+	    	   groupService.groupimageUpload(gmake);
+	    	   
+	    	   logger.info("pdsupload success");
+	        }catch(IOException e){
+	        	   logger.info("pdsupload fail!");
+	        }
+	        return "redirect:/group_detail.do?g_seq="+gmake.getG_seq();
+		
+	}
 	
 }
