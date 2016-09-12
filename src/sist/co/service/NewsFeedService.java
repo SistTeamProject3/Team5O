@@ -6,5 +6,5 @@ import sist.co.model.NewsFeedDTO;
 public interface NewsFeedService {
 
 	public void writeNewsFeed(NewsFeedDTO dto);
-
+	public void writeNewsFeedImage(NewsFeedDTO dto);
 }

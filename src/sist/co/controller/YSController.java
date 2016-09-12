@@ -17,9 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import sist.co.help.FUpUtil;
 import sist.co.model.NewsFeedDTO;
+import sist.co.model.SistPDSDTO;
 import sist.co.service.NewsFeedService;
+import sist.co.util.FUpUtil;
 
 
 @Controller
@@ -37,6 +38,62 @@ public class YSController {
 		return "main.tiles";
 	}
 	
+/*	@RequestMapping(value="pdswrite.do", method=RequestMethod.GET)
+	public String pdswrite(Model model){		
+		logger.info("PdsController pdswrite " + new Date());		
+		model.addAttribute("doc_title", "자료올리기");
+		
+		return "pdswrite.tiles";			
+	}
+	*/
+/*	@RequestMapping(value="pdsupload.do", 
+			method=RequestMethod.POST)
+	public String pdsupload(SistPDSDTO pdsdto,
+							HttpServletRequest request,
+							@RequestParam(value="fileload2", required=false)
+							MultipartFile fileload, Model model){
+		
+		logger.info("PdsController pdsupload " + new Date());
+		model.addAttribute("doc_title", "pds 업로드");
+		pdsdto.setFilename(fileload.getOriginalFilename());
+
+		
+		System.out.println(pdsdto.toString());
+		
+		String fupload = request.getServletContext().getRealPath("/upload");
+		//String fupload = "c:\\upload";	// 폴더에 올리고 싶을 때
+		logger.info(": " + fupload);
+		
+		String f = pdsdto.getFilename();		
+		String newFile = FUpUtil.getNewFile(f);		
+		logger.info(fupload+ "/" + newFile);
+		
+		pdsdto.setFilename(newFile);
+		
+		try{		
+			File file = new File(fupload + "/" + newFile);		
+			FileUtils.writeByteArrayToFile(file, fileload.getBytes());
+		
+			sistPDSService.uploadPDS(pdsdto);
+			logger.info("pdsupload success");
+			
+		}catch(IOException e){
+			logger.info("pdsupload fail!");
+		}
+		
+		return "redirect:/ys_first.do";		
+	}
+	*/
+	
+	@RequestMapping(value="writeNewsFeed2.do", method=RequestMethod.POST)
+	public String writeNewsFeed2(NewsFeedDTO newsfeeddto,Model model){
+		logger.info("writeNewsFeed2.do"+new Date());
+		System.out.println(newsfeeddto.toString());
+		return "redirect:/ys_first.do";
+	}
+	
+	
+	
 	@RequestMapping(value="writeNewsFeed.do", 
 			method=RequestMethod.POST)
 	public String writeNewsFeed(NewsFeedDTO newsfeeddto,
@@ -45,6 +102,7 @@ public class YSController {
 							MultipartFile fileload, Model model){
 	
 		logger.info("YSController writeNewsFeed " + new Date());
+		System.out.println(newsfeeddto.toString());
 		if(fileload!=null){
 			System.out.println(" 야호 null이 아니다");
 		System.out.println("fileload.getSize()=="+fileload.getSize());
@@ -56,7 +114,7 @@ public class YSController {
 			System.out.println("null이다");
 			System.out.println("null이다");
 		}
-/*
+
 		newsfeeddto.setFilename(fileload.getOriginalFilename());
 
 		System.out.println(newsfeeddto.toString());
@@ -68,23 +126,48 @@ public class YSController {
 		String newFile = FUpUtil.getNewFile(f);		
 		logger.info(fupload+ "/" + newFile);
 		
+		if(newsfeeddto.getTag_feel()==null){
+			newsfeeddto.setTag_feel("");
+		}
+		
 		newsfeeddto.setFilename(newFile);
+		System.out.println("newFile==="+newFile);
+		System.out.println("newFile==="+newFile);
+		System.out.println("newFile==="+newFile);
+		System.out.println("newFile==="+newFile);
 		
-		try{		
-			File file = new File(fupload + "/" + newFile);		
-			FileUtils.writeByteArrayToFile(file, fileload.getBytes());
 		
-			newsFeedService.writeNewsFeed(newsfeeddto);
-			logger.info("writeNewsFeed success");
+		if(fileload.getSize()==0){
+			try{		
+				File file = new File(fupload + "/" + newFile);		
+				FileUtils.writeByteArrayToFile(file, fileload.getBytes());
+	
+				newsFeedService.writeNewsFeed(newsfeeddto);
 			
-		}catch(IOException e){
-			logger.info("writeNewsFeed fail!");
-		}*/
-
+				logger.info("writeNewsFeed success");
+				
+			}catch(IOException e){
+	
+				logger.info("writeNewsFeed fail!");
+			}
+			
+		}else{
+			try{		
+				File file = new File(fupload + "/" + newFile);		
+				FileUtils.writeByteArrayToFile(file, fileload.getBytes());
+	
+				newsFeedService.writeNewsFeedImage(newsfeeddto);
+			
+				logger.info("writeNewsFeed success");
+				
+			}catch(IOException e){
+	
+				logger.info("writeNewsFeed fail!");
+			}
+		}
+		
 		return "redirect:/ys_first.do";		
 	}
-	
-	
-	
+
 	
 }

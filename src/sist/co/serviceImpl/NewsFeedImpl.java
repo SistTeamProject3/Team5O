@@ -18,6 +18,11 @@ public class NewsFeedImpl implements NewsFeedService {
 			newsFeeDAO.writeNewsFeed(dto);
 	}
 
+	@Override
+	public void writeNewsFeedImage(NewsFeedDTO dto) {
+			newsFeeDAO.writeNewsFeedImage(dto);		
+	}
+
 	
 
 	

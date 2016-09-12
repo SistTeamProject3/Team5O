@@ -39,7 +39,7 @@ width:20%;
 <body>
 
 
-<form name="frmForm" id="_frmForm" action="writeNewsFeed.do" method="post" enctype="multipart/form-data">
+<form name="frmForm" id="_frmForm" action="writeNewsFeed2.do" method="post" enctype="multipart/form-data">
 
 WRITEeeeee
 
@@ -109,7 +109,7 @@ WRITEeeeee
 					    <li onclick="getState('피곤해요'); setState('3')" value="3"><img src="image/tired.jpg">피곤해요</a></li>
 					  </ul>
 		 	 </div>
-		<!--   <input type="hidden" name="tag_feel" value="0"/>  -->
+		 <!-- 	 <input type="hidden" name="tag_feel" value="1"/> -->
 		</td>
 	</tr>
 	
@@ -350,7 +350,7 @@ $(function(){
 
 $("#finish").click(function() {
 	alert("피니쉬!!!!");
-	$("#_frmForm").attr({"target":"_self", "action":"writeNewsFeed.do"}).submit();
+	$("#_frmForm").attr({"target":"_self", "action":"writeNewsFeed2.do"}).submit();
 });
 
 
