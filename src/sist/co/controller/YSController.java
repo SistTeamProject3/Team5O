@@ -37,62 +37,7 @@ public class YSController {
 		logger.info("ys_first.do"+new Date());
 		return "main.tiles";
 	}
-	
-/*	@RequestMapping(value="pdswrite.do", method=RequestMethod.GET)
-	public String pdswrite(Model model){		
-		logger.info("PdsController pdswrite " + new Date());		
-		model.addAttribute("doc_title", "자료올리기");
-		
-		return "pdswrite.tiles";			
-	}
-	*/
-/*	@RequestMapping(value="pdsupload.do", 
-			method=RequestMethod.POST)
-	public String pdsupload(SistPDSDTO pdsdto,
-							HttpServletRequest request,
-							@RequestParam(value="fileload2", required=false)
-							MultipartFile fileload, Model model){
-		
-		logger.info("PdsController pdsupload " + new Date());
-		model.addAttribute("doc_title", "pds 업로드");
-		pdsdto.setFilename(fileload.getOriginalFilename());
 
-		
-		System.out.println(pdsdto.toString());
-		
-		String fupload = request.getServletContext().getRealPath("/upload");
-		//String fupload = "c:\\upload";	// 폴더에 올리고 싶을 때
-		logger.info(": " + fupload);
-		
-		String f = pdsdto.getFilename();		
-		String newFile = FUpUtil.getNewFile(f);		
-		logger.info(fupload+ "/" + newFile);
-		
-		pdsdto.setFilename(newFile);
-		
-		try{		
-			File file = new File(fupload + "/" + newFile);		
-			FileUtils.writeByteArrayToFile(file, fileload.getBytes());
-		
-			sistPDSService.uploadPDS(pdsdto);
-			logger.info("pdsupload success");
-			
-		}catch(IOException e){
-			logger.info("pdsupload fail!");
-		}
-		
-		return "redirect:/ys_first.do";		
-	}
-	*/
-	
-	@RequestMapping(value="writeNewsFeed2.do", method=RequestMethod.POST)
-	public String writeNewsFeed2(NewsFeedDTO newsfeeddto,Model model){
-		logger.info("writeNewsFeed2.do"+new Date());
-		System.out.println(newsfeeddto.toString());
-		return "redirect:/ys_first.do";
-	}
-	
-	
 	
 	@RequestMapping(value="writeNewsFeed.do", 
 			method=RequestMethod.POST)
