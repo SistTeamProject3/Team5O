@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import sist.co.help.FUpUtil;
+import sist.co.util.FUpUtil;
 import sist.co.model.GroupListDTO;
 import sist.co.model.GroupMakeDTO;
 import sist.co.model.GroupMemberDTO;

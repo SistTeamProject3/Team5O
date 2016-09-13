@@ -31,7 +31,10 @@ $(document).ready(function(){
 </div>
 <!-- 헤더 끝-->
 <hr>
-토론
+<div style="width: 70%;">
+	<jsp:include page="/WEB-INF/views/group/group_newsfeed_write.jsp"/>
+  <%-- <jsp:include page="/WEB-INF/views/newsfeed/newsfeed_write.jsp"/>  --%>
+</div>
 <!-- 뉴스피드 들어감 -->
 </div>
 </body>

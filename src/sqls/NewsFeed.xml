@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="NewsFeed">
+
+ <insert id="writeNewsFeed"
+   parameterType="sist.co.model.NewsFeedDTO">
+      INSERT INTO TP3_NEWSFEED
+      (N_SEQ, G_SEQ, N_FORM_NUM, M_ID, N_CONTENT, N_SHOW, N_WDATE ,N_TAG_FRIEND, N_TAG_WHERE, N_TAG_FEEL ,N_REF, N_STEP, N_DEPTH)
+      VALUES(SEQ_SIST_PDS.NEXTVAL,,#{g_seq}
+         0, #{m_id}, #{n_content}, #{n_show}, SYSDATE,  #{n_tag_friend}, #{n_tag_where}, #{n_tag_feel}, 0,0,0)
+</insert>
+
+ <insert id="writeNewsFeedImage"
+   parameterType="sist.co.model.NewsFeedDTO">
+      INSERT INTO TP3_NEWSFEED
+      (N_SEQ, G_SEQ,N_FORM_NUM, M_ID, N_CONTENT, N_SHOW, N_WDATE ,N_TAG_FRIEND, N_TAG_WHERE, N_TAG_FEEL ,N_REF, N_STEP, N_DEPTH)
+      VALUES(SEQ_SIST_PDS.NEXTVAL,#{g_seq},
+         1, #{m_id}, #{n_content}, #{n_show}, SYSDATE,  #{n_tag_friend}, #{n_tag_where}, #{n_tag_feel}, 0,0,0)
+</insert>
+
+ <insert id="writeNewsFeedImage2"
+   parameterType="sist.co.model.NewsFeedDTO">
+      INSERT INTO TP3_NEWSFEED_FILE
+      (N_SEQ, N_FORM_NUM, NF_PHOTO)
+      VALUES(SEQ_SIST_PDS.CURRVAL ,1, #{filename})
+</insert>
+
+
+<select id="getAllNewsFeedList" resultType="sist.co.model.NewsFeedDTO">
+   SELECT * FROM TP3_NEWSFEED
+
+</select>
+
+
+</mapper>  
+
+
