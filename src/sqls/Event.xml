@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Event">
+
+<insert id="addEvent" parameterType="sist.co.model.EventDTO">
+	INSERT INTO TP3_EVENT
+		(
+			E_SEQ, E_TYPE, G_SEQ, M_NAME, E_TITLE, E_CONTENT, E_LOCATION
+			, E_START_DATE, E_END_DATE, E_WRITE_DATE, E_IMAGE
+		)
+	VALUES
+		(
+			TP3_EVENT_SEQ.NEXTVAL, 1, 0, #{m_name}, #{e_title}, #{e_content}, #{e_location}
+			, #{e_start_date}, #{e_end_date}, SYSDATE, #{e_image}
+		)
+</insert>
+
+</mapper>  

@@ -44,15 +44,15 @@
 </definition>
 
 
-	<!-- 이벤트 -->
-	<definition name="event_calendar.tiles" template="/WEB-INF/views/layouts-event_calendar.jsp">
-		<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
-		<put-attribute name="top_inc" value="/WEB-INF/views/common/top.jsp"/>
-		<put-attribute name="left_main" value="/WEB-INF/views/common/left_event.jsp"/>
-		<put-attribute name="center_main" value="/WEB-INF/views/event/event_calendar.jsp"/>
-	</definition>
-	
-	<definition name="form_calendar.tiles" template="/WEB-INF/views/event/form_calendar.jsp"></definition>
+<!-- 이벤트 -->
+<definition name="event_calendar.tiles" template="/WEB-INF/views/layouts-event_calendar.jsp">
+	<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
+	<put-attribute name="top_inc" value="/WEB-INF/views/common/top.jsp"/>
+	<put-attribute name="left_main" value="/WEB-INF/views/common/left_event.jsp"/>
+	<put-attribute name="center_main" value="/WEB-INF/views/event/event_calendar.jsp"/>
+</definition>
+
+<definition name="form_calendar.tiles" template="/WEB-INF/views/event/form_calendar.jsp"></definition>
 
 <!-- 그룹 리스트 출력 -->
 

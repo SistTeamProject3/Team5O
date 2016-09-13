@@ -47,7 +47,7 @@
 	
 <script type="text/javascript">
 $("#_login").click(function(){
-	alert("뭐라안뜨니??반응안하니??")
+//	alert("뭐라안뜨니??반응안하니??")
 	if($("#_id").val() == ""){
 		alert($("#_userid").attr("data-msg") + " 입력해 주십시오");
 		$("#_id").focus();
