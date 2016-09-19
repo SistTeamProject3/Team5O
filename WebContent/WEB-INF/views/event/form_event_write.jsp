@@ -64,8 +64,11 @@ td {
 			<th>이벤트 사진</th>
 			<td style="border: 1px solid #505050; border-radius: 2px; height: 200px;">
 				<div id="image_wrap_before">
-					<span><a href="#" id="title_image_choice" class="btn btn-default" 
-					style="width: 50%; float: left; border-radius: 0px;">주제 선택</a></span>
+					
+					<span>
+						<a href="#" id="title_image_choice" class="btn btn-default" 
+						style="width: 50%; float: left; border-radius: 0px;">주제 선택</a>
+					</span>
 					
 					<span>
 						<a href="#" id="image_upload" class="btn btn-default" 
@@ -93,7 +96,15 @@ td {
 					</div>
 				</div>
 				<div id="image_wrap_after">
+					<!-- 이미지 취소 버튼 숨김 -->
+					<span>
+						<input type="image" id="btn_title_image_delete" src="image/event/btn_close.png" alt="왜죠"
+						onclick="return false"
+						style="position: absolute; top: 20px; right: 30px; border: none;"/>
+					</span>
+					
 					<img id="user_image" style="width: 100%; height: 200px;"/>
+					
 				</div>
 			</td>
 		</tr>
@@ -117,11 +128,9 @@ td {
 		<tr>
 			<th id="event_date_time">날짜/시간</th>
 			<td>
-				<input type="text" id="start_date" class="form-control" maxlength="8" 
-				placeholder="시작 날짜" style="width: 100px; margin-right: 5px; display: inline-block;" />
-				
-				<input type="text" id="start_time" class="form-control" maxlength="4" 
-				placeholder="시작 시간" style="width: 100px; display: inline-block;" />
+				<input type="text" id="start_date" class="form-control" readonly="readonly"
+				placeholder="시작 날짜" style="width: 140px; margin-right: 5px; 
+				display: inline-block; background-color: white; cursor: pointer;" />
 				
 				<div style="display: inline-block; margin-top: 6px; float: right;">
 					<a href="#" id="end_date_add" onclick="return false;">+ 종료 시간</a>
@@ -133,11 +142,9 @@ td {
 		<tr id="date_end">
 			<th>종료</th>
 			<td>
-				<input type="text" id="end_date" class="form-control" 
-				placeholder="종료 날짜" style="width: 100px; margin-right: 5px; display: inline-block;" />
-				
-				<input type="text" id="end_time" class="form-control" 
-				placeholder="종료 시간" style="width: 100px; display: inline-block;" />
+				<input type="text" id="end_date" class="form-control" readonly="readonly"
+				placeholder="종료 날짜" style="width: 140px; margin-right: 5px; 
+				display: inline-block; background-color: white; cursor: pointer;" />
 				
 				<div style="display: inline-block; margin-top: 6px; float: right;">
 					<a href="#" id="end_time_delete" onclick="return false;">삭제</a>
@@ -187,10 +194,12 @@ $(document).ready(function () {
 	});
 	
 	/*		기본 환경설정		*/
+	
 	$('#date_end').hide();
 	$('.carousel').carousel({ interval: false });
 	$('#btn_image_upload').hide();
 	$('#image_wrap_after').hide();
+	
 	/* 	 // 기본 환경설정 		*/
 	
 	// 사진 업로드 버튼 클릭
@@ -206,13 +215,13 @@ $(document).ready(function () {
 		var extentionName = fileName.substring(lastIdx + 1, fileName.length);
 		extentionName = extentionName.toLowerCase();
 		
-		if ( 
-				extentionName != "jpg"
-			&& 	extentionName != "jpeg"
-			&& 	extentionName != "bmp"
-			&& 	extentionName != "gif"
-			&& 	extentionName != "png"
-			) {
+		if ( extentionName == '' ) {
+			return false;
+		} else if (	extentionName != "jpg"
+				&& 	extentionName != "jpeg"
+				&& 	extentionName != "bmp"
+				&& 	extentionName != "gif"
+				&& 	extentionName != "png" ) {
 			
 			alert("지원하지 않는 확장자 입니다." + "\n" + "※ 지원가능한 확장자(jpg, jpeg, bmp, gif, png)");
 			$('#btn_image_upload').val('');
@@ -230,90 +239,33 @@ $(document).ready(function () {
 		}
 	});
 	
-	/*		날짜/시간		  */
-	// 시작 날짜 클릭
-	$('#start_date').bootstrapMaterialDatePicker( {
-		weekStart: 0, format: 'YYYY-MM-DD', time: false
+	// 사진 업로드 취소 버튼 클릭
+	$('#btn_title_image_delete').click(function() {
+		$('#btn_image_upload').val('');
+		$('#image_wrap_after').hide();
+		$('#img_slide').show();
+		$('#image_wrap_before').show();
 	});
 	
-	// 시작 시간 클릭
-	$('#start_time').click(function() {
-		var sDate = $('#start_date').val();
-		
-		if ( sDate == '' ) {
-			alert("시작 날짜부터 설정해주세요.");
-			$('#start_date').focus();
-			
-		} else {
-			// 종료 시간은 시작 날짜보다 이전 날짜의 시간은 선택 불가
-			$(this).bootstrapMaterialDatePicker({
-				weekStart: 0, format: 'HH:mm', date: false
-			}).on('change', function(e, date)	{
-				$('#end_time').bootstrapMaterialDatePicker('setMinDate', date);
-			});
-		}
-	});
+	/*		날짜-시간		  */
 	
-	// 종료 날짜 클릭
 	$('#end_date').click(function() {
-		var sDate = $('#start_date').val();
+		var startDate = $('#start_date').val();
 		
-		if ( sDate == '' ) {
+		if ( startDate == '' ) {
 			alert("시작 날짜부터 설정해주세요.");
 			$('#start_date').focus();
-			
-		} else {
-			// 종료 날짜는 시작 날짜보다 이전 날짜는 선택 불가
-			$(this).bootstrapMaterialDatePicker({
-				weekStart: 0, format: 'YYYY-MM-DD', time: false
-			}).on('change', function(e, date)	{
-				$('#end_date').bootstrapMaterialDatePicker('setMinDate', date);
-			});
 		}
 	});
 	
-	// 종료 시간 클릭
-	$('#end_time').click(function() {
-		var sDate = $('#start_date').val();
-		var eDate = $('#end_date').val();
-		
-		if ( sDate == '' || eDate == '' ) {
-			alert("시작 날짜와 종료 날짜부터 설정해주세요.");
-			$('#start_date').focus();
-			
-		} else {
-			// 종료 날짜는 시작 날짜보다 이전 날짜는 선택 불가
-			$(this).bootstrapMaterialDatePicker({
-				weekStart: 0, format: 'YYYY-MM-DD', time: false
-			}).on('change', function(e, date)	{
-				$('#end_date').bootstrapMaterialDatePicker('setMinDate', date);
-			});
-		}
-	});
-/* 	
-	// 종료 날짜 클릭
-	$('#end_date').bootstrapMaterialDatePicker( {
-		weekStart: 0, format: 'YYYY-MM-DD', time: false
-	});
- */	
-	// 종료 시간 클릭
-	$('#end_time').bootstrapMaterialDatePicker( {
-		weekStart: 0, format: 'HH:mm', date: false
-	});
-/* 	
-	// 종료 날짜는 시작 날짜보다 이전 날짜는 선택 불가
-	$('#start_date').bootstrapMaterialDatePicker().on('change', function(e, date)	{
-		$('#end_date').bootstrapMaterialDatePicker('setMinDate', date);
-	});
- */
-/* 
-	// 종료 시간은 시작 날짜보다 이전 날짜의 시간은 선택 불가
-	$('#start_time').bootstrapMaterialDatePicker({
-		weekStart: 0, format: 'HH:mm', date: false
-	}).on('change', function(e, date)	{
-		$('#end_time').bootstrapMaterialDatePicker('setMinDate', date);
-	});
-*/
+	$('#start_date').bootstrapMaterialDatePicker(
+		{ weekStart : 0, format : 'YYYY-MM-DD HH:mm', minDate : new Date() } 
+		).on('change', function(e, date) {
+			$('#end_date').bootstrapMaterialDatePicker( 
+				{ weekStart : 0, format : 'YYYY-MM-DD HH:mm', minDate : date }
+			);
+		});
+	
 	// 종료 시간 추가 클릭
 	$('#end_date_add').click(function () {
 		$('#event_date_time').text("시작");
@@ -326,8 +278,10 @@ $(document).ready(function () {
 		$('#event_date_time').text("날짜/시간");
 		$('#date_end').hide();
 		$('#end_date_add').show();
+		$('#end_date').val('');
 	});
-	/*		// 날짜/시간 		  */
+	
+	/*		// 날짜-시간 		  */
 
 	$('#event_write').click(function() {
 		
