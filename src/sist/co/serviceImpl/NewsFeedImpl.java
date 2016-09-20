@@ -1,5 +1,7 @@
 package sist.co.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,16 @@ public class NewsFeedImpl implements NewsFeedService {
 	@Override
 	public void writeNewsFeedImage(NewsFeedDTO dto) {
 			newsFeeDAO.writeNewsFeedImage(dto);		
+	}
+
+	@Override
+	public List<NewsFeedDTO> getNewsFeedList() {
+		return newsFeeDAO.getNewsFeedList();
+	}
+
+	@Override
+	public NewsFeedDTO addPrintNewsFeed(int lastseq) {
+		return newsFeeDAO.addPrintNewsFeed(lastseq);
 	}
 
 	

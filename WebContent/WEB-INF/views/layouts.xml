@@ -44,6 +44,11 @@
 </definition>
 
 
+
+<!--뉴스피드  -->
+<definition name="newsfeed.tiles" template="/WEB-INF/views/newsfeed/newsfeed_list.jsp">
+</definition>
+
 	<!-- 이벤트 -->
 	<definition name="event_calendar.tiles" template="/WEB-INF/views/layouts-event_calendar.jsp">
 		<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>

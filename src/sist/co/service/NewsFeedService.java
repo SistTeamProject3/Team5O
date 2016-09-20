@@ -7,4 +7,7 @@ public interface NewsFeedService {
 
 	public void writeNewsFeed(NewsFeedDTO dto);
 	public void writeNewsFeedImage(NewsFeedDTO dto);
+	public List<NewsFeedDTO> getNewsFeedList();
+	public NewsFeedDTO addPrintNewsFeed(int lastseq);
+
 }
