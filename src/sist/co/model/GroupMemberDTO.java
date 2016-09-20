@@ -1,6 +1,8 @@
 package sist.co.model;
 
-public class GroupMemberDTO {
+import java.io.Serializable;
+
+public class GroupMemberDTO implements Serializable{
 
 	/*
 	CREATE TABLE TP3_GROUPMEMBER(

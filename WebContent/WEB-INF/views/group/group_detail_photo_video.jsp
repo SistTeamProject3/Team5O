@@ -60,7 +60,26 @@ $(document).ready(function(){
 		
 			
 		</table>
-		
+		<c:if test="${!empty g_videolist}">	
+			<table style="width: 100%;" border="1">
+				<tr>
+				<c:forEach items="${g_videolist }" var="vlist" varStatus="i">
+					<td>
+					<video width="640" height="360" controls="controls">
+    					<source src="upload/${vlist.nf_video }" type="video/mp4" />
+					</video>
+					</td>
+				<c:if test="${i.count%4 eq 0 }">
+						</tr>
+						<tr>
+				</c:if>	
+				</c:forEach>
+				</tr>
+			</table>
+		</c:if>
+	<c:if test="${empty g_videolist}">	
+	<tr><td>결과 없음</td></tr>
+	</c:if>
 	</div>
 <!-- 뉴스피드 들어감 -->
 </div>

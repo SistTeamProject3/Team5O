@@ -33,7 +33,6 @@ START WITH 1 INCREMENT BY 1
 */
 
 public class NewsFeedDTO implements Serializable{
-   
    private int n_seq;
    private int g_seq;
    private int n_form_num;
@@ -45,7 +44,6 @@ public class NewsFeedDTO implements Serializable{
    private int n_show;  //1-전체공개 / 2-친구만 / 3-나만보기
    private String n_wdate;
    private int n_report;
-   
    private int n_ref;
    private int n_step;
    private int n_depth;
@@ -54,7 +52,6 @@ public class NewsFeedDTO implements Serializable{
    private int n_event_seq;
    private int n_vote_seq;
 
-   
    private String filename;
    
    public NewsFeedDTO() {}

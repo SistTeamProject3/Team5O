@@ -1,8 +1,10 @@
 package sist.co.model;
 
+import java.io.Serializable;
+
 import org.springframework.web.multipart.MultipartFile;
 
-public class GroupMakeDTO {
+public class GroupMakeDTO implements Serializable{
 	
 	
 	/*

@@ -1,7 +1,10 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <fmt:requestEncoding value="utf-8"/>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -57,12 +60,21 @@ $(document).ready(function(){
 					<li class="liA"><a href="#none" id="g_video">동영상</a>&nbsp;&nbsp;</li>
 				</ul>
 			</form>
-			
-			
 		</table>
-		
+	<c:if test="${!empty g_photolist}">	
+		<table style="width: 100%;" border="1">
+		<tr>
+		<c:forEach items="${g_photolist }" var="plist" varStatus="i">
+				<td><img style="width: 100px; height: 100px;" src="upload/${plist.nf_photo }" alt="이미지를 불러올 수 없습니다."></td>
+			<c:if test="${i.count%4 eq 0 }">
+			</tr>
+			<tr>
+			</c:if>	
+		</c:forEach>
+		</tr>
+		</table>
+	</c:if>
 	</div>
-<!-- 뉴스피드 들어감 -->
 </div>
 </body>
 </html>

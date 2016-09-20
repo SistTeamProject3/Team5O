@@ -1,6 +1,8 @@
 package sist.co.model;
 
-public class GroupMemberListDTO {
+import java.io.Serializable;
+
+public class GroupMemberListDTO implements Serializable{
 	
 	/*
 	SELECT TP_SISTMEMBER.M_ID,m_name, m_nickname, m_highschool, m_university, m_office, m_address, g_seq, g_auth

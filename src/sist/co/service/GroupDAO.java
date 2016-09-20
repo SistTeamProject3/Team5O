@@ -10,6 +10,9 @@ import sist.co.model.GroupListDTO;
 import sist.co.model.GroupMakeDTO;
 import sist.co.model.GroupMemberDTO;
 import sist.co.model.GroupMemberListDTO;
+import sist.co.model.GroupPhotoDTO;
+import sist.co.model.VoteDTO;
+import sist.co.model.VotelistDTO;
 
 @Repository
 public class GroupDAO {
@@ -67,6 +70,33 @@ public class GroupDAO {
 	} 
 	public boolean groupimageUpload(GroupMakeDTO gmake)throws Exception{
 		sqlSession.update(ns+"groupimageUpload",gmake);
+		return true;
+	}
+	
+	public List<GroupPhotoDTO> group_photo(GroupMakeDTO gmake)throws Exception{
+		List<GroupPhotoDTO> g_photolist = sqlSession.selectList(ns+"group_photo", gmake);
+		return g_photolist;
+	}
+	
+	public List<GroupPhotoDTO> group_video(GroupMakeDTO gmake)throws Exception{
+		List<GroupPhotoDTO> g_videolist = sqlSession.selectList(ns+"group_video", gmake);
+		return g_videolist;
+	}
+	public boolean make_vote(VoteDTO vote)throws Exception{
+		sqlSession.insert(ns+"make_vote", vote);
+		return true;
+	}
+	public VoteDTO select_make_vote(VoteDTO vote)throws Exception{
+		return sqlSession.selectOne(ns+"select_make_vote", vote);
+	}
+	
+	public boolean add_vote(VotelistDTO vdto)throws Exception{
+		 sqlSession.insert(ns+"add_vote", vdto);
+		 return true;
+	}
+	
+	public boolean add_newsfeed(VoteDTO vdto)throws Exception{
+		sqlSession.insert(ns+"add_newsfeed", vdto);
 		return true;
 	}
 }

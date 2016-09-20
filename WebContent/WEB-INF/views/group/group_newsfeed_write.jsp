@@ -32,12 +32,13 @@
 <input type="hidden" name="n_show" value="5">
 </c:if>
 <input type="hidden" name="g_seq" value="${g_make.g_seq }">
+<input type="hidden" name="n_show" value="4">
 		<table style="width: 100%" border="1">
 			<col width="100"><col width="150"><col width="150"><col width="150">
 			<tr>
 				<td>
 					<h6>
-						<a href="#none">게시물 작성</a>
+						<a href="#none" id="news_write">게시물 작성</a>
 					</h6>
 				</td>
 				<td>
@@ -47,7 +48,7 @@
 				</td>
 				<td>
 					<h6>
-						<a href="#none">설문 만들기</a>
+						<a href="#none" id="make_vote">설문 만들기</a>
 					</h6>
 				</td>
 				<td>
@@ -56,10 +57,10 @@
 					</h6>
 				</td>
 			</tr>
-			<tr>
+			<tr class="news_write">
 				<td rowspan="2">프사사진</td>
 				<td colspan="3"><textarea id="n_content" name="n_content"
-						style="overflow: hidden; width: 100%;"></textarea>
+						style="overflow: hidden; width: 100%;" placeholder="글쓰기.."></textarea>
 					<div id="room_type">
 						<div id="image_preview2">
 							<label for="image"> <input type=file name="fileload2"
@@ -119,7 +120,7 @@
 					name="n_tag_where" onKeyDown="onKeyDown2();"
 					onclick="this.value=''"></td>
 			</tr>
-			<tr>
+			<tr class="news_write">
 				<td colspan="4"><input type=file name="fileload" id="image"
 					style='display: none;'> <img src='image/photo.jpg'
 					name="_file2" id="_file2" border='0' onclick='hideAll();'>
@@ -134,12 +135,51 @@
 						src="image/temp.jpg">
 				</span></td>
 			</tr>
+			<!-- 여기는 설문  -->
+			<tr class="make_vote">
+			<td colspan="4"><textarea id="q_content" name="q_content" style="overflow: hidden; width: 100%;" placeholder="질문을 올려보세요.."></textarea></td>
+			</tr>
+			<tr class="make_vote">
+			<td colspan="4" id="votelist">
+			<span><input type="text" name="vote1" value=""><img src="" alt="추가" class="addvote"></span><br/>
+			<span><input type="text" name="vote2" value=""><img src="" alt="추가" class="addvote"></span><br/>
+			</td>
+			</tr>
+			<tr class="make_vote">
+			<td colspan="4"><img alt="게시하기" id="vote_submit" src="image/temp.jpg"></td>
+			</tr>
 		</table>
 	</form>
  <script type="text/javascript">
  var a ="";
  var countDiv=1;
  
+ // 설문과 게시글 변경 스크립트
+var num=3; 
+ 
+ $(".make_vote").hide();
+
+ $("#news_write").click(function () {
+	 $(".news_write").show();
+	 $(".make_vote").hide();
+	});
+ 
+ $("#make_vote").click(function () {
+	 $(".news_write").hide();
+	 $(".make_vote").show();
+
+	});
+ $(document).on("click",".addvote",function() {
+	if(num < 11){	 
+ 		$("#votelist").append("<span><input type='text' name='vote"+num+"'><img src='' alt='추가' class='addvote'></span><br/>");
+ 		num++
+	}
+ });
+ $("#vote_submit").click(function() {
+		alert("전달");
+		$("#group_frmForm").attr({"target":"_self", "action":"make_vote.do"}).submit();
+	});
+ // 여기서 끝
  $("#viewFriend").click(function() {
 	  status = $("#friend").css("display");
 	  if (status == "none") {

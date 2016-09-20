@@ -24,7 +24,12 @@ import sist.co.model.GroupListDTO;
 import sist.co.model.GroupMakeDTO;
 import sist.co.model.GroupMemberDTO;
 import sist.co.model.GroupMemberListDTO;
+import sist.co.model.GroupPhotoDTO;
+import sist.co.model.NewsFeedDTO;
+import sist.co.model.VoteDTO;
+import sist.co.model.VotelistDTO;
 import sist.co.service.GroupService;
+import sist.co.service.NewsFeedService;
 
 @Controller
 public class GroupController {
@@ -33,6 +38,7 @@ public class GroupController {
 
 	@Autowired
 	private GroupService groupService;
+
 	// 그룹 만들기
 	@RequestMapping(value = "group_make.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String group_make(Model model, GroupMakeDTO group) throws Exception {
@@ -141,8 +147,14 @@ public class GroupController {
 	public String group_detail_photo(Model model, GroupMakeDTO gmake) throws Exception {
 		logger.info("CalendarController group_detail_photo " + new Date());
 		
+		
+		
+		
 		GroupMakeDTO g_make = groupService.group_detail(gmake);
+		List<GroupPhotoDTO> g_photolist = groupService.group_photo(gmake);
 		model.addAttribute("g_make", g_make);
+		model.addAttribute("g_photolist", g_photolist);
+		
 		
 		
 		return "group_detail_photo.tiles";
@@ -153,8 +165,9 @@ public class GroupController {
 		logger.info("CalendarController group_detail_photo_video " + new Date());
 
 		GroupMakeDTO g_make = groupService.group_detail(gmake);
+		List<GroupPhotoDTO> g_videolist = groupService.group_video(gmake);
 		model.addAttribute("g_make", g_make);
-		
+		model.addAttribute("g_videolist", g_videolist);
 		
 		return "group_detail_photo_video.tiles";
 	}
@@ -219,5 +232,88 @@ public class GroupController {
 	        return "redirect:/group_detail.do?g_seq="+gmake.getG_seq();
 		
 	}
+	
+
+	@RequestMapping(value="make_vote.do", method= { RequestMethod.GET, RequestMethod.POST })
+	public String make_vote(Model model,VoteDTO vote)throws Exception{
+		
+		logger.info("투표!!!!!!!!!!!하기싫어!!!!!!!!!!!!!!!!아!!!!!!!!!앜!!!");
+		vote.setN_content(vote.getQ_content());
+		if (vote.getVote3() == null) {
+			vote.setVote3("");
+		}
+		if (vote.getVote4() == null) {
+			vote.setVote4("");
+		}
+		if (vote.getVote5() == null) {
+			vote.setVote5("");
+		}
+		if (vote.getVote6() == null) {
+			vote.setVote6("");
+		}
+		if (vote.getVote7() == null) {
+			vote.setVote7("");
+		}
+		if (vote.getVote8() == null) {
+			vote.setVote8("");
+		}
+		if (vote.getVote9() == null) {
+			vote.setVote9("");
+		}
+		if (vote.getVote10() == null) {
+			vote.setVote10("");
+		}
+		groupService.make_vote(vote);
+		
+		VoteDTO vdto = groupService.select_make_vote(vote);
+		//
+		VotelistDTO vlistdto;
+		if (!vote.getVote1().equals("")) {
+			vlistdto = new VotelistDTO(vdto.getN_vote_seq(),vdto.getVote1());
+			groupService.add_vote(vlistdto);
+		}
+		if (!vote.getVote2().equals("")) {
+			vlistdto = new VotelistDTO(vdto.getN_vote_seq(),vdto.getVote2());
+			groupService.add_vote(vlistdto);
+		}
+		if (!vote.getVote3().equals("")) {
+			vlistdto = new VotelistDTO(vdto.getN_vote_seq(),vdto.getVote3());
+			groupService.add_vote(vlistdto);
+		}
+		if (!vote.getVote4().equals("")) {
+			vlistdto = new VotelistDTO(vdto.getN_vote_seq(),vdto.getVote4());
+			groupService.add_vote(vlistdto);
+		}
+		if (!vote.getVote5().equals("")) {
+			vlistdto = new VotelistDTO(vdto.getN_vote_seq(),vdto.getVote5());
+			groupService.add_vote(vlistdto);
+		}
+		if (!vote.getVote6().equals("")) {
+			vlistdto = new VotelistDTO(vdto.getN_vote_seq(),vdto.getVote6());
+			groupService.add_vote(vlistdto);
+		}
+		if (!vote.getVote7().equals("")) {
+			vlistdto = new VotelistDTO(vdto.getN_vote_seq(),vdto.getVote7());
+			groupService.add_vote(vlistdto);
+		}
+		if (!vote.getVote8().equals("")) {
+			vlistdto = new VotelistDTO(vdto.getN_vote_seq(),vdto.getVote8());
+			groupService.add_vote(vlistdto);
+		}
+		if (!vote.getVote9().equals("")) {
+			vlistdto = new VotelistDTO(vdto.getN_vote_seq(),vdto.getVote9());
+			groupService.add_vote(vlistdto);
+		}
+		if (!vote.getVote10().equals("")) {
+			vlistdto = new VotelistDTO(vdto.getN_vote_seq(),vdto.getVote10());
+			groupService.add_vote(vlistdto);
+		}
+	//여기서 던진다
+		
+		groupService.add_newsfeed(vdto);
+	 return "redirect:/group_detail.do?g_seq="+vote.getG_seq();
+	}
+
+	
 	
 }

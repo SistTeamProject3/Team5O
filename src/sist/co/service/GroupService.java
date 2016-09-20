@@ -7,6 +7,9 @@ import sist.co.model.GroupListDTO;
 import sist.co.model.GroupMakeDTO;
 import sist.co.model.GroupMemberDTO;
 import sist.co.model.GroupMemberListDTO;
+import sist.co.model.GroupPhotoDTO;
+import sist.co.model.VoteDTO;
+import sist.co.model.VotelistDTO;
 
 public interface GroupService {
 
@@ -29,4 +32,15 @@ public interface GroupService {
 	public List<GroupMakeDTO> recommend_group_list(GroupListDTO glist)throws Exception;
 	
 	public boolean groupimageUpload(GroupMakeDTO gmake)throws Exception;
+	
+	public List<GroupPhotoDTO> group_photo(GroupMakeDTO gmake)throws Exception;
+	
+	public List<GroupPhotoDTO> group_video(GroupMakeDTO gmake)throws Exception;
+	
+	public boolean make_vote(VoteDTO vote)throws Exception;
+	
+	public VoteDTO select_make_vote(VoteDTO vote)throws Exception;
+	public boolean add_vote(VotelistDTO vdto)throws Exception;
+	
+	public boolean add_newsfeed(VoteDTO vdto)throws Exception;
 }

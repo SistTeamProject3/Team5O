@@ -63,21 +63,21 @@
 		<!-- 1.여기까지 -->
 		<div class="bottomleft">
 			<h4>
-				<a href="">${g_make.g_name}</a>
+				<a href="group_detail.do?g_seq=${g_make.g_seq }">${g_make.g_name}</a>
 			</h4>
 			<c:if test="${g_make.g_type eq 1}">
 				<h5>
-					<a href="">공개 그룹</a>
+					<a href="#none">공개 그룹</a>
 				</h5>
 			</c:if>
 			<c:if test="${g_make.g_type eq 2}">
 				<h5>
-					<a href="">비공개 그룹</a>
+					<a href="#none">비공개 그룹</a>
 				</h5>
 			</c:if>
 			<c:if test="${g_make.g_type eq 3}">
 				<h5>
-					<a href="">비밀 그룹</a>
+					<a href="#none">비밀 그룹</a>
 				</h5>
 			</c:if>
 		</div>

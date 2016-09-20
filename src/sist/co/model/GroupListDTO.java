@@ -1,6 +1,8 @@
 package sist.co.model;
 
-public class GroupListDTO {
+import java.io.Serializable;
+
+public class GroupListDTO implements Serializable{
 
 	private int g_seq;
 	private String g_name;
