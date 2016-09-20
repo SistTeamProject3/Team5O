@@ -43,7 +43,8 @@
 </form>
 
 <div style="width: 100%; border: 1px solid black;">
-	<div class="div_header" style="width: 100%; height: 250px; border: 1px solid black;">
+	<div class="div_header" style="width: 100%; height: 2
+	50px; border: 1px solid black;">
 		
 		<!-- 1.그룹 가입여부에따른 다른 창 보여줄예정(조건문 걸기) -->
 		<div class="center">
@@ -152,6 +153,7 @@ $(document).ready(function() {
 	$("#group_heder").mouseover( function() {
 		$("#changeImage").show();
 	});
+	
 	$("#group_heder").mouseout(function() {
 		$("#changeImage").hide();
 	});
