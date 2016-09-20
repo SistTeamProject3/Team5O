@@ -1,5 +1,6 @@
 package sist.co.serviceImpl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,13 @@ public class NewsFeedImpl implements NewsFeedService {
 		return newsFeeDAO.addPrintNewsFeed(lastseq);
 	}
 
+	@Override
+	public void updateShow(HashMap<String, Integer> map){
+			newsFeeDAO.updateShow(map);
+		
+	}
+
+	
 	
 
 	

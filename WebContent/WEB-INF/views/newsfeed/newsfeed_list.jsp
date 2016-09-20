@@ -49,19 +49,19 @@ ${news.n_seq }
 					  <ul class="dropdown-menu">
 					  	<c:choose>
 							<c:when test="${news.n_show eq 1}"> 
-								<li value="1">V 전체</li>
-							    <li value="2">친구만</li>
-							    <li value="3">나만보기</li>
+								<li value="1" onclick="updateShow('1,${news.n_seq }')">V 전체</li>
+							    <li value="2" onclick="updateShow('2,${news.n_seq }')" >친구만</li>
+							    <li value="3" onclick="updateShow('3,${news.n_seq }')" >나만보기</li>
 						     </c:when>
 							<c:when test="${news.n_show eq 2}">
-								<li value="1">전체</li>
-							    <li value="2">V 친구만</li>
-							    <li value="3">나만보기</li>
+								<li value="1" onclick="updateShow('1,${news.n_seq }')">전체</li>
+							    <li value="2" onclick="updateShow('2,${news.n_seq }')">V 친구만</li>
+							    <li value="3" onclick="updateShow('3,${news.n_seq }')">나만보기</li>
 						     </c:when>
 							<c:when test="${news.n_show eq 3}">
-								<li value="1">전체</li>
-							    <li value="2">친구만</li>
-							    <li value="3">V 나만보기</li>
+								<li value="1" onclick="updateShow('1,${news.n_seq }')">전체</li>
+							    <li value="2" onclick="updateShow('2,${news.n_seq }')">친구만</li>
+							    <li value="3" onclick="updateShow('3,${news.n_seq }')">V 나만보기</li>
 						     </c:when>
 						</c:choose>
 

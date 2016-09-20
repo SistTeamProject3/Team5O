@@ -227,22 +227,22 @@ ${news.n_seq }
 			
 		   		 <button type="button" data-toggle="dropdown">
 				 <span class="caret"></span></button>
-					  <ul class="dropdown-menu">
+					  <ul class="dropdown-menu" id="total">
 					  	<c:choose>
 							<c:when test="${news.n_show eq 1}"> 
-								<li value="1">V 전체</li>
-							    <li value="2">친구만</li>
-							    <li value="3">나만보기</li>
+								<li id="dropdown-menu-1-${news.n_seq }" value="1" onclick="updateShow('1,${news.n_seq }'); changeShow('${news.n_seq }',1)"  style="color: red">전체</li>
+							    <li id="dropdown-menu-2-${news.n_seq }" value="2" onclick="updateShow('2,${news.n_seq }'); changeShow('${news.n_seq }',2)" >친구만</li>
+							    <li id="dropdown-menu-3-${news.n_seq }" value="3" onclick="updateShow('3,${news.n_seq }'); changeShow('${news.n_seq }',3)" >나만보기</li>
 						     </c:when>
 							<c:when test="${news.n_show eq 2}">
-								<li value="1">전체</li>
-							    <li value="2">V 친구만</li>
-							    <li value="3">나만보기</li>
+								<li id="dropdown-menu-1-${news.n_seq }" value="1" onclick="updateShow('1,${news.n_seq }'); changeShow('${news.n_seq }',1)">전체</li>
+							    <li id="dropdown-menu-2-${news.n_seq }" value="2" onclick="updateShow('2,${news.n_seq }'); changeShow('${news.n_seq }',2)" style="color: red">친구만</li>
+							    <li id="dropdown-menu-3-${news.n_seq }" value="3" onclick="updateShow('3,${news.n_seq }'); changeShow('${news.n_seq }',3)">나만보기</li>
 						     </c:when>
 							<c:when test="${news.n_show eq 3}">
-								<li value="1">전체</li>
-							    <li value="2">친구만</li>
-							    <li value="3">V 나만보기</li>
+								<li id="dropdown-menu-1-${news.n_seq }" value="1" onclick="updateShow('1,${news.n_seq }'); changeShow('${news.n_seq }',1)">전체</li>
+							    <li id="dropdown-menu-2-${news.n_seq }" value="2" onclick="updateShow('2,${news.n_seq }'); changeShow('${news.n_seq }',2)">친구만</li>
+							    <li id="dropdown-menu-3-${news.n_seq }" value="3" onclick="updateShow('3,${news.n_seq }'); changeShow('${news.n_seq }',3)" style="color: red">나만보기</li>
 						     </c:when>
 						</c:choose>
 
@@ -507,8 +507,6 @@ $("#finish").click(function() {
 });
 
 
-
-
 function test(val){
 
 	status = $("#like_btn"+val).css("color");
@@ -536,6 +534,27 @@ function showComment(val){
 
 function updateShow(val){
 	alert("val="+val);
+	 $.ajax({
+		type: 'GET',
+		url:'updateShow.do',
+		data:{'val':val},
+		success:function(){
+			alert("success");
+		},
+		error:function(){
+			alert("error");
+		}
+	 })
+	
+}
+
+function changeShow(val,val2){
+	alert("val="+val);
+	alert("val2="+val2);
+	$("#total").css("color","red");
+	status = $("#dropdown-menu-"+val2+"-"+val1).css("color");
+	$("#dropdown-menu-"+val2+"-"+val1).css("color","red");
+
 }
 
 </script>

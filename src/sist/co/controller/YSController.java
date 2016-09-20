@@ -3,6 +3,7 @@ package sist.co.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -160,7 +161,7 @@ public class YSController {
             logger.info("writeNewsFeed fail!");
          }
       }
-      return "main.tiles";      
+      return "main.tiles";
    }
    
    @RequestMapping(value="NewsFeedList.do", 
@@ -199,5 +200,30 @@ public class YSController {
       }
       return "newsfeed.tiles";
    }
+   
+   
+   @RequestMapping(value="updateShow.do", 
+	         method={RequestMethod.GET, RequestMethod.POST})
+	   public String updateShow(Model model, String val){ 
+	   logger.info("YSController updateShow" + new Date());
+	   
+	   System.out.println("val=="+val);
+	   String[] arr = val.split(",");
+	   
+	   int updatenum=Integer.parseInt(arr[0]);
+	   int seq=Integer.parseInt(arr[1]);
+	   
+	   
+	   HashMap<String, Integer> map = new HashMap<String, Integer>();
+	   map.put("updatenum",updatenum);
+	   map.put("seq",seq);
+	   
+		System.out.println("map.size()==="+map.size());
+	   newsFeedService.updateShow(map);
+	   
+	   return "newsfeed.tiles";
+	   
+   }
+   
    
 }

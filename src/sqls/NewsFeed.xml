@@ -46,6 +46,11 @@
    WHERE N_SEQ=#{lastseq}+1
 </select>
 
+<update id="updateShow" parameterType="hashmap">
+	UPDATE TP3_NEWSFEED SET N_SHOW=#{updatenum} 
+	WHERE N_SEQ=#{seq}
+</update>
+
 </mapper>  
 
 

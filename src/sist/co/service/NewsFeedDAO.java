@@ -1,5 +1,6 @@
 package sist.co.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -35,12 +36,16 @@ public class NewsFeedDAO {
 	}
 	
 	public NewsFeedDTO addPrintNewsFeed(int lastseq){
-
 		NewsFeedDTO dto =  sqlSession.selectOne(ns+"addPrintNewsFeed",lastseq);
 		return dto;
 	}
 	
 	
+	public void updateShow(HashMap<String, Integer> map){
+		System.out.println("map.size()==="+map.size());
+		System.out.println(map.get("updatenum"));
+		sqlSession.update(ns+"updateShow",map);
+	}
 	
 	
 
