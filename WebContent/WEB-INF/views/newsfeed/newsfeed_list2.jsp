@@ -15,7 +15,7 @@
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   
 <title>Insert title here</title>
-zzz
+
  <style>
 .ys_write_table textarea
 {

@@ -26,7 +26,7 @@
 	<put-attribute name="top_inc" value="/WEB-INF/views/common/top.jsp"/>
 	<put-attribute name="top_menu" value="/WEB-INF/views/common/top_menu.jsp"/>
 	<put-attribute name="left_main" value="/WEB-INF/views/common/left_bbslist.jsp"/>
-	<put-attribute name="center_main" value="/WEB-INF/views/newsfeed/newsfeed_write.jsp"/>
+	<put-attribute name="center_main" value="/WEB-INF/views/newsfeed/newsfeed_list2.jsp"/>
 	<put-attribute name="right_main" value="/WEB-INF/views/bbs/bbslist.jsp"/>
 	<put-attribute name="bottom_inc" value="/WEB-INF/views/common/bottom.jsp"/>
 </definition>
