@@ -78,8 +78,23 @@ $(function() {
 
 
 
-<form name="frmForm" id="_frmForm" action="writeNewsFeed.do" method="post" enctype="multipart/form-data">
+<%-- <button class="btn btn-default" id="popbutton2">수정모달</button><br/>
 
+<!-- 수정 modal -->
+ <div class="modal fade ys">
+  <div class="modal-dialog">
+    <div class="modal-content">
+       <jsp:include page="/WEB-INF/views/newsfeed/layer.jsp"/>
+    </div>
+  </div>
+</div> 
+ --%>
+
+
+<!-- write -->
+<%-- <jsp:include page="newsfeed_write.jsp"/> --%>
+
+<form name="frmForm" id="_frmForm" action="writeNewsFeed.do" method="post" enctype="multipart/form-data">
 
 <input type="hidden" name="m_id" value="영선" >
 
@@ -92,7 +107,7 @@ $(function() {
 		<th width=300px; rowspan="2">프사사진</th>
 		<td>
 
-		<textarea id="ta" name="n_content" style="overflow: hidden"></textarea>
+		<textarea id="ta" name="m_content" style="overflow: hidden"></textarea>
 		
 		<div id="room_type">
 				<div id="image_preview2" >
@@ -130,7 +145,7 @@ $(function() {
 	
 	<tr id=friend style="display:none;">
 		<th>함께한 친구</th>
-		<td colspan="2"><input type ="text" id="_friend" name="n_tag_friend"  onKeyDown="onKeyDown();"  onclick="this.value=''"></td>
+		<td colspan="2"><input type ="text" id="_friend" name="tag_friend"  onKeyDown="onKeyDown();"  onclick="this.value=''"></td>
 	</tr>
 
 	
@@ -139,7 +154,7 @@ $(function() {
 		<th id="printFeel">나는지금</th>
 		<td colspan="3">
 			 <div class="dropdown">
-		   		 <button  type="button" data-toggle="dropdown">
+		   		 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
 				 <span class="caret"></span></button>
 					  <ul class="dropdown-menu">
 					    <li onclick="getState('기뻐요'); setState('1')" value="1"><img src="image/happy.jpg">기뻐요</a></li>
@@ -153,7 +168,7 @@ $(function() {
 	
 	<tr id=where style="display:none;">
 				<th>장소</th>
-					<td colspan="3"><input type ="text" id="_where" name="n_tag_where" onKeyDown="onKeyDown2();" onclick="this.value=''"></td>
+					<td colspan="3"><input type ="text" id="_where" name="tag_where" onKeyDown="onKeyDown2();" onclick="this.value=''"></td>
 	</tr>
 
 	<tr> 
@@ -180,7 +195,7 @@ $(function() {
 		<span class="fa fa-map-marker fa-2x"  id="viewWhere"  onclick="return false;"></span>
 
 		<span style="float:right;"> 
-			<select name="n_show" >
+			<select name="show" >
 				<option value="1">전체공개</option>
 				<option value="2">친구만</option>
 				<option value="3">나만보기</option>
@@ -192,15 +207,20 @@ $(function() {
 
 	</tr>
 </table>
-</form>
+
+
+
+</form> 
+
 
 
 
 <c:forEach var="news" items="${NewsFeedList }" varStatus="i"> 
 
+
+<c:if test="${news.n_del ne 1 }">
 <br><br>
 
-<input type="hidden" name="m_id" value="영선" >
 ${news.n_seq }
 <div class="table" data-seq="${news.n_seq }">
 <table class="newsfeed_list_table${news.n_seq }" style="width: 80%"  border="1px solid black">
@@ -213,7 +233,7 @@ ${news.n_seq }
 		   		 <button type="button" data-toggle="dropdown">
 				 <span class="caret"></span></button>
 					  <ul class="dropdown-menu">
-					    <li value="1">삭제</li>
+					    <li value="1" onclick="removeNews('${news.n_seq}')">삭제</li>
 					    <li value="2">수정</li>
 					  </ul>
 		 </div>
@@ -309,29 +329,30 @@ ${news.n_seq }
 </table>
 </div>
 
+</c:if>
+
  </c:forEach> 
  
  <div id="scrolling">
 </div>
 
-<script type="text/javascript">
 
+
+<script type="text/javascript">
 var a ="";
 var countDiv=1;
 
 $("#viewFriend").click(function() {
 	  status = $("#friend").css("display");
 	  if (status == "none") {
-		  $("#friend").css("display","");
-		  $("#feel").css("display","none");
-		  $("#where").css("display","none");
+	    $("#friend").css("display","");
+	    $("#feel").css("display","none");
+	    $("#where").css("display","none");
 	  }
 	  else {
 	    $("#friend").css("display","none");
 	  }
-});
-
-
+	});
 
 $("#viewFeel").click(function() {
 	  status = $("#feel").css("display");
@@ -343,7 +364,7 @@ $("#viewFeel").click(function() {
 	  else {
 	    $("#feel").css("display","none");
 	  }
-});
+	});
 
 $("#viewWhere").click(function() {
 	  status = $("#where").css("display");
@@ -374,12 +395,14 @@ function getState(val) {
 	$("#nowFeel").text("나는지금  "+val);
 	$("#nowFeel").append("&nbsp;&nbsp;<i class='fa fa-times' aria-hidden='true' onclick=\"deleteArea('nowFeel')\"></i>"); 
 
+
+	
 }
 
 function setState(val){
 	
 /* 	$("#tag_feel").attr("value",val); */
-	$("#nowFeel").append("<input type='hidden' name='n_tag_feel' value="+val+">");
+	$("#nowFeel").append("<input type='hidden' name='tag_feel' value="+val+">");
 }
 
 function onKeyDown()
@@ -407,7 +430,11 @@ function deleteArea(val){
 	$("#"+val).css("display","none");
 }
 
-
+$(function() {
+	  $("#ta").keyup(function () {
+	    $(this).css("height","5px").css("height",(20+$(this).prop("scrollHeight"))+"px");
+	  });
+	});
 
 $('#image').on('change', function() {
 	   
@@ -507,6 +534,9 @@ $("#finish").click(function() {
 });
 
 
+
+
+
 function test(val){
 
 	status = $("#like_btn"+val).css("color");
@@ -533,29 +563,55 @@ function showComment(val){
 }
 
 function updateShow(val){
-	alert("val="+val);
 	 $.ajax({
 		type: 'GET',
 		url:'updateShow.do',
 		data:{'val':val},
-		success:function(){
-			alert("success");
-		},
-		error:function(){
-			alert("error");
-		}
 	 })
 	
 }
 
 function changeShow(val,val2){
-	alert("val="+val);
-	alert("val2="+val2);
-	$("#total").css("color","red");
-	status = $("#dropdown-menu-"+val2+"-"+val1).css("color");
-	$("#dropdown-menu-"+val2+"-"+val1).css("color","red");
-
+/* 	$("#total").css("color","yellow"); */
+	if(val2=="1"){
+		$("#dropdown-menu-"+1+"-"+val).css("color","red");
+		$("#dropdown-menu-"+2+"-"+val).css("color","black");
+		$("#dropdown-menu-"+3+"-"+val).css("color","black");
+	}else if(val2=="2"){
+		$("#dropdown-menu-"+1+"-"+val).css("color","black");
+		$("#dropdown-menu-"+2+"-"+val).css("color","red");
+		$("#dropdown-menu-"+3+"-"+val).css("color","black");
+	}else if(val2=="3"){
+		$("#dropdown-menu-"+1+"-"+val).css("color","black");
+		$("#dropdown-menu-"+2+"-"+val).css("color","black");
+		$("#dropdown-menu-"+3+"-"+val).css("color","red");
+	}
 }
+
+function removeNews(val){
+	 $.ajax({
+			type: 'GET',
+			url:'deleteNews.do',
+			data:{'val':val},
+		    success: function(data) {
+		    	$(".newsfeed_list_table"+val).css("display","none");
+		    },
+            error: function(data) {
+               alert("removeNews error");
+            }
+		 });
+}
+
+
+$(function(){
+    $("#popbutton2").click(function(){
+ 
+        $('div.ys').modal({
+                      remote : 'layer.jsp'
+       });
+    })
+})
+
 
 </script>
 

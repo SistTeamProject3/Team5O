@@ -47,6 +47,10 @@ public class NewsFeedDAO {
 		sqlSession.update(ns+"updateShow",map);
 	}
 	
+	public void deleteNews(int seq){
+		sqlSession.update(ns+"deleteNews",seq);
+	}
+	
 	
 
 }

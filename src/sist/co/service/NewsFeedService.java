@@ -11,4 +11,5 @@ public interface NewsFeedService {
 	public List<NewsFeedDTO> getNewsFeedList();
 	public NewsFeedDTO addPrintNewsFeed(int lastseq);
 	public void updateShow(HashMap<String, Integer> map);
+	public void deleteNews(int seq);
 }

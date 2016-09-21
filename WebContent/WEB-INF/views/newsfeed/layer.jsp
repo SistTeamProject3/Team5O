@@ -38,14 +38,22 @@ width:20%;
 </head>
 <body>
 
+<!-- header -->
+<div class="modal-header">
+    <!-- 닫기(x) 버튼 -->
+  <button type="button" class="close"  data-dismiss="modal">×</button>
+</div>
 
+<!-- body -->
+<div class="modal-body">
+  
 <form name="frmForm" id="_frmForm" action="writeNewsFeed.do" method="post" enctype="multipart/form-data">
 
 
 
 <input type="hidden" name="id" value="영선" >
 
-<table class="ys_write_table" style="width: 80%" border="1px solid black">
+<table class="ys_update_table" style="width: 100%" border="1px solid black">
 	<tr>
 		<td colspan="4">상태</td>
 	</tr>
@@ -100,7 +108,7 @@ width:20%;
 	
 		<th id="printFeel">나는지금</th>
 		<td colspan="3">
-		<!-- 	 <div class="dropdown2">
+			 <div class="dropdown">
 		   		 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
 				 <span class="caret"></span></button>
 					  <ul class="dropdown-menu">
@@ -108,7 +116,7 @@ width:20%;
 					    <li onclick="getState('슬퍼요'); setState('2')" value="2"><img src="image/sad.jpg">슬퍼요</a></li>
 					    <li onclick="getState('피곤해요'); setState('3')" value="3"><img src="image/tired.jpg">피곤해요</a></li>
 					  </ul>
-		 	 </div> -->
+		 	 </div>
 		<!--   <input type="hidden" name="tag_feel" value="0"/>  -->
 		</td>
 	</tr>
@@ -147,8 +155,7 @@ width:20%;
 				<option value="2">친구만</option>
 				<option value="3">나만보기</option>
 			</select>
-				
-			<img alt="게시하기"  id ="finish" src="image/temp.jpg">
+			
 			</span>
 	</td>
 
@@ -158,7 +165,13 @@ width:20%;
 
 
 </form>
- <script type="text/javascript">
+</div>
+<!-- Footer -->
+<div class="modal-footer">
+  <button type="button" class="btn btn-default"  id="update" data-dismiss="modal" >수정완료</button>
+</div>
+
+<script type="text/javascript">
  var a ="";
  var countDiv=1;
  
@@ -346,20 +359,15 @@ $(function(){
 	       });
 	}); 
 
-
-
-$("#finish").click(function() {
-	alert("피니쉬!!!!");
-	$("#_frmForm").attr({"target":"_self", "action":"writeNewsFeed.do"}).submit();
+$("#update").click(function(){
+		alert("update");
 });
+
 
 
 
 
 </script>
 
-
-
 </body>
 </html>
-

@@ -42,6 +42,12 @@ public class NewsFeedImpl implements NewsFeedService {
 		
 	}
 
+	@Override
+	public void deleteNews(int seq) {
+		newsFeeDAO.deleteNews(seq);
+		
+	}
+
 	
 	
 

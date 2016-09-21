@@ -94,7 +94,7 @@ public class YSController {
          method=RequestMethod.POST)
    public String writeNewsFeed(NewsFeedDTO newsfeeddto,
                      HttpServletRequest request,
-                     @RequestParam(value="fileload", required=false)
+                     @RequestParam(value="fileload2", required=false)
                      MultipartFile fileload, Model model){
    
       logger.info("YSController writeNewsFeed " + new Date());
@@ -161,7 +161,7 @@ public class YSController {
             logger.info("writeNewsFeed fail!");
          }
       }
-      return "main.tiles";
+      return "redirect:/NewsFeedList.do";
    }
    
    @RequestMapping(value="NewsFeedList.do", 
@@ -221,9 +221,27 @@ public class YSController {
 		System.out.println("map.size()==="+map.size());
 	   newsFeedService.updateShow(map);
 	   
-	   return "newsfeed.tiles";
+	   return "redirect:/NewsFeedList.do";
 	   
    }
+   
+   
+   @RequestMapping(value="deleteNews.do", 
+	         method={RequestMethod.GET, RequestMethod.POST})
+	   public String removeNews(Model model, String val){ 
+	   logger.info("YSController deleteNews" + new Date());
+	   
+	   System.out.println("val=="+val);
+	   
+	   newsFeedService.deleteNews(Integer.parseInt(val));
+	   
+	   return "redirect:/NewsFeedList.do";
+	   
+ }
+   
+   
+   
+
    
    
 }
