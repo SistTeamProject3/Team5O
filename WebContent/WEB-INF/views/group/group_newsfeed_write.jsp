@@ -351,9 +351,6 @@ $("#finish").click(function() {
 	$("#group_frmForm").attr({"target":"_self", "action":"writeNewsFeed.do"}).submit();
 });
 
-
-
-
 </script>
 
 

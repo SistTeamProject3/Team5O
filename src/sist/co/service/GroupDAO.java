@@ -99,4 +99,14 @@ public class GroupDAO {
 		sqlSession.insert(ns+"add_newsfeed", vdto);
 		return true;
 	}
+	
+	public List<GroupPhotoDTO> filelist(GroupMakeDTO gmake)throws Exception{
+		List<GroupPhotoDTO> flist = sqlSession.selectList(ns+"filelist", gmake);
+		return flist;
+	}
+	public List<GroupPhotoDTO> upfilelist(GroupMakeDTO gmake)throws Exception{
+		List<GroupPhotoDTO> flist = sqlSession.selectList(ns+"upfilelist", gmake);
+		return flist;
+	}
+	
 }

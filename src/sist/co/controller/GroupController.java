@@ -42,7 +42,7 @@ public class GroupController {
 	// 그룹 만들기
 	@RequestMapping(value = "group_make.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String group_make(Model model, GroupMakeDTO group) throws Exception {
-		logger.info("CalendarController group_make " + new Date());
+		logger.info(" group_make " + new Date());
 		// 그룹 만들기
 		groupService.group_make(group);
 		// 만든 그룹으로 가기 위해 작성
@@ -60,7 +60,7 @@ public class GroupController {
 	// 그룹 리스트 출력
 	@RequestMapping(value = "group_list.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String group_list(Model model, GroupListDTO gdto,String category) throws Exception {
-		logger.info("CalendarController group_list " + new Date());
+		logger.info(" group_list " + new Date());
 		
 		if (category.equals("membership")) {
 			
@@ -89,7 +89,7 @@ public class GroupController {
 	}
 	@RequestMapping(value = "group_detail.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String group_detail(Model model, GroupMakeDTO gmake) throws Exception {
-		logger.info("CalendarController group_detail " + new Date());
+		logger.info(" group_detail " + new Date());
 
 		GroupMakeDTO g_make = groupService.group_detail(gmake);
 		model.addAttribute("g_make", g_make);
@@ -101,7 +101,7 @@ public class GroupController {
 	
 	@RequestMapping(value = "group_detail_member.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String group_detail_member(Model model, GroupMakeDTO gmake, int type) throws Exception {
-		logger.info("CalendarController group_detail_member " + new Date());
+		logger.info(" group_detail_member " + new Date());
 	
 		logger.info("키워드" + gmake.getKeyword());
 		
@@ -134,7 +134,7 @@ public class GroupController {
 
 	@RequestMapping(value = "group_detail_event.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String group_detail_event(Model model, GroupMakeDTO gmake) throws Exception {
-		logger.info("CalendarController group_detail_event " + new Date());
+		logger.info(" group_detail_event " + new Date());
 	
 		GroupMakeDTO g_make = groupService.group_detail(gmake);
 		model.addAttribute("g_make", g_make);
@@ -145,7 +145,7 @@ public class GroupController {
 	// 여기부터 사진
 	@RequestMapping(value = "group_detail_photo.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String group_detail_photo(Model model, GroupMakeDTO gmake) throws Exception {
-		logger.info("CalendarController group_detail_photo " + new Date());
+		logger.info(" group_detail_photo " + new Date());
 		
 		
 		
@@ -162,7 +162,7 @@ public class GroupController {
 	
 	@RequestMapping(value = "group_detail_photo_video.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String group_detail_photo_video(Model model, GroupMakeDTO gmake) throws Exception {
-		logger.info("CalendarController group_detail_photo_video " + new Date());
+		logger.info(" group_detail_photo_video " + new Date());
 
 		GroupMakeDTO g_make = groupService.group_detail(gmake);
 		List<GroupPhotoDTO> g_videolist = groupService.group_video(gmake);
@@ -175,25 +175,29 @@ public class GroupController {
 	// 파일
 	@RequestMapping(value="group_detail_flie.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String group_detail_flie(Model model, GroupMakeDTO gmake) throws Exception {
-		logger.info("CalendarController group_detail_flie " + new Date());
+		logger.info(" group_detail_flie " + new Date());
 
 		GroupMakeDTO g_make = groupService.group_detail(gmake);
+		List<GroupPhotoDTO> g_flist = groupService.filelist(gmake);
 		model.addAttribute("g_make", g_make);
+		model.addAttribute("g_flist", g_flist);
+		
 		
 		return "group_detail_flie.tiles";
 	}
 	@RequestMapping(value="group_detail_upload_flie.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String group_detail_upload_flie(Model model, GroupMakeDTO gmake) throws Exception {
-		logger.info("CalendarController group_detail_upload_flie " + new Date());
+		logger.info(" group_detail_upload_flie " + new Date());
 
 		GroupMakeDTO g_make = groupService.group_detail(gmake);
+		List<GroupPhotoDTO> g_flist = groupService.filelist(gmake);
 		model.addAttribute("g_make", g_make);
-		
+		model.addAttribute("g_flist", g_flist);		
 		return "group_detail_upload_flie.tiles";
 	}
 	@RequestMapping(value="group_detail_share_flie.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String group_detail_share_flie(Model model, GroupMakeDTO gmake) throws Exception {
-		logger.info("CalendarController group_detail_share_flie " + new Date());
+		logger.info(" group_detail_share_flie " + new Date());
 
 		GroupMakeDTO g_make = groupService.group_detail(gmake);
 		model.addAttribute("g_make", g_make);
@@ -207,7 +211,7 @@ public class GroupController {
 	@RequestMapping(value="group_main_image.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String group_main_image(Model model,GroupMakeDTO gmake,HttpServletRequest request,@RequestParam(value="fileload",required=false)
     MultipartFile fileload ) throws Exception {
-		logger.info("CalendarController 메인이미지 " + new Date());
+		logger.info("group_main_image 메인이미지 " + new Date());
 	
 		 logger.info("fileload"+fileload);
 		 gmake.setG_photo(fileload.getOriginalFilename());
@@ -313,7 +317,20 @@ public class GroupController {
 		groupService.add_newsfeed(vdto);
 	 return "redirect:/group_detail.do?g_seq="+vote.getG_seq();
 	}
-
+	//파일 다운로드
+    @RequestMapping(value="fileDownload.do",method={RequestMethod.GET, RequestMethod.POST})
+	public String download(HttpServletRequest request, String filename, Model model) throws Exception{
+		logger.info("그룹 fileDownload " + new Date());
+		
+		String fupload = request.getServletContext().getRealPath("/upload");
+		// String fupload = "c:\\upload\\";		// 폴더
+		
+		File downloadFile = new File(fupload + "/" + filename);
+		
+		model.addAttribute("downloadFile", downloadFile);
+		
+		return "downloadView";
+	}
 	
 	
 }

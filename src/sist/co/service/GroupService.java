@@ -43,4 +43,7 @@ public interface GroupService {
 	public boolean add_vote(VotelistDTO vdto)throws Exception;
 	
 	public boolean add_newsfeed(VoteDTO vdto)throws Exception;
+	
+	public List<GroupPhotoDTO> filelist(GroupMakeDTO gmake)throws Exception;
+	public List<GroupPhotoDTO> upfilelist(GroupMakeDTO gmake)throws Exception;
 }

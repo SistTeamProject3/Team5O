@@ -112,6 +112,13 @@ public class GroupImpl implements GroupService {
 	public boolean add_newsfeed(VoteDTO vdto) throws Exception {
 		return groupDAO.add_newsfeed(vdto);
 	}
-	
 
+	@Override
+	public List<GroupPhotoDTO> filelist(GroupMakeDTO gmake) throws Exception {
+		return groupDAO.filelist(gmake);
+	}
+	@Override
+	public List<GroupPhotoDTO> upfilelist(GroupMakeDTO gmake) throws Exception {
+		return groupDAO.filelist(gmake);
+	}
 }

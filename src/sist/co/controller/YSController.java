@@ -90,6 +90,8 @@ public class YSController {
          method=RequestMethod.POST)
    public String writeNewsFeed(NewsFeedDTO newsfeeddto,HttpServletRequest request,@RequestParam(value="fileload", required=false)
    MultipartFile fileload, Model model){
+	  
+	   
       logger.info("YSController writeNewsFeed " + new Date());
       System.out.println(newsfeeddto.toString());
       if(fileload!=null){
