@@ -96,7 +96,7 @@ td {
 					</div>
 				</div>
 				<div id="image_wrap_after">
-					<!-- 이미지 취소 버튼 숨김 -->
+					<!-- 이미지 취소 버튼, 기본 상태: 숨김 -->
 					<span>
 						<input type="image" id="btn_title_image_delete" src="image/event/btn_close.png" alt="왜죠"
 						onclick="return false"
@@ -161,14 +161,15 @@ td {
 		</tr>
 		</table>
 		
-		<%-- <input type="hidden" name="m_name" value="${ login.m_name }" /> --%>
-		<input type="hidden" name="m_name" value="login_id" />
-		<input type="hidden" id="e_start_date" name="e_start_date" value="" />
-		<input type="hidden" id="e_end_date" name="e_end_date" value="" />
+		<input type="hidden" id="m_name" name="m_name" />
+		<input type="hidden" id="e_image" name="e_image" />
+		<input type="hidden" id="e_start_date" name="e_start_date" />
+		<input type="hidden" id="e_end_date" name="e_end_date" />
 		
 	</form>
 </div>
 <div class="modal-footer">
+	<button type="button" id="event_test" class="btn btn-default">테스트</button>
 	<button type="button" id="event_close" class="btn btn-default" data-dismiss="modal">닫기</button>
 	<button type="button" id="event_write" class="btn btn-primary" data-dismiss="modal">이벤트 만들기</button>
 </div>
@@ -180,6 +181,11 @@ td {
 <!--		script			-->
 <!--		▼ ▼ ▼ ▼			-->
 <script type="text/javascript">
+
+$('#event_test').click(function() {
+});
+
+
 
 $(document).ready(function () {
 	// 이벤트 만들기 팝업 초기 설정
@@ -202,12 +208,43 @@ $(document).ready(function () {
 	
 	/* 	 // 기본 환경설정 		*/
 	
+	// 추천 이미지 클릭
+	$('.title_image').click(function() {
+		
+		var selectImg = $(this).attr('src');
+		
+		$('#img_slide').hide();
+		$('#image_wrap_before').hide();
+		
+		$('#user_image').attr('src', selectImg);
+		$('#image_wrap_after').show();
+		
+		$('#e_image').val(selectImg);
+		
+		/* 
+		var selectImg = $(this).attr('src');
+		var uploadImg = $('#btn_image_upload').val();
+		
+		uploadImg = selectImg;
+		uploadImg = uploadImg.replace('image/event/', '');
+		
+		$('#btn_image_upload').val(uploadImg);
+		
+		console.log("title_image: " + selectImg + "\n" + "uploadImg: " + $('#btn_image_upload').val());
+		
+		viewImage(uploadImg);
+		*/
+		
+		
+	
+	});
+	
 	// 사진 업로드 버튼 클릭
 	$('#image_upload').click(function() {
 		$('#btn_image_upload').click();
 	});
 
-	// 업로드 파일 확장자 검사
+	// 업로드 파일 확장자 검사 & 미리보기
 	$('#btn_image_upload').change(function() {
 		
 		var fileName = $(this).val();
@@ -242,6 +279,9 @@ $(document).ready(function () {
 	// 사진 업로드 취소 버튼 클릭
 	$('#btn_title_image_delete').click(function() {
 		$('#btn_image_upload').val('');
+		$('#user_image').attr('src', '');
+		$('#e_image').val('');
+		
 		$('#image_wrap_after').hide();
 		$('#img_slide').show();
 		$('#image_wrap_before').show();
@@ -282,9 +322,31 @@ $(document).ready(function () {
 	});
 	
 	/*		// 날짜-시간 		  */
-
+	
+	// 이벤트 만들기 버튼 클릭
 	$('#event_write').click(function() {
 		
+		// 아이디 임시 값 저장 ※ 로그인 구현 완료되면 로그인한 아이디로 교체
+		$('#m_name').val("login_id");
+		
+		/*		날짜-시간 값 변환 & 저장		*/
+		var sDate = $('#start_date').val();
+		var eDate = $('#end_date').val();
+		
+		sDate = sDate.replace(' ', '-');
+		sDate = sDate.replace(':', '-');
+		
+		if ( eDate != '' ) {
+			eDate = sDate.replace(' ', '-');
+			eDate = sDate.replace(':', '-');
+		}
+		
+		$('#e_start_date').val(sDate);
+		$('#e_end_date').val(eDate);
+		
+		/*	 // 날짜-시간 값 변환 & 저장		*/
+		
+		// 전송
 		$('#frm_event_write').submit();
 		
 		/* Ajax 처리 시도 */
@@ -324,43 +386,10 @@ $(document).ready(function () {
 		});
 		*/
 	});
-	
-	/* 테스트용 */
-	$('#e_content').click(function() {
-		changeDate();
-	});
 });
 
 /*			function		*/
 /*			▼ ▼ ▼ ▼			*/
 
-function changeDate() {
-	var sDate = $('#start_date').val();
-	var sTime = $('#start_time').val();
-	var eDate = $('#end_date').val();
-	var eTime = $('#end_time').val();
-	
-	// 시작 날짜 설정
-	if ( sTime != '' ) {
-		
-		var sTimeTemp = sTime.split(':');
-		sDate = sDate + "-" + sTimeTemp[0] + "-" + sTimeTemp[1];
-		
-	} else {
-		sDate = sDate + "-00-00";
-	}
-	$('#e_start_date').val(sDate);
-	
-	// 종료 날짜 설정
-	if ( eTime != '' ) {
-		
-		var eTimeTemp = eTime.split(':');
-		eDate = eDate + "-" + eTimeTemp[0] + "-" + eTimeTemp[1];
-		
-	} else {
-		eDate = eDate + "-00-00";
-	}
-	$('#e_end_date').val(eDate);
-}
 
 </script>

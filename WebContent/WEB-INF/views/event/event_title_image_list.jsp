@@ -7,8 +7,12 @@
 	max-height: 200px;
 }
 
+.title_image {
+	cursor: pointer;
+}
+
 </style>
 
-<div class="active item"><img src="image/event/b_pic1.jpg" /></div>
-<div class="item"><img src="image/event/b_pic2.jpg" /></div>
-<div class="item"><img src="image/event/b_pic3.jpg" /></div>
+<div class="active item"><img src="image/event/b_pic1.jpg" class="title_image" /></div>
+<div class="item"><img src="image/event/b_pic2.jpg" class="title_image" /></div>
+<div class="item"><img src="image/event/b_pic3.jpg" class="title_image" /></div>

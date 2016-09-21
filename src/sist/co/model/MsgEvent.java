@@ -1,19 +1,19 @@
 package sist.co.model;
 
-public class EventMsg {
+public class MsgEvent {
 
 	private String message;
 	
-	public EventMsg() {}
+	public MsgEvent() {}
 
-	public EventMsg(String message) {
+	public MsgEvent(String message) {
 		super();
 		this.message = message;
 	}
 
 	@Override
 	public String toString() {
-		return "EventMsg [message=" + message + "]";
+		return "MsgEvent [message=" + message + "]";
 	}
 
 	public String getMessage() {
