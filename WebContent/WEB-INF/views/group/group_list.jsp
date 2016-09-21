@@ -42,7 +42,9 @@
 		<tr>
 			<td>
 				<form action="" id="groupForm" method="post">
-					<input type="hidden" value="AA" id="m_id" name="m_id"> <a
+				<input type="hidden" value="1" name="s_num">
+				<input type="hidden" value="10" name="l_num">
+					<input type="hidden" value="FA" id="m_id" name="m_id"> <a
 						href="#none" id="top">추천 그룹</a> <a href="#none" id="friends">친구의
 						그룹</a> <a href="#none" id="local">지역그룹</a> <b><a href="#none"
 						id="membership">회원님의 그룹</a></b>

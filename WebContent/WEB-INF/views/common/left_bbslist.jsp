@@ -47,7 +47,7 @@ left_bbslist
 			<li class="menu_item">
 			<!-- <a href="#none" onclick="location.href='group_list.do?category=membership&m_id=aa'" title="그룹">그룹</a> -->
 			<form action="" id="groupForm" method="post">
-			<input type="hidden" value="AA" id="m_id" name="m_id">
+			<input type="hidden" value="FA" id="m_id" name="m_id">
 			<a href="#none" id="group" title="그룹">그룹</a>
 			</form>
 			</li>

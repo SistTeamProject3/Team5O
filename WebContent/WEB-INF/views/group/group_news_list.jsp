@@ -1,36 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
+ -->
+<!-- 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ -->
  <style>
 .ys_write_table textarea
 {
   width:100%; 
 }
 
+
 .ys_write_table th{
 width:20%; 
 }
-
-.ys_write_table #image_preview {
-    display:none;
-}
-
-.ys_write_table #image_preview2 {
-    display:none;
-}
 </style>
-
+<!-- 
 <script type="text/javascript">
-/*  $(window).bind('scroll', function(){
+ $(window).bind('scroll', function(){
       if ($(window).scrollTop() == $(document).height() - $(window).height()){
            add3();
       }   
 });
- */
-/* function add3(){
+
+ function add3(){
     $(window).unbind('scroll');
 
      var lastseq = $(".table:last").attr("data-seq");
@@ -49,19 +51,25 @@ width:20%;
                 }); 
             },
             error: function(data) {
-                alert("1error");
+                alert("error");
             }
          }); 
-} */
+}
+
 $(function() {
      $("#ta").keyup(function () {
        $(this).css("height","5px").css("height",(20+$(this).prop("scrollHeight"))+"px");
      });
 });
+
 </script>
-
+ -->
+<%-- 
+<c:forEach var="news" items="${NewsFeedList }" varStatus="i"> 
+--%>
+<br>
+<div class="table" data-seq="${news.n_seq }">
 <table class="newsfeed_list_table${news.n_seq }" style="width: 100%"  border="1px solid black">
-
 <tr>
       <td width=80px; rowspan="2">프사사진</td>
       <td align=left>작성자 : ${news.m_id}</td>
@@ -79,7 +87,6 @@ $(function() {
 <tr>
       <td align=left>작성시간 : ${news.n_wdate}</td>
       <td>
-   
       <div class="dropdown">
          
                 <button type="button" data-toggle="dropdown">
@@ -87,7 +94,7 @@ $(function() {
                  <ul class="dropdown-menu" id="total">
                     <c:choose>
                      <c:when test="${news.n_show eq 1}"> 
-                        <li id="dropdown-menu-1-${news.n_seq }" value="1" onclick="updateShow('1,${news.n_seq }'); changeShow('${news.n_seq }',1)"  style="color: red">전체</li>
+                         <li id="dropdown-menu-1-${news.n_seq }" value="1" onclick="updateShow('1,${news.n_seq }'); changeShow('${news.n_seq }',1)"  style="color: red">전체</li>
                          <li id="dropdown-menu-2-${news.n_seq }" value="2" onclick="updateShow('2,${news.n_seq }'); changeShow('${news.n_seq }',2)" >친구만</li>
                          <li id="dropdown-menu-3-${news.n_seq }" value="3" onclick="updateShow('3,${news.n_seq }'); changeShow('${news.n_seq }',3)" >나만보기</li>
                        </c:when>
@@ -107,7 +114,6 @@ $(function() {
        </div>
       </td>
 </tr>
-
 <tr>
    <td colspan="3"  align=left>
       <pre width="50px">${news.n_content}</pre>
@@ -140,9 +146,11 @@ $(function() {
 <tr>
    
    <td colspan="3"  align=left>
-<!--    <div id="like_btn"> -->
-   <i class="fa fa-thumbs-o-up" id="like_btn${news.n_seq }"  aria-hidden="true" onclick="test(${news.n_seq })"  style="color: black"></i> <a  id="like_btn_second${news.n_seq }"  onclick="test(${i.count})" style="color: black">좋아요</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-comment-o" aria-hidden="true" onclick="showComment(${news.n_seq })"></i> <a onclick="showComment(${news.n_seq })" style="color: black">댓글달기</a>
-   <!-- </div> -->
+<!-- <div id="like_btn"> -->
+   <i class="fa fa-thumbs-o-up" id="like_btn${news.n_seq }"  aria-hidden="true" onclick="test(${news.n_seq })"  style="color: black"></i> 
+   <a  id="like_btn_second${news.n_seq }"  onclick="test(${i.count})" style="color: black">좋아요</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   <i class="fa fa-comment-o" aria-hidden="true" onclick="showComment(${news.n_seq })"></i>
+   <a onclick="showComment(${news.n_seq })" style="color: black">댓글달기</a>
    </td>
 </tr>
 
@@ -161,9 +169,13 @@ $(function() {
    <input type="text"  style="width:100%;"/>
    </td>
 </tr>
-
-
 </table>
+</div>
+
+<%--  </c:forEach>  --%>
+ 
+ <div id="scrolling">
+</div>
 
 <script type="text/javascript">
 
@@ -181,7 +193,6 @@ function test(val){
       $("#show_like_member"+val).css("display","");
    }
 }
-
 function showComment(val){
    
     status = $("#show_comment"+val).css("display");
@@ -191,7 +202,6 @@ function showComment(val){
        $("#show_comment"+val).css("display","none");
     }
 }
-
 function updateShow(val){
    alert("val="+val);
     $.ajax({
@@ -202,19 +212,18 @@ function updateShow(val){
          alert("success");
       },
       error:function(){
-         alert("2error");
+         alert("error");
       }
     })
-   
 }
-
 function changeShow(val,val2){
    alert("val="+val);
    alert("val2="+val2);
    $("#total").css("color","red");
    status = $("#dropdown-menu-"+val2+"-"+val1).css("color");
    $("#dropdown-menu-"+val2+"-"+val1).css("color","red");
-
 }
 
 </script>
+
+ 

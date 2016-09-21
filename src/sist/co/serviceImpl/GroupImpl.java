@@ -119,6 +119,6 @@ public class GroupImpl implements GroupService {
 	}
 	@Override
 	public List<GroupPhotoDTO> upfilelist(GroupMakeDTO gmake) throws Exception {
-		return groupDAO.filelist(gmake);
+		return groupDAO.upfilelist(gmake);
 	}
 }

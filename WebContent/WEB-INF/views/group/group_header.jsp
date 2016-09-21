@@ -1,6 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <fmt:requestEncoding value="utf-8" />
@@ -29,6 +28,7 @@
 	width: 100%;
 	text-align: center;
 	font-size: 12pt;
+	
 }
 .topright {
     position: absolute;
@@ -43,16 +43,16 @@
 </form>
 
 <div style="width: 100%; border: 1px solid black;">
-	<div class="div_header" style="width: 100%; height: 2
-	50px; border: 1px solid black;">
-		
+	<div class="div_header" style="width: 100%; height: 250px; border: 1px solid black;">
 		<!-- 1.그룹 가입여부에따른 다른 창 보여줄예정(조건문 걸기) -->
-		<div class="center">
+		<div class="center" >
 		<c:if test="${g_make.g_photo eq null ||g_make.g_photo eq ''}">
-			<div style="border: 1px solid red;" align="center">
+		<div>
+			<div style="border: 1px solid red; " align="center" >
 				<h6>그룹의 개성을 가장 잘 나타내는 사진을 한 장 고르세요.</h6>
 				<img id="filesearch" alt="사진" src="image/news_file.jpg">
 			</div>
+		</div>	
 		</c:if>
 		</div>
 		<c:if test="${!empty g_make.g_photo}">

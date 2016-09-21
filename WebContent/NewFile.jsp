@@ -3,9 +3,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -13,8 +10,7 @@
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  
-<title>Insert title here</title>
+
  <style>
 .ys_write_table textarea
 {
@@ -24,17 +20,8 @@
 .ys_write_table th{
 width:20%; 
 }
-
-.ys_write_table #image_preview {
-    display:none;
-}
-
-.ys_write_table #image_preview2 {
-    display:none;
-}
 </style>
-
-</head>
+<!-- 
 <script type="text/javascript">
  $(window).bind('scroll', function(){
       if ($(window).scrollTop() == $(document).height() - $(window).height()){
@@ -42,7 +29,7 @@ width:20%;
       }   
 });
 
-function add3(){
+ function add3(){
     $(window).unbind('scroll');
 
      var lastseq = $(".table:last").attr("data-seq");
@@ -65,14 +52,25 @@ function add3(){
             }
          }); 
 }
+
 $(function() {
      $("#ta").keyup(function () {
        $(this).css("height","5px").css("height",(20+$(this).prop("scrollHeight"))+"px");
      });
 });
-</script>
-<body>
 
+</script>
+ -->
+
+
+<%-- 
+<c:forEach var="news" items="${NewsFeedList }" varStatus="i"> 
+--%>
+<br><br>
+
+<input type="hidden" name="m_id" value="영선" >
+${news.n_seq }
+<div class="table" data-seq="${news.n_seq }">
 <table class="newsfeed_list_table${news.n_seq }" style="width: 80%"  border="1px solid black">
 
 <tr>
@@ -155,7 +153,6 @@ $(function() {
    <td colspan="3"  align=left>
 <!--    <div id="like_btn"> -->
    <i class="fa fa-thumbs-o-up" id="like_btn${news.n_seq }"  aria-hidden="true" onclick="test(${news.n_seq })"  style="color: black"></i> <a  id="like_btn_second${news.n_seq }"  onclick="test(${i.count})" style="color: black">좋아요</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-comment-o" aria-hidden="true" onclick="showComment(${news.n_seq })"></i> <a onclick="showComment(${news.n_seq })" style="color: black">댓글달기</a>
-   <!-- </div> -->
    </td>
 </tr>
 
@@ -177,6 +174,12 @@ $(function() {
 
 
 </table>
+</div>
+
+<%--  </c:forEach>  --%>
+ 
+ <div id="scrolling">
+</div>
 
 <script type="text/javascript">
 
@@ -232,5 +235,4 @@ function changeShow(val,val2){
 
 </script>
 
-</body>
-</html>
+ 

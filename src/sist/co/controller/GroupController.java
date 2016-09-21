@@ -61,6 +61,8 @@ public class GroupController {
 	@RequestMapping(value = "group_list.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String group_list(Model model, GroupListDTO gdto,String category) throws Exception {
 		logger.info(" group_list " + new Date());
+		logger.info("시작"+gdto.getS_num());
+		logger.info("끝"+gdto.getL_num());
 		
 		if (category.equals("membership")) {
 			
@@ -73,14 +75,25 @@ public class GroupController {
 			return "group_list.tiles";
 		}else if (category.equals("top")) {
 			
+			int s_num = gdto.getS_num()+10;
+			int l_num = gdto.getL_num()+10;
+			
 			List<GroupMakeDTO> re_list = new ArrayList<GroupMakeDTO>();
 			
 			re_list = groupService.recommend_group_list(gdto);
+			logger.info("컨트롤러 시작"+s_num);
+			logger.info("컨트롤러 끝"+l_num);
 			
 			model.addAttribute("re_list", re_list);
 			
+			
+			
+			model.addAttribute("s_num", s_num);
+			model.addAttribute("l_num", l_num);
+			
 			return "recommend_group_list.tiles";
 		}else {
+			model.addAttribute("l_num", gdto.getL_num()+1);
 			return "recommend_group_list.tiles";
 		}
 		
@@ -192,7 +205,8 @@ public class GroupController {
 		GroupMakeDTO g_make = groupService.group_detail(gmake);
 		List<GroupPhotoDTO> g_flist = groupService.filelist(gmake);
 		model.addAttribute("g_make", g_make);
-		model.addAttribute("g_flist", g_flist);		
+		model.addAttribute("g_flist", g_flist);
+		
 		return "group_detail_upload_flie.tiles";
 	}
 	@RequestMapping(value="group_detail_share_flie.do", method = { RequestMethod.GET, RequestMethod.POST })
