@@ -122,28 +122,44 @@
 </definition>
 
 <!-- ay -->
-<definition name="friendlist.tiles" extends="main.tiles">
+
+<definition name="friendmain.tiles" extends="main.tiles">
+	<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
+	<put-attribute name="top_menu" value="/WEB-INF/views/common/top_menu.jsp"/>
+	<put-attribute name="center_main" value="/WEB-INF/views/friends/friend_search.jsp"/>
+	<put-attribute name="left_main" value="/WEB-INF/views/friends/left_friendslist.jsp"/>
+	<put-attribute name="right_main" value="/WEB-INF/views/friends/right_friendssearch.jsp"/>
+</definition>
+
+
+<definition name="friendlist.tiles" extends="friendmain.tiles">
 	<put-attribute name="center_main" value="/WEB-INF/views/friends/friend_list.jsp"/>
+	<put-attribute name="right_main" value="/WEB-INF/views/friends/right_friendssearch.jsp"/>
 </definition>
 
-<definition name="friendask.tiles" extends="main.tiles">
+<definition name="friendask.tiles" extends="friendmain.tiles">
 	<put-attribute name="center_main" value="/WEB-INF/views/friends/friend_ask.jsp"/>
+	<put-attribute name="right_main" value="/WEB-INF/views/friends/right_friendssearch.jsp"/>
 </definition>
 
-<definition name="familygroup.tiles" extends="main.tiles">
+<definition name="familygroup.tiles" extends="friendmain.tiles">
 	<put-attribute name="center_main" value="/WEB-INF/views/friends/family_group.jsp"/>
+	<put-attribute name="right_main" value="/WEB-INF/views/friends/right_friendssearch.jsp"/>
 </definition>
 
-<definition name="bestgroup.tiles" extends="main.tiles">
+<definition name="bestgroup.tiles" extends="friendmain.tiles">
 	<put-attribute name="center_main" value="/WEB-INF/views/friends/best_group.jsp"/>
+	<put-attribute name="right_main" value="/WEB-INF/views/friends/right_friendssearch.jsp"/>
 </definition>
 
-<definition name="knowgroup.tiles" extends="main.tiles">
+<definition name="knowgroup.tiles" extends="friendmain.tiles">
 	<put-attribute name="center_main" value="/WEB-INF/views/friends/know_group.jsp"/>
+	<put-attribute name="right_main" value="/WEB-INF/views/friends/right_friendssearch.jsp"/>
 </definition>
 
-<definition name="blockgroup.tiles" extends="main.tiles">
+<definition name="blockgroup.tiles" extends="friendmain.tiles">
 	<put-attribute name="center_main" value="/WEB-INF/views/friends/block_group.jsp"/>
+	<put-attribute name="right_main" value="/WEB-INF/views/friends/right_friendssearch.jsp"/>
 </definition>
 
 
@@ -151,12 +167,22 @@
 	<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
 	<put-attribute name="top_inc" value="/WEB-INF/views/common/top.jsp"/>
 	<put-attribute name="top_menu" value="/WEB-INF/views/common/top_menu.jsp"/>
-	<put-attribute name="left_main" value="/WEB-INF/views/common/left_bbslist.jsp"/>
-	<put-attribute name="right_main" value="/WEB-INF/views/bbs/bbslist.jsp"/>
+	<put-attribute name="left_main" value="/WEB-INF/views/friends/left_friendslist.jsp"/>
+	<put-attribute name="right_main" value="/WEB-INF/views/friends/right_friendssearch.jsp"/>
 	<put-attribute name="bottom_inc" value="/WEB-INF/views/common/bottom.jsp"/>
 	
 	<put-attribute name="inner_top_menu" value="/WEB-INF/views/common/inner_top_menu.jsp"/>
 	<put-attribute name="center_main" value="/WEB-INF/views/friends/in_friend_search.jsp"/>
 </definition>
+
+
+<definition name="outfriendssearch.tiles" extends="friendmain.tiles">
+	<put-attribute name="center_main" value="/WEB-INF/views/friends/out_friend_search.jsp"/>
+</definition>
+
+<definition name="outfriendsearchmain.tiles" extends="friendmain.tiles">
+	<put-attribute name="center_main" value="/WEB-INF/views/friends/out_friend_search_main.jsp"/>
+</definition>
+
 
 </tiles-definitions>	

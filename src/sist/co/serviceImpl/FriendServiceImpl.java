@@ -62,6 +62,44 @@ public class FriendServiceImpl implements FriendService{
 	public int getFriendsTotalNumOfFriends(String m_id) throws Exception {	
 		return frienddao.getFriendsTotalNumOfFriends(m_id);
 	}
+
+	@Override
+	public List<MemberDTO> searchsomeone(MemberDTO memberdto) throws Exception {
+		return frienddao.searchsomeone(memberdto);
+	}
+
+	@Override
+	public boolean befriend(FriendDTO friendDTO) throws Exception {
+		return frienddao.befriend(friendDTO);
+	}
+
+	@Override
+	public boolean accept(FriendDTO friendDTO) throws Exception {
+		return frienddao.accept(friendDTO);
+	}
+
+	@Override
+	public boolean refuse(FriendDTO friendDTO) throws Exception {
+		return frienddao.refuse(friendDTO);
+	}
+
+	@Override
+	public boolean cancle(FriendDTO friendDTO) throws Exception {
+		return frienddao.cancle(friendDTO);
+	}
+
+	@Override
+	public boolean stranger(FriendDTO friendDTO) throws Exception {
+		return frienddao.stranger(friendDTO);
+	}
+
+	@Override
+	public boolean block(FriendDTO friendDTO) throws Exception {
+		return frienddao.block(friendDTO);
+	}
+
+
+	
 	
 	
 

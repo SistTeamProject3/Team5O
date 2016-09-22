@@ -10,11 +10,31 @@
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
+<script type="text/javascript">
+function cancleblock(val){
+	
+	$.ajax({
+		type:"POST",
+		url:"cancle.do",
+		data:{"m_id":'${login_id}', "f_id":val},
+		success: function(response){
+			$("#"+val).attr({"value":"차단 해제 완료", "class":"btn btn-default"});		
+		},error: function(request, status, error){
+			alert("error  code:"+request.status+"\n"+"error:"+error);
+		}
+		
+	});
+	
+	
+}
+</script>
+
 
 <!-- 프로필사진 경로 : C:\springstudy\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\SpringSample\upload -->
 
 <h1>block_group</h1>
 
+<form>
 <table class="table table-striped table-hover ">
 	<colgroup>
 		<col width="150px"><col width="200px"><col width="200px">
@@ -35,7 +55,7 @@
 		<c:set var="pathone" value="${imgpath }\\${knowf.m_profile }"/>
 		<td><img src="${pathone}" alt="이미지없음" width="150px" height="100px"></td>
 		<td style="text-align: left; vertical-align: middle;">
-			<p>${blockf.m_id }</p>
+			<p>${blockf.m_nickname }</p>
 			<c:forEach items="${fstotalnum }" var="fstn" varStatus="fstnS">	
 				<c:if test="${fstn.key eq blockf.m_id }">
 					<p><font color="gray" size="1px">친구 ${fstn.value } 명</font></p>
@@ -43,9 +63,10 @@
 			</c:forEach>
 		</td> 
 		<td style="text-align: center; vertical-align: middle;">
-			<a href="#" class="btn btn-primary">차단 풀기</a>
+			<input type="button" class="btn btn-primary" value="차단 해제" onclick="cancleblock('${blockf.m_id}')">
 		</td>
 		</tr>
 	</c:forEach>
 	
 </table>
+</form>

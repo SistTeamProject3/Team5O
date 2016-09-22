@@ -9,12 +9,61 @@
 <!-- <link rel="stylesheet" href="css/ay.css"> -->	<!-- tiles를 사용하면, layouts-tiles.jsp기준으로 경로 설정하면 됌 -->
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+function refuse(val){
+	
+	$.ajax({
+		type:"POST",
+		url:"refuse.do",
+		data:{"m_id":'${login_id}', "f_id":val},
+		success: function(response){
+			$("#ac_"+response).attr("style", "visibility:hidden");
+			$("#rf_"+response).attr({"value":"거절완료", "disabled":true});
+		},error : function(request, status, error){
+			alert("error  code:"+request.status+"\n"+"error:"+error);
+		}
+		
+	});
+	
+}
+function acceptone(val){
+	
+	$.ajax({
+		type:"POST",
+		url:"accept.do",
+		data:{"m_id":'${login_id}', "f_id":val},
+		success: function(response){
+			$("#rf_"+response).attr("style", "visibility:hidden");
+			$("#ac_"+response).attr({"value":"수락완료", "disabled":true});
+		},error : function(request, status, error){
+			alert("error  code:"+request.status+"\n"+"error:"+error);
+		}
+		
+	});
+	
+}
+function cancle(val){
+	
+	$.ajax({
+		type:"POST",
+		url:"cancle.do",
+		data:{"m_id":'${login_id}', "f_id":val},
+		success: function(response){
+			$("#cc_"+response).attr({"value":"취소완료", "disabled":true});
+		},error: function(request, status, error){
+			alert("error code:" + request.status + "\n" + "error : " + error);
+		}
+		
+	});
+	
+}
 
+</script>
 
 <!-- 프로필사진 경로 : C:\springstudy\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\SpringSample\upload -->
 
 <h1>friend_ask</h1>
-
+<form>
 <table class="table table-striped table-hover ">
 	<colgroup>
 		<col width="150px"><col width="200px"><col width="200px">
@@ -34,14 +83,18 @@
 		</c:if>
 		<c:set var="pathone" value="${imgpath }\\${ansf.m_profile }"/>
 		<td><img src="${pathone}" alt="이미지없음" width="150px" height="100px"></td>
-		<td style="text-align: left; vertical-align: middle;">${ansf.m_id }</td> 
+		<td style="text-align: left; vertical-align: middle;">${ansf.m_nickname }</td> 
 		<td style="text-align: center; vertical-align: middle;">
-			<a href="#" class="btn btn-primary">수락</a> <a href="#" class="btn btn-default">거절</a>
+			<%-- <input type="button" id="${ansf.m_id }" value="수락" class="btn btn-primary" onclick="accept(id)"> 
+			<input type="button" id="${ansf.m_id }" value="거절" class="btn btn-default" onclick="refuse(id)"> --%>
+			<input type="button" id="ac_${ansf.m_id }" value="수락" class="btn btn-primary" onclick="acceptone('${ansf.m_id }')"> 
+			<input type="button" id="rf_${ansf.m_id }" value="거절" class="btn btn-default" onclick="refuse('${ansf.m_id }')">
 		</td>
 		</tr>
 	</c:forEach>
 	
 </table>
+
 
 <table class="table table-striped table-hover ">
 	<colgroup>
@@ -63,13 +116,14 @@
 		</c:if>
 		<c:set var="pathone" value="${imgpath }\\${askf.m_profile }"/>
 		<td><img src="${pathone}" alt="이미지없음" width="150px" height="100px"></td>
-		<td style="text-align: left; vertical-align: middle;">${askf.m_id }</td>
+		<td style="text-align: left; vertical-align: middle;">${askf.m_nickname }</td>
 		<td style="text-align: center; vertical-align: middle;">
-			<a href="#" class="btn btn-primary">요청 취소</a>
+			<input type="button" id="cc_${askf.m_id }" value="요청취소" class="btn btn-primary" onclick="cancle('${askf.m_id}')">
 		</td>
 		</tr>
 	</c:forEach>
 	
 </table>
+</form>
 
 
