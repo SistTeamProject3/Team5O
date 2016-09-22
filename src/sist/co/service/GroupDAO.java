@@ -11,6 +11,7 @@ import sist.co.model.GroupMakeDTO;
 import sist.co.model.GroupMemberDTO;
 import sist.co.model.GroupMemberListDTO;
 import sist.co.model.GroupPhotoDTO;
+import sist.co.model.GroupRequestDTO;
 import sist.co.model.VoteDTO;
 import sist.co.model.VotelistDTO;
 
@@ -107,6 +108,11 @@ public class GroupDAO {
 	public List<GroupPhotoDTO> upfilelist(GroupMakeDTO gmake)throws Exception{
 		List<GroupPhotoDTO> flist = sqlSession.selectList(ns+"upfilelist", gmake);
 		return flist;
+	}
+	
+	public boolean group_join_request(GroupRequestDTO rdto)throws Exception{
+		sqlSession.insert(ns+"group_join_request", rdto);
+		return true;
 	}
 	
 }

@@ -21,10 +21,10 @@ public class GroupMakeDTO implements Serializable{
 	 */
 	
 	private int g_seq;
-	private	String g_name;
-	private	String g_photo;
-	private int g_type;
-	private String g_manager;
+		private	String g_name;
+		private	String g_photo;
+		private int g_type;
+		private String g_manager;
 	//검색용
 	private String keyword;
 	

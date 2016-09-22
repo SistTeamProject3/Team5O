@@ -17,14 +17,27 @@ int l_num = (int)lnum;
 System.out.println("받은 값 S"+s_num+"L"+l_num);
 
 %>
-<script type="text/javascript">
-$(document).ready(function() {
-	$(".g_join").click(function() {
-	var a = $(this).attr("data-set");
-		alert(a);
+ <script type="text/javascript">
+$(document).on("click",".g_join",function() {
+	var g_seq = $(this).attr("data-set");
+	var g_manager = $(this).attr("manager");
+	var m_id = "FA";
+	alert(g_manager+"클릭"+g_seq);
+	 $.ajax({
+		 type:"POST",
+		 data:{"g_seq":g_seq, "g_manager":g_manager, "m_id":m_id, "r_date":0},
+		 url:"group_join_request.do",
+		 /* url: "group_join_request.do?g_seq="+g_seq+"&g_manager="+g_manager+"&m_id="+m_id, */
+		 success: function(result){
+			alert(result);
+	    }, error: function(request){
+	    	alert("실패");
+	    }
 	});
+	
+	
 });
-</script>
+</script> 
 <script type="text/javascript">
 var s_num1 =1;
 var l_num1 =10;

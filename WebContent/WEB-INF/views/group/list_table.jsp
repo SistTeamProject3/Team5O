@@ -4,7 +4,8 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>    
 
-<div id="list_div" style="margin-left: 15%; margin-right: 15%; margin-top: 5%; margin-bottom: 5%; ">
+
+ <div id="list_div" style="margin-left: 15%; margin-right: 15%; margin-top: 5%; margin-bottom: 5%; ">
 	<c:if test="${re_list.size()>0 && re_list.size() ne 1 }">
 		<table style="width: 100%;" border="1">
 			<tr>
@@ -22,7 +23,7 @@
 								</tr>
 								<tr>
 									<td style="width: 80%; height: 20%;"><a href="group_detail.do?g_seq=${list.g_seq}">${ list.g_name}</a></td>
-									<td style="width: 20%; height: 20%;"><img alt="가입" class="g_join" data-set="${list.g_seq}" src="image/g_join.jpg"></td>
+									<td style="width: 20%; height: 20%;"><img alt="가입" class="g_join" data-set="${list.g_seq}" manager="${list.g_manager }" src="image/g_join.jpg"></td>
 								</tr>
 							</table>
 						</div>

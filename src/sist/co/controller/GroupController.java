@@ -26,6 +26,7 @@ import sist.co.model.GroupMakeDTO;
 import sist.co.model.GroupMemberDTO;
 import sist.co.model.GroupMemberListDTO;
 import sist.co.model.GroupPhotoDTO;
+import sist.co.model.GroupRequestDTO;
 import sist.co.model.NewsFeedDTO;
 import sist.co.model.VoteDTO;
 import sist.co.model.VotelistDTO;
@@ -84,9 +85,9 @@ public class GroupController {
 			List<GroupMakeDTO> re_list = new ArrayList<GroupMakeDTO>();
 			re_list = groupService.recommend_group_list(gdto);
 			
-			for (int i = 0; i < re_list.size(); i++) {
+		/*	for (int i = 0; i < re_list.size(); i++) {
 				System.out.println(re_list.get(i).getG_name());
-			}
+			}*/
 			
 			logger.info("SQL에서 불러온 S"+gdto.getS_num());
 			logger.info("SQL에서 불러온 L"+gdto.getL_num());
@@ -127,11 +128,11 @@ public class GroupController {
 		re_list = groupService.recommend_group_list(gdto);
 		
 		
-		
+	/*	
 		for (int i = 0; i < re_list.size(); i++) {
-			System.out.println(re_list.get(i).getG_name());
+			System.out.println(re_list.get(i).toString());
 		}
-		
+		*/
 		
 		
 		model.addAttribute("re_list", re_list);
@@ -388,5 +389,19 @@ public class GroupController {
 		return "downloadView";
 	}
 	
-	
+	// 가입요청
+    @RequestMapping(value="group_join_request.do",method={RequestMethod.GET,RequestMethod.POST })
+    public String group_join_request(Model model, GroupRequestDTO rdto)throws Exception{
+    	
+    	
+    	
+    	logger.info("rdto" + rdto.toString());
+
+    	groupService.group_join_request(rdto);
+    	
+    	return "recommend_group_list.tiles";
+    }
+    
+    
+    
 }

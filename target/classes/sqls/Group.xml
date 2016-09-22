@@ -146,5 +146,11 @@ ON TP3_NEWSFEED.N_SEQ=TP3_NEWSFEED_FILE.N_SEQ
 WHERE G_SEQ=#{g_seq} AND NF_PHOTO IS NOT NULL OR NF_VIDEO IS NOT NULL
 ORDER BY N_WDATE DESC
 </select>
+
+<insert id="group_join_request" parameterType="sist.co.model.GroupRequestDTO">
+INSERT INTO TP3_GROUPJOIN(J_SEQ,G_SEQ,G_MANAGER,M_ID,G_ACCEPT,R_DATE)
+VALUES(TP3_JOIN_REQ_SEQ.NEXTVAL,#{g_seq},#{g_manager},#{m_id},0,SYSDATE)
+</insert>
+
 </mapper>
 

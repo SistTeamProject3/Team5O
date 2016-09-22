@@ -11,6 +11,7 @@ import sist.co.model.GroupMakeDTO;
 import sist.co.model.GroupMemberDTO;
 import sist.co.model.GroupMemberListDTO;
 import sist.co.model.GroupPhotoDTO;
+import sist.co.model.GroupRequestDTO;
 import sist.co.model.VoteDTO;
 import sist.co.model.VotelistDTO;
 import sist.co.service.GroupDAO;
@@ -121,4 +122,11 @@ public class GroupImpl implements GroupService {
 	public List<GroupPhotoDTO> upfilelist(GroupMakeDTO gmake) throws Exception {
 		return groupDAO.upfilelist(gmake);
 	}
+
+	@Override
+	public boolean group_join_request(GroupRequestDTO rdto) throws Exception {
+		return groupDAO.group_join_request(rdto);
+	}
+	
+	
 }

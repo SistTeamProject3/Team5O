@@ -8,6 +8,7 @@ import sist.co.model.GroupMakeDTO;
 import sist.co.model.GroupMemberDTO;
 import sist.co.model.GroupMemberListDTO;
 import sist.co.model.GroupPhotoDTO;
+import sist.co.model.GroupRequestDTO;
 import sist.co.model.VoteDTO;
 import sist.co.model.VotelistDTO;
 
@@ -46,4 +47,6 @@ public interface GroupService {
 	
 	public List<GroupPhotoDTO> filelist(GroupMakeDTO gmake)throws Exception;
 	public List<GroupPhotoDTO> upfilelist(GroupMakeDTO gmake)throws Exception;
+	
+	public boolean group_join_request(GroupRequestDTO rdto)throws Exception;
 }
