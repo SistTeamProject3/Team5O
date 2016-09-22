@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -18,6 +19,7 @@
 
 
 </head>
+
 <script type="text/javascript">
  $(window).bind('scroll', function(){
 	   if ($(window).scrollTop() == $(document).height() - $(window).height()){
@@ -65,7 +67,14 @@ function add3(){
 
  <jsp:include page="newsfeed_write.jsp"/> 
 
+
  
+<c:if test="${fn:length(NewsFeedList) eq 0}">
+리스트 DB값 없음
+</c:if>
+
+
+<c:if test="${fn:length(NewsFeedList) ne 0}">
 
 <c:forEach var="news" items="${NewsFeedList }" varStatus="i"> 
 
@@ -182,6 +191,8 @@ ${news.n_seq }
 </c:if>
 
  </c:forEach> 
+
+</c:if>
  
  <div id="scrolling">
 </div>

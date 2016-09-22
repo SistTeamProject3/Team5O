@@ -21,22 +21,40 @@
  -->
  
 
-<definition name="main.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
+<!-- <definition name="main.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
 	<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
 	<put-attribute name="top_inc" value="/WEB-INF/views/common/top.jsp"/>
 	<put-attribute name="top_menu" value="/WEB-INF/views/common/top_menu.jsp"/>
+	<put-attribute name="left_main" value="/WEB-INF/views/common/left_bbslist.jsp"/>
+	<put-attribute name="center_main" value="/WEB-INF/views/newsfeed/newsfeed_list2.jsp"/>
+	<put-attribute name="center_main" value="/WEB-INF/views/test.jsp"/>
+	<put-attribute name="right_main" value="/WEB-INF/views/bbs/bbslist.jsp"/>
+	<put-attribute name="bottom_inc" value="/WEB-INF/views/common/bottom.jsp"/>
+</definition> -->
+
+
+<definition name="main.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
+	<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
+	<put-attribute name="top_inc" value="/WEB-INF/views/common/top_main.jsp"/>
 	<put-attribute name="left_main" value="/WEB-INF/views/common/left_bbslist.jsp"/>
 	<put-attribute name="center_main" value="/WEB-INF/views/newsfeed/newsfeed_list2.jsp"/>
 	<put-attribute name="right_main" value="/WEB-INF/views/bbs/bbslist.jsp"/>
 	<put-attribute name="bottom_inc" value="/WEB-INF/views/common/bottom.jsp"/>
 </definition>
 
+<definition name="my_page.tiles" template="/WEB-INF/views/layouts-mypage.jsp">
+	<put-attribute name="header2" value="/WEB-INF/views/common/header.jsp"/>
+	<put-attribute name="top_inc2" value="/WEB-INF/views/common/top_main.jsp"/>
+	<put-attribute name="my_page2" value="/WEB-INF/views/member/my_page.jsp"/>
+	<put-attribute name="right_main2" value="/WEB-INF/views/bbs/bbslist.jsp"/>
+	<put-attribute name="bottom_inc2" value="/WEB-INF/views/common/bottom.jsp"/>
+</definition> 
+
 <definition name="login.tiles" template="/WEB-INF/views/layouts-login.jsp">
 	<put-attribute name="top_inc" value="/WEB-INF/views/member/top_login.jsp"/>
 	<put-attribute name="login_main" value="/WEB-INF/views/member/login_main.jsp"/>
 	<put-attribute name="bottom_inc" value="/WEB-INF/views/common/bottom.jsp"/>
 </definition>
-
 
 
 <definition name="regi.tiles" extends="login.tiles">

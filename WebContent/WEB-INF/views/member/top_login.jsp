@@ -34,8 +34,8 @@
 		
 	</tr>
 	<tr>
-		<td><input class="form-control" type="text" name="id" id="_id" size="20"></td>
-		<td><input class="form-control" type="password" name="pwd" id="_pwd"size="20"></td>
+		<td><input class="form-control" type="text" name="m_id" id="_id" size="20"></td>
+		<td><input class="form-control" type="password" name="m_password" id="_pwd"size="20"></td>
 		<td><a href="#none" id="_login" class="btn btn-default" title="로그인">로그인</a>	</td>
 		<td><a href="#none" id="_regi" class="btn btn-default" title="회원가입">회원가입</a></td>
 	</tr>
@@ -47,20 +47,18 @@
 	
 <script type="text/javascript">
 $("#_login").click(function(){
-	alert("뭐라안뜨니??반응안하니??")
 	if($("#_id").val() == ""){
-		alert($("#_userid").attr("data-msg") + " 입력해 주십시오");
+		alert("아이디를 입력해 주십시오.");
 		$("#_id").focus();
 	}else if($("#_pwd").val()==""){
-		alert($("#_pwd").attr("data-msg") + " 입력해 주십시오.");
+		alert("패스워드를 입력해 주십시오.");
 		$("#_pwd").focus();
 	}else{
-		$("#_frmForm").attr({"target":"_self", "action":"loginAf.do"}).submit();
+		$("#_frmForm").attr({"target":"_self", "action":"NewsFeedList.do"}).submit();
 	}
 });
 
 $("#_regi").click(function(){
-	alert("회원가입");
 	$("#_frmForm").attr({"target":"_self", "action":"regi.do"}).submit();
 });
 </script>

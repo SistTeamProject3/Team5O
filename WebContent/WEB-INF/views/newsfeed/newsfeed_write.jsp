@@ -37,8 +37,8 @@ width:20%;
 <form name="frmForm" id="_frmForm" action="writeNewsFeed.do" method="post" enctype="multipart/form-data">
 
 
-
-<input type="hidden" name="m_id" value="영선" >
+${login.m_id }${login.m_id }${login.m_id }
+<input type="hidden" name="m_id" value="${login.m_id }" >
 
 <table class="ys_write_table" style="width: 80%" border="1px solid black">
 	<tr>
@@ -135,7 +135,7 @@ width:20%;
 		<span class="fa fa-map-marker fa-2x"  id="viewWhere"  onclick="return false;"></span>
 
 		<span style="float:right;"> 
-			<select name="n_tag_show" >
+			<select name="n_show" >
 				<option value="1">전체공개</option>
 				<option value="2">친구만</option>
 				<option value="3">나만보기</option>

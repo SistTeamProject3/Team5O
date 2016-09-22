@@ -27,6 +27,7 @@ CREATE TABLE TP3_MEMBER(
 );
 
 
+
 insert into TP3_MEMBER
 values('qwer', 'qwer', 'qwer', 'qwer', '01012345678', sysdate, '881111',
 '', '', '', '', 0, '서울시', 0, 0, 'qwer입니다', '',1);

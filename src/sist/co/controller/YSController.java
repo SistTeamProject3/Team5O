@@ -16,80 +16,33 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import sist.co.model.MemberDTO;
 import sist.co.model.NewsFeedDTO;
 import sist.co.model.SistPDSDTO;
+
 import sist.co.service.NewsFeedService;
 import sist.co.util.FUpUtil;
+
+import sist.co.service.MemberService;
 
 
 @Controller
 public class YSController {
+
 
    private static final Logger logger = LoggerFactory.getLogger(YSController.class);
    
    @Autowired
    NewsFeedService newsFeedService;
    
-/*   
-   @RequestMapping(value="ys_first.do", method=RequestMethod.GET)
-   public String ys_first(Model model){
-      logger.info("ys_first.do"+new Date());
-      return "main.tiles";
-   }*/
-   
-/*   @RequestMapping(value="pdswrite.do", method=RequestMethod.GET)
-   public String pdswrite(Model model){      
-      logger.info("PdsController pdswrite " + new Date());      
-      model.addAttribute("doc_title", "자료올리기");
-      
-      return "pdswrite.tiles";         
-   }
-   */
-/*   @RequestMapping(value="pdsupload.do", 
-         method=RequestMethod.POST)
-   public String pdsupload(SistPDSDTO pdsdto,
-                     HttpServletRequest request,
-                     @RequestParam(value="fileload2", required=false)
-                     MultipartFile fileload, Model model){
-      
-      logger.info("PdsController pdsupload " + new Date());
-      model.addAttribute("doc_title", "pds 업로드");
-      pdsdto.setFilename(fileload.getOriginalFilename());
+   @Autowired
+   MemberService MemberService;
 
-      
-      System.out.println(pdsdto.toString());
-      
-      String fupload = request.getServletContext().getRealPath("/upload");
-      //String fupload = "c:\\upload";   // 폴더에 올리고 싶을 때
-      logger.info(": " + fupload);
-      
-      String f = pdsdto.getFilename();      
-      String newFile = FUpUtil.getNewFile(f);      
-      logger.info(fupload+ "/" + newFile);
-      
-      pdsdto.setFilename(newFile);
-      
-      try{      
-         File file = new File(fupload + "/" + newFile);      
-         FileUtils.writeByteArrayToFile(file, fileload.getBytes());
-      
-         sistPDSService.uploadPDS(pdsdto);
-         logger.info("pdsupload success");
-         
-      }catch(IOException e){
-         logger.info("pdsupload fail!");
-      }
-      
-      return "redirect:/ys_first.do";      
-   }
-   */
-   
-   
-   
    @RequestMapping(value="writeNewsFeed.do", 
          method=RequestMethod.POST)
    public String writeNewsFeed(NewsFeedDTO newsfeeddto,
@@ -139,7 +92,7 @@ public class YSController {
             FileUtils.writeByteArrayToFile(file, fileload.getBytes());
    
             newsFeedService.writeNewsFeed(newsfeeddto);
-         
+            System.out.println("여기"+newsfeeddto.toString());
             logger.info("writeNewsFeed success");
             
          }catch(IOException e){
@@ -161,20 +114,49 @@ public class YSController {
             logger.info("writeNewsFeed fail!");
          }
       }
-      return "redirect:/NewsFeedList.do";
+      return "redirect:/NewsFeedList2.do";
    }
    
+   
+	
    @RequestMapping(value="NewsFeedList.do", 
          method={RequestMethod.GET, RequestMethod.POST})
-   public String NewsFeedList(Model model){   
-      logger.info("YSController NewsFeedList " + new Date());
-      List<NewsFeedDTO> NewsFeedList =  newsFeedService.getNewsFeedList();
-      model.addAttribute("NewsFeedList",NewsFeedList);
-   /*   System.out.println("NewsFeedList.size()=="+NewsFeedList.size());
-      
-      model.addAttribute("lastnum",NewsFeedList.size());*/
-      return "main.tiles";
-   }
+   public String NewsFeedList(HttpServletRequest request, MemberDTO member, Model model) throws Exception{   
+	   
+	   logger.info("YSController NewsFeedList " + new Date());
+	   
+		
+		MemberDTO login = null;
+		login =  MemberService.login2(member);
+		
+		if(login != null && !login.getM_id().equals("")){
+			 
+			List<NewsFeedDTO> NewsFeedList =  newsFeedService.getNewsFeedList();
+			model.addAttribute("NewsFeedList",NewsFeedList);
+		      
+		      request.getSession().setAttribute("login", login);
+			return "main.tiles";
+			
+		}else{
+			
+			return "redirect:/login.do";
+		}
+		
+  }   
+   
+   @RequestMapping(value="NewsFeedList2.do", 
+	         method={RequestMethod.GET, RequestMethod.POST})
+	   public String NewsFeedList2(HttpServletRequest request, MemberDTO member, Model model) throws Exception{   
+		   
+		   logger.info("YSController NewsFeedList " + new Date());
+
+				List<NewsFeedDTO> NewsFeedList =  newsFeedService.getNewsFeedList();
+				model.addAttribute("NewsFeedList",NewsFeedList);
+
+				return "main.tiles";
+
+	  }   
+   
    
    @RequestMapping(value="test.do", 
          method={RequestMethod.GET, RequestMethod.POST})
@@ -221,7 +203,7 @@ public class YSController {
 		System.out.println("map.size()==="+map.size());
 	   newsFeedService.updateShow(map);
 	   
-	   return "redirect:/NewsFeedList.do";
+	   return "redirect:/NewsFeedList2.do";
 	   
    }
    
@@ -235,7 +217,7 @@ public class YSController {
 	   
 	   newsFeedService.deleteNews(Integer.parseInt(val));
 	   
-	   return "redirect:/NewsFeedList.do";
+	   return "redirect:/NewsFeedList2.do";
 	   
  }
    
@@ -245,3 +227,6 @@ public class YSController {
    
    
 }
+
+
+
