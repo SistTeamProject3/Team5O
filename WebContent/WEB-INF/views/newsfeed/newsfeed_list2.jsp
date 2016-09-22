@@ -76,20 +76,21 @@ $(function() {
 </script>
 <body>
 <%--  <button class="btn btn-default" id="popbutton2">수정모달</button><br/> --%>
+<!-- write -->
+<%-- <jsp:include page="newsfeed_write.jsp"/> --%>
 
- <!-- 수정 modal -->
-<%--  <div class="modal fade ys">
+
+
+
+<%--  <a data-toggle="modal" href="layer.jsp" data-target=".yss">Click me</a> 
+
+  <div class="modal fade yss">
   <div class="modal-dialog">
     <div class="modal-content">
        <jsp:include page="/WEB-INF/views/newsfeed/layer.jsp"/>
     </div>
   </div>
-</div>  
- --%>
-
-
-<!-- write -->
-<%-- <jsp:include page="newsfeed_write.jsp"/> --%>
+</div>   --%>
 
 <form name="frmForm" id="_frmForm" action="writeNewsFeed.do" method="post" enctype="multipart/form-data">
 
@@ -209,8 +210,6 @@ $(function() {
 </form> 
 
 
-
-
 <c:forEach var="news" items="${NewsFeedList }" varStatus="i"> 
 
 
@@ -230,7 +229,7 @@ ${news.n_seq }
 				 <span class="caret"></span></button>
 					  <ul class="dropdown-menu">
 					    <li value="1" onclick="removeNews('${news.n_seq}')">삭제</li>
-					    <li value="2" onclick="updateModal()">수정</li>
+					    <li value="2"  data-toggle="modal" href="layer.jsp" data-target=".ys">수정</li>
 					  </ul>
 		 </div>
 		</td>
@@ -599,13 +598,6 @@ function removeNews(val){
 		 });
 }
 
-function updateModal(){
- alert("tnwjd");
-/*         $('div.ys').modal({
-                      remote : 'layer.jsp'
-       });
- */
- } 
 
 
 </script>
