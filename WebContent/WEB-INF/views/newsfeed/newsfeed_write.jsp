@@ -34,13 +34,6 @@ width:20%;
 
 </style>
   
-  
-
-
-
-  
-  
-write22324
 <form name="frmForm" id="_frmForm" action="writeNewsFeed.do" method="post" enctype="multipart/form-data">
 
 

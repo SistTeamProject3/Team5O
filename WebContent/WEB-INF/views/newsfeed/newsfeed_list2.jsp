@@ -54,13 +54,13 @@ function add3(){
 </script>
 <body>
 
-<%--   <div class="modal fade yss">
+   <div class="modal fade yss">
   <div class="modal-dialog">
     <div class="modal-content">
        <jsp:include page="/WEB-INF/views/newsfeed/layer.jsp"/>
     </div>
   </div> 
-</div> --%>
+</div> 
 
 
  <jsp:include page="newsfeed_write.jsp"/> 
