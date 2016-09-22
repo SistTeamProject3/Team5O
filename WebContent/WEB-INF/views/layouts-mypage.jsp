@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<tiles:insertAttribute name="header"/>
+	<tiles:insertAttribute name="header2"/>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/go_url.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/style.css"/>
 	<style type="text/css"></style>
@@ -21,24 +21,22 @@
 <div id="body_wrap">
 	<div id="main_wrap">
 		<div id="header_wrap">
-			<tiles:insertAttribute name="top_inc"/>
-			
+			<tiles:insertAttribute name="top_inc2"/>
 		</div>	
 		
 		<div id="middle_wrap">
-			<div id="sidebar_wrap">
-				<tiles:insertAttribute name="left_main"/>			
-			</div>
-			<div id="content_wrap">
-				<tiles:insertAttribute name="center_main"/>
+			<div id="my_content_wrap">
+			
+				<tiles:insertAttribute name="my_page2"/>
+
 			</div>		
 			<div id="content_wrap2">
-				<tiles:insertAttribute name="right_main"/>
-			</div>	
-		</div>	
+				<tiles:insertAttribute name="right_main2"/>
+			</div>
+		</div>
 		
 		<div id="footer_wrap">
-			<tiles:insertAttribute name="bottom_inc"/>		
+			<tiles:insertAttribute name="bottom_inc2"/>		
 		</div>			
 	</div>
 </div>

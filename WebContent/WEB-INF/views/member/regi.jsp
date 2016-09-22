@@ -71,6 +71,8 @@ var checkFirst = false;
                 document.getElementById('sample6_address').value = fullAddr;
 
                 // 커서를 상세주소 필드로 이동한다.
+                
+                $("#sample6_address2").attr("readonly", false);
                 document.getElementById('sample6_address2').focus();
             }
         }).open();
@@ -147,23 +149,29 @@ var checkFirst = false;
 			alert("이메일을 입력해 주세요.");
 		}else{
 			var id = id1+"@"+id2;
-			check_member(id);
+			/*  test(m_id); */
+			check_member2(id);
+			
 		}
 		
 	}
-	function check_member(m_id){
+	
+	function check_member2(a){
+		 $.ajax({
+		type:"POST",
+		url:"./check_member.do",
+		data:"m_id="+a,
 		
-		$.ajax({
-			type:"POST",
-			url:"./check_member.do",
-			data:"m_id="+m_id,
-			
-			success:function(msg){
-				alert("ajax성공");
-				output(msg);
-			}
-		})
+		success:function(msg){
+			output(msg);
+		},
+		error:function(request,error){
+			alert("message.:"+request.responseText);
+		}
+
+	}) 
 	}
+
 	function output(msg) {
 		
 		if(msg.message=='Sucs'){
@@ -171,7 +179,7 @@ var checkFirst = false;
 		}else{
 			$("#check_member").html("사용할 수 있는 아이디 입니다.");
 			
-			aa_number_check
+			
 			a_number = msg.message;
 			
 			alert("이메일 확인 후 승인번호를 입력하세요");
@@ -185,9 +193,60 @@ var checkFirst = false;
 	}
 	
 	
-	function addmember() {
+	function add_member() {
+		// 생일 및 폰 번호 설정부분
+		var birthmonth = $("#birth_month").val();
+		var birthday = $("#birth_day").val();
+
+		if(birthmonth.length < 2 ){
+			birthmonth = "0"+birthmonth;
+		}
+		if(birthday.length < 2 ){
+			birthday = "0"+birthday;
+		}
 		
-		if($("#_userid").val()== ""){
+		
+		var m_phone = $("#_m_phone1").val() +  $("#_m_phone2").val() + $("#_m_phone3").val();
+		var m_birthday = $("#birth_year").val() + birthmonth + birthday;
+		
+		
+		$("#_m_phone").attr("value", m_phone);
+		$("#_m_birthday").attr("value", m_birthday);
+		
+		// 여기까지 폰 및 생일 
+		// 아이디
+		var id1 = $("#_id1").val();
+		var id2 = $("#_id2").val();
+		
+		var id = id1+"@"+id2;
+		
+		$("#_m_id").attr("value", id);
+		// 아이디
+		
+		//주소
+		
+		var add1 = $("#sample6_address").val();
+		var add2 = $("#sample6_address2").val();
+		
+		var address = add1+add2;
+		
+		$("#_m_address").attr("value", address);
+		
+		
+		//
+		
+		$("#_addmember").attr({"target":"_self", "action":"regiAf.do"}).submit();
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/* if($("#_userid").val()== ""){
 			alert($("#_userid").attr("data-msg") + " 입력해 주십시오");
 			$("#_userid").focus();
 		}else if($("#_name").val()== ""){
@@ -201,7 +260,7 @@ var checkFirst = false;
 			$("#_pwd").focus();
 		}else{
 			$("#_frmForm").attr({"target":"_self", "action":"regiAf.do"}).submit();
-		}
+		} */
 	}
 	
 	function checkId() {
@@ -212,7 +271,38 @@ var checkFirst = false;
 		}
 			checkFirst = true;
 		}
-
+	
+	function checkpwd(){
+		  
+		var check_pwd1 = $("#_pwd1").val();
+		var check_pwd2 = $("#_pwd2").val();
+				
+		if(check_pwd1 != check_pwd2){
+			$("#_checkPwd").html("비밀번호가 틀립니다.");
+		}else{
+			$("#_checkPwd").html("동일한 패스워드입니다.");
+		}
+		
+	}
+	
+	function phoneCode(event) {
+		
+		event = event || window.event;
+		var keyID = (event.which) ? event.which : event.keyCode;
+		
+		
+		if( (keyID==8) || (keyID==9) || ( keyID >=48 && keyID <= 57 ) || ( keyID >=96 && keyID <= 105 ) )
+		{
+			return;
+		}
+		else
+		{
+			
+			return false;
+			
+		}
+	}
+	
 
 
    
@@ -238,7 +328,8 @@ var checkFirst = false;
 			*아이디
 		</td>
 		<td>
-			<input class="form-control" id="_id1" type="text" name="m_id" size="30" placeholder="Email">
+			<input class="form-control" id="_id1" type="text" name="m_id1" size="30" placeholder="Email">
+			<input type="hidden" id="_m_id" name="m_id">
 		</td>
 		<td>
 			@
@@ -281,16 +372,16 @@ var checkFirst = false;
 			*비밀번호
 		</td>	
 		<td>
-			<input class="form-control" id="_pwd" name="m_password" type="password" placeholder="Password">
+			<input class="form-control" id="_pwd1" name="m_password" type="password" placeholder="Password">
 		</td>
 		<td>
 			*확인
 		</td>	
 		<td>
-			<input class="form-control" id="_pwd2" type="password" placeholder="비밀번호 재입력" on>
+			<input class="form-control" id="_pwd2" type="password" placeholder="비밀번호 재입력" onkeyup="checkpwd()">
 		</td>
 		<td colspan="2">
-			<div id="checkPwd"></div>
+			<div id="_checkPwd"></div>
 		</td>
 	</tr>
 	</table>
@@ -306,11 +397,11 @@ var checkFirst = false;
 			*이름
 		</td>
 		<td>
-			<input class="form-control" id="_name" name="m_name" type="text" placeholder="이름">
+			<input class="form-control" id="_name" name="m_name" type="text" style="ime-mode:active" placeholder="이름">
 		</td>
 		<td style="margin-left: 200px;">
-			<input type="radio" name="m_gender" value="남자" checked="checked">남자
-			<input type="radio" name="m_gender" value="여자">여자
+			<input type="radio" name="m_gender" value="0" checked="checked">남자
+			<input type="radio" name="m_gender" value="1">여자
 		</td>
 		
 
@@ -324,7 +415,7 @@ var checkFirst = false;
 	<tr>
 		<td>*주소</td>
 		<td>
-			<input type="text" class="form-control" id="sample6_postcode" size="50" placeholder="우편번호" >
+			<input type="text" class="form-control" readonly="readonly" id="sample6_postcode" size="50" placeholder="우편번호" >
 		</td>
 		<td></td>
 		<td>
@@ -339,10 +430,11 @@ var checkFirst = false;
 	<tr>
 		<td></td>
 		<td>
-			<input type="text" class="form-control" id="sample6_address" placeholder="주소" name="m_address" size="50">
+			<input type="text" class="form-control" id="sample6_address" readonly="readonly" placeholder="주소" name="m_address1" size="50">
 		</td>
 		<td>
-			<input type="text" class="form-control" id="sample6_address2" placeholder="상세주소" name="m_address2" size="50" >
+			<input type="text" class="form-control" id="sample6_address2" readonly="readonly" placeholder="상세주소" name="m_address2" size="50" >
+			<input id="_m_address" type="hidden" name = "m_address">
 		</td>
 	</tr>
 	
@@ -387,15 +479,15 @@ var checkFirst = false;
 		<td style="text-align: right;">결혼유무</td>
 		
 		<td>
-			<input type="radio" name="m_marriage" value="싱글" checked="checked">싱글
+			<input type="radio" name="m_marriage" value="0" checked="checked">싱글
 			
 		</td>
 		<td>
-			<input type="radio" name="m_marriage" value="연애중">연애중
+			<input type="radio" name="m_marriage" value="1">연애중
 			
 		</td>
 		<td>
-			<input type="radio" name="m_marriage" value="결혼">결혼	
+			<input type="radio" name="m_marriage" value="2">결혼	
 		</td>
 	</tr>
 	</table>
@@ -404,7 +496,7 @@ var checkFirst = false;
 	<tr>
 		<td>*휴대전화번호</td>
 		<td >
-			<select class="form-control" name="m_phone1">
+			<select class="form-control" id="_m_phone1">
 				<option>010</option>
      				<option>011</option>
      				<option>016</option>
@@ -415,13 +507,13 @@ var checkFirst = false;
 			-
 		</td>
 		<td>
-			<input class="form-control" name="m_phone2" type="text" placeholder="1234">
+			<input class="form-control" id="_m_phone2" type="text" placeholder="1234" style="ime-mode:disabled;" onkeydown="return phoneCode(event)" maxlength="4"> 
 		</td>
 		<td>
 			-
 		</td>
 		<td>
-			<input class="form-control" name="m_phone3" type="text" placeholder="5678">
+			<input class="form-control" id="_m_phone3" type="text" placeholder="5678" style="ime-mode:disabled;" onkeydown="return phoneCode(event)" maxlength="4"> 
 		</td>
 		
 	</tr>
@@ -454,7 +546,12 @@ var checkFirst = false;
 	<table style="margin: auto;">
 	
 	<tr>
-		<td><button type="button" class="btn btn-info" onclick="addmember()">가입완료</button></td>
+		<td>
+		<input type="hidden" id="_m_phone" name = "m_phone" value="">
+		<input type="hidden" id="_m_birthday" name = "m_birthday" value="">
+		
+		<button type="button" class="btn btn-info" onclick="add_member()">가입완료</button>
+		</td>
 		<td><button type="button" class="btn btn-info" onclick="add_member_cancel()">취소</button></td>
 	</tr>
 	

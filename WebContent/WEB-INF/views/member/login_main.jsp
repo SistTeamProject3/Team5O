@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>Emphasis classes</h2>
+	<h2>오신걸 환영합니다</h2>
 	<p class="text-muted">Fusce dapibus, tellus ac cursus commodo, tortor mauris nibh.</p>
 	<p class="text-primary">Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
 	<p class="text-warning">Etiam porta sem malesuada magna mollis euismod.</p>
