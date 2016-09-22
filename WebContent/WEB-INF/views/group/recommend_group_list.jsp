@@ -17,7 +17,6 @@ int s_num = (int)snum;
 Object lnum = request.getAttribute("l_num");
 int l_num = (int)lnum;
 
-
 System.out.println("받은 값 S"+s_num+"L"+l_num);
 
 %>
@@ -49,24 +48,24 @@ System.out.println("받은 값 S"+s_num+"L"+l_num);
 				s_num = <%=s_num%>;
 				l_num = <%=l_num%>;
 				
+				s_num= s_num+10;
+				l_num= l_num+10;				
 				$.ajax({
 					type: 'POST',
 					url: 'group_list.do?category=top&m_id='+'FA'+'&s_num='+s_num+'&l_num='+l_num,
 					success: function(data) {
-						var str = "<tr>";
-						str += "<c:forEach items='${re_list }' var='list' varStatus='i'>";
-						str += "<td style='width: 50%; height: 250px;'>";
-						str += "<div style='width: 100%; height: 100%;'><table style='width: 100%; height: 100%;'>";	
-						str += "<tr>";
-						str += "<c:if test='${!empty list.g_photo }'><td style='height:80%; width: 100%;' colspan='2'><img style='width: 99%; max-height: 200px; margin: 2px;' alt='그룹 이미지' src='upload/${list.g_photo }'></td></c:if>";
-						str += "<c:if test='${empty list.g_photo}'></c:if>";
-						str += "</tr><td style='height:80%; width: 100%;' colspan='2'><img style='width: 99%; max-height: 200px; margin: 2px;' alt='그룹 이미지' src='image/g_img_basic.jpg'></td><tr>";
-						str += "<td style='width: 80%; height: 20%;'><a href='group_detail.do?g_seq=${list.g_seq}'>${ list.g_name}</a></td>";
-						str += "<td style='width: 20%; height: 20%;'><button onclick=''>가입</button></td>";
-						str += "</tr></table></div></td>";
-						str += "<c:if test='${i.count%2 eq 0 }'>";
-						str += "</tr><tr></c:if></c:forEach></tr>";
-						$('#list_table').append(str);
+						
+						var str ="<c:if test='${re_list.size()>0 }'>";
+						str += "<tr><c:forEach items='${re_list }' var='list' varStatus='i'><td style='width: 50%; height: 250px;'><div style='width: 100%; height: 100%;'>";
+						str +="<tr><c:if test='${empty list.g_photo}'><td style='height:80%; width: 100%;' colspan='2'><img style='width: 99%; max-height: 200px; margin: 2px;' alt='그룹 이미지' src='image/g_img_basic.jpg'></td>";
+						str +="</c:if><c:if test='${!empty list.g_photo }'>";
+						str +="<td style='height:80%; width: 100%;' colspan='2'><img style='width: 99%; max-height: 200px; margin: 2px;' alt='그룹 이미지' src='upload/${list.g_photo }'></td>";
+						str +="</c:if></tr><tr><td style='width: 80%; height: 20%;'><a href='group_detail.do?g_seq=${list.g_seq}'>${ list.g_name}</a></td>";
+						str +="<td style='width: 20%; height: 20%;'><button>가입</button></td>";
+						str +="</tr></table></div></td>";
+						str +="<c:if test='${i.count%2 eq 0 }'></tr><tr></c:if></c:forEach></tr></table></c:if>";	
+					
+						$("#list_div").append(str);
 					},
 					error: function(data) {
 						alert("실패...");
@@ -101,7 +100,7 @@ System.out.println("받은 값 S"+s_num+"L"+l_num);
 		</tr>
 	</table>
 </div>
-<div style="margin-left: 15%; margin-right: 15%; margin-top: 5%; margin-bottom: 5%; ">
+<div id="list_div" style="margin-left: 15%; margin-right: 15%; margin-top: 5%; margin-bottom: 5%; ">
 	<c:if test="${re_list.size()>0 }">
 		<table style="width: 100%;" border="1" id="list_table">
 			<tr>
@@ -134,6 +133,7 @@ System.out.println("받은 값 S"+s_num+"L"+l_num);
 			</tr>
 		</table>
 	</c:if>
+	
 	<c:if test="${re_list.size() == 0 }">
 		<table>
 			<tr>
@@ -142,8 +142,5 @@ System.out.println("받은 값 S"+s_num+"L"+l_num);
 		</table>
 	</c:if>
 </div>
-
-
-<br>
 
 

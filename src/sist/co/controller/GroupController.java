@@ -74,22 +74,18 @@ public class GroupController {
 
 			return "group_list.tiles";
 		}else if (category.equals("top")) {
-			
+			/*
 			int s_num = gdto.getS_num()+10;
 			int l_num = gdto.getL_num()+10;
-			
+			*/
 			List<GroupMakeDTO> re_list = new ArrayList<GroupMakeDTO>();
 			
 			re_list = groupService.recommend_group_list(gdto);
-			logger.info("컨트롤러 시작"+s_num);
-			logger.info("컨트롤러 끝"+l_num);
-			
+	
 			model.addAttribute("re_list", re_list);
 			
-			
-			
-			model.addAttribute("s_num", s_num);
-			model.addAttribute("l_num", l_num);
+			model.addAttribute("s_num", gdto.getS_num());
+			model.addAttribute("l_num", gdto.getL_num());
 			
 			return "recommend_group_list.tiles";
 		}else {
