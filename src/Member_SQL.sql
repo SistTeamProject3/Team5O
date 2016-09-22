@@ -31,3 +31,8 @@ m_stopdate VARCHAR2(8)
 		 #{m_address}, #{m_deactivation}, #{m_ask},#{m_content}, #{m_stopdate})	
 
 select * from TP3_MEMBER;
+
+
+
+
+UPDATE TP3_MEMBER SET M_OFFICE = #{m_office} WHERE ID='s@s'

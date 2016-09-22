@@ -5,6 +5,13 @@ import sist.co.model.MemberDTO;
 public interface MemberService {
 
 	int check_member(MemberDTO member)throws Exception;
-
-
+	boolean add_member(MemberDTO member)throws Exception;
+	MemberDTO login(MemberDTO member) throws Exception;
+	boolean change_m_office(MemberDTO member) throws Exception;
+	boolean change_m_highschool(MemberDTO member) throws Exception;
+	boolean change_m_university(MemberDTO member) throws Exception;
+	boolean change_m_marriage(MemberDTO member) throws Exception;
+	boolean change_m_content(MemberDTO member) throws Exception;
+	
+	MemberDTO login2(MemberDTO member) throws Exception;
 }
