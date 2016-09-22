@@ -65,7 +65,7 @@ System.out.println("받은 값 S"+s_num+"L"+l_num);
 						str +="</tr></table></div></td>";
 						str +="<c:if test='${i.count%2 eq 0 }'></tr><tr></c:if></c:forEach></tr></table></c:if>";	
 					
-						$("#list_div").append(str);
+						$('#list_div').append(str);
 					},
 					error: function(data) {
 						alert("실패...");
