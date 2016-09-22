@@ -5,31 +5,22 @@
 	
 <tiles-definitions>
 
-<!-- <definition name="login.tiles" template="/WEB-INF/views/login/login.jsp">
-</definition>
-
-
-<definition name="bbswrite.tiles" template="/WEB-INF/views/bbs/bbswrite.jsp">
-</definition>
- -->
-<!-- <definition name="first.tiles" template="/WEB-INF/views/ys/news_write.jsp">
-</definition> -->
-
-<!-- 
-<definition name="first.tiles" template="/WEB-INF/select-jquery.html">
-</definition>
- -->
- 
-
 <definition name="main.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
 	<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
-	<put-attribute name="top_inc" value="/WEB-INF/views/common/top.jsp"/>
-	<put-attribute name="top_menu" value="/WEB-INF/views/common/top_menu.jsp"/>
+	<put-attribute name="top_inc" value="/WEB-INF/views/common/top_main.jsp"/>
 	<put-attribute name="left_main" value="/WEB-INF/views/common/left_bbslist.jsp"/>
-	<put-attribute name="center_main" value="/WEB-INF/views/newsfeed/newsfeed_write.jsp"/>
+	<put-attribute name="center_main" value="/WEB-INF/views/newsfeed/newsfeed_list2.jsp"/>
 	<put-attribute name="right_main" value="/WEB-INF/views/bbs/bbslist.jsp"/>
 	<put-attribute name="bottom_inc" value="/WEB-INF/views/common/bottom.jsp"/>
 </definition>
+
+<definition name="my_page.tiles" template="/WEB-INF/views/layouts-mypage.jsp">
+	<put-attribute name="header2" value="/WEB-INF/views/common/header.jsp"/>
+	<put-attribute name="top_inc2" value="/WEB-INF/views/common/top_main.jsp"/>
+	<put-attribute name="my_page2" value="/WEB-INF/views/member/my_page.jsp"/>
+	<put-attribute name="right_main2" value="/WEB-INF/views/bbs/bbslist.jsp"/>
+	<put-attribute name="bottom_inc2" value="/WEB-INF/views/common/bottom.jsp"/>
+</definition> 
 
 <definition name="login.tiles" template="/WEB-INF/views/layouts-login.jsp">
 	<put-attribute name="top_inc" value="/WEB-INF/views/member/top_login.jsp"/>
@@ -38,21 +29,23 @@
 </definition>
 
 
-
 <definition name="regi.tiles" extends="login.tiles">
 	<put-attribute name="login_main" value="/WEB-INF/views/member/regi.jsp"/>
 </definition>
 
-
-<!-- 이벤트 -->
-<definition name="event_calendar.tiles" template="/WEB-INF/views/layouts-event_calendar.jsp">
-	<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
-	<put-attribute name="top_inc" value="/WEB-INF/views/common/top.jsp"/>
-	<put-attribute name="left_main" value="/WEB-INF/views/common/left_event.jsp"/>
-	<put-attribute name="center_main" value="/WEB-INF/views/event/event_calendar.jsp"/>
+<!--뉴스피드  -->
+<definition name="newsfeed.tiles" template="/WEB-INF/views/newsfeed/newsfeed_list.jsp">
 </definition>
 
-<definition name="form_calendar.tiles" template="/WEB-INF/views/event/form_calendar.jsp"></definition>
+	<!-- 이벤트 -->
+	<definition name="event_calendar.tiles" template="/WEB-INF/views/layouts-event_calendar.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
+		<put-attribute name="top_inc" value="/WEB-INF/views/common/top.jsp"/>
+		<put-attribute name="left_main" value="/WEB-INF/views/common/left_event.jsp"/>
+		<put-attribute name="center_main" value="/WEB-INF/views/event/event_calendar.jsp"/>
+	</definition>
+	
+	<definition name="form_calendar.tiles" template="/WEB-INF/views/event/form_calendar.jsp"></definition>
 
 <!-- 그룹 리스트 출력 -->
 
