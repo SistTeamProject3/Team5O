@@ -220,22 +220,6 @@ $(document).ready(function () {
 		$('#image_wrap_after').show();
 		
 		$('#e_image').val(selectImg);
-		
-		/* 
-		var selectImg = $(this).attr('src');
-		var uploadImg = $('#btn_image_upload').val();
-		
-		uploadImg = selectImg;
-		uploadImg = uploadImg.replace('image/event/', '');
-		
-		$('#btn_image_upload').val(uploadImg);
-		
-		console.log("title_image: " + selectImg + "\n" + "uploadImg: " + $('#btn_image_upload').val());
-		
-		viewImage(uploadImg);
-		*/
-		
-		
 	
 	});
 	

@@ -2,7 +2,9 @@ package sist.co.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -32,9 +34,14 @@ public class EventController {
 	EventService eventService;
 	
 	@RequestMapping(value="event_calendar.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String event_calendar() throws Exception {
+	public String event_calendar(Model model) throws Exception {
 		
 		logger.info("event_calendar.do 접근 " + new Date());
+		
+		List<EventDTO> eventList = new ArrayList<EventDTO>();
+		eventList = eventService.selectEventList();
+		
+		model.addAttribute("eventList", eventList);
 		
 		return "event_calendar.tiles";
 	}

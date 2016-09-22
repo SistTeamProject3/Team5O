@@ -1,5 +1,7 @@
 package sist.co.service;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -15,5 +17,9 @@ public class EventDAO {
 	
 	public void addEvent(EventDTO event) throws Exception {
 		sqlSession.insert(ns + "addEvent", event);
+	}
+	
+	public List<EventDTO> selectEventList() {
+		return sqlSession.selectList(ns + "selectEventList");
 	}
 }

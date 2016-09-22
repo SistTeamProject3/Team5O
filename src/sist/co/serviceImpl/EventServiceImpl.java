@@ -1,5 +1,7 @@
 package sist.co.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +18,10 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public void addEvent(EventDTO event) throws Exception {
 		eventDAO.addEvent(event);
+	}
+
+	@Override
+	public List<EventDTO> selectEventList() throws Exception {
+		return eventDAO.selectEventList();
 	}
 }

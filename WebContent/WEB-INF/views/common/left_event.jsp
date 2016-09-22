@@ -28,27 +28,3 @@ ul {
 </ul>
 
 <jsp:include page="../event/form_event_write.jsp" />
-
-<!-- Modal -->
-<%-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title" id="myModalLabel">이벤트 만들기</h4>
-			</div>
-			<div class="modal-body">
-				<jsp:include page="../event/form_event_write.jsp" />
-			</div>
-			<div class="modal-footer">
-				<button type="button" id="event_close" class="btn btn-default" data-dismiss="modal">닫기</button>
-				<button type="button" id="event_write" class="btn btn-primary" data-dismiss="modal">이벤트 만들기</button>
-			</div>
-		</div>
-	</div>
-</div> --%>
-<!-- // Modal -->
-
-</script>

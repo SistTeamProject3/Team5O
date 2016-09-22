@@ -18,4 +18,9 @@
 		)
 </insert>
 
+<select id="selectEventList" resultType="sist.co.model.EventDTO">
+	SELECT * FROM TP3_EVENT
+	ORDER BY E_SEQ ASC
+</select>
+
 </mapper>  
