@@ -75,19 +75,16 @@ $(function() {
 
 </script>
 <body>
+<%--  <button class="btn btn-default" id="popbutton2">수정모달</button><br/> --%>
 
-
-
-<%-- <button class="btn btn-default" id="popbutton2">수정모달</button><br/>
-
-<!-- 수정 modal -->
- <div class="modal fade ys">
+ <!-- 수정 modal -->
+<%--  <div class="modal fade ys">
   <div class="modal-dialog">
     <div class="modal-content">
        <jsp:include page="/WEB-INF/views/newsfeed/layer.jsp"/>
     </div>
   </div>
-</div> 
+</div>  
  --%>
 
 
@@ -107,7 +104,7 @@ $(function() {
 		<th width=300px; rowspan="2">프사사진</th>
 		<td>
 
-		<textarea id="ta" name="m_content" style="overflow: hidden"></textarea>
+		<textarea id="ta" name="n_content" style="overflow: hidden"></textarea>
 		
 		<div id="room_type">
 				<div id="image_preview2" >
@@ -116,8 +113,7 @@ $(function() {
 							 <input type=file  name="fileload2" id="image2" style='display: none;'> 
 							<img src='image/news_addfile.jpg' name="_file3" id="_file3" border='0' onclick='hideAll();'> 
 						</label>
-			    			
-			
+
 				</div> 
 				<div class="form-group">
 				
@@ -145,7 +141,7 @@ $(function() {
 	
 	<tr id=friend style="display:none;">
 		<th>함께한 친구</th>
-		<td colspan="2"><input type ="text" id="_friend" name="tag_friend"  onKeyDown="onKeyDown();"  onclick="this.value=''"></td>
+		<td colspan="2"><input type ="text" id="_friend" name="n_tag_friend"  onKeyDown="onKeyDown();"  onclick="this.value=''"></td>
 	</tr>
 
 	
@@ -168,7 +164,7 @@ $(function() {
 	
 	<tr id=where style="display:none;">
 				<th>장소</th>
-					<td colspan="3"><input type ="text" id="_where" name="tag_where" onKeyDown="onKeyDown2();" onclick="this.value=''"></td>
+					<td colspan="3"><input type ="text" id="_where" name="n_tag_where" onKeyDown="onKeyDown2();" onclick="this.value=''"></td>
 	</tr>
 
 	<tr> 
@@ -195,7 +191,7 @@ $(function() {
 		<span class="fa fa-map-marker fa-2x"  id="viewWhere"  onclick="return false;"></span>
 
 		<span style="float:right;"> 
-			<select name="show" >
+			<select name="n_show" >
 				<option value="1">전체공개</option>
 				<option value="2">친구만</option>
 				<option value="3">나만보기</option>
@@ -234,7 +230,7 @@ ${news.n_seq }
 				 <span class="caret"></span></button>
 					  <ul class="dropdown-menu">
 					    <li value="1" onclick="removeNews('${news.n_seq}')">삭제</li>
-					    <li value="2">수정</li>
+					    <li value="2" onclick="updateModal()">수정</li>
 					  </ul>
 		 </div>
 		</td>
@@ -303,9 +299,10 @@ ${news.n_seq }
 <tr>
 	
 	<td colspan="3"  align=left>
-<!-- 	<div id="like_btn"> -->
-	<i class="fa fa-thumbs-o-up" id="like_btn${news.n_seq }"  aria-hidden="true" onclick="test(${news.n_seq })"  style="color: black"></i> <a  id="like_btn_second${news.n_seq }"  onclick="test(${i.count})" style="color: black">좋아요</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-comment-o" aria-hidden="true" onclick="showComment(${news.n_seq })"></i> <a onclick="showComment(${news.n_seq })" style="color: black">댓글달기</a>
-	<!-- </div> -->
+	<i class="fa fa-thumbs-o-up" id="like_btn${news.n_seq }"  aria-hidden="true" onclick="test(${news.n_seq })"  style="color: black"></i> 
+	<a  id="like_btn_second${news.n_seq }"  onclick="test(${news.n_seq })" style="color: black">좋아요</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<i class="fa fa-comment-o" aria-hidden="true" onclick="showComment(${news.n_seq })"></i> 
+	<a onclick="showComment(${news.n_seq })" style="color: black">댓글달기</a>
 	</td>
 </tr>
 
@@ -402,7 +399,7 @@ function getState(val) {
 function setState(val){
 	
 /* 	$("#tag_feel").attr("value",val); */
-	$("#nowFeel").append("<input type='hidden' name='tag_feel' value="+val+">");
+	$("#nowFeel").append("<input type='hidden' name='n_tag_feel' value="+val+">");
 }
 
 function onKeyDown()
@@ -602,15 +599,13 @@ function removeNews(val){
 		 });
 }
 
-
-$(function(){
-    $("#popbutton2").click(function(){
- 
-        $('div.ys').modal({
+function updateModal(){
+ alert("tnwjd");
+/*         $('div.ys').modal({
                       remote : 'layer.jsp'
        });
-    })
-})
+ */
+ } 
 
 
 </script>
