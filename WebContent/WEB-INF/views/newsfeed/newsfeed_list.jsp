@@ -18,6 +18,7 @@
 </head>
 <body> 
 
+
 <c:if test="${news.n_seq ne NULL }">
 
 ${news.n_seq }
@@ -28,45 +29,39 @@ ${news.n_seq }
 		<td width=80px; rowspan="2">프사사진</td>
 		<td align=left>작성자 : ${news.m_id}</td>
 		<td>
-			<div class="dropdown">
-		   		 <button type="button" data-toggle="dropdown">
-				 <span class="caret"></span></button>
-					  <ul class="dropdown-menu">
-					    <li value="1">삭제</li>
-					    <li value="2">수정</li>
-					  </ul>
-		 </div>
+		 <select name="update_select">
+		 	<option value=""><삭제/수정></option>
+		 	<option  value="삭제" onclick="removeNews('${news.n_seq}')" >삭제</option>
+		 	<option value="수정"  data-toggle="modal" href="layer.jsp" data-target=".ys">수정</option>
+		 </select>
 		</td>
 </tr>
 <tr>
 		<td align=left>작성시간 : ${news.n_wdate}</td>
 		<td>
 
-		<div class="dropdown">
-			
-		   		 <button type="button" data-toggle="dropdown">
-				 <span class="caret"></span></button>
-					  <ul class="dropdown-menu">
-					  	<c:choose>
+		 <select class="dropdown-menu4" id="total">
+			<c:choose>
 							<c:when test="${news.n_show eq 1}"> 
-								<li value="1" onclick="updateShow('1,${news.n_seq }')">V 전체</li>
-							    <li value="2" onclick="updateShow('2,${news.n_seq }')" >친구만</li>
-							    <li value="3" onclick="updateShow('3,${news.n_seq }')" >나만보기</li>
+								<option value=""><공개 대상></option>
+								<option id="dropdown-menu-1-${news.n_seq }"   style="color: red" value="1" onclick="updateShow('1,${news.n_seq }'); changeShow('${news.n_seq }',1)" >전체</option>
+							    <option id="dropdown-menu-2-${news.n_seq }" value="2" onclick="updateShow('2,${news.n_seq }'); changeShow('${news.n_seq }',2)" >친구만</option>
+							    <option id="dropdown-menu-3-${news.n_seq }" value="3" onclick="updateShow('3,${news.n_seq }'); changeShow('${news.n_seq }',3)" >나만보기</option>
 						     </c:when>
 							<c:when test="${news.n_show eq 2}">
-								<li value="1" onclick="updateShow('1,${news.n_seq }')">전체</li>
-							    <li value="2" onclick="updateShow('2,${news.n_seq }')">V 친구만</li>
-							    <li value="3" onclick="updateShow('3,${news.n_seq }')">나만보기</li>
+								<option value=""><공개 대상></option>
+								<option id="dropdown-menu-1-${news.n_seq }" value="1" onclick="updateShow('1,${news.n_seq }'); changeShow('${news.n_seq }',1)">전체</option>
+							    <option id="dropdown-menu-2-${news.n_seq }" style="color: red" value="2" onclick="updateShow('2,${news.n_seq }'); changeShow('${news.n_seq }',2)" >친구만</option>
+							    <option id="dropdown-menu-3-${news.n_seq }" value="3" onclick="updateShow('3,${news.n_seq }'); changeShow('${news.n_seq }',3)">나만보기</option>
 						     </c:when>
 							<c:when test="${news.n_show eq 3}">
-								<li value="1" onclick="updateShow('1,${news.n_seq }')">전체</li>
-							    <li value="2" onclick="updateShow('2,${news.n_seq }')">친구만</li>
-							    <li value="3" onclick="updateShow('3,${news.n_seq }')">V 나만보기</li>
+								<option value=""><공개 대상></option>
+								<option id="dropdown-menu-1-${news.n_seq }" value="1" onclick="updateShow('1,${news.n_seq }'); changeShow('${news.n_seq }',1)">전체</option>
+							    <option id="dropdown-menu-2-${news.n_seq }" value="2" onclick="updateShow('2,${news.n_seq }'); changeShow('${news.n_seq }',2)">친구만</option>
+							    <option id="dropdown-menu-3-${news.n_seq }" style="color: red"  value="3" onclick="updateShow('3,${news.n_seq }'); changeShow('${news.n_seq }',3)" >나만보기</option>
 						     </c:when>
 						</c:choose>
-
-					  </ul>
-		 </div>
+		</select>
 		</td>
 </tr>
 

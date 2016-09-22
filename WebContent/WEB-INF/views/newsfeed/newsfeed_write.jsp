@@ -3,10 +3,8 @@
     <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
@@ -32,18 +30,22 @@ width:20%;
  #image_preview2 {
     display:none;
 }
+
+
 </style>
   
   
-</head>
-<body>
 
 
+
+  
+  
+write22324
 <form name="frmForm" id="_frmForm" action="writeNewsFeed.do" method="post" enctype="multipart/form-data">
 
 
 
-<input type="hidden" name="id" value="영선" >
+<input type="hidden" name="m_id" value="영선" >
 
 <table class="ys_write_table" style="width: 80%" border="1px solid black">
 	<tr>
@@ -54,7 +56,7 @@ width:20%;
 		<th width=300px; rowspan="2">프사사진</th>
 		<td>
 
-		<textarea id="ta" name="content" style="overflow: hidden"></textarea>
+		<textarea id="ta" name="n_content" style="overflow: hidden"></textarea>
 		
 		<div id="room_type">
 				<div id="image_preview2" >
@@ -92,7 +94,7 @@ width:20%;
 	
 	<tr id=friend style="display:none;">
 		<th>함께한 친구</th>
-		<td colspan="2"><input type ="text" id="_friend" name="tag_friend"  onKeyDown="onKeyDown();"  onclick="this.value=''"></td>
+		<td colspan="2"><input type ="text" id="_friend" name="n_tag_friend"  onKeyDown="onKeyDown();"  onclick="this.value=''"></td>
 	</tr>
 
 	
@@ -100,22 +102,20 @@ width:20%;
 	
 		<th id="printFeel">나는지금</th>
 		<td colspan="3">
-		<!-- 	 <div class="dropdown2">
-		   		 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-				 <span class="caret"></span></button>
-					  <ul class="dropdown-menu">
+	 	 <div class="dropdown">
+		   			<ul class="dropdown-menu5">
 					    <li onclick="getState('기뻐요'); setState('1')" value="1"><img src="image/happy.jpg">기뻐요</a></li>
 					    <li onclick="getState('슬퍼요'); setState('2')" value="2"><img src="image/sad.jpg">슬퍼요</a></li>
 					    <li onclick="getState('피곤해요'); setState('3')" value="3"><img src="image/tired.jpg">피곤해요</a></li>
 					  </ul>
-		 	 </div> -->
+		 	 </div> 
 		<!--   <input type="hidden" name="tag_feel" value="0"/>  -->
 		</td>
 	</tr>
 	
 	<tr id=where style="display:none;">
 				<th>장소</th>
-					<td colspan="3"><input type ="text" id="_where" name="tag_where" onKeyDown="onKeyDown2();" onclick="this.value=''"></td>
+					<td colspan="3"><input type ="text" id="_where" name="n_tag_where" onKeyDown="onKeyDown2();" onclick="this.value=''"></td>
 	</tr>
 
 	<tr> 
@@ -142,7 +142,7 @@ width:20%;
 		<span class="fa fa-map-marker fa-2x"  id="viewWhere"  onclick="return false;"></span>
 
 		<span style="float:right;"> 
-			<select name="show" >
+			<select name="n_tag_show" >
 				<option value="1">전체공개</option>
 				<option value="2">친구만</option>
 				<option value="3">나만보기</option>
@@ -154,7 +154,6 @@ width:20%;
 
 	</tr>
 </table>
-
 
 
 </form>
@@ -222,7 +221,7 @@ function getState(val) {
 function setState(val){
 	
 /* 	$("#tag_feel").attr("value",val); */
-	$("#nowFeel").append("<input type='hidden' name='tag_feel' value="+val+">");
+	$("#nowFeel").append("<input type='hidden' name='n_tag_feel' value="+val+">");
 }
 
 function onKeyDown()
@@ -252,9 +251,11 @@ function deleteArea(val){
 
 $(function() {
 	  $("#ta").keyup(function () {
+		
 	    $(this).css("height","5px").css("height",(20+$(this).prop("scrollHeight"))+"px");
 	  });
-	});
+});
+
 
  $('#image').on('change', function() {
 	   
@@ -333,18 +334,15 @@ function test(){
 	alert("test");
 }
 
-$(function(){ 
-   $("#_file2").click(function(){                    
-        $("#image").click(); 
-   }); 
-}); 
 
-$(function(){ 
-	   $("#_file3").click(function(){                    
-	        $("#image2").click(); 
-	 	   
-	       });
-	}); 
+$("#_file2").click(function(){                    
+      $("#image").click(); 
+ }); 
+
+
+$("#_file3").click(function(){                    
+	  $("#image2").click(); 
+});
 
 
 
@@ -358,8 +356,4 @@ $("#finish").click(function() {
 
 </script>
 
-
-
-</body>
-</html>
 
