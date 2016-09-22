@@ -102,6 +102,7 @@ lastDay: ${ lastDay } --%>
 				
 				<c:set var="stopLoop" value="false" />
 				<c:set var="dayListCnt" value="0" />
+				<c:set var="moreView" value="false" />
 				
 				<c:forEach var="event" items="${ eventList }" varStatus="eventCnt">
 				
@@ -146,7 +147,20 @@ lastDay: ${ lastDay } --%>
 						</c:when>
 						
 						<c:otherwise>
-							<div>&nbsp;&nbsp;&nbsp;<a href="#">더보기...</a></div>
+							<c:choose>
+							<c:when test="${ moreView == false }">
+								<div id="event_more_view">
+									&nbsp;&nbsp;&nbsp;
+									<a href="#" onclick="return false">더보기...</a>
+								</div>
+								<c:set var="moreView" value="true" />
+							</c:when>
+							<script type="text/javascript">
+								$('#')
+							</script>
+							</c:choose>
+							
+							<c:set var="dayListCnt" value="${ dayListCnt + 1 }" />
 							<c:set var="stopLoop" value="true" />
 						</c:otherwise>
 						</c:choose>
