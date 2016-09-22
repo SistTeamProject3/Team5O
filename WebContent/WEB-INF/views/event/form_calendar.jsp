@@ -49,11 +49,11 @@ pageContext.setAttribute("lastDay", lastDay);
 
 %>
 <!-- 확인용 테스트 -->
-year: ${ year } &nbsp;
+<%-- year: ${ year } &nbsp;
 month: ${ month } &nbsp;
 day: ${ day } &nbsp;
 startDay: ${ startDay } &nbsp;
-lastDay: ${ lastDay }
+lastDay: ${ lastDay } --%>
 <!-- // 확인용 테스트 -->
 
 <div class="event_calendar">
@@ -95,41 +95,43 @@ lastDay: ${ lastDay }
 		<!-- // 시작 날 이전 표시 -->
 		
 		<!-- 시작 날 ~ 종료 날 표시 -->
-		<%-- <c:set var="" value="${ event }"></c:set> --%>
-		
-		
 		<c:forEach begin="1" end="${ lastDay }" varStatus="calCnt">
 			
 			<td class="day">
 				<div>${ calCnt.count }</div>
 				
+				<c:set var="stopLoop" value="false" />
+				<c:set var="dayListCnt" value="0" />
+				
 				<c:forEach var="event" items="${ eventList }" varStatus="eventCnt">
 				
-					<c:set var="sDateArr" value="${ fn:split(event.e_start_date, '-') }"/>
+					<c:set var="sDateArr" value="${ fn:split(event.e_start_date, '-') }" />
+					
 					<c:forEach var="sDateText" items="${ sDateArr }" varStatus="sDateCnt">
 						<c:choose>
 						<c:when test="${ sDateCnt.count == 1 }">
-							<c:set var="eventYear" value="${ sDateText }"/>
+							<c:set var="eventYear" value="${ sDateText }" />
 						</c:when>
 						<c:when test="${ sDateCnt.count == 2 }">
-							<c:set var="eventMonth" value="${ sDateText }"/>
+							<c:set var="eventMonth" value="${ sDateText }" />
 						</c:when>
 						<c:when test="${ sDateCnt.count == 3 }">
-							<c:set var="eventDay" value="${ sDateText }"/>
+							<c:set var="eventDay" value="${ sDateText }" />
 						</c:when>
 						</c:choose>
-						
 					</c:forEach>
 					
-					<c:if test="${ eventYear == year && (eventMonth-1) == month && eventDay == calCnt.count }">
-					
-						<c:set var="stopLoop" value="false"/>
+					<c:if test="${ eventYear == year 
+					&& (eventMonth-1) == month 
+					&& eventDay == calCnt.count 
+					&& stopLoop == false }">
 						
 						<c:choose>
-						<c:when test="${ stopLoop == false }">
+						<c:when test="${ dayListCnt < 3 }">
 							<div>
 								<a href="#">
-									<span><img src="image/event/calendar_list_symbol_02.png" class="list_symbol" /></span>
+									<span><img src="image/event/calendar_list_symbol_02.png" 
+									class="list_symbol" /></span>
 									<c:choose>
 									<c:when test="${ fn:length(event.e_title) > 8 }">
 										${ fn:substring(event.e_title, 0, 8) }...
@@ -140,20 +142,17 @@ lastDay: ${ lastDay }
 									</c:choose>
 								</a>
 							</div>
-							<%-- <c:set var="stopLoop" value="false"/> --%>
+							<c:set var="dayListCnt" value="${ dayListCnt + 1 }" />
 						</c:when>
 						
 						<c:otherwise>
-							<div>
-								&nbsp;&nbsp;&nbsp;<a href="#">${ fn:length(eventList) - eventCnt.count }개 더보기...</a>
-							</div>
-							<c:set var="stopLoop" value="true"/>
+							<div>&nbsp;&nbsp;&nbsp;<a href="#">더보기...</a></div>
+							<c:set var="stopLoop" value="true" />
 						</c:otherwise>
 						</c:choose>
-					
+						
 					</c:if>
 				</c:forEach>
-				
 			</td>
 		
 			<!-- 달의 마지막 날이 일요일이면 행 추가를 막기 위해 'i.count != lastDay' 조건 추가 -->

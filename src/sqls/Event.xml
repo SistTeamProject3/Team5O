@@ -18,8 +18,9 @@
 		)
 </insert>
 
-<select id="selectEventList" resultType="sist.co.model.EventDTO">
+<select id="selectEventList" parameterType="String" resultType="sist.co.model.EventDTO">
 	SELECT * FROM TP3_EVENT
+	WHERE SUBSTR(E_START_DATE, 1, 7) = #{yyyymm}
 	ORDER BY E_SEQ ASC
 </select>
 

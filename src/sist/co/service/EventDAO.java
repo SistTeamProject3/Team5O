@@ -19,7 +19,7 @@ public class EventDAO {
 		sqlSession.insert(ns + "addEvent", event);
 	}
 	
-	public List<EventDTO> selectEventList() {
-		return sqlSession.selectList(ns + "selectEventList");
+	public List<EventDTO> selectEventList(String yyyymm) {
+		return sqlSession.selectList(ns + "selectEventList", yyyymm);
 	}
 }
