@@ -1,12 +1,9 @@
-<%@page import="org.omg.CORBA.OBJ_ADAPTER"%>
+<%-- <%@page import="org.omg.CORBA.OBJ_ADAPTER"%> --%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <fmt:requestEncoding value="utf-8" />
@@ -21,14 +18,24 @@ System.out.println("받은 값 S"+s_num+"L"+l_num);
 
 %>
 <script type="text/javascript">
+$(document).ready(function() {
+	$(".g_join").click(function() {
+	var a = $(this).attr("data-set");
+		alert(a);
+	});
+});
+</script>
+<script type="text/javascript">
+var s_num1 =1;
+var l_num1 =10;
+	 
+ 
 	$(document).ready(function() {
-		var s_num ="";
-		var l_num ="";
-		
 		//리스트 출력 막으려고
 		var i = 0;
+	
 		$("#top").click(function() {
-			$("#groupForm").attr({"target" : "_self","action" : "group_list.do?category=top"}).submit();
+			$("#groupForm").attr({"target" : "_self","action" : "group_list.do?category=top&s_num=1&l_num=10"}).submit();
 		});
 		$("#friends").click(function() {
 			$("#groupForm").attr({"target" : "_self","action" : "group_list.do?category=membership"}).submit();
@@ -39,23 +46,22 @@ System.out.println("받은 값 S"+s_num+"L"+l_num);
 		$("#membership").click(function() {
 			$("#groupForm").attr({"target" : "_self","action" : "group_list.do?category=membership"}).submit();
 		});
-		$(window).scroll(function() {
+	 	$(window).scroll(function() {
 			var posScroll = $(window).scrollTop() + $(window).height();
 			var maxHeight = $(document).height();
-		
-	
-			if ( posScroll > (maxHeight - 100) ) {
-				s_num = <%=s_num%>;
-				l_num = <%=l_num%>;
-				
-				s_num = s_num+10;
-				l_num = l_num+10;				
+
+			if (($(window).scrollTop() == $(document).height() - $(window).height())) {
+				s_num1 = s_num1+10;
+				l_num1 = l_num1+10;
 				
 				$.ajax({
 					type: 'POST',
-					url: 'group_list.do?category=top&m_id='+'FA'+'&s_num='+s_num+'&l_num='+l_num,
+					url: 'list.do?category=top&m_id='+'FA'+'&s_num='+s_num1+'&l_num='+l_num1,
+					async: false,
+					cache: false,
+					timeout: 10000,
 					success: function(data) {
-						
+					  	$('#bdiv').append(data); 
 					},
 					error: function(data) {
 						alert("실패...");
@@ -63,67 +69,29 @@ System.out.println("받은 값 S"+s_num+"L"+l_num);
 				}); 
 			}
 			
-			/* if ($(window).scrollTop() >= $(document).height()-$(window).height()-100) {
-				alert("스크롤");
-			} */
 		});
+ 
 
 	});
 </script>
+
 <div style="width: 100%;">
 	<table style="width: 100%;">
 		<tr>
 			<td>
-				<form action="" id="groupForm" method="post">
-				<input type="hidden" value="1" name="s_num">
-				<input type="hidden" value="10" name="l_num">
-					<input type="hidden" value="FA" id="m_id" name="m_id"> 
-					<b><a href="#none" id="top">추천 그룹</a></b> 
-					<a href="#none" id="friends">친구의 그룹</a>
-					<a href="#none" id="local">지역그룹</a>
-					<a href="#none" id="membership">회원님의 그룹</a>
+				<b><a href="#none" id="top">추천 그룹</a></b> 
+				<a href="#none" id="friends">친구의 그룹</a>
+				<a href="#none" id="local">지역그룹</a>
+				<a href="#none" id="membership">회원님의 그룹</a>
 			</td>
-			</from>
 			<td>
-				<button>그룹 만들기</button>
+				<a href="#none" data-toggle="modal" data-target="#myModal"><img alt="그룹 생성" src="image/making_group.jpg"></a>
 			</td>
 		</tr>
 	</table>
 </div>
-<div id="list_div" style="margin-left: 15%; margin-right: 15%; margin-top: 5%; margin-bottom: 5%; ">
-	<c:if test="${re_list.size()>0 }">
-		<table style="width: 100%;" border="1" id="list_table">
-			<tr>
-				<c:forEach items="${re_list }" var="list" varStatus="i">
-					<td style="width: 50%; height: 250px;">
-						<div style="width: 100%; height: 100%;">
-							<table style="width: 100%; height: 100%;">
-								<tr>
-									<c:if test="${empty list.g_photo}">
-									<td style="height:80%; width: 100%;" colspan="2"><img style="width: 99%; max-height: 200px; margin: 2px;" alt="그룹 이미지" src="image/g_img_basic.jpg"></td>
-									</c:if>
-									<c:if test="${!empty list.g_photo }">
-									<td style="height:80%; width: 100%;" colspan="2"><img style="width: 99%; max-height: 200px; margin: 2px;" alt="그룹 이미지" src="upload/${list.g_photo }"></td>
-									</c:if>
-									
-								</tr>
-								<tr>
-									<td style="width: 80%; height: 20%;"><a href="group_detail.do?g_seq=${list.g_seq}">${ list.g_name}</a></td>
-									<td style="width: 20%; height: 20%;"><button>가입</button></td>
-								</tr>
-							</table>
-						</div>
-					</td>
-				<c:if test="${i.count%2 eq 0 }">
-			</tr>
-			<tr>
-				</c:if>
-
-				</c:forEach>
-			</tr>
-		</table>
-	</c:if>
-	
+<div>
+<jsp:include page="list_table.jsp"/>
 	<c:if test="${re_list.size() == 0 }">
 		<table>
 			<tr>
@@ -133,4 +101,31 @@ System.out.println("받은 값 S"+s_num+"L"+l_num);
 	</c:if>
 </div>
 
+<!-- 리스트 출력 부분 -->
+<div id="bdiv">
+</div>
+<!-- 여기부터 모달 입니다. -->
+<div class="container">
+  <!-- Trigger the modal with a button -->
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+       	    <jsp:include page="/WEB-INF/views/group/group_make.jsp"></jsp:include>
+        </div>
+      	  <div class="modal-body">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
+<!-- 여기까지 모달 입니다. -->
+<form action="group_list.do" id="groupForm" method="post">
+	<input type="hidden" value="1" name="s_num">
+	<input type="hidden" value="10" name="l_num"> 
+	<input type="hidden" value="FA" id="m_id" name="m_id">
+</from> 

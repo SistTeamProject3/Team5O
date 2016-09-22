@@ -62,12 +62,20 @@
 	<put-attribute name="bottom_inc" value="/WEB-INF/views/common/bottom.jsp"/>
 </definition>
 
+<!-- 
 <definition name="recommend_group_list.tiles" template="/WEB-INF/views/layouts-grouplist.jsp">
 	<put-attribute name="top_inc" value="/WEB-INF/views/common/top.jsp"/>
 	<put-attribute name="center_main" value="/WEB-INF/views/group/recommend_group_list.jsp"/>
 	<put-attribute name="bottom_inc" value="/WEB-INF/views/common/bottom.jsp"/>
 </definition>
+ -->
+ 
+<definition name="recommend_group_list.tiles" extends="group_list.tiles">
+	<put-attribute name="center_main" value="/WEB-INF/views/group/recommend_group_list.jsp"/>
+</definition>
 
+<definition name="list.tiles" template="/WEB-INF/views/group/list_table.jsp">
+</definition>
 <!-- 그룹 리스트 출력 끝 -->
 
 <!-- 멤버 -->

@@ -1,19 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
+<!-- <html>
+<head> -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ -->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-</head>
+<!-- </head> -->
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#create").click(function() {
+		$("#group_make_Form").attr({"target":"_self","action":"group_make.do"}).submit();
+	});
+});
+</script>
 
-<body>
+<!-- <body> -->
 <div style="width: 100%;">
-<form action="group_make.do" method="post">
+<form action="group_make.do" method="post" id="group_make_Form">
 	<input type="hidden" value="FA" id="g_manager" name="g_manager">
 	<table border="1" style="width: 100%;">
 		<thead>
@@ -49,11 +58,11 @@
 		</tbody>
 		<tfoot>
 			<tr>
-				<td><button type="button" class="btn btn-default" data-dismiss="modal">취소</button><button id="create">만들기</button></td>
+				<td><button type="button" class="btn btn-default" data-dismiss="modal">취소</button><a href="#"><img id="create" alt="만들기" src="image/make.jpg"></a></td>
 			</tr>
 		</tfoot>
 	</table>
 </form>
 </div>
-</body>
-</html>
+<!-- </body>
+</html> -->

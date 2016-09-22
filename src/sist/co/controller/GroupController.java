@@ -39,7 +39,10 @@ public class GroupController {
 
 	@Autowired
 	private GroupService groupService;
-
+	
+/*	int Snum = 1;
+	int Enum = 10;*/
+	
 	// 그룹 만들기
 	@RequestMapping(value = "group_make.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String group_make(Model model, GroupMakeDTO group) throws Exception {
@@ -60,10 +63,10 @@ public class GroupController {
 	}
 	// 그룹 리스트 출력
 	@RequestMapping(value = "group_list.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String group_list(Model model, GroupListDTO gdto,String category) throws Exception {
+	public String group_list(Model model, GroupListDTO gdto, String category) throws Exception {
 		logger.info(" group_list " + new Date());
-		logger.info("시작"+gdto.getS_num());
-		logger.info("끝"+gdto.getL_num());
+		logger.info("컨트롤러로 들어온 S"+gdto.getS_num());
+		logger.info("컨트롤러로 들어온 L"+gdto.getL_num());
 		
 		if (category.equals("membership")) {
 			
@@ -75,35 +78,73 @@ public class GroupController {
 
 			return "group_list.tiles";
 		}else if (category.equals("top")) {
-			/*
-			int s_num = gdto.getS_num()+10;
-			int l_num = gdto.getL_num()+10;
-			*/
+			
+			logger.info("탑이다"+gdto.toString());
+					
 			List<GroupMakeDTO> re_list = new ArrayList<GroupMakeDTO>();
-			
 			re_list = groupService.recommend_group_list(gdto);
-	
+			
+			for (int i = 0; i < re_list.size(); i++) {
+				System.out.println(re_list.get(i).getG_name());
+			}
+			
+			logger.info("SQL에서 불러온 S"+gdto.getS_num());
+			logger.info("SQL에서 불러온 L"+gdto.getL_num());
+		//	Snum++;
+		//	Enum++;
+			
+		/*	gdto.setS_num(Snum);
+			gdto.setL_num(Enum);
+*/
+			/*
+			logger.info("처리 후 변경된  s "+gdto.getS_num());
+			logger.info("처리 후 변경된 l 넘"+gdto.getL_num());
+			*/
 			model.addAttribute("re_list", re_list);
-			
-			logger.info("탑에 들어온 s 넘"+gdto.getS_num());
-			logger.info("탑에 들어온 l 넘"+gdto.getL_num());
-			
 			
 			model.addAttribute("s_num", gdto.getS_num());
 			model.addAttribute("l_num", gdto.getL_num());
 			
+		logger.info("보낸 s "+gdto.getS_num());
+		logger.info("보낸 l "+gdto.getL_num());
+			
 			return "recommend_group_list.tiles";
 		}else {
-			model.addAttribute("l_num", gdto.getL_num()+1);
+
 			return "recommend_group_list.tiles";
 		}
 		
-	
+	}
+	@RequestMapping(value = "list.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public String list(Model model, GroupListDTO gdto, String category) throws Exception {
+		logger.info("list " + new Date());
+		logger.info("리스트 컨트롤러로 들어온 S"+gdto.getS_num());
+		logger.info("리스트 컨트롤러로 들어온 L"+gdto.getL_num());
+		
+		
+		
+		List<GroupMakeDTO> re_list = new ArrayList<GroupMakeDTO>();
+		re_list = groupService.recommend_group_list(gdto);
+		
+		
+		
+		for (int i = 0; i < re_list.size(); i++) {
+			System.out.println(re_list.get(i).getG_name());
+		}
+		
+		
+		
+		model.addAttribute("re_list", re_list);
+		return "list.tiles";
 		
 	}
+	
+	
 	@RequestMapping(value = "group_detail.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String group_detail(Model model, GroupMakeDTO gmake) throws Exception {
 		logger.info(" group_detail " + new Date());
+		
+		
 
 		GroupMakeDTO g_make = groupService.group_detail(gmake);
 		model.addAttribute("g_make", g_make);
