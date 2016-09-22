@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import sist.co.util.FUpUtil;
@@ -83,6 +84,10 @@ public class GroupController {
 			re_list = groupService.recommend_group_list(gdto);
 	
 			model.addAttribute("re_list", re_list);
+			
+			logger.info("탑에 들어온 s 넘"+gdto.getS_num());
+			logger.info("탑에 들어온 l 넘"+gdto.getL_num());
+			
 			
 			model.addAttribute("s_num", gdto.getS_num());
 			model.addAttribute("l_num", gdto.getL_num());
