@@ -52,7 +52,6 @@ public class GroupController {
 		groupService.group_make(group);
 		// 만든 그룹으로 가기 위해 작성
 		GroupMakeDTO Mdto = groupService.select_make_group(group);
-
 		// 그룹에 멤버 넣기
 		GroupMemberDTO member = new GroupMemberDTO(Mdto.getG_seq(), Mdto.getG_manager(), 3);
 
@@ -66,8 +65,8 @@ public class GroupController {
 	@RequestMapping(value = "group_list.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String group_list(Model model, GroupListDTO gdto, String category) throws Exception {
 		logger.info(" group_list " + new Date());
-		logger.info("컨트롤러로 들어온 S"+gdto.getS_num());
-		logger.info("컨트롤러로 들어온 L"+gdto.getL_num());
+/*		logger.info("컨트롤러로 들어온 S"+gdto.getS_num());
+		logger.info("컨트롤러로 들어온 L"+gdto.getL_num());*/
 		
 		if (category.equals("membership")) {
 			
@@ -80,7 +79,7 @@ public class GroupController {
 			return "group_list.tiles";
 		}else if (category.equals("top")) {
 			
-			logger.info("탑이다"+gdto.toString());
+			/*logger.info("탑이다"+gdto.toString());*/
 					
 			List<GroupMakeDTO> re_list = new ArrayList<GroupMakeDTO>();
 			re_list = groupService.recommend_group_list(gdto);
@@ -89,8 +88,8 @@ public class GroupController {
 				System.out.println(re_list.get(i).getG_name());
 			}*/
 			
-			logger.info("SQL에서 불러온 S"+gdto.getS_num());
-			logger.info("SQL에서 불러온 L"+gdto.getL_num());
+			/*logger.info("SQL에서 불러온 S"+gdto.getS_num());
+			logger.info("SQL에서 불러온 L"+gdto.getL_num());*/
 		//	Snum++;
 		//	Enum++;
 			
@@ -105,10 +104,10 @@ public class GroupController {
 			
 			model.addAttribute("s_num", gdto.getS_num());
 			model.addAttribute("l_num", gdto.getL_num());
-			
+	/*		
 		logger.info("보낸 s "+gdto.getS_num());
 		logger.info("보낸 l "+gdto.getL_num());
-			
+			*/
 			return "recommend_group_list.tiles";
 		}else {
 
@@ -119,10 +118,10 @@ public class GroupController {
 	@RequestMapping(value = "list.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String list(Model model, GroupListDTO gdto, String category) throws Exception {
 		logger.info("list " + new Date());
-		logger.info("리스트 컨트롤러로 들어온 S"+gdto.getS_num());
+	/*	logger.info("리스트 컨트롤러로 들어온 S"+gdto.getS_num());
 		logger.info("리스트 컨트롤러로 들어온 L"+gdto.getL_num());
 		
-		
+		*/
 		
 		List<GroupMakeDTO> re_list = new ArrayList<GroupMakeDTO>();
 		re_list = groupService.recommend_group_list(gdto);
@@ -159,12 +158,15 @@ public class GroupController {
 	public String group_detail_member(Model model, GroupMakeDTO gmake, int type) throws Exception {
 		logger.info(" group_detail_member " + new Date());
 	
-		logger.info("키워드" + gmake.getKeyword());
-		
+/*		logger.info("키워드" + gmake.getKeyword());
+*/		
 		GroupMakeDTO g_make = groupService.group_detail(gmake);
 		model.addAttribute("g_make", g_make);
 		
 		List<GroupMemberListDTO> g_m_list = groupService.group_mem_list(gmake);
+		for (int i = 0; i < g_m_list.size(); i++) {
+			System.out.println("멤버리스트"+g_m_list.toString());
+		}
 		model.addAttribute("g_m_list", g_m_list);
 		
 		List<GroupMemberListDTO> g_m_a_list = groupService.group_mem_admin_list(gmake);
@@ -270,7 +272,7 @@ public class GroupController {
     MultipartFile fileload ) throws Exception {
 		logger.info("group_main_image 메인이미지 " + new Date());
 	
-		 logger.info("fileload"+fileload);
+		/* logger.info("fileload"+fileload);*/
 		 gmake.setG_photo(fileload.getOriginalFilename());
 		 String fupload= request.getServletContext().getRealPath("/upload");
 
