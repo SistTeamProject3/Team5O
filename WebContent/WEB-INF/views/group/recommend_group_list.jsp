@@ -48,7 +48,7 @@ System.out.println("받은 값 S"+s_num+"L"+l_num);
 				s_num = <%=s_num%>;
 				l_num = <%=l_num%>;
 				
-				s_num= s_num+10;
+				s_num = s_num+10;
 				l_num= l_num+10;				
 				$.ajax({
 					type: 'POST',
@@ -56,14 +56,14 @@ System.out.println("받은 값 S"+s_num+"L"+l_num);
 					success: function(data) {
 						
 						var str ="<c:if test='${re_list.size()>0 }'>";
-						str += "<tr><c:forEach items='${re_list }' var='list' varStatus='i'><td style='width: 50%; height: 250px;'><div style='width: 100%; height: 100%;'>";
-						str +="<tr><c:if test='${empty list.g_photo}'><td style='height:80%; width: 100%;' colspan='2'><img style='width: 99%; max-height: 200px; margin: 2px;' alt='그룹 이미지' src='image/g_img_basic.jpg'></td>";
-						str +="</c:if><c:if test='${!empty list.g_photo }'>";
-						str +="<td style='height:80%; width: 100%;' colspan='2'><img style='width: 99%; max-height: 200px; margin: 2px;' alt='그룹 이미지' src='upload/${list.g_photo }'></td>";
-						str +="</c:if></tr><tr><td style='width: 80%; height: 20%;'><a href='group_detail.do?g_seq=${list.g_seq}'>${ list.g_name}</a></td>";
-						str +="<td style='width: 20%; height: 20%;'><button>가입</button></td>";
-						str +="</tr></table></div></td>";
-						str +="<c:if test='${i.count%2 eq 0 }'></tr><tr></c:if></c:forEach></tr></table></c:if>";	
+						str = str + "<tr><c:forEach items='${re_list }' var='list' varStatus='i'><td style='width: 50%; height: 250px;'><div style='width: 100%; height: 100%;'>";
+						str = str + "<tr><c:if test='${empty list.g_photo}'><td style='height:80%; width: 100%;' colspan='2'><img style='width: 99%; max-height: 200px; margin: 2px;' alt='그룹 이미지' src='image/g_img_basic.jpg'></td>";
+						str = str + "</c:if><c:if test='${!empty list.g_photo }'>";
+						str = str + "<td style='height:80%; width: 100%;' colspan='2'><img style='width: 99%; max-height: 200px; margin: 2px;' alt='그룹 이미지' src='upload/${list.g_photo }'></td>";
+						str = str + "</c:if></tr><tr><td style='width: 80%; height: 20%;'><a href='group_detail.do?g_seq=${list.g_seq}'>${ list.g_name}</a></td>";
+						str = str + "<td style='width: 20%; height: 20%;'><button>가입</button></td>";
+						str = str + "</tr></table></div></td>";
+						str = str + "<c:if test='${i.count%2 eq 0 }'></tr><tr></c:if></c:forEach></tr></table></c:if>";	
 					
 						$('#list_div').append(str);
 					},
