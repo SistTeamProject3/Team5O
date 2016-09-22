@@ -169,9 +169,9 @@ td {
 	</form>
 </div>
 <div class="modal-footer">
-	<button type="button" id="event_test" class="btn btn-default">테스트</button>
+	<!-- <button type="button" id="event_test" class="btn btn-default">테스트</button> -->
 	<button type="button" id="event_close" class="btn btn-default" data-dismiss="modal">닫기</button>
-	<button type="button" id="event_write" class="btn btn-primary" data-dismiss="modal">이벤트 만들기</button>
+	<button type="button" id="event_write" class="btn btn-primary">이벤트 만들기</button>
 </div>
 </div>
 </div>
@@ -181,11 +181,11 @@ td {
 <!--		script			-->
 <!--		▼ ▼ ▼ ▼			-->
 <script type="text/javascript">
-
+// 테스트용
+/* 
 $('#event_test').click(function() {
 });
-
-
+*/
 
 $(document).ready(function () {
 	// 이벤트 만들기 팝업 초기 설정
@@ -310,70 +310,56 @@ $(document).ready(function () {
 	// 이벤트 만들기 버튼 클릭
 	$('#event_write').click(function() {
 		
-		// 아이디 임시 값 저장 ※ 로그인 구현 완료되면 로그인한 아이디로 교체
-		$('#m_name').val("login_id");
+		var confirm = confirmInput();
 		
-		/*		날짜-시간 값 변환 & 저장		*/
-		var sDate = $('#start_date').val();
-		var eDate = $('#end_date').val();
-		
-		sDate = sDate.replace(' ', '-');
-		sDate = sDate.replace(':', '-');
-		
-		if ( eDate != '' ) {
-			eDate = sDate.replace(' ', '-');
-			eDate = sDate.replace(':', '-');
+		if ( confirm ) {
+			// 아이디 임시 값 저장 ※ 로그인 구현 완료되면 로그인한 아이디로 교체
+			$('#m_name').val("login_id");
+			
+			/*		날짜-시간 값 변환 & 저장		*/
+			var sDate = $('#start_date').val();
+			var eDate = $('#end_date').val();
+			
+			sDate = sDate.replace(' ', '-');
+			sDate = sDate.replace(':', '-');
+			
+			if ( eDate != '' ) {
+				eDate = sDate.replace(' ', '-');
+				eDate = sDate.replace(':', '-');
+			}
+			
+			$('#e_start_date').val(sDate);
+			$('#e_end_date').val(eDate);
+			
+			/*	 // 날짜-시간 값 변환 & 저장		*/
+			
+			// 전송
+			$('#frm_event_write').submit();
+			$('#event_close').click();
 		}
-		
-		$('#e_start_date').val(sDate);
-		$('#e_end_date').val(eDate);
-		
-		/*	 // 날짜-시간 값 변환 & 저장		*/
-		
-		// 전송
-		$('#frm_event_write').submit();
-		
-		/* Ajax 처리 시도 */
-		/* 
-		var frm = document.getElementById('frm_event_write');
-		var fileData = new FormData(frm);
-		 
-		$.ajax({
-			url: 'event_upload.do',
-			enctype: 'multipart/form-data', 
-			type: 'POST',
-			data: fileData,
-			async: false,
-			cache: false,
-			contentType: false,
-			processData: false,
-			success: function() {
-				alert("파일 업로드 완료");
-			}
-		});
-		*/
-		/* 
-		var params = $("#frm_event_write").serialize();
-		
-		$.ajax({
-			type: 'POST',
-			url: 'event_write.do',
-			data: params,
-			async: false,
-			success: function(data) {
-				alert("작성 완료");
-			},
-			error: function(data) {
-				alert("실패...");
-				alert(data);
-			}
-		});
-		*/
 	});
 });
 
 /*			function		*/
 /*			▼ ▼ ▼ ▼			*/
-
+function confirmInput() {
+	var inputEvtTitle = $('#event_name').val();
+	var inputEvtContent = $('#e_content').val();
+	
+	if ( inputEvtTitle == '' ) {
+		$('#event_name').focus();
+		alert("이벤트 이름을 입력해주세요.");
+		
+		return false;
+		
+	} else if ( inputEvtContent == '' ) {
+		$('#e_content').focus();
+		alert("이벤트 내용을 입력해주세요.");
+		
+		return false;
+	}
+	
+	return true;
+}
 
 </script>

@@ -100,8 +100,8 @@ lastDay: ${ lastDay } --%>
 			<td class="day">
 				<div>${ calCnt.count }</div>
 				
-				<c:set var="stopLoop" value="false" />
 				<c:set var="dayListCnt" value="0" />
+				<c:set var="moreViewCnt" value="0" />
 				<c:set var="moreView" value="false" />
 				
 				<c:forEach var="event" items="${ eventList }" varStatus="eventCnt">
@@ -124,8 +124,7 @@ lastDay: ${ lastDay } --%>
 					
 					<c:if test="${ eventYear == year 
 					&& (eventMonth-1) == month 
-					&& eventDay == calCnt.count 
-					&& stopLoop == false }">
+					&& eventDay == calCnt.count }">
 						
 						<c:choose>
 						<c:when test="${ dayListCnt < 3 }">
@@ -147,21 +146,27 @@ lastDay: ${ lastDay } --%>
 						</c:when>
 						
 						<c:otherwise>
+							
+							<c:set var="dayListCnt" value="${ dayListCnt + 1 }" />
+							<c:set var="moreViewCnt" value="${ moreViewCnt + 1 }" />
+							
 							<c:choose>
 							<c:when test="${ moreView == false }">
-								<div id="event_more_view">
-									&nbsp;&nbsp;&nbsp;
-									<a href="#" onclick="return false">더보기...</a>
+								<div>
+									&nbsp;
+									<a href="#" id="event_more_view" 
+									onclick="return false">${ moreViewCnt }개 더보기...</a>
 								</div>
 								<c:set var="moreView" value="true" />
 							</c:when>
-							<script type="text/javascript">
-								$('#')
-							</script>
+							
+							<c:otherwise>
+								<script type="text/javascript">
+									$('#event_more_view').text('${ moreViewCnt }' + "개 더보기...");
+								</script>
+							</c:otherwise>
 							</c:choose>
 							
-							<c:set var="dayListCnt" value="${ dayListCnt + 1 }" />
-							<c:set var="stopLoop" value="true" />
 						</c:otherwise>
 						</c:choose>
 						

@@ -18,13 +18,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import sist.co.util.CalendarUtil;
 import sist.co.util.FUpUtil;
 import sist.co.model.EventDTO;
-import sist.co.model.MsgEvent;
 import sist.co.service.EventService;
 
 @Controller
@@ -85,7 +83,7 @@ public class EventController {
 		
 		logger.info("event_write.do 접근 " + new Date());
 	//	logger.info("event.toString(): " + event.toString());
-		logger.info("fileload.getOriginalFilename(): " + fileload.getOriginalFilename());
+	//	logger.info("fileload.getOriginalFilename(): " + fileload.getOriginalFilename());
 		
 		if ( event.getE_image().equals("") ) {
 			event.setE_image(fileload.getOriginalFilename());
