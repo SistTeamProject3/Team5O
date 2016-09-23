@@ -30,10 +30,6 @@ var check_member = 0;	//이메일 인증버튼을 눌렀나 확인.
 var check_aa_number = 0; //인증 성공했는지 확인.
 var checkFirst = false;
 
-
-
-
-
     function sample6_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {

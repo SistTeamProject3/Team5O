@@ -9,8 +9,6 @@
 <html>
 <head>
 
-
-
 <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 
@@ -61,7 +59,7 @@
 	</c:if>
 </td>
 <td>
-	<a class="btn btn-default" href="main.do">홈</a>
+	<a class="btn btn-default" href="NewsFeedList2.do">홈</a>
 </td>
 <td>
 	<a class="btn btn-default" href="#">친구찾기</a>

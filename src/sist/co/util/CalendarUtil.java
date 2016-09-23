@@ -6,11 +6,13 @@ import java.util.Date;
 public class CalendarUtil {
 	//3 ->03
 	public static String two(int tt){
-		String ss="";
 		return (tt+"").length()>1?(tt+""):"0"+tt;
 	}
 	public static String yyyymm(int year, int month){
 		return ""+year+two(month);
+	}
+	public static String yyyy_mm(int year, int month) {
+		return year + "-" + two(month);
 	}
 	public static String yyyymmdd(int year, int month, int day){
 		return yyyymm(year,month)+two(day);

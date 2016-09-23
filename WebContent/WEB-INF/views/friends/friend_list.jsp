@@ -71,7 +71,7 @@ function infriends(){
 	            	<div class="col-md-3 col-sm-6 hero-feature">
 		                <div class="thumbnail">
 		                  <!-- (수정할거:0905)사진 크기에 따라 변하면 안됌.  -->
-		                    <img src="${pathone }" alt="이미지없음" width="300px"> 
+		                    <img src="${pathone }" alt="이미지없음" width="300px" height="200px"> 
 		                    <div class="caption">
 		                       <h3>${finform.value.m_name }<font size="1px">(${finform.value.m_nickname })</font></h3>	<!-- (수정할점0908)id로 출력됨 => 이름(nickname)으로 출력해야함 -->
 		                       <p>${finform.value.m_content}</p>

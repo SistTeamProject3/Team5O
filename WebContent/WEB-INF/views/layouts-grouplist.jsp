@@ -15,9 +15,7 @@
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/style.css"/>
 	<style type="text/css"></style>
 </head>
-
 <body>
-
 <div id="body_wrap">
 	<div id="main_wrap">
 		<div id="header_wrap">

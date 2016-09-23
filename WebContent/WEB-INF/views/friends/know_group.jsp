@@ -10,11 +10,47 @@
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
+<script type="text/javascript">
+function stranger(param, inpid){
+	
+	if($("#"+param).val()=="친구 끊기"){
+		
+		$.ajax({
+			type:"POST",
+			url:"stranger.do",
+			data:{"m_id":'${login_id}', "f_id":inpid},
+			success: function(response){
+				$("#"+param).attr({"value":"차단 하기", "class":"btn btn-default"});		
+			},error: function(request, status, error){
+				alert("error  code:"+request.status+"\n"+"error:"+error);
+			}
+			
+		});
+		
+	}else if($("#"+param).val()=="차단 하기"){
+		
+		$.ajax({
+			type:"POST",
+			url:"block.do",
+			data:{"m_id":'${login_id}', "f_id":inpid},
+			success: function(response){
+				$("#"+param).attr({"value":"차단 완료" , "disabled":true});		
+			},error: function(request, status, error){
+				alert("error  code:"+request.status+"\n"+"error:"+error);
+			}
+			
+		});
+		
+	}
+	
+}
+</script>
 
 <!-- 프로필사진 경로 : C:\springstudy\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\SpringSample\upload -->
 
 <h1>know_group</h1>
 
+<form>
 <table class="table table-striped table-hover ">
 	<colgroup>
 		<col width="150px"><col width="200px"><col width="200px">
@@ -35,7 +71,7 @@
 		<c:set var="pathone" value="${imgpath }\\${knowf.m_profile }"/>
 		<td><img src="${pathone}" alt="이미지없음" width="150px" height="100px"></td>
 		<td style="text-align: left; vertical-align: middle;">
-			<p>${knowf.m_id }</p>
+			<p>${knowf.m_nickname }</p>
 			<c:forEach items="${fstotalnum }" var="fstn" varStatus="fstnS">	
 				<c:if test="${fstn.key eq knowf.m_id }">
 					<p><font color="gray" size="1px">친구 ${fstn.value } 명</font></p>
@@ -46,7 +82,7 @@
 		<c:forEach items="${knowlist }" var="knowl" varStatus="knowlS">
 			<c:if test="${knowf.m_id eq knowl.f_id }">
 				<c:if test="${knowl.f_accept eq 1}">	<!-- 서로친구 -->
-					<a href="#" class="btn btn-primary">친구 끊기</a> <a href="#" class="btn btn-default">차단하기</a>
+					<p><input type="button" id="${f.f_id }" class="btn btn-primary" value="친구 끊기" onclick="stranger(id, '${knowl.f_id}')"></p>
 				</c:if>
 				<c:if test="${knowl.f_accept eq 2}">	<!-- follow친구 -->	
 					<a href="#" class="btn btn-primary">팔로우 끊기</a>
@@ -58,3 +94,4 @@
 	</c:forEach>
 	
 </table>
+</form>

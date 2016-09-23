@@ -24,36 +24,7 @@ ul {
 
 <ul>
 	<li><a href="event_calendar.do">달력</a></li>
-	<li><a href="#" id="_event_write" data-toggle="modal" data-target="#myModal" onclick="return false">만들기</a></li>
+	<li><a href="#" id="event_write_form" data-toggle="modal" data-target="#myModal" onclick="return false">만들기</a></li>
 </ul>
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title" id="myModalLabel">이벤트 만들기</h4>
-			</div>
-			<div class="modal-body">
-				<jsp:include page="../event/form_event_write.jsp"/>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-				<button type="button" class="btn btn-primary" data-dismiss="modal">이벤트 만들기</button>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- // Modal -->
-
-<script type="text/javascript">
-
-// 만들기 팝업이 등장할 때마다 팝업 내부에 있는 모든 input 값 초기화
-$('#_event_write').click(function() {
-	$('.frm_event_write').val('');
-});
-
-</script>
+<jsp:include page="../event/form_event_write.jsp" />

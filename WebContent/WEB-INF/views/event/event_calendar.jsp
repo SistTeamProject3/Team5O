@@ -14,20 +14,6 @@
 </head>
 <body>
 
-<%
-
-Calendar cal = Calendar.getInstance();
-
-int year = cal.get(Calendar.YEAR);
-int month = cal.get(Calendar.MONTH);
-int day = cal.get(Calendar.DAY_OF_MONTH);
-
-pageContext.setAttribute("year", year);
-pageContext.setAttribute("month", month);
-pageContext.setAttribute("day", day);
-
-%>
-
 <div id="_event_calendar_prev_month" class="event_calendar"></div>
 
 <jsp:include page="form_calendar.jsp">
@@ -49,6 +35,40 @@ var nextYear = ${ year };
 var nextMonth = ${ month };
 var nextDay = ${ day };
 
+$(document).ready(function() {
+	
+	// 최초 화면 진입 시 '현재 달' 출력. 스크롤바가 없으면 '다음 달'도 출력
+	var windowHeight = $(window).height();
+	var documentHeight = $(document).height();
+	
+	if ( nextMonth == 11 ) {
+		
+		nextYear = nextYear + 1;
+		nextMonth = 0;
+		
+	} else {
+		nextMonth = nextMonth + 1;
+	}
+	
+	if ( windowHeight <= documentHeight ) {
+		
+		$.ajax({
+			url: 'form_calendar.do?year=' + nextYear + '&month=' + nextMonth + "&day=" + nextDay,
+			type: 'GET',
+			async: false,
+			cache: false,
+			success: function(data) {
+				$('#_event_calendar_next_month').append(data);
+			},
+			error: function(data) {
+				alert("실패...");
+				alert(data);
+			}
+		});
+	}
+	
+});
+
 $(document).on('click', '.prev_month', function() {
 	
 	if ( prevMonth == 0 ) {
@@ -61,8 +81,10 @@ $(document).on('click', '.prev_month', function() {
 	}
 	
 	$.ajax({
-		type: 'GET',
 		url: 'form_calendar.do?year=' + prevYear + '&month=' + prevMonth + "&day=" + prevDay,
+		type: 'GET',
+		async: false,
+		cache: false,
 		success: function(data) {
 			$('#_event_calendar_prev_month').prepend(data);
 		},
@@ -81,7 +103,7 @@ $(document).scroll(function() {
 	// 페이지 높이
 	var maxHeight = $(document).height();
 	
-	if ( posScroll > (maxHeight - 300) ) {
+	if ( posScroll > (maxHeight - 200) ) {
 		if ( nextMonth == 11 ) {
 			
 			nextYear = nextYear + 1;
@@ -92,8 +114,10 @@ $(document).scroll(function() {
 		}
 		
 		$.ajax({
-			type: 'GET',
 			url: 'form_calendar.do?year=' + nextYear + '&month=' + nextMonth + "&day=" + nextDay,
+			type: 'GET',
+			async: false,
+			cache: false,
 			success: function(data) {
 				$('#_event_calendar_next_month').append(data);
 			},
@@ -105,36 +129,6 @@ $(document).scroll(function() {
 	}
 });
 
-
-$(document).ready(function() {
-	
-	// 최초 화면 진입 시 '현재 달' 출력. 스크롤바가 없으면 '다음 달'도 출력
-	var windowHeight = $(window).height();
-	var documentHeight = $(document).height();
-	
-	if ( nextMonth == 11 ) {
-		
-		nextYear = nextYear + 1;
-		nextMonth = 0;
-		
-	} else {
-		nextMonth = nextMonth + 1;
-	}
-	
-	if ( windowHeight == documentHeight ) {
-		$.ajax({
-			type: 'GET',
-			url: 'form_calendar.do?year=' + nextYear + '&month=' + nextMonth + "&day=" + nextDay,
-			success: function(data) {
-				$('#_event_calendar_next_month').append(data);
-			},
-			error: function(data) {
-				alert("실패...");
-				alert(data);
-			}
-		});
-	}
-});
 
 </script>
 

@@ -7,6 +7,15 @@
 
 <fmt:requestEncoding value="UTF-8"/>
 
+<!-- 날짜/시간 달력 Plugin -->
+<link rel="stylesheet" href="./css/bootstrap-material-datetimepicker.css" />
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script type="text/javascript" src="./js/material.min.js"></script>
+<script type="text/javascript" src="./js/moment-with-locales.min.js"></script>
+<script type="text/javascript" src="./js/bootstrap-material-datetimepicker.js"></script>
+<!-- // 날짜/시간 달력 Plugin -->
+
 <%
 
 Calendar cal = Calendar.getInstance();
@@ -37,94 +46,320 @@ td {
 
 </style>
 
-<form id="_frm_event_write" method="POST">
-	<table style="width: 100%;">
-	<col style="width: 20%;"/><col style="width: 80%;" />
-	<tr>
-		<th>이벤트 사진</th>
-		<td style="border: 1px solid #505050; border-radius: 2px;">
-			<span><a href="#" class="btn btn-default" style="width: 50%; float: left; border-radius: 0px;">주제 선택</a></span>
-			<span><a href="#" class="btn btn-default" style="width: 50%; border-radius: 0px;">사진 업로드</a></span>
-			<br/>
-			<div style="margin: 10px auto; color: #909090;">추천 주제</div>
-			<div id="myCarousel" class="carousel slide">
-				<!-- 회전광고판 항목 -->
-				<div class="carousel-inner">
-					<jsp:include page="event_title_image_list.jsp"/>
+<!-- 	Modal	 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title" id="myModalLabel">이벤트 만들기</h4>
+</div>
+<div class="modal-body">
+	<form id="frm_event_write" action="event_write.do" method="POST" enctype="multipart/form-data">
+		<table style="width: 100%;">
+		<col style="width: 20%;" /><col style="width: 80%;" />
+		<tr>
+			<th>이벤트 사진</th>
+			<td style="border: 1px solid #505050; border-radius: 2px; height: 200px;">
+				<div id="image_wrap_before">
+					
+					<span>
+						<a href="#" id="title_image_choice" class="btn btn-default" 
+						style="width: 50%; float: left; border-radius: 0px;">주제 선택</a>
+					</span>
+					
+					<span>
+						<a href="#" id="image_upload" class="btn btn-default" 
+						style="width: 50%; border-radius: 0px;">사진 업로드</a>
+						<!-- 파일 업로드 버튼 '찾아보기' 숨김 -->
+						<input type="file" id="btn_image_upload" name="image_name" accept="image/*" />
+					</span>
+					<br/>
+					<div id="img_slide">
+						<div style="margin: 10px auto; color: #909090;">추천 주제</div>
+						
+						<!-- 주제 이미지 슬라이드 -->
+						<div id="myCarousel" class="carousel slide">
+							<!-- 이미지 리스트 -->
+							<div class="carousel-inner">
+								<jsp:include page="event_title_image_list.jsp" />
+							</div>
+							<!-- 이미지 전환(좌/우) -->
+							<a class="carousel-control left" href="#myCarousel" data-slide="prev" 
+							style="padding-top: 70px; font-size: 30pt;">&lsaquo;</a>
+							<a class="carousel-control right" href="#myCarousel" data-slide="next" 
+							style="padding-top: 70px; font-size: 30pt;">&rsaquo;</a>
+						</div>
+						<!-- // 주제 이미지 슬라이드 -->
+					</div>
 				</div>
-				<!-- 회전광고판 탐색 -->
-				<a class="carousel-control left" href="#myCarousel" data-slide="prev" style="padding-top: 70px; font-size: 30pt;">&lsaquo;</a>
-				<a class="carousel-control right" href="#myCarousel" data-slide="next" style="padding-top: 70px; font-size: 30pt;"">&rsaquo;</a>
-			</div>
-		</td>
-	</tr>
-	
-	<tr>
-		<th>이벤트 이름</th>
-		<td>
-			<input type="text" class="form-control frm_event_write" placeholder="간결하고 명확한 이름을 추가하세요" />
-		</td>
-	</tr>
-	
-	<tr>
-		<th>장소</th>
-		<td>
-			<input type="text" class="form-control frm_event_write" placeholder="장소 또는 주소를 포함하세요" />
-		</td>
-	</tr>
-	
-	<tr>
-		<th id="_event_time">날짜/시간</th>
-		<td>
-			<input type="text" class="form-control" style="width: 100px; margin-right: 5px; display: inline-block;" />
-			<input type="text" class="form-control" style="width: 100px; display: inline-block;" />
-			<div style="display: inline-block; margin-top: 6px; float: right;">
-				<a href="#" id="_end_date" onclick="return false;">+ 종료 시간</a>
-			</div>
-		</td>
-	</tr>
-	
-	<!-- 기본 상태: 숨김 -->
-	<tr id="_date_end">
-		<th>종료</th>
-		<td>
-			<input type="text" class="form-control" style="width: 100px; margin-right: 5px; display: inline-block;" />
-			<input type="text" class="form-control" style="width: 100px; display: inline-block;" />
-			<div style="display: inline-block; margin-top: 6px; float: right;">
-				<a href="#" id="_end_time_delete" onclick="return false;">삭제</a>
-			</div>
-		</td>
-	</tr>
-	
-	<tr>
-		<th>설명</th>
-		<td>
-			<textarea rows="3" class="form-control" placeholder="이벤트에 대해 자세히 알려주세요"></textarea>
-		</td>
-	</tr>
-	</table>
-</form>
+				<div id="image_wrap_after">
+					<!-- 이미지 취소 버튼, 기본 상태: 숨김 -->
+					<span>
+						<input type="image" id="btn_title_image_delete" src="image/event/btn_close.png" alt="왜죠"
+						onclick="return false"
+						style="position: absolute; top: 20px; right: 30px; border: none;"/>
+					</span>
+					
+					<img id="user_image" style="width: 100%; height: 200px;"/>
+					
+				</div>
+			</td>
+		</tr>
+		
+		<tr>
+			<th>이벤트 이름</th>
+			<td>
+				<input type="text" id="event_name" name="e_title" class="form-control frm_event_write" 
+				maxlength="100" placeholder="간결하고 명확한 이름을 추가하세요" />
+			</td>
+		</tr>
+		
+		<tr>
+			<th>장소</th>
+			<td>
+				<input type="text" name="e_location" class="form-control frm_event_write" 
+				maxlength="100" placeholder="장소 또는 주소를 포함하세요" />
+			</td>
+		</tr>
+		
+		<tr>
+			<th id="event_date_time">날짜/시간</th>
+			<td>
+				<input type="text" id="start_date" class="form-control" readonly="readonly"
+				placeholder="시작 날짜" style="width: 140px; margin-right: 5px; 
+				display: inline-block; background-color: white; cursor: pointer;" />
+				
+				<div style="display: inline-block; margin-top: 6px; float: right;">
+					<a href="#" id="end_date_add" onclick="return false;">+ 종료 시간</a>
+				</div>
+			</td>
+		</tr>
+		
+		<!-- 기본 상태: 숨김 -->
+		<tr id="date_end">
+			<th>종료</th>
+			<td>
+				<input type="text" id="end_date" class="form-control" readonly="readonly"
+				placeholder="종료 날짜" style="width: 140px; margin-right: 5px; 
+				display: inline-block; background-color: white; cursor: pointer;" />
+				
+				<div style="display: inline-block; margin-top: 6px; float: right;">
+					<a href="#" id="end_time_delete" onclick="return false;">삭제</a>
+				</div>
+			</td>
+		</tr>
+		
+		<tr>
+			<th>설명</th>
+			<td>
+				<textarea rows="3" id="e_content" name="e_content" class="form-control" 
+				placeholder="이벤트에 대해 자세히 알려주세요" style="resize: none;"></textarea>
+			</td>
+		</tr>
+		</table>
+		
+		<input type="hidden" id="m_name" name="m_name" />
+		<input type="hidden" id="e_image" name="e_image" />
+		<input type="hidden" id="e_start_date" name="e_start_date" />
+		<input type="hidden" id="e_end_date" name="e_end_date" />
+		
+	</form>
+</div>
+<div class="modal-footer">
+	<!-- <button type="button" id="event_test" class="btn btn-default">테스트</button> -->
+	<button type="button" id="event_close" class="btn btn-default" data-dismiss="modal">닫기</button>
+	<button type="button" id="event_write" class="btn btn-primary">이벤트 만들기</button>
+</div>
+</div>
+</div>
+</div>
+<!--  // Modal	 -->
 
-<!-- script -->
+<!--		script			-->
+<!--		▼ ▼ ▼ ▼			-->
 <script type="text/javascript">
+// 테스트용
+/* 
+$('#event_test').click(function() {
+});
+*/
 
 $(document).ready(function () {
-	$('#_date_end').hide();
-	$('.carousel').carousel({
-		interval: false
+	// 이벤트 만들기 팝업 초기 설정
+	$('#event_write_form').click(function() {
+		// 이벤트 제목 커서 이동
+		setTimeout( function() { $('#event_name').focus(); }, 500);
+		
+		// 모든 입력 값 초기화
+		$('#frm_event_write file').val('');
+		$('#frm_event_write input').val('');
+		$('#frm_event_write textarea').val('');
+	});
+	
+	/*		기본 환경설정		*/
+	
+	$('#date_end').hide();
+	$('.carousel').carousel({ interval: false });
+	$('#btn_image_upload').hide();
+	$('#image_wrap_after').hide();
+	
+	/* 	 // 기본 환경설정 		*/
+	
+	// 추천 이미지 클릭
+	$('.title_image').click(function() {
+		
+		var selectImg = $(this).attr('src');
+		
+		$('#img_slide').hide();
+		$('#image_wrap_before').hide();
+		
+		$('#user_image').attr('src', selectImg);
+		$('#image_wrap_after').show();
+		
+		$('#e_image').val(selectImg);
+	
+	});
+	
+	// 사진 업로드 버튼 클릭
+	$('#image_upload').click(function() {
+		$('#btn_image_upload').click();
+	});
+
+	// 업로드 파일 확장자 검사 & 미리보기
+	$('#btn_image_upload').change(function() {
+		
+		var fileName = $(this).val();
+		var lastIdx = fileName.lastIndexOf('.');
+		var extentionName = fileName.substring(lastIdx + 1, fileName.length);
+		extentionName = extentionName.toLowerCase();
+		
+		if ( extentionName == '' ) {
+			return false;
+		} else if (	extentionName != "jpg"
+				&& 	extentionName != "jpeg"
+				&& 	extentionName != "bmp"
+				&& 	extentionName != "gif"
+				&& 	extentionName != "png" ) {
+			
+			alert("지원하지 않는 확장자 입니다." + "\n" + "※ 지원가능한 확장자(jpg, jpeg, bmp, gif, png)");
+			$('#btn_image_upload').val('');
+			
+		} else {
+			$('#img_slide').hide();
+			$('#image_wrap_before').hide();
+			
+			// 선택한 파일의 '가상의 웹 경로' 생성
+			var file = $('#btn_image_upload').prop("files")[0];
+	        var fileURL = window.URL.createObjectURL(file);
+			
+			$('#user_image').attr('src', fileURL);
+			$('#image_wrap_after').show();
+		}
+	});
+	
+	// 사진 업로드 취소 버튼 클릭
+	$('#btn_title_image_delete').click(function() {
+		$('#btn_image_upload').val('');
+		$('#user_image').attr('src', '');
+		$('#e_image').val('');
+		
+		$('#image_wrap_after').hide();
+		$('#img_slide').show();
+		$('#image_wrap_before').show();
+	});
+	
+	/*		날짜-시간		  */
+	
+	$('#end_date').click(function() {
+		var startDate = $('#start_date').val();
+		
+		if ( startDate == '' ) {
+			alert("시작 날짜부터 설정해주세요.");
+			$('#start_date').focus();
+		}
+	});
+	
+	$('#start_date').bootstrapMaterialDatePicker(
+		{ weekStart : 0, format : 'YYYY-MM-DD HH:mm', minDate : new Date() } 
+		).on('change', function(e, date) {
+			$('#end_date').bootstrapMaterialDatePicker( 
+				{ weekStart : 0, format : 'YYYY-MM-DD HH:mm', minDate : date }
+			);
+		});
+	
+	// 종료 시간 추가 클릭
+	$('#end_date_add').click(function () {
+		$('#event_date_time').text("시작");
+		$('#end_date_add').hide();
+		$('#date_end').show();
+	});
+
+	// 종료 시간 삭제 클릭
+	$('#end_time_delete').click(function () {
+		$('#event_date_time').text("날짜/시간");
+		$('#date_end').hide();
+		$('#end_date_add').show();
+		$('#end_date').val('');
+	});
+	
+	/*		// 날짜-시간 		  */
+	
+	// 이벤트 만들기 버튼 클릭
+	$('#event_write').click(function() {
+		
+		var confirm = confirmInput();
+		
+		if ( confirm ) {
+			// 아이디 임시 값 저장 ※ 로그인 구현 완료되면 로그인한 아이디로 교체
+			$('#m_name').val("login_id");
+			
+			/*		날짜-시간 값 변환 & 저장		*/
+			var sDate = $('#start_date').val();
+			var eDate = $('#end_date').val();
+			
+			sDate = sDate.replace(' ', '-');
+			sDate = sDate.replace(':', '-');
+			
+			if ( eDate != '' ) {
+				eDate = sDate.replace(' ', '-');
+				eDate = sDate.replace(':', '-');
+			}
+			
+			$('#e_start_date').val(sDate);
+			$('#e_end_date').val(eDate);
+			
+			/*	 // 날짜-시간 값 변환 & 저장		*/
+			
+			// 전송
+			$('#frm_event_write').submit();
+			$('#event_close').click();
+		}
 	});
 });
 
-$('#_end_date').click(function () {
-	$('#_event_time').text("시작");
-	$('#_end_date').hide();
-	$('#_date_end').show();
-});
-
-$('#_end_time_delete').click(function () {
-	$('#_event_time').text("날짜/시간");
-	$('#_date_end').hide();
-	$('#_end_date').show();
-});
+/*			function		*/
+/*			▼ ▼ ▼ ▼			*/
+function confirmInput() {
+	var inputEvtTitle = $('#event_name').val();
+	var inputEvtContent = $('#e_content').val();
+	
+	if ( inputEvtTitle == '' ) {
+		$('#event_name').focus();
+		alert("이벤트 이름을 입력해주세요.");
+		
+		return false;
+		
+	} else if ( inputEvtContent == '' ) {
+		$('#e_content').focus();
+		alert("이벤트 내용을 입력해주세요.");
+		
+		return false;
+	}
+	
+	return true;
+}
 
 </script>
