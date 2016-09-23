@@ -12,12 +12,12 @@
 		WHERE m_id=#{m_id} OR m_phone=#{m_id} AND M_PASSWORD=#{m_password}
 	</select>
 	
-	<select id="login2" 
+	<!-- <select id="login2" 
 		parameterType="sist.co.model.MemberDTO"
 		resultType="sist.co.model.MemberDTO">
 		SELECT * FROM TP3_MEMBER
 		WHERE m_id=#{m_id} OR m_phone=#{m_id}
-	</select>
+	</select> -->
 	
 	
 	<select id="check_member" parameterType="sist.co.model.MemberDTO" resultType="java.lang.Integer">

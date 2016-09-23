@@ -139,7 +139,7 @@ public class YSController {
       
       
       MemberDTO login = null;
-      login =  MemberService.login2(member);
+      login =  MemberService.login(member);
       
       if(login != null && !login.getM_id().equals("")){
           
