@@ -55,6 +55,8 @@ public class YSController {
       if(fileload!=null){
          System.out.println(" 야호 null이 아니다");
       System.out.println("fileload.getSize()=="+fileload.getSize());
+      System.out.println("fileload.getSize()=="+fileload.getSize());
+      System.out.println("fileload.getSize()=="+fileload.getSize());
       }
       else{
          System.out.println("null이다");
@@ -88,11 +90,6 @@ public class YSController {
       System.out.println("getSize"+fileload.getSize());
       if(fileload.getSize()==0){
          try{      
-        	 
-        	 System.out.println("getSize==0");
-        	 System.out.println("getSize==0");
-        	 System.out.println("getSize==0");
-        	 
             File file = new File(fupload + "/" + newFile);      
             FileUtils.writeByteArrayToFile(file, fileload.getBytes());
    
@@ -128,6 +125,8 @@ public class YSController {
     	  return "redirect:/NewsFeedList2.do";  
       }
    }
+   
+   
    
    
    

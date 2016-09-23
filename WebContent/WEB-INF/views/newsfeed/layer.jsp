@@ -137,7 +137,7 @@ width:20%;
   		 -->
  	
   		 <!--  <label for="image"> -->
-  		 	<input type=file  name="fileload" id="image_2" style='display: none;'> 
+  		 	<input type=file  name="fileload2" id="image_2" style='display: none;'> 
 			<img src='image/news_file.jpg' name="_file2" id="_file2_2" border='0' onclick='hideAll2();'>
 		<!-- 	</label> -->
 	
