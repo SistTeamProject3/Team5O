@@ -47,7 +47,7 @@ public class YSController {
          method=RequestMethod.POST)
    public String writeNewsFeed(NewsFeedDTO newsfeeddto,
                      HttpServletRequest request,
-                     @RequestParam(value="fileload2", required=false)
+                     @RequestParam(value="fileload", required=false)
                      MultipartFile fileload, Model model){
    
       logger.info("YSController writeNewsFeed " + new Date());
@@ -85,9 +85,14 @@ public class YSController {
       System.out.println("newFile==="+newFile);
       System.out.println("newFile==="+newFile);
       
-      
+      System.out.println("getSize"+fileload.getSize());
       if(fileload.getSize()==0){
          try{      
+        	 
+        	 System.out.println("getSize==0");
+        	 System.out.println("getSize==0");
+        	 System.out.println("getSize==0");
+        	 
             File file = new File(fupload + "/" + newFile);      
             FileUtils.writeByteArrayToFile(file, fileload.getBytes());
    
@@ -101,7 +106,8 @@ public class YSController {
          }
 
       }else{
-         try{      
+         try{    
+        
             File file = new File(fupload + "/" + newFile);      
             FileUtils.writeByteArrayToFile(file, fileload.getBytes());
    
@@ -114,48 +120,54 @@ public class YSController {
             logger.info("writeNewsFeed fail!");
          }
       }
-      return "redirect:/NewsFeedList2.do";
+      if ( newsfeeddto.getG_seq() != 0 ) {
+    	  logger.info("조건이 들어감");
+    	 
+    	  return "redirect:/group_detail.do?g_seq="+newsfeeddto.getG_seq();
+      }else {
+    	  return "redirect:/NewsFeedList2.do";  
+      }
    }
    
    
-	
+   
    @RequestMapping(value="NewsFeedList.do", 
          method={RequestMethod.GET, RequestMethod.POST})
    public String NewsFeedList(HttpServletRequest request, MemberDTO member, Model model) throws Exception{   
-	   
-	   logger.info("YSController NewsFeedList " + new Date());
-	   
-		
-		MemberDTO login = null;
-		login =  MemberService.login2(member);
-		
-		if(login != null && !login.getM_id().equals("")){
-			 
-			List<NewsFeedDTO> NewsFeedList =  newsFeedService.getNewsFeedList();
-			model.addAttribute("NewsFeedList",NewsFeedList);
-		      
-		      request.getSession().setAttribute("login", login);
-			return "main.tiles";
-			
-		}else{
-			
-			return "redirect:/login.do";
-		}
-		
+      
+      logger.info("YSController NewsFeedList " + new Date());
+      
+      
+      MemberDTO login = null;
+      login =  MemberService.login2(member);
+      
+      if(login != null && !login.getM_id().equals("")){
+          
+         List<NewsFeedDTO> NewsFeedList =  newsFeedService.getNewsFeedList();
+         model.addAttribute("NewsFeedList",NewsFeedList);
+            
+            request.getSession().setAttribute("login", login);
+         return "main.tiles";
+         
+      }else{
+         
+         return "redirect:/login.do";
+      }
+      
   }   
    
    @RequestMapping(value="NewsFeedList2.do", 
-	         method={RequestMethod.GET, RequestMethod.POST})
-	   public String NewsFeedList2(HttpServletRequest request, MemberDTO member, Model model) throws Exception{   
-		   
-		   logger.info("YSController NewsFeedList " + new Date());
+            method={RequestMethod.GET, RequestMethod.POST})
+      public String NewsFeedList2(HttpServletRequest request, MemberDTO member, Model model) throws Exception{   
+         
+         logger.info("YSController NewsFeedList " + new Date());
 
-				List<NewsFeedDTO> NewsFeedList =  newsFeedService.getNewsFeedList();
-				model.addAttribute("NewsFeedList",NewsFeedList);
+            List<NewsFeedDTO> NewsFeedList =  newsFeedService.getNewsFeedList();
+            model.addAttribute("NewsFeedList",NewsFeedList);
 
-				return "main.tiles";
+            return "main.tiles";
 
-	  }   
+     }   
    
    
    @RequestMapping(value="test.do", 
@@ -185,40 +197,40 @@ public class YSController {
    
    
    @RequestMapping(value="updateShow.do", 
-	         method={RequestMethod.GET, RequestMethod.POST})
-	   public String updateShow(Model model, String val){ 
-	   logger.info("YSController updateShow" + new Date());
-	   
-	   System.out.println("val=="+val);
-	   String[] arr = val.split(",");
-	   
-	   int updatenum=Integer.parseInt(arr[0]);
-	   int seq=Integer.parseInt(arr[1]);
-	   
-	   
-	   HashMap<String, Integer> map = new HashMap<String, Integer>();
-	   map.put("updatenum",updatenum);
-	   map.put("seq",seq);
-	   
-		System.out.println("map.size()==="+map.size());
-	   newsFeedService.updateShow(map);
-	   
-	   return "redirect:/NewsFeedList2.do";
-	   
+            method={RequestMethod.GET, RequestMethod.POST})
+      public String updateShow(Model model, String val){ 
+      logger.info("YSController updateShow" + new Date());
+      
+      System.out.println("val=="+val);
+      String[] arr = val.split(",");
+      
+      int updatenum=Integer.parseInt(arr[0]);
+      int seq=Integer.parseInt(arr[1]);
+      
+      
+      HashMap<String, Integer> map = new HashMap<String, Integer>();
+      map.put("updatenum",updatenum);
+      map.put("seq",seq);
+      
+      System.out.println("map.size()==="+map.size());
+      newsFeedService.updateShow(map);
+      
+      return "redirect:/NewsFeedList2.do";
+      
    }
    
    
    @RequestMapping(value="deleteNews.do", 
-	         method={RequestMethod.GET, RequestMethod.POST})
-	   public String removeNews(Model model, String val){ 
-	   logger.info("YSController deleteNews" + new Date());
-	   
-	   System.out.println("val=="+val);
-	   
-	   newsFeedService.deleteNews(Integer.parseInt(val));
-	   
-	   return "redirect:/NewsFeedList2.do";
-	   
+            method={RequestMethod.GET, RequestMethod.POST})
+      public String removeNews(Model model, String val){ 
+      logger.info("YSController deleteNews" + new Date());
+      
+      System.out.println("val=="+val);
+      
+      newsFeedService.deleteNews(Integer.parseInt(val));
+      
+      return "redirect:/NewsFeedList2.do";
+      
  }
    
    
@@ -227,6 +239,5 @@ public class YSController {
    
    
 }
-
 
 

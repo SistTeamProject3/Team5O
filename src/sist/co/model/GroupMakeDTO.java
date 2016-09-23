@@ -1,10 +1,14 @@
 package sist.co.model;
 
-public class GroupMakeDTO {
+import java.io.Serializable;
+
+import org.springframework.web.multipart.MultipartFile;
+
+public class GroupMakeDTO implements Serializable{
 	
 	
 	/*
-		CREATE TABLE MAKEGROUP(
+		CREATE TABLE TP3_MAKEGROUP(
 		g_seq NUMBER primary key,
 		g_name VARCHAR2(100) NOT NULL,
 		g_photo	VARCHAR2(1000) NOT NULL,
@@ -17,11 +21,10 @@ public class GroupMakeDTO {
 	 */
 	
 	private int g_seq;
-	private	String g_name;
-	private	String g_photo;
-	private int g_type;
-	private String g_manager;
-	
+		private	String g_name;
+		private	String g_photo;
+		private int g_type;
+		private String g_manager;
 	//검색용
 	private String keyword;
 	

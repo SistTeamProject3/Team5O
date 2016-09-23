@@ -43,24 +43,23 @@
 </select>
 
 <update id="updateShow" parameterType="hashmap">
-	UPDATE TP3_NEWSFEED SET N_SHOW=#{updatenum} 
-	WHERE N_SEQ=#{seq}
+   UPDATE TP3_NEWSFEED SET N_SHOW=#{updatenum} 
+   WHERE N_SEQ=#{seq}
 </update>
 
 
 <update id="deleteNews" parameterType="Integer">
-	UPDATE TP3_NEWSFEED SET N_DEL=1
-	WHERE N_SEQ =#{seq}
+   UPDATE TP3_NEWSFEED SET N_DEL=1
+   WHERE N_SEQ =#{seq}
 </update>
 
 
 <select id="getNewsFeedList"  resultType="sist.co.model.NewsFeedDTO">
 <![CDATA[ 
-	SELECT *
-	FROM (SELECT * FROM TP3_NEWSFEED ORDER BY N_SEQ DESC)
-	WHERE ROWNUM<11
-	]]>
+   SELECT *
+   FROM (SELECT * FROM TP3_NEWSFEED ORDER BY N_SEQ DESC)
+   WHERE ROWNUM<11
+   ]]>
 </select>
 </mapper>  
-
 

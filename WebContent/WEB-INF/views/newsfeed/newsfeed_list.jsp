@@ -124,3 +124,6 @@ ${news.n_seq }
 </table>
 </div>
 </c:if>
+
+</body>
+</html>

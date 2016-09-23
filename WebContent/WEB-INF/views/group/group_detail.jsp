@@ -12,7 +12,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-<title>Insert title here</title>
 <script>
 $(document).ready(function(){
 	 $("#writer").hide();
@@ -31,8 +30,14 @@ $(document).ready(function(){
 </div>
 <!-- 헤더 끝-->
 <hr>
-토론
-<!-- 뉴스피드 들어감 -->
+<div style="width: 70%;">
+	<jsp:include page="/WEB-INF/views/group/group_newsfeed_write.jsp"/>
 </div>
+<div style="width: 70%;">
+<%-- <jsp:include page="/WEB-INF/views/group/group_news_list.jsp"/> --%>
+</div>
+</div>
+
+
 </body>
 </html>

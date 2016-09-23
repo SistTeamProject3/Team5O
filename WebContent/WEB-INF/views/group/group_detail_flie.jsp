@@ -12,7 +12,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-<title>Insert title here</title>
 <style type="text/css">
 ul.ulA {
     list-style:none;
@@ -27,6 +26,14 @@ li.liA {
 }
 </style>
 <script>
+function filedowns(filename){
+	   alert("filedowns");
+	   var doc=document.delfileup;
+	   doc.filename.value=filename;
+	   alert(filename);
+	   doc.submit();
+	}
+	
 $(document).ready(function(){
     $("#all_file").click(function() {
     	$("#fileForm").attr({"target":"_self","action":"group_detail_flie.do"}).submit();
@@ -48,7 +55,7 @@ $(document).ready(function(){
 </div>
 <!-- 헤더 끝-->
 <hr>
-<div style="width: 100%; border: 1px solid black;">
+	<div style="width: 100%; border: 1px solid black;">
 		<table style="width: 100%;" border="1">
 			<tr>
 			<td align="left">
@@ -60,12 +67,60 @@ $(document).ready(function(){
 					<li class="liA"><a href="#none" id="share_text">공유 문서</a>&nbsp;&nbsp;</li>
 				</ul>
 			</form>
-			
-			
 		</table>
-		
 	</div>
-<!-- 뉴스피드 들어감 -->
+	<div style="width: 100%; border: 1px solid black;">
+	<table>
+	<col width="auto"><col width="65%"><col width="20%"><col width="10%">
+	<c:if test="${empty g_flist}">
+	<tr>
+	<td colspan="4">결과 없음</td>
+	</tr>
+	</c:if>
+	<c:if test="${!empty g_flist}">
+	<c:forEach items="${g_flist }" var="flist" varStatus="i" >
+		<c:if test="${flist.n_form_num eq 1 }">
+			<tr>
+				<td rowspan="2"><img src="image/g_jpg_img.jpg"></td><td><a href="#none">${flist.nf_photo }</a></td><td rowspan="2"><h5>작성자 : ${flist.m_id }</h5></td>
+				<td rowspan="2">
+				<input type="button" name="btnDown2" value="다운로드" onclick="filedowns('${flist.nf_photo }')"/>
+				</td>
+			</tr>
+			<tr>
+				<td><h6>등록일 : ${flist.n_wdate}</h6></td>
+			</tr>
+		</c:if>
+		<c:if test="${flist.n_form_num eq 2 }">
+			<tr>
+				<td rowspan="2"><img src="image/g_video_img.jpg"></td><td><a href="#none">${flist.nf_video }</a></td><td rowspan="2"><h5>작성자 : ${flist.m_id }</h5></td>
+				<td rowspan="2">
+				<input type="button" name="btnDown2" value="다운로드" onclick="filedowns('${flist.nf_video }')"/>
+				</td>
+			</tr>
+			<tr>
+				<td><h6>등록일 : ${flist.n_wdate}</h6></td>
+			</tr>
+		</c:if>
+		<c:if test="${flist.n_form_num eq 3 }">
+			<tr>
+				<td rowspan="2"><img src="image/g_text_img.jpg"></td><td><a href="#none">${flist.nf_file }</a></td><td rowspan="2"><h5>작성자 : ${flist.m_id }</h5></td>
+				<td rowspan="2">
+				<input type="button" name="btnDown2" value="다운로드" onclick="filedowns('${flist.nf_file}')"/>
+				</td>
+			</tr>
+			<tr>
+				<td><h6>등록일 : ${flist.n_wdate}</h6></td>
+			</tr>
+		</c:if>
+	</c:forEach>
+	</c:if>
+	</table>
+	
+	</div>
+	
 </div>
+<form name="delfileup"  method="post" action="fileDownload.do">
+   <input type="hidden" name="filename" value=""/>
+</form>
 </body>
 </html>
