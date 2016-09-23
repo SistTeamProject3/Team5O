@@ -96,6 +96,7 @@
 			<button id="event">이벤트</button>
 			<button id="photo">사진</button>
 			<button id="file">파일</button>
+			<c:if test="${g_make.g_manager eq login.m_id}"><button id="request">가입요청</button></c:if> 
 		</form>
 		</div>
 		
@@ -123,6 +124,10 @@ $(document).ready(function() {
 	$("#file").click(function() {
 		$("#_frmForm").attr({"target":"_self","action":"group_detail_flie.do"}).submit();
 	});	
+	$("#request").click(function() {
+		$("#_frmForm").attr({"target":"_self","action":"group_detail_request.do"}).submit();
+	});	
+	
 	$("#fileupload").hide();
 	
 	$("#filesearch").click(function() {

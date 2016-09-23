@@ -120,6 +120,10 @@
 <definition name="group_detail_share_flie.tiles" extends="main.tiles">
 	<put-attribute name="center_main" value="/WEB-INF/views/group/group_detail_share_flie.jsp"/>
 </definition>
+<!-- 그룹 가입요청 -->
+<definition name="group_detail_request.tiles" extends="main.tiles">
+	<put-attribute name="center_main" value="/WEB-INF/views/group/group_detail_request.jsp"/>
+</definition>
 
 <!-- 파일 끝 -->
 

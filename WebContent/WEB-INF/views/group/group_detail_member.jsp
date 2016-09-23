@@ -75,7 +75,7 @@ $(document).ready(function(){
 				<div style="width: 100%;">
 				<table>
 				<tr>
-				<td style="width: 20%;"><img alt="프로필" src="${mlist.m_profile }"></td>
+				<td style="width: 20%;"><img alt="프로필" src="upload/${mlist.m_profile }"></td>
 				<td style="width: 80%;">
 				<h5><a href="#">${mlist.m_name}</a></h5>
 					<c:if test="${mlist.m_university ne null}">

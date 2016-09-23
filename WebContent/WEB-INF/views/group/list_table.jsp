@@ -23,7 +23,7 @@
 								</tr>
 								<tr>
 									<td style="width: 80%; height: 20%;"><a href="group_detail.do?g_seq=${list.g_seq}">${ list.g_name}</a></td>
-									<td style="width: 20%; height: 20%;"><img alt="가입" class="g_join" data-set="${list.g_seq}" manager="${list.g_manager }" src="image/g_join.jpg"></td>
+									<td style="width: 20%; height: 20%;"><img alt="가입" id="g_join${list.g_seq}" class="g_join" data-set="${list.g_seq}" manager="${list.g_manager}" src="image/g_join.jpg"></td>
 								</tr>
 							</table>
 						</div>

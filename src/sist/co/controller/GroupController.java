@@ -396,20 +396,57 @@ public class GroupController {
 		
 		return "downloadView";
 	}
-	
 	// 가입요청
     @RequestMapping(value="group_join_request.do",method={RequestMethod.GET,RequestMethod.POST })
+	@ResponseBody
     public String group_join_request(Model model, GroupRequestDTO rdto)throws Exception{
+    	logger.info("group_join_request 입니다 : " + rdto.toString());
+    	logger.info("되나?");
+    
+    	 List<GroupMemberDTO> gdto = groupService.join_search(rdto);
     	
+    	 logger.info("사이즈? "+gdto.size());
     	
+    	if (gdto.size() == 0) {
+    		logger.info("가입되어있지않음..");
+    		List<GroupRequestDTO> r_list = groupService.join_requset_search(rdto);
+    		logger.info("요청한 사이즈? "+r_list.size());
+    		if (r_list.size() == 0) {
+    			logger.info("신청중..");
+        		groupService.group_join_request(rdto);
+        		logger.info("신청함");
+        		return  "sucess";
+			} else {
+				logger.info("신청목록 확인됨");
+				return  "already";
+			}
+		} else {
+	    	logger.info("이미 요청");
+	    	return  "fail";
+		}
     	
-    	logger.info("rdto" + rdto.toString());
-
-    	groupService.group_join_request(rdto);
-    	
-    	return "recommend_group_list.tiles";
     }
     
+	@RequestMapping(value = "group_detail_request.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public String group_detail_request(Model model, GroupMakeDTO gmake) throws Exception {
+		logger.info(" group_detail_request " + new Date());
+	
+		GroupMakeDTO g_make = groupService.group_detail(gmake);
+		List<GroupRequestDTO> requset_list = groupService.requset_list(gmake);
+		logger.info("요청 사이즈"+requset_list.size());
+		
+		for (int i = 0; i < requset_list.size(); i++) {
+			logger.info("요청 사이즈"+requset_list.toString());
+		}
+		
+		model.addAttribute("g_make", g_make);
+		model.addAttribute("requset_list", requset_list);
+		
+		
+		return "group_detail_request.tiles";
+	}
     
+	
+	
     
 }

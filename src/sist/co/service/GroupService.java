@@ -49,4 +49,10 @@ public interface GroupService {
 	public List<GroupPhotoDTO> upfilelist(GroupMakeDTO gmake)throws Exception;
 	
 	public boolean group_join_request(GroupRequestDTO rdto)throws Exception;
+	
+	public List<GroupMemberDTO> join_search(GroupRequestDTO rdto)throws Exception;
+
+	public List<GroupRequestDTO> join_requset_search(GroupRequestDTO rdto)throws Exception;
+	
+	public List<GroupRequestDTO> requset_list(GroupMakeDTO gmake)throws Exception;
 }

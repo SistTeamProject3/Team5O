@@ -127,6 +127,21 @@ public class GroupImpl implements GroupService {
 	public boolean group_join_request(GroupRequestDTO rdto) throws Exception {
 		return groupDAO.group_join_request(rdto);
 	}
+
+	@Override
+	public List<GroupMemberDTO> join_search(GroupRequestDTO rdto) throws Exception {
+		return groupDAO.join_search(rdto);
+		 
+	}
+	@Override
+	public List<GroupRequestDTO> join_requset_search(GroupRequestDTO rdto) throws Exception {
+		return groupDAO.join_requset_search(rdto);
+	}
+
+	@Override
+	public List<GroupRequestDTO> requset_list(GroupMakeDTO gmake) throws Exception {
+		return groupDAO.requset_list(gmake);
+	}
 	
 	
 }

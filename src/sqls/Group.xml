@@ -152,5 +152,24 @@ INSERT INTO TP3_GROUPJOIN(J_SEQ,G_SEQ,G_MANAGER,M_ID,G_ACCEPT,R_DATE)
 VALUES(TP3_JOIN_REQ_SEQ.NEXTVAL,#{g_seq},#{g_manager},#{m_id},0,SYSDATE)
 </insert>
 
+<select id="join_search" parameterType="sist.co.model.GroupRequestDTO" resultType="sist.co.model.GroupMemberDTO">
+SELECT * FROM TP3_GROUPMEMBER
+WHERE G_SEQ =#{g_seq} AND M_ID=#{m_id}
+</select>
+
+
+<select id="join_requset_search" parameterType="sist.co.model.GroupRequestDTO" resultType="sist.co.model.GroupRequestDTO">
+SELECT * FROM TP3_GROUPJOIN
+WHERE G_SEQ =#{g_seq} AND M_ID=#{m_id}
+</select>
+
+<select id="requset_list" parameterType="sist.co.model.GroupMakeDTO" resultType="sist.co.model.GroupRequestDTO">
+SELECT TP3_MEMBER.M_ID,m_highschool, m_university, m_office,m_address,m_profile FROM TP3_GROUPJOIN
+INNER JOIN TP3_MEMBER 
+ON TP3_MEMBER.M_ID=TP3_GROUPJOIN.M_ID
+WHERE G_SEQ = #{g_seq} AND G_ACCEPT=0
+</select>
+
+
 </mapper>
 

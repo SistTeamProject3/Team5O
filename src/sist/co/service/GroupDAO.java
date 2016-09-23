@@ -115,4 +115,17 @@ public class GroupDAO {
 		return true;
 	}
 	
+	public List<GroupMemberDTO> join_search(GroupRequestDTO rdto)throws Exception{
+		return sqlSession.selectList(ns+"join_search", rdto);
+	}	
+	
+	public List<GroupRequestDTO> join_requset_search(GroupRequestDTO rdto)throws Exception{
+		return sqlSession.selectList(ns+"join_requset_search", rdto);
+	}	
+	
+	public List<GroupRequestDTO> requset_list(GroupMakeDTO gmake)throws Exception{
+		List<GroupRequestDTO> list = sqlSession.selectList(ns+"requset_list", gmake);
+		return list;
+	}
+	
 }
