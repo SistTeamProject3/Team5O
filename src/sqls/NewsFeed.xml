@@ -6,7 +6,7 @@
 
 <mapper namespace="NewsFeed">
 
- <insert id="writeNewsFeed"
+<insert id="writeNewsFeed"
    parameterType="sist.co.model.NewsFeedDTO">
       INSERT INTO TP3_NEWSFEED
       (N_SEQ,G_SEQ, N_FORM_NUM, M_ID, N_CONTENT, N_SHOW, N_WDATE ,N_TAG_FRIEND, N_TAG_WHERE, N_TAG_FEEL ,N_REF, N_STEP, N_DEPTH)

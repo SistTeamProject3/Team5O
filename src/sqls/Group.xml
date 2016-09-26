@@ -164,12 +164,41 @@ WHERE G_SEQ =#{g_seq} AND M_ID=#{m_id}
 </select>
 
 <select id="requset_list" parameterType="sist.co.model.GroupMakeDTO" resultType="sist.co.model.GroupRequestDTO">
-SELECT TP3_MEMBER.M_ID,m_highschool, m_university, m_office,m_address,m_profile FROM TP3_GROUPJOIN
+SELECT TP3_MEMBER.M_ID,M_HIGHSCHOOL, M_UNIVERSITY, M_OFFICE,M_ADDRESS,M_PROFILE,J_SEQ,R_DATE FROM TP3_GROUPJOIN
 INNER JOIN TP3_MEMBER 
 ON TP3_MEMBER.M_ID=TP3_GROUPJOIN.M_ID
 WHERE G_SEQ = #{g_seq} AND G_ACCEPT=0
 </select>
 
+<update id="accept_group" parameterType="sist.co.model.GroupRequestDTO">
+UPDATE TP3_GROUPJOIN SET G_ACCEPT=1
+WHERE J_SEQ=#{j_seq}
+</update>
+
+<update id="no_accept_group" parameterType="sist.co.model.GroupRequestDTO">
+UPDATE TP3_GROUPJOIN SET G_ACCEPT=2
+WHERE J_SEQ=#{j_seq}
+</update>
+
+<insert id="add_group_member" parameterType="sist.co.model.GroupRequestDTO">
+INSERT INTO TP3_GROUPMEMBER
+VALUES(#{g_seq},#{m_id},1)
+</insert>
+
+ <select id="select_mem" parameterType="sist.co.model.GroupMemberDTO" resultType="sist.co.model.GroupMemberDTO">
+SELECT * FROM TP3_GROUPMEMBER
+WHERE G_SEQ=#{g_seq} AND M_ID=#{m_id}
+</select> 
+
+<delete id="out_groupjoin" parameterType="sist.co.model.GroupMemberDTO">
+DELETE TP3_GROUPJOIN
+WHERE G_SEQ=#{g_seq} AND M_ID=#{m_id}
+</delete>
+
+<delete id="out_groupmember" parameterType="sist.co.model.GroupMemberDTO">
+DELETE TP3_GROUPMEMBER
+WHERE G_SEQ=#{g_seq} AND M_ID=#{m_id}
+</delete>
 
 </mapper>
 

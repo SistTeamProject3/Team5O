@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE >
 <%@ page language="java" contentType="text/ht\ml; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>

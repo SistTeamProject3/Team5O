@@ -55,4 +55,15 @@ public interface GroupService {
 	public List<GroupRequestDTO> join_requset_search(GroupRequestDTO rdto)throws Exception;
 	
 	public List<GroupRequestDTO> requset_list(GroupMakeDTO gmake)throws Exception;
+	
+	public boolean accept_group(GroupRequestDTO gdto)throws Exception;
+	public boolean no_accept_group(GroupRequestDTO gdto)throws Exception;
+	
+	public boolean add_group_member(GroupRequestDTO gdto)throws Exception;
+	
+	public List<GroupMemberDTO> select_mem(GroupMemberDTO g_memdto)throws Exception;
+	
+	public boolean out_groupjoin(GroupMemberDTO gdto)throws Exception;
+	public boolean out_groupmember(GroupMemberDTO gdto)throws Exception;
+	
 }

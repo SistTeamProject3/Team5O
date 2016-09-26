@@ -40,7 +40,24 @@ $(document).ready(function(){
     	  var keyword = $("#keyword").val();
        	location.href="group_detail_member.do?keyword="+keyword+"&type=1&g_seq="+${g_make.g_seq };
   	});
-    
+    $(".m_out").click(function() {
+    	 var m_id = $(this).attr("data-set");
+    	 var g_seq = $("#g_seq").attr("value");
+    	 var i =  $(this).attr("i-count");
+    	 alert(i);
+    	 
+    	 $.ajax({
+    		 type:"POST",
+    			url: "group_mem_out.do?g_seq="+g_seq+"&m_id="+m_id,
+    		 success: function(result){
+    			alert(result);
+    			$("#profileTable"+i).hide();
+    	    }, error: function(){
+    	    	alert(result);
+    	    }
+    	}); 
+    	 
+    });
 });
 </script>
 </head>
@@ -53,6 +70,7 @@ $(document).ready(function(){
 <!-- 헤더 끝-->
 <hr>
 <!-- 멤버 -->
+<c:if test="${g_key eq true || g_make.g_type eq 1 }">
 	<div style="width: 100%; border: 1px solid black;">
 		<table style="width: 100%;" border="1">
 			<tr>
@@ -73,10 +91,10 @@ $(document).ready(function(){
 				<c:forEach items="${g_m_list}" var="mlist" varStatus="i">
 				<td style="width: 50%;">
 				<div style="width: 100%;">
-				<table>
+				<table id="profileTable${i.count }">
 				<tr>
 				<td style="width: 20%;"><img alt="프로필" src="upload/${mlist.m_profile }"></td>
-				<td style="width: 80%;">
+				<td style="width: 70%;">
 				<h5><a href="#">${mlist.m_name}</a></h5>
 					<c:if test="${mlist.m_university ne null}">
 						<h6>${mlist.m_university}</h6>		
@@ -91,6 +109,16 @@ $(document).ready(function(){
 						<h6>${mlist.m_office}</h6>		
 					</c:if>
 				</td>
+				<c:if test="${g_make.g_manager eq login.m_id}">
+				<td style="width: 10%;">
+				<div class="dropdown">
+				<a href="#"><img src="image/set.jpg" alt="설정"></a>
+				<div class="dropdown-content">
+					<a href="#"><img class="m_out" alt="그룹 나가기" src="image/del_group.jpg" data-set="${mlist.m_id }" i-count="${i.count }"></a>
+					</div>
+				</div>
+				</td>
+				</c:if>
 				</tr>
 				</table>
 				</div>
@@ -104,6 +132,7 @@ $(document).ready(function(){
 		</table>
 		
 	</div>
+</c:if>
 </div>
 </body>
 </html>

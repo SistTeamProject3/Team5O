@@ -30,12 +30,16 @@ $(document).ready(function(){
 </div>
 <!-- 헤더 끝-->
 <hr>
+<c:if test="${g_key eq true || g_make.g_type eq 1 }">
 <div style="width: 70%;">
 	<jsp:include page="/WEB-INF/views/group/group_newsfeed_write.jsp"/>
 </div>
+</c:if>
+<c:if test="${g_key eq true || g_make.g_type eq 1 }">
 <div style="width: 70%;">
 <%-- <jsp:include page="/WEB-INF/views/group/group_news_list.jsp"/> --%>
 </div>
+</c:if>
 </div>
 
 

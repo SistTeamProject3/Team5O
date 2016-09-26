@@ -16,7 +16,7 @@
     display:none;
 }
 </style>
-<form name="frmForm" id="group_frmForm" action="writeNewsFeed.do" method="post" enctype="multipart/form-data">
+<form name="frmForm" id="group_frmForm" action="group_writeNewsFeed.do" method="post" enctype="multipart/form-data">
 <input type="hidden" name="m_id" value="${login.m_id}">
 <c:if test="${g_make.g_type eq 1 }">
 <input type="hidden" name="n_show" value="4">
@@ -342,8 +342,8 @@ $(function(){
 	       });
 	}); 
 $("#finish").click(function() {
-	alert("피니쉬!!!!");
-	$("#group_frmForm").attr({"target":"_self", "action":"writeNewsFeed.do"}).submit();
+	alert("작성");
+	$("#group_frmForm").attr({"target":"_self", "action":"group_writeNewsFeed.do"}).submit();
 });
 
 </script>

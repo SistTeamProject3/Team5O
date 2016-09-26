@@ -77,8 +77,7 @@ public class GroupImpl implements GroupService {
 
 	@Override
 	public boolean groupimageUpload(GroupMakeDTO gmake) throws Exception {
-		groupDAO.groupimageUpload(gmake);
-		return true;
+		return 	groupDAO.groupimageUpload(gmake);
 	}
 
 	@Override
@@ -142,6 +141,35 @@ public class GroupImpl implements GroupService {
 	public List<GroupRequestDTO> requset_list(GroupMakeDTO gmake) throws Exception {
 		return groupDAO.requset_list(gmake);
 	}
-	
+
+	@Override
+	public boolean accept_group(GroupRequestDTO gdto) throws Exception {
+		return groupDAO.accept_group(gdto);
+	}
+
+	@Override
+	public boolean no_accept_group(GroupRequestDTO gdto) throws Exception {
+		return groupDAO.no_accept_group(gdto);
+	}
+
+	@Override
+	public boolean add_group_member(GroupRequestDTO gdto) throws Exception {
+		return groupDAO.add_group_member(gdto);
+	}
+
+	@Override
+	public List<GroupMemberDTO> select_mem(GroupMemberDTO g_memdto) throws Exception {
+		 return groupDAO.select_mem(g_memdto);
+	}
+
+	@Override
+	public boolean out_groupjoin(GroupMemberDTO gdto) throws Exception {
+		return groupDAO.out_groupjoin(gdto);
+	}
+
+	@Override
+	public boolean out_groupmember(GroupMemberDTO gdto) throws Exception {
+		return groupDAO.out_groupmember(gdto);
+	}
 	
 }

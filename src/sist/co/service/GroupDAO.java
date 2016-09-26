@@ -32,6 +32,10 @@ public class GroupDAO {
 		return dto;
 	}
 	
+	public List<GroupMemberDTO> select_mem(GroupMemberDTO g_memdto)throws Exception{
+		return sqlSession.selectList(ns+"select_mem", g_memdto);
+	}
+	
 	public boolean add_group_manager(GroupMemberDTO member)throws Exception{
 		sqlSession.insert(ns+"add_group_manager", member);
 		return true;
@@ -126,6 +130,29 @@ public class GroupDAO {
 	public List<GroupRequestDTO> requset_list(GroupMakeDTO gmake)throws Exception{
 		List<GroupRequestDTO> list = sqlSession.selectList(ns+"requset_list", gmake);
 		return list;
+	}
+
+	public boolean accept_group(GroupRequestDTO gdto)throws Exception{
+		sqlSession.update(ns+"accept_group", gdto);
+		return true;
+	}
+	public boolean no_accept_group(GroupRequestDTO gdto)throws Exception{
+		sqlSession.update(ns+"no_accept_group", gdto);
+		return true;
+	}
+	
+	public boolean add_group_member(GroupRequestDTO gdto)throws Exception{
+		sqlSession.insert(ns+"add_group_member", gdto);
+		return true;
+	}
+	
+	public boolean out_groupjoin(GroupMemberDTO gdto)throws Exception{
+		sqlSession.delete(ns+"out_groupjoin", gdto);
+		return true;
+	}
+	public boolean out_groupmember(GroupMemberDTO gdto)throws Exception{
+		sqlSession.delete(ns+"out_groupmember", gdto);
+		return true;
 	}
 	
 }

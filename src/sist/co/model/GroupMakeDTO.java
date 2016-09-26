@@ -20,7 +20,7 @@ public class GroupMakeDTO implements Serializable{
 
 	 */
 	
-	private int g_seq;
+		private int g_seq;
 		private	String g_name;
 		private	String g_photo;
 		private int g_type;
