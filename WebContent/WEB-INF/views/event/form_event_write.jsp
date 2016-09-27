@@ -78,7 +78,7 @@ td {
 					</span>
 					<br/>
 					<div id="img_slide">
-						<div style="margin: 10px auto; color: #909090;">추천 주제</div>
+						<div style="margin: 10px auto; color: #909090;">추천 주제 ${ login.m_name }</div>
 						
 						<!-- 주제 이미지 슬라이드 -->
 						<div id="myCarousel" class="carousel slide">
@@ -113,14 +113,14 @@ td {
 			<th>이벤트 이름</th>
 			<td>
 				<input type="text" id="event_name" name="e_title" class="form-control frm_event_write" 
-				maxlength="100" placeholder="간결하고 명확한 이름을 추가하세요" />
+				maxlength="50" placeholder="간결하고 명확한 이름을 추가하세요" />
 			</td>
 		</tr>
 		
 		<tr>
 			<th>장소</th>
 			<td>
-				<input type="text" name="e_location" class="form-control frm_event_write" 
+				<input type="text" id="e_location" name="e_location" class="form-control frm_event_write" 
 				maxlength="100" placeholder="장소 또는 주소를 포함하세요" />
 			</td>
 		</tr>
@@ -155,7 +155,7 @@ td {
 		<tr>
 			<th>설명</th>
 			<td>
-				<textarea rows="3" id="e_content" name="e_content" class="form-control" 
+				<textarea rows="3" id="e_content" name="e_content" class="form-control" maxlength="1000"
 				placeholder="이벤트에 대해 자세히 알려주세요" style="resize: none;"></textarea>
 			</td>
 		</tr>
@@ -310,11 +310,19 @@ $(document).ready(function () {
 	// 이벤트 만들기 버튼 클릭
 	$('#event_write').click(function() {
 		
+		// 필수항목 입력 체크
 		var confirm = confirmInput();
 		
 		if ( confirm ) {
-			// 아이디 임시 값 저장 ※ 로그인 구현 완료되면 로그인한 아이디로 교체
-			$('#m_name').val("login_id");
+			// 작성자 저장 ※ form이 multi 방식으로 인코딩 되기 때문에 hidden으로 값을 넘겨줄 수 없음
+			$('#m_name').val('${ login.m_name }');
+			
+			// 위치 값이 공백이면 '위치 없음'으로 저장
+			var location = $('#e_location').val();
+			
+			if ( location.trim() == '' ) {
+				$('#e_location').val('위치 없음');
+			}
 			
 			/*		날짜-시간 값 변환 & 저장		*/
 			var sDate = $('#start_date').val();

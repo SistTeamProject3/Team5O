@@ -8,4 +8,5 @@ public interface EventService {
 
 	void addEvent(EventDTO event) throws Exception;
 	List<EventDTO> selectEventList(String yyyymm) throws Exception;
+	EventDTO selectEventDetail(int seq) throws Exception;
 }

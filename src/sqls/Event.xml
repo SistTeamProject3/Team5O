@@ -24,4 +24,9 @@
 	ORDER BY E_SEQ ASC
 </select>
 
+<select id="selectEventDetail" parameterType="Integer" resultType="sist.co.model.EventDTO">
+	SELECT * FROM TP3_EVENT
+	WHERE E_SEQ=#{seq}
+</select>
+
 </mapper>  

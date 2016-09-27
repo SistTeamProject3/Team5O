@@ -129,7 +129,7 @@ lastDay: ${ lastDay } --%>
 						<c:choose>
 						<c:when test="${ dayListCnt < 3 }">
 							<div>
-								<a href="#">
+								<a href="event_detail.do?seq=${ event.e_seq }">
 									<span><img src="image/event/calendar_list_symbol_02.png" 
 									class="list_symbol" /></span>
 									<c:choose>

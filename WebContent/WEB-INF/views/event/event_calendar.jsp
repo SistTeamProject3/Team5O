@@ -7,12 +7,7 @@
 
 <fmt:requestEncoding value="UTF-8"/>
 
-<!DOCTYPE>
-<html>
-<head>
 <link rel="stylesheet" type="text/css" href="css/bootswatch.css"/>
-</head>
-<body>
 
 <div id="_event_calendar_prev_month" class="event_calendar"></div>
 
@@ -129,8 +124,4 @@ $(document).scroll(function() {
 	}
 });
 
-
 </script>
-
-</body>
-</html>

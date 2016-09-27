@@ -24,4 +24,9 @@ public class EventServiceImpl implements EventService {
 	public List<EventDTO> selectEventList(String yyyymm) throws Exception {
 		return eventDAO.selectEventList(yyyymm);
 	}
+
+	@Override
+	public EventDTO selectEventDetail(int seq) throws Exception {
+		return eventDAO.selectEventDetail(seq);
+	}
 }

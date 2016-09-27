@@ -82,7 +82,7 @@ public class EventController {
 							@RequestParam(value="image_name", required=false) MultipartFile fileload) throws Exception {
 		
 		logger.info("event_write.do 접근 " + new Date());
-	//	logger.info("event.toString(): " + event.toString());
+		logger.info("event.toString(): " + event.toString());
 	//	logger.info("fileload.getOriginalFilename(): " + fileload.getOriginalFilename());
 		
 		if ( event.getE_image().equals("") ) {
@@ -116,5 +116,16 @@ public class EventController {
 		}
 		
 		return "redirect:/event_calendar.do";
+	}
+	
+	@RequestMapping(value="event_detail.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String event_detail(Model model, int seq) throws Exception {
+		
+		logger.info("event_detail.do 접근 " + new Date());
+		
+		EventDTO event = eventService.selectEventDetail(seq);
+		model.addAttribute("event", event);
+		
+		return "event_detail.tiles";
 	}
 }

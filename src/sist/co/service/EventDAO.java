@@ -22,4 +22,8 @@ public class EventDAO {
 	public List<EventDTO> selectEventList(String yyyymm) {
 		return sqlSession.selectList(ns + "selectEventList", yyyymm);
 	}
+	
+	public EventDTO selectEventDetail(int seq) {
+		return sqlSession.selectOne(ns + "selectEventDetail", seq);
+	}
 }
