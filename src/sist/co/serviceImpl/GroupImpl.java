@@ -12,6 +12,7 @@ import sist.co.model.GroupMemberDTO;
 import sist.co.model.GroupMemberListDTO;
 import sist.co.model.GroupPhotoDTO;
 import sist.co.model.GroupRequestDTO;
+import sist.co.model.NewsFeedDTO;
 import sist.co.model.VoteDTO;
 import sist.co.model.VotelistDTO;
 import sist.co.service.GroupDAO;
@@ -171,5 +172,19 @@ public class GroupImpl implements GroupService {
 	public boolean out_groupmember(GroupMemberDTO gdto) throws Exception {
 		return groupDAO.out_groupmember(gdto);
 	}
+	// 테스트
+
+	@Override
+	public void group_writeNewsFeed(NewsFeedDTO ndto) {
+		groupDAO.group_writeNewsFeed(ndto);
+		
+	}
+
+	@Override
+	public void group_writeNewsFeedImage(NewsFeedDTO ndto) {
+		groupDAO.group_writeNewsFeedImage(ndto);
+		
+	}
+	
 	
 }

@@ -12,6 +12,7 @@ import sist.co.model.GroupMemberDTO;
 import sist.co.model.GroupMemberListDTO;
 import sist.co.model.GroupPhotoDTO;
 import sist.co.model.GroupRequestDTO;
+import sist.co.model.NewsFeedDTO;
 import sist.co.model.VoteDTO;
 import sist.co.model.VotelistDTO;
 
@@ -154,5 +155,25 @@ public class GroupDAO {
 		sqlSession.delete(ns+"out_groupmember", gdto);
 		return true;
 	}
+	// 테스트중
+	public void group_writeNewsFeed(NewsFeedDTO ndto){
+		sqlSession.insert(ns+"group_writeNewsFeed", ndto);
+	}
+	
+	
+	public void group_writeNewsFeedImage(NewsFeedDTO ndto){
+		sqlSession.insert(ns+"group_writeNewsFeedImage", ndto);
+		if (ndto.getN_form_num() == 1) {
+			sqlSession.insert(ns+"group_writeNewsFeedImage2", ndto);
+		}
+		if (ndto.getN_form_num() == 2) {
+			sqlSession.insert(ns+"group_writeNewsFeedImage3", ndto);
+		}
+		if (ndto.getN_form_num() == 3) {
+			sqlSession.insert(ns+"group_writeNewsFeedImage4", ndto);
+		}
+		
+	}
+	
 	
 }

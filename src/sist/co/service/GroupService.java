@@ -9,6 +9,7 @@ import sist.co.model.GroupMemberDTO;
 import sist.co.model.GroupMemberListDTO;
 import sist.co.model.GroupPhotoDTO;
 import sist.co.model.GroupRequestDTO;
+import sist.co.model.NewsFeedDTO;
 import sist.co.model.VoteDTO;
 import sist.co.model.VotelistDTO;
 
@@ -65,5 +66,9 @@ public interface GroupService {
 	
 	public boolean out_groupjoin(GroupMemberDTO gdto)throws Exception;
 	public boolean out_groupmember(GroupMemberDTO gdto)throws Exception;
+	
+	//테스트중
+	public void group_writeNewsFeed(NewsFeedDTO ndto);
+	public void group_writeNewsFeedImage(NewsFeedDTO ndto);
 	
 }

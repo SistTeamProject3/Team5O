@@ -33,6 +33,7 @@ $(document).ready(function(){
 <c:if test="${g_key eq true || g_make.g_type eq 1 }">
 <div style="width: 70%;">
 	<jsp:include page="/WEB-INF/views/group/group_newsfeed_write.jsp"/>
+	<%-- <jsp:include page="/WEB-INF/views/group/test.jsp"/>  --%>
 </div>
 </c:if>
 <c:if test="${g_key eq true || g_make.g_type eq 1 }">

@@ -200,5 +200,43 @@ DELETE TP3_GROUPMEMBER
 WHERE G_SEQ=#{g_seq} AND M_ID=#{m_id}
 </delete>
 
+
+<insert id="group_writeNewsFeed"
+   parameterType="sist.co.model.NewsFeedDTO">
+      INSERT INTO TP3_NEWSFEED
+      (N_SEQ,G_SEQ, N_FORM_NUM, M_ID, N_CONTENT, N_SHOW, N_WDATE ,N_TAG_FRIEND, N_TAG_WHERE, N_TAG_FEEL ,N_REF, N_STEP, N_DEPTH)
+      VALUES(TP3_NEWSFEED_SEQ.NEXTVAL,#{g_seq},
+         #{n_form_num}, #{m_id}, #{n_content}, #{n_show}, SYSDATE,  #{n_tag_friend}, #{n_tag_where}, #{n_tag_feel}, 0,0,0)
+</insert>
+
+<insert id="group_writeNewsFeedImage"
+   parameterType="sist.co.model.NewsFeedDTO">
+      INSERT INTO TP3_NEWSFEED
+      (N_SEQ,G_SEQ, N_FORM_NUM, M_ID, N_CONTENT, N_SHOW, N_WDATE ,N_TAG_FRIEND, N_TAG_WHERE, N_TAG_FEEL ,N_REF, N_STEP, N_DEPTH)
+      VALUES(TP3_NEWSFEED_SEQ.NEXTVAL,#{g_seq},
+         #{n_form_num}, #{m_id}, #{n_content}, #{n_show}, SYSDATE,  #{n_tag_friend}, #{n_tag_where}, #{n_tag_feel}, 0,0,0)
+</insert>
+
+<insert id="group_writeNewsFeedImage2"
+   parameterType="sist.co.model.NewsFeedDTO">
+      INSERT INTO TP3_NEWSFEED_FILE
+      (N_SEQ, N_FORM_NUM, NF_PHOTO)
+      VALUES(TP3_NEWSFEED_SEQ.CURRVAL ,1, #{filename})
+</insert>
+
+<insert id="group_writeNewsFeedImage3"
+   parameterType="sist.co.model.NewsFeedDTO">
+      INSERT INTO TP3_NEWSFEED_FILE
+      (N_SEQ, N_FORM_NUM, NF_VIDEO)
+      VALUES(TP3_NEWSFEED_SEQ.CURRVAL ,1, #{filename})
+</insert>
+
+<insert id="group_writeNewsFeedImage4"
+   parameterType="sist.co.model.NewsFeedDTO">
+      INSERT INTO TP3_NEWSFEED_FILE
+      (N_SEQ, N_FORM_NUM, NF_FILE)
+      VALUES(TP3_NEWSFEED_SEQ.CURRVAL ,1, #{filename})
+</insert>
+
 </mapper>
 

@@ -45,9 +45,7 @@ public class YSController {
 
    @RequestMapping(value="writeNewsFeed.do", 
          method=RequestMethod.POST)
-   public String writeNewsFeed(NewsFeedDTO newsfeeddto,
-                     HttpServletRequest request,
-                     @RequestParam(value="fileload", required=false)
+   public String writeNewsFeed(NewsFeedDTO newsfeeddto, HttpServletRequest request, @RequestParam(value="fileload", required=false)
                      MultipartFile fileload, Model model){
    
       logger.info("YSController writeNewsFeed " + new Date());
