@@ -189,7 +189,9 @@ pre {
 	</div>
 </div>
 
+<div id="modal_invite_wrap">
 <jsp:include page="form_event_invite.jsp" />
+</div>
 
 <br/>
 
@@ -286,9 +288,6 @@ $(document).ready(function() {
 	if ( titleHeight > 50 ) {
 		$('.event_date_title').css('top', '220px');
 	}
-	
-	
-	
 });
 
 </script>

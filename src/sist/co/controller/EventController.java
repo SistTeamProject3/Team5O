@@ -129,4 +129,25 @@ public class EventController {
 		return "redirect:/friendlist.do?seq=" + seq;
 	//	return "event_detail.tiles";
 	}
+	
+	@RequestMapping(value="event_invite.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String event_invite(Model model, int seq, String inviteMemberList) throws Exception {
+		
+		logger.info("event_invite.do 접근 " + new Date());
+		/*
+		logger.info("seq: " + seq);
+		logger.info("inviteMemberList: " + inviteMemberList);
+		logger.info("inviteMemberList.length: " + inviteMemberList.length());
+		*/
+		if ( inviteMemberList.length() > 0 ) {
+			
+			String[] inviteList = inviteMemberList.split("-");
+			
+			for ( int i = 0; i < inviteList.length; i++ ) {
+				logger.info("inviteList[" + i + "]: " + inviteList[i]);
+			}
+		}
+		
+		return "redirect:/event_detail.do?seq=" + seq;
+	}
 }
