@@ -39,7 +39,6 @@ function add3(){
 
 </script>
 
-
 <c:if test="${fn:length(NewsFeedList) eq 0}">
 리스트 DB값 없음
 </c:if>
@@ -57,6 +56,7 @@ function add3(){
 
 <div class="table" data-seq="${news.n_seq }" id="newsfeedlist_top${news.n_seq }">
 ${news.n_seq }
+
 <table class="newsfeed_list_table${news.n_seq }" style="width: 80%"  border="1px solid black">
 
 <tr>
@@ -181,7 +181,9 @@ ${news.n_seq }
 		</tr>
 	</c:if>
 </c:forEach>
+
 </table>
+
 </div>
 
 

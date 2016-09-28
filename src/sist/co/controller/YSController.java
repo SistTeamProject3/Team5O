@@ -150,7 +150,7 @@ public class YSController {
         	 }
          }
          
-
+         System.out.println("NewsFeedList의NewsFeedList"+NewsFeedList.size());
          model.addAttribute("NewsFeedList",NewsFeedList);
          request.getSession().setAttribute("login", login);
          return "main.tiles";
@@ -166,7 +166,7 @@ public class YSController {
             method={RequestMethod.GET, RequestMethod.POST})
       public String NewsFeedList2(HttpServletRequest request, MemberDTO member, Model model) throws Exception{   
          
-         logger.info("YSController NewsFeedList " + new Date());
+         logger.info("YSController NewsFeedList2 " + new Date());
 
             List<NewsFeedDTO> NewsFeedList =  newsFeedService.getNewsFeedList();
             for(int i=0; i<NewsFeedList.size();i++){
@@ -175,21 +175,21 @@ public class YSController {
            		 NewsFeedList.get(i).setFilename(fname);
            	 }
             }
-            System.out.println("NewsFeedList.size()==="+NewsFeedList.size());
+
             model.addAttribute("NewsFeedList",NewsFeedList);
 
             return "main.tiles";
 }   
    
    
-   @RequestMapping(value="test.do", 
+/*   @RequestMapping(value="test.do", 
          method={RequestMethod.GET, RequestMethod.POST})
    public String test(Model model, int lastseq){   
 	 
       logger.info("YSController test" + new Date());
       model.addAttribute("lastseq",lastseq);
       return "redirect:/test2.do";
-   }
+   }*/
    
    
    @RequestMapping(value="test2.do", 
@@ -198,7 +198,7 @@ public class YSController {
       logger.info("YSController test2" + new Date());
       List<NewsFeedDTO> list  =  newsFeedService.addPrintNewsFeed(lastseq);
       System.out.println("lastseq=="+lastseq);
-      System.out.println("list.size()=="+list.size());
+      System.out.println("test2의 list.size()=="+list.size());
       
       if(list.size()==0){
          System.out.println("null이다");

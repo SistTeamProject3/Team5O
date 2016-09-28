@@ -34,10 +34,7 @@
    SELECT * FROM TP3_NEWSFEED
 </select>
 
-<select id="addPrintNewsFeed" parameterType="Integer"  resultType="sist.co.model.NewsFeedDTO">
-   SELECT * FROM TP3_NEWSFEED
-   WHERE N_SEQ BETWEEN #{lastseq}-6 AND #{lastseq}-1
-</select>
+
 
 <update id="updateShow" parameterType="hashmap">
    UPDATE TP3_NEWSFEED SET N_SHOW=#{updatenum} 
@@ -55,10 +52,19 @@
 <![CDATA[ 
    SELECT *
    FROM (SELECT * FROM TP3_NEWSFEED ORDER BY N_SEQ DESC)
-   WHERE ROWNUM<11
+   WHERE ROWNUM<5 AND N_STEP=0
    ]]>
 </select>
 
+<select id="addPrintNewsFeed" parameterType="Integer"  resultType="sist.co.model.NewsFeedDTO">
+<!--    SELECT * FROM TP3_NEWSFEED
+   WHERE N_SEQ BETWEEN #{lastseq}-6 AND #{lastseq}-1
+   ORDER BY N_SEQ DESC -->
+   <![CDATA[    
+	SELECT * FROM (  SELECT * FROM (SELECT * FROM TP3_NEWSFEED ORDER BY N_SEQ DESC)
+   WHERE ROWNUM<6 AND N_SEQ<#{lastseq})
+      ]]>
+</select>
 
 <select id="getImageFile" resultType="String">
 	SELECT NF_PHOTO FROM TP3_NEWSFEED
