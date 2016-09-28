@@ -11,6 +11,8 @@
 	<tiles:insertAttribute name="header"/>
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/style.css"/>
 	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>

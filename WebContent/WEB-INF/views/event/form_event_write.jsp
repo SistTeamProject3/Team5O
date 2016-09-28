@@ -7,14 +7,14 @@
 
 <fmt:requestEncoding value="UTF-8"/>
 
-<!-- 날짜/시간 달력 Plugin -->
-<link rel="stylesheet" href="./css/bootstrap-material-datetimepicker.css" />
+<!-- 날짜-시간 달력 Plugin -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap-material-datetimepicker.css" />
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<script type="text/javascript" src="./js/material.min.js"></script>
-<script type="text/javascript" src="./js/moment-with-locales.min.js"></script>
-<script type="text/javascript" src="./js/bootstrap-material-datetimepicker.js"></script>
-<!-- // 날짜/시간 달력 Plugin -->
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/material.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/moment-with-locales.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/bootstrap-material-datetimepicker.js"></script>
+<!-- // 날짜-시간 달력 Plugin -->
 
 <%
 
@@ -33,14 +33,14 @@ pageContext.setAttribute("day", day);
 %>
 
 <style type="text/css">
-table th {
+.tbl_event_write th {
 	text-align: right;
 	padding-right: 10px;
 	padding-top: 15px;
 	padding-bottom: 15px;
 }
 
-td {
+.tbl_event_write td {
 	text-align: left;
 }
 
@@ -58,7 +58,7 @@ td {
 </div>
 <div class="modal-body">
 	<form id="frm_event_write" action="event_write.do" method="POST" enctype="multipart/form-data">
-		<table style="width: 100%;">
+		<table class="tbl_event_write" style="width: 100%;">
 		<col style="width: 20%;" /><col style="width: 80%;" />
 		<tr>
 			<th>이벤트 사진</th>
@@ -78,7 +78,7 @@ td {
 					</span>
 					<br/>
 					<div id="img_slide">
-						<div style="margin: 10px auto; color: #909090;">추천 주제 ${ login.m_name }</div>
+						<div style="margin: 10px auto; color: #909090;">추천 주제</div>
 						
 						<!-- 주제 이미지 슬라이드 -->
 						<div id="myCarousel" class="carousel slide">
@@ -282,12 +282,14 @@ $(document).ready(function () {
 		}
 	});
 	
-	$('#start_date').bootstrapMaterialDatePicker(
+	
+ 	$('#start_date').bootstrapMaterialDatePicker(
 		{ weekStart : 0, format : 'YYYY-MM-DD HH:mm', minDate : new Date() } 
 		).on('change', function(e, date) {
-			$('#end_date').bootstrapMaterialDatePicker( 
+			alert("bootstrapMaterialDatePicker");
+			 $('#end_date').bootstrapMaterialDatePicker( 
 				{ weekStart : 0, format : 'YYYY-MM-DD HH:mm', minDate : date }
-			);
+			); 
 		});
 	
 	// 종료 시간 추가 클릭

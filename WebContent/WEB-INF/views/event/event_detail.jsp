@@ -189,7 +189,7 @@ pre {
 	</div>
 </div>
 
-<jsp:include page="../event/form_event_invite.jsp" />
+<jsp:include page="form_event_invite.jsp" />
 
 <br/>
 
@@ -203,7 +203,7 @@ pre {
 					
 					<jsp:useBean id="calUtil" class="sist.co.util.CalendarUtil" />
 					<c:set var="sDateArr" value="${ fn:split(event.e_start_date, '-') }" />
-					<td class="td_bottom">
+					<td class="td_bottom" style="text-align: left;">
 						<!-- 시작 날짜 -->
 						${ sDateArr[0] }년&nbsp;
 						${ calUtil.toOne(sDateArr[1]) }월&nbsp;
@@ -235,7 +235,7 @@ pre {
 				</tr>
 				<tr>
 					<td class="summary_type"><i class="fa fa-map-marker" aria-hidden="true"></i></td>
-					<td>
+					<td style="text-align: left;">
 						${ event.e_location }
 					</td>
 				</tr>
@@ -286,6 +286,9 @@ $(document).ready(function() {
 	if ( titleHeight > 50 ) {
 		$('.event_date_title').css('top', '220px');
 	}
+	
+	
+	
 });
 
 </script>

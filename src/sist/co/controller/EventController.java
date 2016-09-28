@@ -123,9 +123,10 @@ public class EventController {
 		
 		logger.info("event_detail.do 접근 " + new Date());
 		
-		EventDTO event = eventService.selectEventDetail(seq);
-		model.addAttribute("event", event);
+	//	EventDTO event = eventService.selectEventDetail(seq);
+	//	model.addAttribute("event", event);
 		
-		return "event_detail.tiles";
+		return "redirect:/friendlist.do?seq=" + seq;
+	//	return "event_detail.tiles";
 	}
 }

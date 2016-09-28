@@ -26,7 +26,9 @@ import oracle.net.aso.f;
 import sist.co.help.OrderHashMap;
 import sist.co.help.SelectKeyword;
 import sist.co.help.ValueComparator;
+import sist.co.model.EventDTO;
 import sist.co.model.FriendDTO;
+import sist.co.service.EventService;
 import sist.co.service.FriendService;
 import sist.co.model.MemberDTO;
 
@@ -37,6 +39,9 @@ public class FriendController {
 	
 	@Autowired
 	private FriendService friendService;
+	
+	@Autowired
+	EventService eventService;
 	
 	@RequestMapping(value="friendmain.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String friendmain(Model model) throws Exception{		
@@ -72,19 +77,25 @@ public class FriendController {
 		return "infriendsearch.tiles";
 	}
 	
+	/*
+	 * 공동 작업자: 김명호
+	 * param: eventSeq(이벤트 시퀀스)
+	 */
 	@RequestMapping(value="friendlist.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String friendlist(String m_id, HttpServletRequest request, Model model) throws Exception{
+	public String friendlist(String m_id, HttpServletRequest request, Model model,
+							@RequestParam (value = "seq", defaultValue = "0") int eventSeq) throws Exception{
 		
 		logger.info("friendsearch");
 		
-		m_id="qwer";	// 임시 회원 id
+	//	m_id="qwer";	// 임시 회원 id
+		MemberDTO loginMember = (MemberDTO) request.getSession().getAttribute("login");
 		
 		//profile 경로
 		String imgpath = request.getServletContext().getRealPath("/upload");
 		System.out.println("imgpath" + imgpath);
 		
 		//요청수락안한 친구, 차단한 친구, 비활성화된 친구 를 제외, follow친구를 포함한 리스트  + 이 친구 각각의 한마디글 뽑아오기
-		List<FriendDTO> flist = friendService.getFriendsList(m_id);		// 해당 회원의 친구목록(요청수락안한 친구, 차단한 친구, 비활성화된 친구 를 제외)
+		List<FriendDTO> flist = friendService.getFriendsList(loginMember.getM_id());		// 해당 회원의 친구목록(요청수락안한 친구, 차단한 친구, 비활성화된 친구 를 제외)
 		//수정할점0908 list정렬 : collection.sort(list명) 단, list<string>.
 
 		HashMap<String, MemberDTO> finformlist = new HashMap<String, MemberDTO>();
@@ -98,6 +109,14 @@ public class FriendController {
 		model.addAttribute("imgpath", imgpath);
 		
 		System.out.println("success");
+		
+		if ( eventSeq > 0 ) {
+			
+			EventDTO event = eventService.selectEventDetail(eventSeq);
+			model.addAttribute("event", event);
+			
+			return "event_detail.tiles";
+		}
 		
 		return "friendlist.tiles";
 	}

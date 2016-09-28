@@ -6,18 +6,11 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/go_url.js"></script>
-<html>
-<head>
-
-<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
 
 <meta name="generator" content="Bootply" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/styles.css" rel="stylesheet">
-
-
+<!-- <link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/styles.css" rel="stylesheet"> -->
 
 
 <style>
@@ -27,8 +20,6 @@
 
 </style>
 
-</head>
-<body>
 <div style="padding-left: 10%; padding-top: 8px; padding-bottom: 8px;">
 <table style="text-align: center;">
 <col width="150px;">
@@ -46,7 +37,7 @@
 	<input type="text" class="form-control" placeholder="사람 이름 또는 장소" >
 </td>
 <td>	
-	<i class="fa fa-search fa-2x"" aria-hidden="true"></i>
+	<i class="fa fa-search fa-2x" aria-hidden="true"></i>
 </td>
 <td>
 	<div style="border: 2px solid;">사진 영역</div>
@@ -96,7 +87,6 @@
 </table>
 </div>
 
-
 <!-- <script type="text/javascript">
 function logout() {
 	alert("로그아웃");
@@ -104,9 +94,3 @@ function logout() {
 }
 
 </script> -->
-
-
-</body>
-</html>
-
-
