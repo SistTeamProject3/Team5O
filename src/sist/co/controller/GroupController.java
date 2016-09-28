@@ -104,7 +104,7 @@ public class GroupController {
 		re_list = groupService.recommend_group_list(gdto);
 	
 		model.addAttribute("re_list", re_list);
-		return "list.tiles";
+		return "list_table.tiles";
 		
 	}
 	
@@ -119,6 +119,10 @@ public class GroupController {
 		
 		List<GroupMemberDTO> gm_list= groupService.select_mem(g_memdto);
 
+		
+		List<GroupPhotoDTO> g_n_list = groupService.group_newsfeed_list(gmake);
+		
+		
 		if (gm_list.size() >=1) {
 			model.addAttribute("g_key", "true");
 		} else {
@@ -128,6 +132,7 @@ public class GroupController {
 		
 		GroupMakeDTO g_make = groupService.group_detail(gmake);
 		model.addAttribute("g_make", g_make);
+		model.addAttribute("g_n_list", g_n_list);
 		
 		return "group_detail.tiles";
 	}
@@ -436,6 +441,8 @@ public class GroupController {
 			groupService.add_vote(vlistdto);
 		}
 	//여기서 던진다
+		
+		logger.info("시퀀스  " + vdto.toString());
 		groupService.add_newsfeed(vdto);
 	 return "redirect:/group_detail.do?g_seq="+vote.getG_seq();
 	}
@@ -645,5 +652,49 @@ public class GroupController {
 		return "redirect:/group_detail.do?g_seq="+ndto.getG_seq();
 	}
 	
+	@RequestMapping(value = "group_newsfeed_list.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public String newsfeed_list(Model model, GroupListDTO gdto) throws Exception {
+		logger.info(" group_newsfeed_list " + new Date());
+		logger.info(" gdto " + gdto.toString());
+
+		List<GroupPhotoDTO> g_nlist = groupService.group_add_newsfeed_list(gdto);
+		
+		model.addAttribute("g_n_list", g_nlist);
+
+		
+		return "group_newsfeed_list.tiles";
+	}
+	
+	
+	//리스트 출력 폼
+	@RequestMapping(value = "group_newsfeed_p_form.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public String group_newsfeed_p_form(Model model, int n_seq) throws Exception {
+		logger.info(" 포토 폼 / 폼넘버 : " + n_seq);
+		GroupPhotoDTO pdto = groupService.group_newsfeed_p_form(n_seq);
+		logger.info(" 시작아앙 : " +pdto.toString());
+		
+		model.addAttribute("pdto", pdto);
+		
+		return "group_newsfeed_p_form.tiles";
+	}
+	@RequestMapping(value = "group_newsfeed_v_form.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public String group_newsfeed_v_form(Model model, int n_seq) throws Exception {
+		logger.info(" 비디오 폼 / 폼넘버 : " + n_seq);
+		GroupPhotoDTO vdto = groupService.group_newsfeed_v_form(n_seq);
+		logger.info(" 시작아앙 : " +vdto.toString());
+		model.addAttribute("vdto", vdto);
+		
+		return "group_newsfeed_v_form.tiles";
+	}
+	
+	@RequestMapping(value = "group_newsfeed_b_form.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public String group_newsfeed_b_form(Model model, int n_vote_seq) throws Exception {
+		logger.info(" 투표 폼 / 투표 넘버 : " + n_vote_seq);
+		
+		VoteDTO vodto = groupService.group_newsfeed_b_form(n_vote_seq);
+		logger.info(" vodto " + vodto.toString());
+		model.addAttribute("vodto", vodto);
+		return "group_newsfeed_b_form.tiles";
+	}
 	
 }

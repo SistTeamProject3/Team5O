@@ -17,6 +17,11 @@
  #image_preview2 {
     display:none;
 }
+.m_profile {
+    border-radius: 50%;
+    width : 50px;
+    height: 50px;
+}
 </style>
 <form name="frmForm" id="group_frmForm" action="" method="post" enctype="multipart/form-data">
 <input type="hidden" name="m_id" value="${login.m_id}">
@@ -37,7 +42,7 @@
 				</td>
 				<td>
 					<h6>
-						<a href="#none">사진/동영상 추가</a>
+						<a href="#none" id="add_pho">사진/동영상 추가</a>
 					</h6>
 				</td>
 				<td>
@@ -52,7 +57,15 @@
 				</td>
 			</tr>
 			<tr class="news_write">
-				<td rowspan="2">프사사진</td>
+				<td rowspan="2">
+				<c:if test="${!empty login.m_profile }">
+				<img class="m_profile" alt="프로필" src="upload/${login.m_profile }">
+				</c:if>
+				<c:if test="${empty login.m_profile }">
+				<img class="m_profile" alt="프로필" src="image/basic_profile.jpg">
+				</c:if>
+				
+				</td>
 				<td colspan="3"><textarea id="n_content" name="n_content"
 						style="overflow: hidden; width: 100%;" placeholder="글쓰기.."></textarea>
 					<div id="room_type">
@@ -97,11 +110,11 @@
 						</button>
 						<ul class="dropdown-menu">
 							<li onclick="getState('기뻐요'); setState('1')" value="1"><img
-								src="image/happy.jpg">기뻐요</a></li>
+								src="image/happy.jpg">기뻐요</li>
 							<li onclick="getState('슬퍼요'); setState('2')" value="2"><img
-								src="image/sad.jpg">슬퍼요</a></li>
+								src="image/sad.jpg">슬퍼요</li>
 							<li onclick="getState('피곤해요'); setState('3')" value="3"><img
-								src="image/tired.jpg">피곤해요</a></li>
+								src="image/tired.jpg">피곤해요</li>
 						</ul>
 					</div>
 				</td>
@@ -152,6 +165,9 @@
  $("#feel").hide();
  $("#where").hide();
  $("#image").hide();
+ 
+
+ 
  
  // 설문과 게시글 변경 스크립트
  var num=3; 
@@ -340,6 +356,10 @@ $("#_file3").click(function(){
 $("#finish").click(function() {
    alert("작성");
    $("#group_frmForm").attr({"target":"_self", "action":"group_newsfeed.do"}).submit();
+});
+// 사진추가
+$("#add_pho").click(function() {
+	 $("#image").click();
 });
 
 </script>

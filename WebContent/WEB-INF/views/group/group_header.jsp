@@ -74,7 +74,7 @@ ${g_key}
 		<c:if test="${!empty g_make.g_photo}">
 			<div id="group_heder">
  			<img alt="배경" src="upload/${g_make.g_photo}" style="width: 100%; height: 250px;" >
-			<div class="topright"><c:if test="${g_make.g_manager eq login.m_id}"><button id="changeImage">사진 변경</button></c:if></div>
+			<div class="topright"><c:if test="${g_make.g_manager eq login.m_id}"><a href="#"><img id="changeImage" src="image/group_change.jpg" alt="사진변경"/></a></c:if></div>
 			</div>
 		</c:if>
 		<!-- 1.여기까지 -->

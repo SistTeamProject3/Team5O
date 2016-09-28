@@ -45,8 +45,8 @@ $(document).on("click",".g_join",function() {
 <script type="text/javascript">
 var s_num1 =1;
 var l_num1 =10;
-	 
- 
+var id = $("#m_id").attr("value");
+
 	$(document).ready(function() {
 		//리스트 출력 막으려고
 		var i = 0;
@@ -73,7 +73,7 @@ var l_num1 =10;
 				
 				$.ajax({
 					type: 'POST',
-					url: 'list.do?category=top&m_id='+'FA'+'&s_num='+s_num1+'&l_num='+l_num1,
+					url: 'list.do?category=top&m_id='+id+'&s_num='+s_num1+'&l_num='+l_num1,
 					async: false,
 					cache: false,
 					timeout: 10000,

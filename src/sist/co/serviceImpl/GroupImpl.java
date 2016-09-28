@@ -185,6 +185,29 @@ public class GroupImpl implements GroupService {
 		groupDAO.group_writeNewsFeedImage(ndto);
 		
 	}
-	
+
+	@Override
+	public List<GroupPhotoDTO> group_newsfeed_list(GroupMakeDTO gmake) throws Exception {
+		return groupDAO.group_newsfeed_list(gmake);
+	}
+
+	@Override
+	public List<GroupPhotoDTO> group_add_newsfeed_list(GroupListDTO gdto) throws Exception {
+		return groupDAO.group_add_newsfeed_list(gdto);
+	}
+
+	@Override
+	public GroupPhotoDTO group_newsfeed_p_form(int n_seq) throws Exception {
+		return groupDAO.group_newsfeed_p_form(n_seq);
+	}
+	@Override
+	public GroupPhotoDTO group_newsfeed_v_form(int n_seq) throws Exception {
+		return groupDAO.group_newsfeed_v_form(n_seq);
+	}
+
+	@Override
+	public VoteDTO group_newsfeed_b_form(int n_vote_seq) throws Exception {
+		return groupDAO.group_newsfeed_b_form(n_vote_seq);
+	}
 	
 }

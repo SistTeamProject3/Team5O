@@ -71,4 +71,12 @@ public interface GroupService {
 	public void group_writeNewsFeed(NewsFeedDTO ndto);
 	public void group_writeNewsFeedImage(NewsFeedDTO ndto);
 	
+	//그룹 뉴스피드 리스트
+	public List<GroupPhotoDTO> group_newsfeed_list(GroupMakeDTO gmake)throws Exception;
+	public List<GroupPhotoDTO> group_add_newsfeed_list(GroupListDTO gdto)throws Exception;
+	
+	//폼
+	public GroupPhotoDTO group_newsfeed_p_form(int n_seq)throws Exception;
+	public GroupPhotoDTO group_newsfeed_v_form(int n_seq)throws Exception;
+	public VoteDTO group_newsfeed_b_form(int n_vote_seq)throws Exception;
 }

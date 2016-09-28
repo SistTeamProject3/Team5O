@@ -176,4 +176,27 @@ public class GroupDAO {
 	}
 	
 	
+	//그룹 리스트
+	public List<GroupPhotoDTO> group_newsfeed_list(GroupMakeDTO gmake)throws Exception{
+		 List<GroupPhotoDTO> g_l_list = sqlSession.selectList(ns+"group_newsfeed_list", gmake);
+		return g_l_list;
+	}
+	//그룹 리스트 아작스
+	public List<GroupPhotoDTO> group_add_newsfeed_list(GroupListDTO gdto)throws Exception{
+		 List<GroupPhotoDTO> g_l_list = sqlSession.selectList(ns+"group_add_newsfeed_list", gdto);
+		return g_l_list;
+	}
+	
+	
+	//리스트 폼 
+	public GroupPhotoDTO group_newsfeed_p_form(int n_seq)throws Exception{
+		return sqlSession.selectOne(ns+"group_newsfeed_p_form", n_seq);
+	}
+	public GroupPhotoDTO group_newsfeed_v_form(int n_seq)throws Exception{
+		return sqlSession.selectOne(ns+"group_newsfeed_v_form", n_seq);
+	}
+	public VoteDTO group_newsfeed_b_form(int n_vote_seq)throws Exception{
+		return sqlSession.selectOne(ns+"group_newsfeed_b_form", n_vote_seq);
+	}
+	
 }
