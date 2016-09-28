@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import sist.co.model.NewsFeedDTO;
+import sist.co.model.NewsFeedLikeDTO;
 
 @Repository
 public class NewsFeedDAO {
@@ -35,9 +36,9 @@ public class NewsFeedDAO {
 		return list;
 	}
 	
-	public NewsFeedDTO addPrintNewsFeed(int lastseq){
-		NewsFeedDTO dto =  sqlSession.selectOne(ns+"addPrintNewsFeed",lastseq);
-		return dto;
+	public List<NewsFeedDTO>  addPrintNewsFeed(int lastseq){
+		List<NewsFeedDTO> list =  sqlSession.selectList(ns+"addPrintNewsFeed",lastseq);
+		return list;
 	}
 	
 	
@@ -51,8 +52,37 @@ public class NewsFeedDAO {
 		sqlSession.update(ns+"deleteNews",seq);
 	}
 	
+	public String getImageFile(int seq){
+		return sqlSession.selectOne(ns+"getImageFile",seq);
+	}
 	
+	
+	public void insertLike(NewsFeedLikeDTO dto){
+		System.out.println("insert들어옴");
+		sqlSession.insert(ns+"insertLike",dto);
+		sqlSession.update(ns+"addLikeCount",dto);
+	}
+	
+	public void deleteLike (NewsFeedLikeDTO dto){
+		System.out.println("delete들어옴");
+		sqlSession.delete(ns+"deleteLike",dto);
+		sqlSession.update(ns+"deleteLikeCount",dto);
+	}
+	
+	
+	public int getLikeListCount (NewsFeedLikeDTO dto){
+		return sqlSession.selectOne(ns+"getLikeListCount",dto);
+	}
 
+	public List<String> getLikeList(int seq){
+		List<String> list = sqlSession.selectList(ns+"getLikeList",seq);
+		return list;
+	}
+	
+	public void insertComment (NewsFeedDTO dto){
+		sqlSession.update(ns+"updateComment",dto);
+		sqlSession.insert(ns+"insertComment",dto);
+	}
 }
 
 

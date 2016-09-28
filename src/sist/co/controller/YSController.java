@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import sist.co.model.MemberDTO;
 import sist.co.model.NewsFeedDTO;
+import sist.co.model.NewsFeedLikeDTO;
 import sist.co.model.SistPDSDTO;
 
 import sist.co.service.NewsFeedService;
@@ -47,7 +48,7 @@ public class YSController {
          method=RequestMethod.POST)
    public String writeNewsFeed(NewsFeedDTO newsfeeddto,
                      HttpServletRequest request,
-                     @RequestParam(value="fileload", required=false)
+                     @RequestParam(value="fileloadd", required=false)
                      MultipartFile fileload, Model model){
    
       logger.info("YSController writeNewsFeed " + new Date());
@@ -126,10 +127,6 @@ public class YSController {
       }
    }
    
-   
-   
-   
-   
    @RequestMapping(value="NewsFeedList.do", 
          method={RequestMethod.GET, RequestMethod.POST})
    public String NewsFeedList(HttpServletRequest request, MemberDTO member, Model model) throws Exception{   
@@ -138,14 +135,24 @@ public class YSController {
       
       
       MemberDTO login = null;
+ 
       login =  MemberService.login(member);
       
       if(login != null && !login.getM_id().equals("")){
           
          List<NewsFeedDTO> NewsFeedList =  newsFeedService.getNewsFeedList();
+
+         
+         for(int i=0; i<NewsFeedList.size();i++){
+        	 if(NewsFeedList.get(i).getN_form_num()==1){
+        		 String fname= newsFeedService.getImageFile((NewsFeedList.get(i).getN_seq()));
+        		 NewsFeedList.get(i).setFilename(fname);
+        	 }
+         }
+         
+
          model.addAttribute("NewsFeedList",NewsFeedList);
-            
-            request.getSession().setAttribute("login", login);
+         request.getSession().setAttribute("login", login);
          return "main.tiles";
          
       }else{
@@ -162,16 +169,23 @@ public class YSController {
          logger.info("YSController NewsFeedList " + new Date());
 
             List<NewsFeedDTO> NewsFeedList =  newsFeedService.getNewsFeedList();
+            for(int i=0; i<NewsFeedList.size();i++){
+            	if(NewsFeedList.get(i).getN_form_num()==1){
+           		 String fname= newsFeedService.getImageFile((NewsFeedList.get(i).getN_seq()));
+           		 NewsFeedList.get(i).setFilename(fname);
+           	 }
+            }
+            System.out.println("NewsFeedList.size()==="+NewsFeedList.size());
             model.addAttribute("NewsFeedList",NewsFeedList);
 
             return "main.tiles";
-
-     }   
+}   
    
    
    @RequestMapping(value="test.do", 
          method={RequestMethod.GET, RequestMethod.POST})
    public String test(Model model, int lastseq){   
+	 
       logger.info("YSController test" + new Date());
       model.addAttribute("lastseq",lastseq);
       return "redirect:/test2.do";
@@ -182,14 +196,15 @@ public class YSController {
          method={RequestMethod.GET, RequestMethod.POST})
    public String test2(Model model, int lastseq){   
       logger.info("YSController test2" + new Date());
-      NewsFeedDTO dto  =  newsFeedService.addPrintNewsFeed(lastseq);
+      List<NewsFeedDTO> list  =  newsFeedService.addPrintNewsFeed(lastseq);
+      System.out.println("lastseq=="+lastseq);
+      System.out.println("list.size()=="+list.size());
       
-      if(dto==null){
+      if(list.size()==0){
          System.out.println("null이다");
          
       }else{
-         model.addAttribute("news",dto);
-         System.out.println(dto.toString());
+         model.addAttribute("NewsFeedList",list);
       }
       return "newsfeed.tiles";
    }
@@ -233,10 +248,37 @@ public class YSController {
  }
    
    
-   
+   @RequestMapping(value="Like.do", 
+	         method={RequestMethod.GET, RequestMethod.POST})
+   @ResponseBody
+	   public List<String> Like(Model model, int seq, String m_id){
+	   logger.info("YSController LikeLikeLikeLikeLike" + new Date());
+	   
+	   NewsFeedLikeDTO dto = new NewsFeedLikeDTO(seq,m_id);
+	   if(newsFeedService.getLikeListCount(dto)==1){
+		   System.out.println("카운트1이다");
+		   newsFeedService.deleteLike(dto);
+	   }else{
+		   System.out.println("카운트0이다");
+		   newsFeedService.insertLike(dto);
+	   }	   
+	   List<String> list = newsFeedService.getLikeList(seq);
 
+	   return list;
+   }
    
    
+   @RequestMapping(value="writeComment.do", 
+           method={RequestMethod.GET, RequestMethod.POST})
+     public String writeComment(Model model,NewsFeedDTO newsfeeddto ){ 
+	      logger.info("YSController writeComment " + new Date());
+
+	      System.out.println(newsfeeddto.toString());
+	      newsFeedService.insertComment(newsfeeddto);
+	      
+	      return "redirect:/NewsFeedList2.do";
+	   }
+
 }
 
 

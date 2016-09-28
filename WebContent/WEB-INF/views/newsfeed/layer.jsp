@@ -48,11 +48,7 @@ width:20%;
 <div class="modal-body">
   
 <form name="frmForm2" id="_frmForm2" action="writeNewsFeed.do" method="post" enctype="multipart/form-data">
-
-
-
-<input type="hidden" name="m_id" value="영선" >
-
+id===${news.m_id}
 <table class="ys_update_table" style="width: 100%" border="1px solid black">
 	<tr>
 		<td colspan="4">상태</td>
