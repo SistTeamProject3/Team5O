@@ -15,6 +15,7 @@ import sist.co.model.GroupRequestDTO;
 import sist.co.model.NewsFeedDTO;
 import sist.co.model.VoteDTO;
 import sist.co.model.VotelistDTO;
+import sist.co.model.VoterDTO;
 import sist.co.service.GroupDAO;
 import sist.co.service.GroupService;
 @Service
@@ -206,8 +207,28 @@ public class GroupImpl implements GroupService {
 	}
 
 	@Override
-	public VoteDTO group_newsfeed_b_form(int n_vote_seq) throws Exception {
-		return groupDAO.group_newsfeed_b_form(n_vote_seq);
+	public VoteDTO group_newsfeed_b_form( VoteDTO vo) throws Exception {
+		return groupDAO.group_newsfeed_b_form(vo);
+	}
+
+	@Override
+	public List<VoterDTO> find_voter(VoteDTO vo) throws Exception {
+		return groupDAO.find_voter(vo);
+	}
+
+	@Override
+	public boolean add_voter(VoterDTO vo) throws Exception {
+		return groupDAO.add_voter(vo);
+	}
+
+	@Override
+	public List<VotelistDTO> vote_result(VoterDTO vo) throws Exception {
+		return groupDAO.vote_result(vo);
+	}
+
+	@Override
+	public VoterDTO my_vote(VoterDTO vo) throws Exception {
+		return groupDAO.my_vote(vo);
 	}
 	
 }

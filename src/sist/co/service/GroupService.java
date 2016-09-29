@@ -12,6 +12,7 @@ import sist.co.model.GroupRequestDTO;
 import sist.co.model.NewsFeedDTO;
 import sist.co.model.VoteDTO;
 import sist.co.model.VotelistDTO;
+import sist.co.model.VoterDTO;
 
 public interface GroupService {
 
@@ -78,5 +79,14 @@ public interface GroupService {
 	//폼
 	public GroupPhotoDTO group_newsfeed_p_form(int n_seq)throws Exception;
 	public GroupPhotoDTO group_newsfeed_v_form(int n_seq)throws Exception;
-	public VoteDTO group_newsfeed_b_form(int n_vote_seq)throws Exception;
+	public VoteDTO group_newsfeed_b_form(VoteDTO vo)throws Exception;
+	
+	public List<VoterDTO> find_voter(VoteDTO vo)throws Exception;
+	
+	//투표
+	public boolean add_voter(VoterDTO vo)throws Exception;
+	
+	//결과
+	public List<VotelistDTO> vote_result(VoterDTO vo)throws Exception;
+	public VoterDTO my_vote(VoterDTO vo)throws Exception;
 }

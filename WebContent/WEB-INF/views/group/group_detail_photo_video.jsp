@@ -110,7 +110,6 @@ $(document).ready(function(){
     			<!-- <source id="md_video" src=""/> -->
 		<!-- 	</video> -->
 		
-		ajdakdad
         </div>
       	  <div class="modal-body">
         </div>

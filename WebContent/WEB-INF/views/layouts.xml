@@ -83,6 +83,10 @@
 	<definition name="group_newsfeed_b_form.tiles" template="/WEB-INF/views/group/group_newsfeed_b_form.jsp">
 	</definition>
 	
+	<!-- 투표 결과 확인 -->
+	<definition name="group_vote_result.tiles" template="/WEB-INF/views/group/group_vote_result.jsp">
+	</definition>
+	
 <!-- 그룹 리스트 출력 끝 -->
 
 <!-- 멤버 -->

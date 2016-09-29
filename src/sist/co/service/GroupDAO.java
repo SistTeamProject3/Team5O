@@ -15,6 +15,7 @@ import sist.co.model.GroupRequestDTO;
 import sist.co.model.NewsFeedDTO;
 import sist.co.model.VoteDTO;
 import sist.co.model.VotelistDTO;
+import sist.co.model.VoterDTO;
 
 @Repository
 public class GroupDAO {
@@ -195,8 +196,33 @@ public class GroupDAO {
 	public GroupPhotoDTO group_newsfeed_v_form(int n_seq)throws Exception{
 		return sqlSession.selectOne(ns+"group_newsfeed_v_form", n_seq);
 	}
-	public VoteDTO group_newsfeed_b_form(int n_vote_seq)throws Exception{
-		return sqlSession.selectOne(ns+"group_newsfeed_b_form", n_vote_seq);
+	public VoteDTO group_newsfeed_b_form( VoteDTO vo)throws Exception{
+		return sqlSession.selectOne(ns+"group_newsfeed_b_form", vo);
 	}
+	
+	public List<VoterDTO> find_voter(VoteDTO vo)throws Exception{
+		List<VoterDTO> list = sqlSession.selectList(ns+"find_voter",vo);
+		
+		return  list;
+	}
+	
+	
+	// 투표 하기
+	public boolean add_voter(VoterDTO vo)throws Exception{
+		sqlSession.update(ns+"plus_votelist", vo);
+		sqlSession.insert(ns+"add_voter", vo);
+		
+		 return true;
+	} 
+	
+	public List<VotelistDTO> vote_result(VoterDTO vo)throws Exception{
+		List<VotelistDTO> list= sqlSession.selectList(ns+"vote_result", vo);
+		return list;
+	}
+	
+	public VoterDTO my_vote(VoterDTO vo)throws Exception{
+		return sqlSession.selectOne(ns+"my_vote", vo);
+	}
+	
 	
 }

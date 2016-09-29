@@ -2,6 +2,7 @@ package sist.co.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +32,7 @@ import sist.co.model.MemberDTO;
 import sist.co.model.NewsFeedDTO;
 import sist.co.model.VoteDTO;
 import sist.co.model.VotelistDTO;
+import sist.co.model.VoterDTO;
 import sist.co.service.GroupService;
 import sist.co.service.NewsFeedService;
 
@@ -657,6 +659,8 @@ public class GroupController {
 		logger.info(" group_newsfeed_list " + new Date());
 		logger.info(" gdto " + gdto.toString());
 
+		logger.info(" gdto 시작" + gdto.getS_num());
+		logger.info(" gdto 끝" + gdto.getL_num());
 		List<GroupPhotoDTO> g_nlist = groupService.group_add_newsfeed_list(gdto);
 		
 		model.addAttribute("g_n_list", g_nlist);
@@ -671,8 +675,8 @@ public class GroupController {
 	public String group_newsfeed_p_form(Model model, int n_seq) throws Exception {
 		logger.info(" 포토 폼 / 폼넘버 : " + n_seq);
 		GroupPhotoDTO pdto = groupService.group_newsfeed_p_form(n_seq);
-		logger.info(" 시작아앙 : " +pdto.toString());
-		
+/*		logger.info(" 시작아앙 : " +pdto.toString());
+*/		
 		model.addAttribute("pdto", pdto);
 		
 		return "group_newsfeed_p_form.tiles";
@@ -688,13 +692,53 @@ public class GroupController {
 	}
 	
 	@RequestMapping(value = "group_newsfeed_b_form.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String group_newsfeed_b_form(Model model, int n_vote_seq) throws Exception {
-		logger.info(" 투표 폼 / 투표 넘버 : " + n_vote_seq);
+	public String group_newsfeed_b_form(Model model, VoteDTO vo,HttpServletRequest request) throws Exception {
+		logger.info(" 투표 폼 / 투표 넘버 : " +vo.getN_vote_seq());
+		memDTO =(MemberDTO)request.getSession().getAttribute("login");
+		vo.setM_id(memDTO.getM_id());
 		
-		VoteDTO vodto = groupService.group_newsfeed_b_form(n_vote_seq);
+		List<VoterDTO> find = groupService.find_voter(vo);
+		if (find.size()<1) {
+			logger.info("투표 결과없음");
+		} else {
+			logger.info("투표 결과있음");
+		}
+		
+		VoteDTO vodto = groupService.group_newsfeed_b_form(vo);
 		logger.info(" vodto " + vodto.toString());
 		model.addAttribute("vodto", vodto);
+		model.addAttribute("find", find);
 		return "group_newsfeed_b_form.tiles";
 	}
 	
+	@RequestMapping(value="vote.do", produces = "application/text; charset=utf8" , method= { RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody String vote(Model model,VoterDTO vo,HttpServletRequest request)throws Exception{
+		logger.info(" 투표 하기/ 투표 넘버 : " +vo.getN_vote_seq());
+		String ma = URLDecoder.decode(request.getParameter("g_vote"),"UTF-8");
+		
+		memDTO =(MemberDTO)request.getSession().getAttribute("login");
+		vo.setM_id(memDTO.getM_id());
+		logger.info("스트링"+ vo.toString() );
+		vo.setG_vote(ma);
+		
+		groupService.add_voter(vo);
+		
+		return "true";
+	}
+	@RequestMapping(value="vote_result.do", method= { RequestMethod.GET, RequestMethod.POST })
+	public String vote_result(Model model,VoterDTO vo, HttpServletRequest request)throws Exception{
+		logger.info("투표 결과 확인" +vo.toString());
+		memDTO =(MemberDTO)request.getSession().getAttribute("login");
+		vo.setM_id(memDTO.getM_id());
+		
+		List<VotelistDTO> list = groupService.vote_result(vo);
+		logger.info("사이즈 확인" +	list.size());
+		
+		VoterDTO vdto = groupService.my_vote(vo);
+		
+		
+		model.addAttribute("list", list);
+		model.addAttribute("vdto", vdto);
+		return "group_vote_result.tiles";
+	}
 }
