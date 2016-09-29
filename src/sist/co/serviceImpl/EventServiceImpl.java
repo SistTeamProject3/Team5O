@@ -1,11 +1,14 @@
 package sist.co.serviceImpl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sist.co.model.EventDTO;
+import sist.co.model.EventInviteDTO;
 import sist.co.service.EventDAO;
 import sist.co.service.EventService;
 
@@ -28,5 +31,10 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public EventDTO selectEventDetail(int seq) throws Exception {
 		return eventDAO.selectEventDetail(seq);
+	}
+
+	@Override
+	public void insertEventInvite(HashMap<String, List<EventInviteDTO>> inviteList) throws Exception {
+		eventDAO.insertEventInvite(inviteList);
 	}
 }

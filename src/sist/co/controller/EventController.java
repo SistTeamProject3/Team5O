@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import sist.co.util.CalendarUtil;
 import sist.co.util.FUpUtil;
 import sist.co.model.EventDTO;
+import sist.co.model.EventInviteDTO;
 import sist.co.service.EventService;
 
 @Controller
@@ -129,25 +131,61 @@ public class EventController {
 		return "redirect:/friendlist.do?seq=" + seq;
 	//	return "event_detail.tiles";
 	}
+	/*
+	@RequestMapping(value="event_invite.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String event_invite(Model model, int seq, String inviteMemberList) throws Exception {
+		
+		logger.info("event_invite.do 접근 " + new Date());
+		
+		List<EventInviteDTO> memberList = new ArrayList<EventInviteDTO>();
+		if ( inviteMemberList.length() > 0 ) {
+			
+			String[] memberIdList = inviteMemberList.split("-");
+			
+			for ( int i = 0; i < memberIdList.length; i++ ) {
+				logger.info("inviteList[" + i + "]: " + memberIdList[i]);
+				EventInviteDTO inviteMember = new EventInviteDTO(seq, memberIdList[i]);
+				memberList.add(inviteMember);
+			}
+		}
+		
+		for ( int i = 0; i < memberList.size(); i++ ) {
+			logger.info("memberList[" + i + "]: " + memberList.get(i).getM_id());
+		}
+		
+		eventService.insertEventInvite(memberList);
+		
+		return "redirect:/event_detail.do?seq=" + seq;
+	}
+	*/
 	
 	@RequestMapping(value="event_invite.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String event_invite(Model model, int seq, String inviteMemberList) throws Exception {
 		
 		logger.info("event_invite.do 접근 " + new Date());
-		/*
-		logger.info("seq: " + seq);
-		logger.info("inviteMemberList: " + inviteMemberList);
-		logger.info("inviteMemberList.length: " + inviteMemberList.length());
-		*/
+		
+		List<EventInviteDTO> memberList2 = new ArrayList<EventInviteDTO>();
 		if ( inviteMemberList.length() > 0 ) {
 			
-			String[] inviteList = inviteMemberList.split("-");
+			String[] memberIdList = inviteMemberList.split("-");
 			
-			for ( int i = 0; i < inviteList.length; i++ ) {
-				logger.info("inviteList[" + i + "]: " + inviteList[i]);
+			for ( int i = 0; i < memberIdList.length; i++ ) {
+				logger.info("inviteList[" + i + "]: " + memberIdList[i]);
+				EventInviteDTO inviteMember = new EventInviteDTO(seq, memberIdList[i]);
+				memberList2.add(inviteMember);
 			}
 		}
 		
+		for ( int i = 0; i < memberList2.size(); i++ ) {
+			logger.info("memberList[" + i + "]: " + memberList2.get(i).getM_id());
+		}
+		
+		HashMap<String, List<EventInviteDTO>> inviteList = new HashMap<String, List<EventInviteDTO>>();
+		inviteList.put("list", memberList2);
+		
+		eventService.insertEventInvite(inviteList);
+		
 		return "redirect:/event_detail.do?seq=" + seq;
 	}
+	
 }

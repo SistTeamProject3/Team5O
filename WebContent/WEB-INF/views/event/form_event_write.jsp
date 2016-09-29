@@ -161,6 +161,7 @@ pageContext.setAttribute("day", day);
 		</tr>
 		</table>
 		
+		<input type="hidden" id="m_id" name="m_id" />
 		<input type="hidden" id="m_name" name="m_name" />
 		<input type="hidden" id="e_image" name="e_image" />
 		<input type="hidden" id="e_start_date" name="e_start_date" />
@@ -286,7 +287,6 @@ $(document).ready(function () {
  	$('#start_date').bootstrapMaterialDatePicker(
 		{ weekStart : 0, format : 'YYYY-MM-DD HH:mm', minDate : new Date() } 
 		).on('change', function(e, date) {
-			alert("bootstrapMaterialDatePicker");
 			 $('#end_date').bootstrapMaterialDatePicker( 
 				{ weekStart : 0, format : 'YYYY-MM-DD HH:mm', minDate : date }
 			); 
@@ -317,6 +317,7 @@ $(document).ready(function () {
 		
 		if ( confirm ) {
 			// 작성자 저장 ※ form이 multi 방식으로 인코딩 되기 때문에 hidden으로 값을 넘겨줄 수 없음
+			$('#m_id').val('${ login.m_id }');
 			$('#m_name').val('${ login.m_name }');
 			
 			// 위치 값이 공백이면 '위치 없음'으로 저장

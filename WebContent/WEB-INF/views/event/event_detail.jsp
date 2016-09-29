@@ -6,6 +6,8 @@
 
 <fmt:requestEncoding value="UTF-8"/>
 
+<jsp:useBean id="calUtil" class="sist.co.util.CalendarUtil" />
+
 <style type="text/css">
 
 .title_image_wrap {
@@ -137,6 +139,17 @@ pre {
 	color: #AAAAAA;
 }
 
+
+/* 임시 */
+.newsfeed_event_title {
+	width: 200px; 
+	display: inline-block;
+	overflow: hidden; 
+	white-space: nowrap; 
+	text-overflow: ellipsis; 
+	vertical-align: middle;
+}
+
 </style>
 
 <div id="title_image" class="title_image_wrap">
@@ -160,9 +173,13 @@ pre {
 	<!-- 날짜 & 이벤트 이름 -->
 	<div class="event_date_title">
 		<span class="event_date">
-			<span style="font-size: 9pt;">${ fn:substring(event.e_start_date, 5, 7) }월</span>
+			<span style="font-size: 9pt;">
+				${ calUtil.toOne(fn:substring(event.e_start_date, 5, 7)) }월
+			</span>
 			<br/>
-			<span style="font-size: 14pt; font-weight: 800;">${ fn:substring(event.e_start_date, 8, 10) }일</span>
+			<span style="font-size: 14pt; font-weight: 800;">
+				${ calUtil.toOne(fn:substring(event.e_start_date, 8, 10)) }일
+			</span>
 		</span>
 		<span class="event_title">
 			${ event.e_title }
@@ -181,12 +198,14 @@ pre {
 		</span>
 	</div>
 	
-	<div class="event_modify btn-group btn-group-justified">
-		<a href="#" class="btn btn-default" data-toggle="modal" 
-			data-target="#modal_invite" onclick="return false">
-			<i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;초대</a>
-		<a href="#" class="btn btn-default"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;수정</a>
-	</div>
+	<c:if test="${ login.m_id == event.m_id }">
+		<div class="event_modify btn-group btn-group-justified">
+			<a href="#" class="btn btn-default" data-toggle="modal" 
+				data-target="#modal_invite" onclick="return false">
+				<i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;초대</a>
+			<a href="#" class="btn btn-default"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;수정</a>
+		</div>
+	</c:if>
 </div>
 
 <div id="modal_invite_wrap">
@@ -203,7 +222,6 @@ pre {
 				<tr>
 					<td class="summary_type td_bottom"><i class="fa fa-clock-o" aria-hidden="true"></i></td>
 					
-					<jsp:useBean id="calUtil" class="sist.co.util.CalendarUtil" />
 					<c:set var="sDateArr" value="${ fn:split(event.e_start_date, '-') }" />
 					<td class="td_bottom" style="text-align: left;">
 						<!-- 시작 날짜 -->
@@ -257,6 +275,67 @@ pre {
 			<%-- <jsp:include page="/WEB-INF/views/newsfeed/newsfeed_list2.jsp" /> --%>
 			<jsp:include page="/WEB-INF/views/group/group_newsfeed_write.jsp" />
 		</div>
+		
+		<!-- 임시용: 이벤트 뉴스피드 -->
+		<br/>
+		<div>
+			<table border="1" style="width: 100%; height:100%;">
+				<col style="width: 10%;" /><col style="width: 60%;" /><col style="width: 20%;" />
+				<tr>
+					<td>
+						<span class="event_date">
+							<span style="font-size: 9pt;">
+								${ calUtil.toOne(fn:substring(event.e_start_date, 5, 7)) }월
+							</span>
+							<br/>
+							<span style="font-size: 14pt; font-weight: 800;">
+								${ calUtil.toOne(fn:substring(event.e_start_date, 8, 10)) }일
+							</span>
+						</span>
+					</td>
+					<td style="text-align: left;">
+						<div class="newsfeed_event_title">${ event.e_title }</div>
+						<br/>
+						<c:if test="${ calUtil.toOne(fn:substring(event.e_start_date, 11, 13)) <= 12 }">
+							오전 ${ calUtil.toOne(fn:substring(event.e_start_date, 11, 13)) }시&nbsp;
+						</c:if>
+						
+						<c:if test="${ calUtil.toOne(fn:substring(event.e_start_date, 11, 13)) > 12 }">
+							오후 ${ calUtil.toOne(sDateArr[3]) - 12 }시&nbsp;
+						</c:if>
+						${ calUtil.toOne(fn:substring(event.e_start_date, 14, 16)) }분
+					</td>
+					<td>
+						<div class="btn-group">
+							<a href="#" id="event_join_decision" class="btn btn-default dropdown-toggle" 
+								data-toggle="dropdown" aria-expanded="false">
+								<span class="event_join_type_img"></span>
+								<font id="event_join_decision_text">결정</font>
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="#" class="event_join_type" chk="0" 
+										onclick="return false"><span class="event_join_type_img"></span>
+										&nbsp;참석</a>
+								</li>
+								<li>
+									<a href="#" class="event_join_type" chk="0" 
+										onclick="return false"><span class="event_join_type_img"></span>
+										&nbsp;불참</a>
+								</li>
+								<li>
+									<a href="#" class="event_join_type" chk="0" 
+										onclick="return false"><span class="event_join_type_img"></span>
+										&nbsp;모르겠음</a>
+								</li>
+							</ul>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		
 	</div>
 	<div class="event_main_wrap_right">
 		<div class="event_main_join_list">
@@ -269,8 +348,8 @@ pre {
 				</tr>
 				
 				<tr>
-					<td class="join_list_text">참석함</td>
-					<td class="join_list_text">불확실</td>
+					<td class="join_list_text">참석</td>
+					<td class="join_list_text">불참</td>
 					<td class="join_list_text">초대됨</td>
 				</tr>
 			</table>
@@ -288,6 +367,24 @@ $(document).ready(function() {
 	if ( titleHeight > 50 ) {
 		$('.event_date_title').css('top', '220px');
 	}
+	
+	// 이벤트 참석 여부 결정
+	$('.event_join_type').click(function() {
+		var targetChk = $(this).attr('chk');
+		var choiceText = $(this).text();
+		var imgTag = "<i id='join_check_img' class='fa fa-check' aria-hidden='true'></i>";
+		
+		if ( targetChk == 0 ) {
+			$(this).attr('chk', '1').find('.event_join_type_img').html(imgTag);
+			$('.event_join_type').not(this).attr('chk', '0').find('i').remove();
+			
+		} else {
+			$(this).not(this).attr('chk', '0').find('.event_join_type_img').find('i').remove();
+		}
+		
+		$('#event_join_decision').find('#event_join_decision_text').text(choiceText);
+		$('#event_join_decision').find('.event_join_type_img').html(imgTag);
+	});
 });
 
 </script>

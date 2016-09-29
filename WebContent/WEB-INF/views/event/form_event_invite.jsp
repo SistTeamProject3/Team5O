@@ -176,7 +176,7 @@
 					
 					<c:forEach var="friend" items="${ finformlist }">
 						<div class="search_friend_info" style="height: 55px;">
-							<table class="tbl_search_friend" m_name="${ friend.value.m_name }">
+							<table class="tbl_search_friend" m_id="${ friend.value.m_id }">
 								<col width="70px" /><col width="300px" /><col width="70px" />
 								<tr>
 									<td>
@@ -184,7 +184,7 @@
 											width="50px" height="50px" />
 									</td>
 									<td style="text-align: left;">
-										${ friend.value.m_name }
+										${ friend.value.m_id }
 										<br/>
 										<!-- 추가 정보 출력 우선순위(직장 > 대학교 > 고등학교 > 거주지) -->
 										<!-- 아무것도 없으면 공백 -->
@@ -279,13 +279,13 @@ $(document).ready(function () {
 		var target = $(this).find('.chk_image');
 		var chkVal = $(target).attr('check');
 		
-		var m_name = $(this).attr('m_name');
-		var choiceFriendTag = "<div id = choice-" + m_name + ">"
+		var m_id = $(this).attr('m_id');
+		var choiceFriendTag = "<div id = choice-" + m_id + ">"
 							+ "<div class='add_choice_friend_info'>"
 							+ "<img alt='프로필 사진' src='image/event/profile_base.jpg'" 
 							+ "class='choice_friend_profile_image' />"
 							+ "<div class='choice_friend_info'>"
-							+ m_name
+							+ m_id
 							+ "</div></div></div>";
 		
 		// 체크되지 않은 상태면
@@ -297,7 +297,7 @@ $(document).ready(function () {
 			$('#add_choice_friend').prepend(choiceFriendTag);
 			
 			// 초대 리스트에 추가
-			inviteMemberList = inviteMemberList + m_name + "-";
+			inviteMemberList = inviteMemberList + m_id + "-";
 			
 			// 선택 개수 증가
 			choiceCnt++;
@@ -309,10 +309,10 @@ $(document).ready(function () {
 			$(target).attr('check', 0);
 			
 			// 선택한 친구를 선택 리스트에서 제거
-			$('#choice-' + m_name).remove();
+			$('#choice-' + m_id).remove();
 			
 			// 초대 리스트에서 제거
-			inviteMemberList = inviteMemberList.replace(m_name + "-", "");
+			inviteMemberList = inviteMemberList.replace(m_id + "-", "");
 			
 			// 선택 개수 감소
 			choiceCnt--;
@@ -343,10 +343,12 @@ $(document).ready(function () {
 	
 	/*		선택한 친구에게 초대 발송		*/
 	$('#btn_event_invite').click(function() {
+		var eventSeq = '${ event.e_seq }';
+		
 		$.ajax({
 			url: 'event_invite.do',
 			type: 'POST',
-			data: { 'seq' : ${ event.e_seq }, 'inviteMemberList' : inviteMemberList },
+			data: { 'seq' : eventSeq, 'inviteMemberList' : inviteMemberList },
 			async: false,
 			cache: false,
 			success: function(data) {
@@ -354,8 +356,7 @@ $(document).ready(function () {
 				$('#btn_event_close').click();
 			},
 			error: function(data) {
-				alert("실패...");
-				alert(data);
+				alert("실패..." + "\n" + "data: " + data);
 			}
 		});
 	});
