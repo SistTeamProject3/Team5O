@@ -1,19 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-    <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-
-
-
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
- <style>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<style>
 textarea
 {
   width:100%; 
@@ -36,7 +26,6 @@ width:20%;
   
 <form name="frmForm" id="_frmForm" action="writeNewsFeed.do" method="post" enctype="multipart/form-data">
 
-
 <input type="hidden" name="m_id" value="${login.m_id }" >
 
 <table class="ys_write_table" style="width: 80%" border="1px solid black">
@@ -52,19 +41,18 @@ width:20%;
       
       <div id="room_type">
             <div id="image_preview2" >
-                       
-                       <label for="image">
-                      <input type=file  name="fileload" id="image2" style='display: none;'> 
-                     <img src='image/news_addfile.jpg' name="_file3" id="_file3" border='0' onclick='hideAll();'> 
-                  </label>
-                      
-         
+				<label for="image">
+				<input type=file  name="fileload" id="image2" style='display: none;'> 
+				<img src='image/news_addfile.jpg' name="_file3" id="_file3" border='0' onclick='hideAll();'> 
+				</label>
             </div> 
             <div class="form-group">
             
                <div id="image_preview">
-                   <img src="#" width="150px" height="100px"/>
-                   <a class='fa fa-times' onclick="remove_div(this)"></a> 
+                 <img src="#" width="150px" height="100px"/>
+                   <a class='fa fa-times' onclick="remove_div(this)"></a>
+                   
+                 
                 </div>         
             </div>
       </div>
@@ -112,26 +100,15 @@ width:20%;
 
    <tr> 
    <td colspan="4">
-   
-   <!--    
-          <br/> 
-           <input type=file  name="image" id="image" style='display: none;'> 
-         <img src='image/news_file.jpg' border='0' onclick='hideAll();'>
-            
-         -->
-    
-         <!--  <label for="image"> -->
-            <input type=file  name="fileload2" id="image" style='display: none;'> 
-         <img src='image/news_file.jpg' name="_file2" id="_file2" border='0' onclick='hideAll();'>
-      <!--    </label> -->
-   
-      <!-- <span class="fa fa-camera-retro fa-2x"></span> -->
-      &nbsp;&nbsp;&nbsp;&nbsp;
-      <span  style="color:blue" class="fa fa-users fa-2x" id="viewFriend"  onclick="return false;"></span>
-      &nbsp;&nbsp;&nbsp;&nbsp;
-      <span class="fa fa-smile-o fa-2x" id="viewFeel"  onclick="return false;"></span>
-      &nbsp;&nbsp;&nbsp;&nbsp;
-      <span class="fa fa-map-marker fa-2x"  id="viewWhere"  onclick="return false;"></span>
+		<input type=file  name="fileloadd" id="image" style='display: none;'>
+		<img src='image/news_file.jpg' name="_file2" id="_file2" border='0' onclick='hideAll();'>
+
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<span  style="color:blue" class="fa fa-users fa-2x" id="viewFriend"  onclick="return false;"></span>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="fa fa-smile-o fa-2x" id="viewFeel"  onclick="return false;"></span>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="fa fa-map-marker fa-2x"  id="viewWhere"  onclick="return false;"></span>
 
       <span style="float:right;"> 
          <select name="n_show" >
@@ -154,74 +131,53 @@ width:20%;
  var countDiv=1;
  
  $("#viewFriend").click(function() {
-     status = $("#friend").css("display");
-     if (status == "none") {
-       $("#friend").css("display","");
-       $("#feel").css("display","none");
-       $("#where").css("display","none");
-     }
-     else {
-       $("#friend").css("display","none");
-     }
+		 $("#friend").show();
+		 $("#feel").hide();
+		 $("#where").hide();
    });
  
  $("#viewFeel").click(function() {
-     status = $("#feel").css("display");
-     if (status == "none") {
-        $("#friend").css("display","none");
-        $("#feel").css("display","");
-        $("#where").css("display","none");
-     }
-     else {
-       $("#feel").css("display","none");
-     }
+		 $("#friend").hide();
+		 $("#feel").show();
+		 $("#where").hide();
    });
  
  $("#viewWhere").click(function() {
-     status = $("#where").css("display");
-     if (status == "none") {
-        $("#friend").css("display","none");
-        $("#feel").css("display","none");
-        $("#where").css("display","");
-     }
-     else {
-       $("#where").css("display","none");
-     }
+		 $("#friend").hide();
+		 $("#feel").hide();
+		 $("#where").show();
    });
  
 function hideAll(){
-    $("#friend").css("display","none");
-     $("#feel").css("display","none");
-     $("#where").css("display","none");
+		 $("#friend").hide();
+		 $("#feel").hide();
+		 $("#where").hide();
 }
 
 
 function getState(val) {
-
-   $("#printFeel").text("");
-   $("#printFeel").append("나는지금  "+val);
-   
-   $("#nowFeel").css("display","");
-   $("#nowFeel").text("");
-   $("#nowFeel").text("나는지금  "+val);
-   $("#nowFeel").append("&nbsp;&nbsp;<i class='fa fa-times' aria-hidden='true' onclick=\"deleteArea('nowFeel')\"></i>"); 
-
-
-   
+	
+		$("#printFeel").text("");
+		$("#printFeel").append("나는지금  "+val);
+		$("#feel").hide();
+		$("#nowFeel").show();
+		$("#nowFeel").text("");
+		$("#nowFeel").text("나는지금  "+val);
+		$("#nowFeel").append("&nbsp;&nbsp;<i class='fa fa-times' aria-hidden='true' onclick=\"deleteArea('nowFeel')\"></i>"); 
 }
 
 function setState(val){
-   
-/*    $("#tag_feel").attr("value",val); */
-   $("#nowFeel").append("<input type='hidden' name='n_tag_feel' value="+val+">");
+		$("#nowFeel").append("<input type='hidden' name='n_tag_feel' value="+val+">");
 }
 
 function onKeyDown()
 {
      if(event.keyCode == 13)
      {
-       $("#nowFriend").css("display","");
-        $("#nowFriend").prepend($("#_friend").val()+",");
+		
+		$("#nowFriend").show();
+		$("#nowFriend").prepend($("#_friend").val()+",");
+	/* 	$("#_friend").val(""); */
      }
 }
 
@@ -229,16 +185,16 @@ function onKeyDown2()
 {
      if(event.keyCode == 13)
      {
-       $("#nowWhere").css("display","");
-      $("#nowWhere").text("");
-       $("#nowWhere").text($("#_where").val()+"에서");
-      $("#nowWhere").append("&nbsp;&nbsp;<i class='fa fa-times' aria-hidden='true' onclick=\"deleteArea('nowWhere')\"></i>"); 
-      $("#_where").text("");
+		$("#nowWhere").show();
+		$("#nowWhere").text("");
+		$("#nowWhere").text($("#_where").val()+"에서");
+		$("#nowWhere").append("&nbsp;&nbsp;<i class='fa fa-times' aria-hidden='true' onclick=\"deleteArea('nowWhere')\"></i>"); 
+		/* $("#_where").val(""); */
      }
 }
 
 function deleteArea(val){
-   $("#"+val).css("display","none");
+   $("#"+val).hide();
 }
 
 $(function() {
@@ -257,7 +213,7 @@ $(function() {
         resetFormElement($(this)); //폼 초기화
         window.alert('파일 업로드 할 수 없습니다. 파일은 gif, png, jpg, jpeg 만 가능합니다.');
     } else { 
-       $("#image_preview2").css("display","");
+    	$("#image_preview2").show();
         file = $('#image').prop("files")[0];
         blobURL = window.URL.createObjectURL(file);
      //   alert("blobURL=="+file.name);
@@ -278,29 +234,29 @@ $(function() {
        ext = $(this).val().split('.').pop().toLowerCase(); //확장자
        
        if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg','mp4']) == -1) {
-           resetFormElement($(this)); //폼 초기화
-           window.alert('파일 업로드 할 수 없습니다. 파일은 gif, png, jpg, jpeg 만 가능합니다.');
+			resetFormElement($(this)); //폼 초기화
+			window.alert('파일 업로드 할 수 없습니다. 파일은 gif, png, jpg, jpeg 만 가능합니다.');
        } else { 
-          add_div();
-          $("#image_preview2").css("display","");
-           file = $('#image2').prop("files")[0];
-           blobURL = window.URL.createObjectURL(file);
+			add_div();
+			$("#image_preview2").show();
+			file = $('#image2').prop("files")[0];
+			blobURL = window.URL.createObjectURL(file);
        //    alert("blobURL=="+file.name);
            
-             a = a+file.name +",";   //업로드파일이름
+			a = a+file.name +",";   //업로드파일이름
        //    alert("a="+a);
-           
-           $('#image_preview img').attr('src', blobURL);
-           $('#image_preview').slideDown(); //업로드한 이미지 미리보기 
-           $('#image_preview2').slideDown(); 
-           $(this).slideUp(); //파일 양식 감춤
+			           
+			$('#image_preview img').attr('src', blobURL);
+			$('#image_preview').slideDown(); //업로드한 이미지 미리보기 
+			$('#image_preview2').slideDown(); 
+			$(this).slideUp(); //파일 양식 감춤
       } 
    });
 
  
 
  $('#image_preview a').bind('click', function() {
-    resetFormElement($('#image')); //전달한 양식 초기화
+	resetFormElement($('#image')); //전달한 양식 초기화
     $(this).parent().slideUp(); //미리 보기 영역 감춤
     $('#image_preview2').slideUp(); 
     return false; //기본 이벤트 막음
@@ -308,22 +264,22 @@ $(function() {
     
 
 function resetFormElement(e) {
-    e.wrap('<form>').closest('form').get(0).reset(); 
+	e.wrap('<form>').closest('form').get(0).reset(); 
     e.unwrap(); //감싼 <form> 태그를 제거
 }
 
 function add_div(){
-        var div = document.createElement('div');
-       div.innerHTML = document.getElementById('image_preview').innerHTML;
-       document.getElementById('field').appendChild(div); 
+	var div = document.createElement('div');
+	div.innerHTML = document.getElementById('image_preview').innerHTML;
+	document.getElementById('field').appendChild(div); 
 }
 
 function remove_div(obj){
-   document.getElementById('field').removeChild(obj.parentNode);
+	document.getElementById('field').removeChild(obj.parentNode);
 }
 
 function test(){
-   alert("test");
+	alert("test");
 }
 
 
@@ -339,8 +295,15 @@ $("#_file3").click(function(){
 
 
 $("#finish").click(function() {
-   alert("피니쉬!!!!");
-   $("#_frmForm").attr({"target":"_self", "action":"writeNewsFeed.do"}).submit();
+
+ 	if($("#ta").val()==""){
+		alert("본문 텍스트 작성은 필수입니다!!!!!!!!!");
+	}
+	else{
+	   alert("피니쉬!!!!");
+	   $("#_frmForm").attr({"target":"_self", "action":"writeNewsFeed.do"}).submit();
+	}
+
 });
 
 

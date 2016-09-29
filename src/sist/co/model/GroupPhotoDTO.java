@@ -26,13 +26,13 @@ public class GroupPhotoDTO implements Serializable{
 	private String nf_photo;
 	private String nf_video;
 	private String nf_file;
-	
+	private int n_likecount;
 	private String m_profile;
 
 	public GroupPhotoDTO(){
 		
-	}	
-	
+	}
+
 	@Override
 	public String toString() {
 		return "GroupPhotoDTO [n_seq=" + n_seq + ", g_seq=" + g_seq + ", n_form_num=" + n_form_num + ", m_id=" + m_id
@@ -40,13 +40,14 @@ public class GroupPhotoDTO implements Serializable{
 				+ ", n_tag_feel=" + n_tag_feel + ", n_show=" + n_show + ", n_wdate=" + n_wdate + ", n_report="
 				+ n_report + ", n_ref=" + n_ref + ", n_step=" + n_step + ", n_depth=" + n_depth + ", n_del=" + n_del
 				+ ", n_share=" + n_share + ", n_event_seq=" + n_event_seq + ", n_vote_seq=" + n_vote_seq + ", nf_photo="
-				+ nf_photo + ", nf_video=" + nf_video + ", nf_file=" + nf_file + ", m_profile=" + m_profile + "]";
+				+ nf_photo + ", nf_video=" + nf_video + ", nf_file=" + nf_file + ", n_likecount=" + n_likecount
+				+ ", m_profile=" + m_profile + "]";
 	}
 
 	public GroupPhotoDTO(int n_seq, int g_seq, int n_form_num, String m_id, String n_content, String n_tag_friend,
 			String n_tag_where, String n_tag_feel, int n_show, Date n_wdate, int n_report, int n_ref, int n_step,
 			int n_depth, int n_del, int n_share, int n_event_seq, int n_vote_seq, String nf_photo, String nf_video,
-			String nf_file, String m_profile) {
+			String nf_file, int n_likecount, String m_profile) {
 		super();
 		this.n_seq = n_seq;
 		this.g_seq = g_seq;
@@ -69,6 +70,7 @@ public class GroupPhotoDTO implements Serializable{
 		this.nf_photo = nf_photo;
 		this.nf_video = nf_video;
 		this.nf_file = nf_file;
+		this.n_likecount = n_likecount;
 		this.m_profile = m_profile;
 	}
 
@@ -240,14 +242,21 @@ public class GroupPhotoDTO implements Serializable{
 		this.nf_file = nf_file;
 	}
 
+	public int getN_likecount() {
+		return n_likecount;
+	}
+
+	public void setN_likecount(int n_likecount) {
+		this.n_likecount = n_likecount;
+	}
+
 	public String getM_profile() {
 		return m_profile;
 	}
 
 	public void setM_profile(String m_profile) {
 		this.m_profile = m_profile;
-	}
-	
+	}	
 	
 	
 	

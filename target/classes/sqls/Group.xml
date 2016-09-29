@@ -7,7 +7,6 @@
 <insert id="group_make" parameterType="sist.co.model.GroupMakeDTO">
 INSERT INTO TP3_MAKEGROUP(G_SEQ,G_NAME,G_TYPE,G_MANAGER)
 VALUES(TP3_GROUP_SEQ.NEXTVAL,#{g_name},#{g_type},#{g_manager})
-
 </insert>
 
 <select id="select_make_group" parameterType="sist.co.model.GroupMakeDTO" resultType="sist.co.model.GroupMakeDTO">
@@ -20,7 +19,6 @@ VALUES(#{g_seq},#{m_id},3)
 </insert>
 
 <select id="group_list" parameterType="sist.co.model.GroupListDTO" resultType="sist.co.model.GroupListDTO">
-
 SELECT A.G_SEQ,A.M_ID,A.G_AUTH,B.G_NAME,B.G_PHOTO,B.G_TYPE,B.G_MANAGER 
 FROM TP3_GROUPMEMBER A,TP3_MAKEGROUP B
 WHERE A.G_SEQ=B.G_SEQ AND M_ID=#{m_id}
@@ -120,8 +118,8 @@ VALUES(#{n_vote_seq},#{v_list},0)
 </insert>
 
 <insert id="add_newsfeed" parameterType="sist.co.model.VoteDTO">
-INSERT INTO TP3_NEWSFEED(N_SEQ,G_SEQ, N_FORM_NUM, M_ID, N_CONTENT, N_SHOW, N_WDATE ,N_REF, N_STEP, N_DEPTH, N_VOTE_SEQ)
-VALUES(TP3_NEWSFEED_SEQ.NEXTVAL, #{g_seq},4, #{m_id}, #{n_content}, 5, SYSDATE, 0,0,0,#{n_vote_seq})
+INSERT INTO TP3_NEWSFEED(N_SEQ,G_SEQ, N_FORM_NUM, M_ID, N_CONTENT, N_SHOW, N_WDATE ,N_REF, N_STEP, N_DEPTH, N_VOTE_SEQ,N_LIKECOUNT)
+VALUES(TP3_NEWSFEED_SEQ.NEXTVAL, #{g_seq},4, #{m_id}, #{n_content}, 5, SYSDATE, 0,0,0,#{n_vote_seq},0)
 
 </insert>
 <select id="filelist" parameterType="sist.co.model.GroupMakeDTO" resultType="sist.co.model.GroupPhotoDTO">
@@ -205,17 +203,17 @@ WHERE G_SEQ=#{g_seq} AND M_ID=#{m_id}
 <insert id="group_writeNewsFeed"
    parameterType="sist.co.model.NewsFeedDTO">
       INSERT INTO TP3_NEWSFEED
-      (N_SEQ,G_SEQ, N_FORM_NUM, M_ID, N_CONTENT, N_SHOW, N_WDATE ,N_TAG_FRIEND, N_TAG_WHERE, N_TAG_FEEL ,N_REF, N_STEP, N_DEPTH)
+      (N_SEQ,G_SEQ, N_FORM_NUM, M_ID, N_CONTENT, N_SHOW, N_WDATE ,N_TAG_FRIEND, N_TAG_WHERE, N_TAG_FEEL ,N_REF, N_STEP, N_DEPTH, N_LIKECOUNT)
       VALUES(TP3_NEWSFEED_SEQ.NEXTVAL,#{g_seq},
-         #{n_form_num}, #{m_id}, #{n_content}, #{n_show}, SYSDATE,  #{n_tag_friend}, #{n_tag_where}, #{n_tag_feel}, 0,0,0)
+         #{n_form_num}, #{m_id}, #{n_content}, #{n_show}, SYSDATE,  #{n_tag_friend}, #{n_tag_where}, #{n_tag_feel}, 0,0,0,0)
 </insert>
 
 <insert id="group_writeNewsFeedImage"
    parameterType="sist.co.model.NewsFeedDTO">
       INSERT INTO TP3_NEWSFEED
-      (N_SEQ,G_SEQ, N_FORM_NUM, M_ID, N_CONTENT, N_SHOW, N_WDATE ,N_TAG_FRIEND, N_TAG_WHERE, N_TAG_FEEL ,N_REF, N_STEP, N_DEPTH)
+      (N_SEQ,G_SEQ, N_FORM_NUM, M_ID, N_CONTENT, N_SHOW, N_WDATE ,N_TAG_FRIEND, N_TAG_WHERE, N_TAG_FEEL ,N_REF, N_STEP, N_DEPTH, N_LIKECOUNT)
       VALUES(TP3_NEWSFEED_SEQ.NEXTVAL,#{g_seq},
-         #{n_form_num}, #{m_id}, #{n_content}, #{n_show}, SYSDATE,  #{n_tag_friend}, #{n_tag_where}, #{n_tag_feel}, 0,0,0)
+         #{n_form_num}, #{m_id}, #{n_content}, #{n_show}, SYSDATE,  #{n_tag_friend}, #{n_tag_where}, #{n_tag_feel}, 0,0,0,0)
 </insert>
 
 <insert id="group_writeNewsFeedImage2"
@@ -241,25 +239,23 @@ WHERE G_SEQ=#{g_seq} AND M_ID=#{m_id}
 
 <select id="group_newsfeed_list" parameterType="sist.co.model.GroupMakeDTO" resultType="sist.co.model.GroupPhotoDTO">
 <![CDATA[ 
-SELECT * FROM 
-(select ROWNUM NUM, TP3_NEWSFEED.* from(
-select B.M_PROFILE,A.* from TP3_NEWSFEED A
-INNER JOIN TP3_MEMBER B
-ON A.M_ID=B.M_ID 
-order by N_WDATE DESC) TP3_NEWSFEED)
-WHERE G_SEQ =#{g_seq} AND (NUM >=1 and NUM <=10)
+SELECT * FROM(
+SELECT ROWNUM NUM,CC.* FROM(
+(SELECT BC.* FROM 
+(select AC.* from (select B.M_PROFILE,A.* from TP3_NEWSFEED A INNER JOIN TP3_MEMBER B ON A.M_ID=B.M_ID order by N_WDATE DESC) AC) BC)CC)
+WHERE (G_SEQ =#{g_seq} AND N_PARENT IS NULL ) 
+)WHERE NUM >=1 and NUM <=10
 ]]>
 </select>
 
 <select id="group_add_newsfeed_list" parameterType="sist.co.model.GroupListDTO" resultType="sist.co.model.GroupPhotoDTO">
 <![CDATA[ 
-SELECT * FROM 
-(select ROWNUM NUM, TP3_NEWSFEED.* from(
-select B.M_PROFILE,A.* from TP3_NEWSFEED A
-INNER JOIN TP3_MEMBER B
-ON A.M_ID=B.M_ID 
-order by N_WDATE DESC) TP3_NEWSFEED)
-WHERE G_SEQ =#{g_seq} AND (NUM >=#{s_num} and NUM <=#{l_num})
+SELECT * FROM(
+SELECT ROWNUM NUM,CC.* FROM(
+(SELECT BC.* FROM 
+(select AC.* from (select B.M_PROFILE,A.* from TP3_NEWSFEED A INNER JOIN TP3_MEMBER B ON A.M_ID=B.M_ID order by N_WDATE DESC) AC) BC)CC)
+WHERE (G_SEQ =#{g_seq} AND N_PARENT IS NULL ) 
+)WHERE NUM >=#{s_num} and NUM <=#{l_num}
 ]]>
 </select>
 

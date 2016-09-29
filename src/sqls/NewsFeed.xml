@@ -9,17 +9,17 @@
 <insert id="writeNewsFeed"
    parameterType="sist.co.model.NewsFeedDTO">
       INSERT INTO TP3_NEWSFEED
-      (N_SEQ,G_SEQ, N_FORM_NUM, M_ID, N_CONTENT, N_SHOW, N_WDATE ,N_TAG_FRIEND, N_TAG_WHERE, N_TAG_FEEL ,N_REF, N_STEP, N_DEPTH)
+      (N_SEQ,G_SEQ, N_FORM_NUM, M_ID, N_CONTENT, N_SHOW, N_WDATE ,N_TAG_FRIEND, N_TAG_WHERE, N_TAG_FEEL ,N_REF, N_STEP, N_DEPTH, N_PARENT, N_LIKECOUNT)
       VALUES(TP3_NEWSFEED_SEQ.NEXTVAL,#{g_seq},
-         0, #{m_id}, #{n_content}, #{n_show}, SYSDATE,  #{n_tag_friend}, #{n_tag_where}, #{n_tag_feel}, 0,0,0)
+         0, #{m_id}, #{n_content}, #{n_show}, SYSDATE,  #{n_tag_friend}, #{n_tag_where}, #{n_tag_feel}, (SELECT NVL(MAX(N_REF), 0)+1 FROM TP3_NEWSFEED),0,0,0,0)
 </insert>
 
  <insert id="writeNewsFeedImage"
    parameterType="sist.co.model.NewsFeedDTO">
       INSERT INTO TP3_NEWSFEED
-      (N_SEQ,G_SEQ, N_FORM_NUM, M_ID, N_CONTENT, N_SHOW, N_WDATE ,N_TAG_FRIEND, N_TAG_WHERE, N_TAG_FEEL ,N_REF, N_STEP, N_DEPTH)
+      (N_SEQ,G_SEQ, N_FORM_NUM, M_ID, N_CONTENT, N_SHOW, N_WDATE ,N_TAG_FRIEND, N_TAG_WHERE, N_TAG_FEEL ,N_REF, N_STEP, N_DEPTH, N_PARENT, N_LIKECOUNT)
       VALUES(TP3_NEWSFEED_SEQ.NEXTVAL,#{g_seq},
-         1, #{m_id}, #{n_content}, #{n_show}, SYSDATE,  #{n_tag_friend}, #{n_tag_where}, #{n_tag_feel}, 0,0,0)
+         1, #{m_id}, #{n_content}, #{n_show}, SYSDATE,  #{n_tag_friend}, #{n_tag_where}, #{n_tag_feel}, (SELECT NVL(MAX(N_REF), 0)+1 FROM TP3_NEWSFEED),0,0,0,0)
 </insert>
 
  <insert id="writeNewsFeedImage2"
@@ -35,12 +35,6 @@
 </select>
 
 
-
-
-<select id="addPrintNewsFeed" parameterType="Integer"  resultType="sist.co.model.NewsFeedDTO">
-   SELECT * FROM TP3_NEWSFEED
-   WHERE N_SEQ=#{lastseq}-1
-</select>
 
 <update id="updateShow" parameterType="hashmap">
    UPDATE TP3_NEWSFEED SET N_SHOW=#{updatenum} 
@@ -58,8 +52,77 @@
 <![CDATA[ 
    SELECT *
    FROM (SELECT * FROM TP3_NEWSFEED ORDER BY N_SEQ DESC)
-   WHERE ROWNUM<11
+   WHERE ROWNUM<5 AND N_STEP=0
    ]]>
 </select>
+
+<select id="addPrintNewsFeed" parameterType="Integer"  resultType="sist.co.model.NewsFeedDTO">
+<!--    SELECT * FROM TP3_NEWSFEED
+   WHERE N_SEQ BETWEEN #{lastseq}-6 AND #{lastseq}-1
+   ORDER BY N_SEQ DESC -->
+   <![CDATA[    
+	SELECT * FROM (  SELECT * FROM (SELECT * FROM TP3_NEWSFEED ORDER BY N_SEQ DESC)
+   WHERE ROWNUM<6 AND N_SEQ<#{lastseq})
+      ]]>
+</select>
+
+<select id="getImageFile" resultType="String">
+	SELECT NF_PHOTO FROM TP3_NEWSFEED
+	INNER JOIN TP3_NEWSFEED_FILE
+	ON TP3_NEWSFEED.N_SEQ = TP3_NEWSFEED_FILE.N_SEQ
+	WHERE TP3_NEWSFEED.N_SEQ=#{seq}
+</select>
+
+<insert id="insertLike"  parameterType="sist.co.model.NewsFeedLikeDTO">
+	INSERT INTO TP3_NEWSFEED_LIKE (N_SEQ, NL_LIKE_PEOPLENAME)
+	VALUES(#{n_seq}, #{m_id})
+</insert>
+
+<update id="addLikeCount" parameterType="sist.co.model.NewsFeedLikeDTO">
+	UPDATE TP3_NEWSFEED SET N_LIKECOUNT=N_LIKECOUNT+1
+	WHERE N_SEQ=#{n_seq}
+</update>
+
+<update id="deleteLikeCount" parameterType="sist.co.model.NewsFeedLikeDTO">
+	UPDATE TP3_NEWSFEED SET N_LIKECOUNT=N_LIKECOUNT-1
+	WHERE N_SEQ=#{n_seq}
+</update>
+
+<select id="getLikeListCount"  parameterType="sist.co.model.NewsFeedLikeDTO" resultType="Integer">
+	SELECT COUNT(*) FROM TP3_NEWSFEED_LIKE
+	WHERE N_SEQ=#{n_seq} AND NL_LIKE_PEOPLENAME=#{m_id}
+</select>
+
+<select id="getLikeList"  parameterType="sist.co.model.NewsFeedLikeDTO" resultType="String">
+	SELECT NL_LIKE_PEOPLENAME FROM TP3_NEWSFEED_LIKE
+	WHERE N_SEQ=#{n_seq} 
+</select>
+
+
+<delete id="deleteLike"  parameterType="sist.co.model.NewsFeedLikeDTO">
+	DELETE FROM TP3_NEWSFEED_LIKE
+	WHERE N_SEQ=#{n_seq} AND NL_LIKE_PEOPLENAME=#{m_id}
+</delete>
+
+<update id="updateComment" parameterType="sist.co.model.NewsFeedDTO">		
+	UPDATE TP3_NEWSFEED SET
+		N_STEP=N_STEP+1
+	WHERE N_REF=(SELECT N_REF FROM TP3_NEWSFEED WHERE N_SEQ=#{n_seq})
+		AND N_STEP>(SELECT N_STEP FROM TP3_NEWSFEED WHERE N_SEQ=#{n_seq})			
+</update>
+	
+<insert id="insertComment" parameterType="sist.co.model.NewsFeedDTO">
+      INSERT INTO TP3_NEWSFEED
+      (N_SEQ, M_ID, N_CONTENT, N_WDATE ,N_REF, N_STEP, N_DEPTH, N_SHOW, N_PARENT)
+      VALUES(TP3_NEWSFEED_SEQ.NEXTVAL,#{m_id}, #{n_content}, SYSDATE,
+      (SELECT N_REF FROM TP3_NEWSFEED WHERE N_SEQ=#{n_seq}),
+      (SELECT N_STEP FROM TP3_NEWSFEED WHERE N_SEQ=#{n_seq})+1,
+      (SELECT N_DEPTH FROM TP3_NEWSFEED WHERE N_SEQ=#{n_seq})+1,1,#{n_seq})
+</insert>
+
+
+
+
+
 </mapper>  
 
