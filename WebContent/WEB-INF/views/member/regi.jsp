@@ -98,23 +98,17 @@ var checkFirst = false;
 		var mail = $("#_mail").val();
 		
 		if(mail != "직접입력"){
+			$("#_id2").val(mail);
+			$("#_id2").attr("readonly", true);
 
-			$("#_id2").attr({"value":mail, "readonly":"readonly"});
 		
 		}else{
-		
-			$("#_id2").attr({"value":"", "readonly":false});
+			$("#_id2").val("");
+			$("#_id2").attr("readonly", false);
 		
 		}		
 	}
-	
-	
-	
-	
-	
-	
-	
-	  function aa_number() {
+	function aa_number() {
 		
 		var a_usernumber = $("#_a_number").val();
 		
@@ -224,7 +218,7 @@ var checkFirst = false;
 		var add1 = $("#sample6_address").val();
 		var add2 = $("#sample6_address2").val();
 		
-		var address = add1+add2;
+		var address = add1+"-"+add2;
 		
 		$("#_m_address").attr("value", address);
 		
@@ -282,21 +276,45 @@ var checkFirst = false;
 	}
 	
 	function phoneCode(event) {
-		
 		event = event || window.event;
 		var keyID = (event.which) ? event.which : event.keyCode;
-		
-		
 		if( (keyID==8) || (keyID==9) || ( keyID >=48 && keyID <= 57 ) || ( keyID >=96 && keyID <= 105 ) )
-		{
-			return;
-		}
+		{return;}
 		else
-		{
-			
-			return false;
-			
-		}
+		{return false;}
+	}
+	
+	function idCode(event) {
+		event = event || window.event;
+		var keyID = (event.which) ? event.which : event.keyCode;
+		if( (keyID==8) || (keyID==9) || ( keyID >=48 && keyID <= 57 ) || ( keyID >=96 && keyID <= 105 ) )
+		{return;}
+		else
+		{return false;}
+	}
+	function pwdCode(event) {
+		event = event || window.event;
+		var keyID = (event.which) ? event.which : event.keyCode;
+		if( (keyID==8) || (keyID==9) || ( keyID >=48 && keyID <= 57 ) || ( keyID >=96 && keyID <= 105 ) )
+		{return;}
+		else
+		{return false;}
+	}
+	function addCode(event) {
+		event = event || window.event;
+		var keyID = (event.which) ? event.which : event.keyCode;
+		if( (keyID==8) || (keyID==9) || ( keyID >=48 && keyID <= 57 ) || ( keyID >=96 && keyID <= 105 ) )
+		{return;}
+		else
+		{return false;}
+	}
+	function nameCode(event) {
+		event = event || window.event;
+		var keyID = (event.which) ? event.which : event.keyCode;
+		if( (keyID==8) || (keyID==9) || ( keyID >=48 && keyID <= 57 ) || ( keyID >=96 && keyID <= 105 ) )
+		{return;}
+		else
+		{return false;}
 	}
 	
 
@@ -324,14 +342,14 @@ var checkFirst = false;
 			*아이디
 		</td>
 		<td>
-			<input class="form-control" id="_id1" type="text" name="m_id1" size="30" placeholder="Email">
+<!-- 이메일 앞자리 체크 -->			<input class="form-control" id="_id1" type="text" name="m_id1" size="30" placeholder="Email">
 			<input type="hidden" id="_m_id" name="m_id">
 		</td>
 		<td>
 			@
 		</td>
 		<td>
-			<input class="form-control" id="_id2" type="text" name="m_id2" size="30">
+<!-- 이메일 뒷자리 체크 -->			<input class="form-control" id="_id2" type="text" name="m_id2" size="30" onkeydown="return phoneCode(event)" maxlength="4">
 		</td>
 		<td>
 			<select class="form-control" onchange="change_email()" id="_mail">
@@ -368,13 +386,13 @@ var checkFirst = false;
 			*비밀번호
 		</td>	
 		<td>
-			<input class="form-control" id="_pwd1" name="m_password" type="password" placeholder="Password">
+<!-- 패스워드 조건 -->			<input class="form-control" id="_pwd1" name="m_password" type="password" placeholder="Password" onkeydown="return phoneCode(event)" maxlength="4">
 		</td>
 		<td>
 			*확인
 		</td>	
 		<td>
-			<input class="form-control" id="_pwd2" type="password" placeholder="비밀번호 재입력" onkeyup="checkpwd()">
+<!-- 패스워드 조건 -->			<input class="form-control" id="_pwd2" type="password" placeholder="비밀번호 재입력" onkeyup="checkpwd()" onkeydown="return phoneCode(event)" maxlength="4">
 		</td>
 		<td colspan="2">
 			<div id="_checkPwd"></div>
@@ -393,7 +411,7 @@ var checkFirst = false;
 			*이름
 		</td>
 		<td>
-			<input class="form-control" id="_name" name="m_name" type="text" style="ime-mode:active" placeholder="이름">
+<!-- 이름 조건 -->			<input class="form-control" id="_name" name="m_name" type="text" style="ime-mode:active" placeholder="이름" onkeydown="return phoneCode(event)" maxlength="4">
 		</td>
 		<td style="margin-left: 200px;">
 			<input type="radio" name="m_gender" value="0" checked="checked">남자
@@ -429,7 +447,7 @@ var checkFirst = false;
 			<input type="text" class="form-control" id="sample6_address" readonly="readonly" placeholder="주소" name="m_address1" size="50">
 		</td>
 		<td>
-			<input type="text" class="form-control" id="sample6_address2" readonly="readonly" placeholder="상세주소" name="m_address2" size="50" >
+<!-- 상세주소 -->			<input type="text" class="form-control" id="sample6_address2" readonly="readonly" placeholder="상세주소" name="m_address2" size="50" onkeydown="return phoneCode(event)" maxlength="4">
 			<input id="_m_address" type="hidden" name = "m_address">
 		</td>
 	</tr>

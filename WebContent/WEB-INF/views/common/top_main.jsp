@@ -49,12 +49,15 @@
 	<i class="fa fa-search fa-2x"" aria-hidden="true"></i>
 </td>
 <td>
-	<div style="border: 2px solid;">사진 영역</div>
+	<div style="border: 2px solid;">
+	<img alt="사진없음" src="upload/${login.m_profile}"class="img-thumbnail" height="50px" width="50px">
+	</div>
+
 </td>
 <td>
 	<c:if test="${login.m_id ne ''}">
-	<a class="btn btn-default" href="#">
-      	${login.m_name}
+	<a class="btn btn-default" href="my_page.do">
+      	${login.m_nickname}
     </a>
 	</c:if>
 </td>

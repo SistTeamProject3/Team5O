@@ -1,10 +1,9 @@
 package sist.co.controller;
 
-import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +14,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import sist.co.util.FUpUtil;
 import sist.co.model.MemberDTO;
 import sist.co.model.MsgMember;
+import sist.co.model.NewsFeedDTO;
 import sist.co.service.MemberService;
 
 //
@@ -29,6 +33,9 @@ import javax.activation.*;
 import java.io.*;
 import java.util.*;
 import java.security.Security;
+import sist.co.service.NewsFeedService;
+
+
 
 @Controller
 public class MemBerController {
@@ -38,6 +45,8 @@ public class MemBerController {
 	@Autowired
 	MemberService MemberService;
 	
+	@Autowired
+	NewsFeedService newsFeedService;
 	
 	@RequestMapping(value="login.do", method=RequestMethod.GET)
 	public String login(Model model){
@@ -68,6 +77,7 @@ public class MemBerController {
 		}
 	}
 	
+	
 	@RequestMapping(value="regi.do", method=RequestMethod.GET)
 	public String regi(Model model){
 		logger.info("환영합니다 SistMemberController login" + new Date());
@@ -97,32 +107,52 @@ public class MemBerController {
 		return "redirect:/login.do";
 	}
 	
-	
-	
-	
-	
-	
+
 	@RequestMapping(value="my_page.do", method=RequestMethod.GET)
 	public String mypage(Model model){
 		logger.info("환영합니다 SistMemberController login" + new Date());
 		return "my_page.tiles";
 	}
+	@RequestMapping(value="time_line.do", method=RequestMethod.GET)
+	public String time_line(Model model){
+		logger.info("환영합니다 SistMemberController login" + new Date());
+		return "time_line.tiles";
+	}
 	
 	
-	@RequestMapping(value="change_m_mypage.do", method={RequestMethod.GET, RequestMethod.POST})
+	
+	@RequestMapping(value="change_m_mypage1.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	public MemberDTO change_m_mypage(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
+	public MemberDTO change_m_mypage1(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
 		logger.info("환영합니다 SistMemberController change_m_mypage" + new Date());
 
-		if(!member.getM_office().equals("")){
-			MemberService.change_m_office(member);
-		}
-		else if(!member.getM_highschool().equals("")){
-			MemberService.change_m_highschool(member);
-		}
-		else if(!member.getM_university().equals("")){
-			MemberService.change_m_university(member);
-		}
+		MemberService.change_m_office(member);
+
+		MemberDTO login = null;
+		login =  MemberService.login2(member);
+		
+		request.getSession().setAttribute("login", login);
+
+		return login;
+	}
+	@RequestMapping(value="change_m_mypage2.do", method={RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public MemberDTO change_m_mypage2(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
+		logger.info("환영합니다 SistMemberController change_m_mypage1" + new Date());
+		MemberService.change_m_highschool(member);
+		MemberDTO login = null;
+		login =  MemberService.login2(member);
+		
+		request.getSession().setAttribute("login", login);
+
+		return login;
+	}
+	@RequestMapping(value="change_m_mypage3.do", method={RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public MemberDTO change_m_mypage3(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
+		logger.info("환영합니다 SistMemberController change_m_mypage2" + new Date());
+		MemberService.change_m_university(member);
+
 		MemberDTO login = null;
 		login =  MemberService.login2(member);
 		
@@ -162,11 +192,137 @@ public class MemBerController {
 		return login;
 	}
 	
+	@RequestMapping(value="change_m_address.do", method={RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public MemberDTO change_m_address(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
+		logger.info("환영합니다 SistMemberController change_m_address" + new Date());
+		
+		MemberService.change_m_address(member);
+		
+		MemberDTO login = null;
+		login =  MemberService.login2(member);
+		
+		request.getSession().setAttribute("login", login);
+		
+		return login;
+	}
 	
+	@RequestMapping(value="change_m_nickname.do", method={RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public MemberDTO change_m_nickname(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
+		logger.info("환영합니다 SistMemberController change_m_nickname" + new Date());
+		
+		System.out.println("자 여긴 들어옴??? 닉넴 변경임 ㅎㅎ"+member.getM_nickname());
+		MemberService.change_m_nickname(member);
+		
+		MemberDTO login = null;
+		login =  MemberService.login2(member);
+		
+		request.getSession().setAttribute("login", login);
+		
+		return login;
+	}
 	
+	@RequestMapping(value="change_m_gender.do", method={RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public MemberDTO change_m_gender(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
+		logger.info("환영합니다 SistMemberController change_m_gender" + new Date());
+		
+		MemberService.change_m_gender(member);
+		
+		MemberDTO login = null;
+		login =  MemberService.login2(member);
+		
+		request.getSession().setAttribute("login", login);
+		
+		return login;
+	}
+	@RequestMapping(value="change_m_phone.do", method={RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public MemberDTO change_m_phone(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
+		logger.info("환영합니다 SistMemberController change_m_phone" + new Date());
+		
+		MemberService.change_m_phone(member);
+		
+		MemberDTO login = null;
+		login =  MemberService.login2(member);
+		
+		request.getSession().setAttribute("login", login);
+		
+		return login;
+	}
 	
+	@RequestMapping(value="m_phoneAf.do", method={RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public MsgMember m_phoneAf(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
+		logger.info("환영합니다 SistMemberController change_m_phone" + new Date());
+		
+		int count= MemberService.m_phoneAf(member);
+		
+		System.out.println("count = " + count);
+		
+		MsgMember msg = new MsgMember();
+		if(count > 0){	
+			msg.setMessage("Sucs");		
+		}else{
+			msg.setMessage("No");
+		}
+		return msg;
+	}
 	
-	
+	@RequestMapping(value="change_m_profile.do", method=RequestMethod.POST)
+	public String change_m_profile(HttpServletRequest request,MemberDTO member,
+		@RequestParam(value="fileload_j", required=false) MultipartFile fileload, Model model)throws Exception{
+		
+		logger.info("환영~ change_m_profile change_m_profile " + new Date());
+
+		List<NewsFeedDTO> NewsFeedList =  newsFeedService.getNewsFeedList();
+        model.addAttribute("NewsFeedList",NewsFeedList);
+		
+		System.out.println("m_id = " + member.getM_id());
+		System.out.println("여기까진 찍히냐 ?1");
+		
+		System.out.println("fileload = " + fileload);
+		
+		member.setM_profile(fileload.getOriginalFilename());
+		System.out.println("여기까진 찍히냐 ?2");
+		String fupload = request.getServletContext().getRealPath("/upload");	
+		System.out.println("여기까진 찍히냐 ?3");
+		String f = member.getM_profile();
+		System.out.println("여기까진 찍히냐 ?4");
+		String newFile = FUpUtil.getNewFile(f);
+		System.out.println("여기까진 찍히냐 ?5");
+		logger.info(fupload+"/" + newFile);
+		
+		member.setM_profile(newFile);
+		
+		System.out.println("올라가는 이름?!"+member.getM_profile());
+		
+		try {
+			File file = new File(fupload+"/"+newFile);
+			
+			FileUtils.writeByteArrayToFile(file, fileload.getBytes());
+			
+			MemberService.change_m_profile(member);
+			
+
+			
+		} catch (Exception e) {
+			logger.info("pdsupload 실패!");
+		}
+		
+		
+		MemberDTO login = null;
+		
+		login =  MemberService.login2(member);
+		
+		request.getSession().setAttribute("login", login);
+		
+		System.out.println("메인타일즈 가기전임");
+		return "main.tiles";
+		
+	}
+
 /*	@RequestMapping(value="modify_content3.do", method=RequestMethod.GET)
 	public String modify_content(Model model){
 		logger.info("자기소개!" + new Date());
