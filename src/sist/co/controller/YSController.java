@@ -142,14 +142,12 @@ public class YSController {
           
          List<NewsFeedDTO> NewsFeedList =  newsFeedService.getNewsFeedList();
 
-         
          for(int i=0; i<NewsFeedList.size();i++){
         	 if(NewsFeedList.get(i).getN_form_num()==1){
         		 String fname= newsFeedService.getImageFile((NewsFeedList.get(i).getN_seq()));
         		 NewsFeedList.get(i).setFilename(fname);
         	 }
          }
-         
          System.out.println("NewsFeedList의NewsFeedList"+NewsFeedList.size());
          model.addAttribute("NewsFeedList",NewsFeedList);
          request.getSession().setAttribute("login", login);
@@ -197,8 +195,6 @@ public class YSController {
    public String test2(Model model, int lastseq){   
       logger.info("YSController test2" + new Date());
       List<NewsFeedDTO> list  =  newsFeedService.addPrintNewsFeed(lastseq);
-      System.out.println("lastseq=="+lastseq);
-      System.out.println("test2의 list.size()=="+list.size());
       
       if(list.size()==0){
          System.out.println("null이다");
@@ -256,10 +252,8 @@ public class YSController {
 	   
 	   NewsFeedLikeDTO dto = new NewsFeedLikeDTO(seq,m_id);
 	   if(newsFeedService.getLikeListCount(dto)==1){
-		   System.out.println("카운트1이다");
 		   newsFeedService.deleteLike(dto);
 	   }else{
-		   System.out.println("카운트0이다");
 		   newsFeedService.insertLike(dto);
 	   }	   
 	   List<String> list = newsFeedService.getLikeList(seq);
