@@ -189,6 +189,7 @@ public class YSController {
 		if ( link.equals("main") ) 			newsfeedlistDTO = new NewsFeedListDTO("main", null, 0);
 		else if ( link.equals("people") ) 	newsfeedlistDTO = new NewsFeedListDTO("people", member.getM_id(), 0);
 		else if ( link.equals("event") )	newsfeedlistDTO = new NewsFeedListDTO("event", null, eventSeq);
+		else								newsfeedlistDTO = new NewsFeedListDTO("main", null, 0);
 		
 		List<NewsFeedDTO> NewsFeedList = newsFeedService.getNewsFeedList(newsfeedlistDTO);
 		for (int i = 0; i < NewsFeedList.size(); i++) {

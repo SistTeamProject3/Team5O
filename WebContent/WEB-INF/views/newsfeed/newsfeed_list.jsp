@@ -71,34 +71,34 @@ ${news.n_seq }
 			</td>
 		</tr>
 		<tr>
-				<td align=left>작성시간 : ${news.n_wdate}</td>
-				<td>
-					<!-- 한영선: "공개 대상" (in 뉴스피드 테이블 1)  -->
-					<select class="dropdown-menu4" id="total">
-					<c:choose>
-						<c:when test="${news.n_show eq 1}"> 
-							<option value=""><공개 대상></option>
-							<option id="dropdown-menu-1-${news.n_seq }"   style="color: red" value="1" onclick="updateShow('1,${news.n_seq }'); changeShow('${news.n_seq }',1)" >전체</option>
-						    <option id="dropdown-menu-2-${news.n_seq }" value="2" onclick="updateShow('2,${news.n_seq }'); changeShow('${news.n_seq }',2)" >친구만</option>
-						    <option id="dropdown-menu-3-${news.n_seq }" value="3" onclick="updateShow('3,${news.n_seq }'); changeShow('${news.n_seq }',3)" >나만보기</option>
-					     </c:when>
-						<c:when test="${news.n_show eq 2}">
-							<option value=""><공개 대상></option>
-							<option id="dropdown-menu-1-${news.n_seq }" value="1" onclick="updateShow('1,${news.n_seq }'); changeShow('${news.n_seq }',1)">전체</option>
-						    <option id="dropdown-menu-2-${news.n_seq }" style="color: red" value="2" onclick="updateShow('2,${news.n_seq }'); changeShow('${news.n_seq }',2)" >친구만</option>
-						    <option id="dropdown-menu-3-${news.n_seq }" value="3" onclick="updateShow('3,${news.n_seq }'); changeShow('${news.n_seq }',3)">나만보기</option>
-					     </c:when>
-						<c:when test="${news.n_show eq 3}">
-							<option value=""><공개 대상></option>
-							<option id="dropdown-menu-1-${news.n_seq }" value="1" onclick="updateShow('1,${news.n_seq }'); changeShow('${news.n_seq }',1)">전체</option>
-						    <option id="dropdown-menu-2-${news.n_seq }" value="2" onclick="updateShow('2,${news.n_seq }'); changeShow('${news.n_seq }',2)">친구만</option>
-						    <option id="dropdown-menu-3-${news.n_seq }" style="color: red"  value="3" onclick="updateShow('3,${news.n_seq }'); changeShow('${news.n_seq }',3)" >나만보기</option>
-					     </c:when>
-					</c:choose>
-					</select>
-					<!-- // 한영선: "공개 대상" (in 뉴스피드 테이블 1)  -->
-					 
-				</td>
+			<td align=left>작성시간 : ${news.n_wdate}</td>
+			<td>
+				<!-- 한영선: "공개 대상" (in 뉴스피드 테이블 1)  -->
+				<select class="dropdown-menu4" id="total">
+				<c:choose>
+					<c:when test="${news.n_show eq 1}"> 
+						<option value=""><공개 대상></option>
+						<option id="dropdown-menu-1-${news.n_seq }"   style="color: red" value="1" onclick="updateShow('1,${news.n_seq }'); changeShow('${news.n_seq }',1)" >전체</option>
+					    <option id="dropdown-menu-2-${news.n_seq }" value="2" onclick="updateShow('2,${news.n_seq }'); changeShow('${news.n_seq }',2)" >친구만</option>
+					    <option id="dropdown-menu-3-${news.n_seq }" value="3" onclick="updateShow('3,${news.n_seq }'); changeShow('${news.n_seq }',3)" >나만보기</option>
+				     </c:when>
+					<c:when test="${news.n_show eq 2}">
+						<option value=""><공개 대상></option>
+						<option id="dropdown-menu-1-${news.n_seq }" value="1" onclick="updateShow('1,${news.n_seq }'); changeShow('${news.n_seq }',1)">전체</option>
+					    <option id="dropdown-menu-2-${news.n_seq }" style="color: red" value="2" onclick="updateShow('2,${news.n_seq }'); changeShow('${news.n_seq }',2)" >친구만</option>
+					    <option id="dropdown-menu-3-${news.n_seq }" value="3" onclick="updateShow('3,${news.n_seq }'); changeShow('${news.n_seq }',3)">나만보기</option>
+				     </c:when>
+					<c:when test="${news.n_show eq 3}">
+						<option value=""><공개 대상></option>
+						<option id="dropdown-menu-1-${news.n_seq }" value="1" onclick="updateShow('1,${news.n_seq }'); changeShow('${news.n_seq }',1)">전체</option>
+					    <option id="dropdown-menu-2-${news.n_seq }" value="2" onclick="updateShow('2,${news.n_seq }'); changeShow('${news.n_seq }',2)">친구만</option>
+					    <option id="dropdown-menu-3-${news.n_seq }" style="color: red"  value="3" onclick="updateShow('3,${news.n_seq }'); changeShow('${news.n_seq }',3)" >나만보기</option>
+				     </c:when>
+				</c:choose>
+				</select>
+				<!-- // 한영선: "공개 대상" (in 뉴스피드 테이블 1)  -->
+				 
+			</td>
 		</tr>
 	
 		<!-- 한영선: "태그3가지(장소,친구,기분상태)" (in 뉴스피드 테이블 1)  -->
@@ -203,8 +203,7 @@ ${news.n_seq }
 
 
 <!-- 한영선: 스크롤 이벤트 발생 시 뿌려지는 곳 -->
-<div id="scrolling">
-</div>
+<div id="scrolling"></div>
 <!-- // 한영선: 스크롤 이벤트 발생 시 뿌려지는 곳 -->
 
 
