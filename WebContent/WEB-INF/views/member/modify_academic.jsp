@@ -83,6 +83,14 @@ function change_m_mypage3(){
 }
 
 
+function academicCode(event) {
+	event = event || window.event;
+	var keyID = (event.which) ? event.which : event.keyCode;
+	if(( keyID >=33 && keyID <= 47 )||( keyID >=123 && keyID <= 126 )||( keyID >=91 && keyID <= 96 )||( keyID >=58 && keyID <= 64 )||(keyID==32))
+	{return false;}
+	else
+	{return;}
+}
 
 
 </script>
@@ -102,7 +110,7 @@ function change_m_mypage3(){
 	<c:if test="${login.m_office eq null}">
 		<button id="_add_office" value="modify_office">직장 추가</button>
 	</c:if>
-	<input type="text" size="30" id="_office" value="">
+	<input type="text" size="30" id="_office" value="" onkeypress="return academicCode(event)" maxlength="30">
 	<button onclick="change_m_mypage1()" id="_add_office2">확인</button>
 	
 	<div id="_basics_office">${login.m_office}</div>
@@ -116,7 +124,7 @@ function change_m_mypage3(){
 	<c:if test="${login.m_highschool eq null}">
 		<button id="_add_highschool" value="modify_highschool">고등학교 추가</button>
 	</c:if>
-	<input type="text" size="30" id="_highschool" value="">
+	<input type="text" size="30" id="_highschool" value="" onkeypress="return academicCode(event)" maxlength="30">
 	<button onclick="change_m_mypage2()" id="_add_highschool2">확인</button>
 	
 	<div id="_basics_highschool">${login.m_highschool}</div>
@@ -131,7 +139,7 @@ function change_m_mypage3(){
 	<c:if test="${login.m_university eq null}">
 		<button id="_add_university" value="modify_university">대학교 추가</button>
 	</c:if>
-		<input type="text" size="30" id="_university" value="">
+		<input type="text" size="30" id="_university" value="" onkeypress="return academicCode(event)" maxlength="30">
 		<button onclick="change_m_mypage3()" id="_add_university2">확인</button>
 
 	<div id="_basics_university">${login.m_university}</div>

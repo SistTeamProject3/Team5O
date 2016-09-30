@@ -87,13 +87,22 @@ public class MemberDAO {
 		sqlSession.update(ns+"change_m_phone", member);
 		return true;
 	}
+	public boolean change_m_pwd(MemberDTO member) throws Exception{
+		sqlSession.update(ns+"change_m_pwd", member);
+		return true;
+	}
+	
 	
 	public int m_phoneAf(MemberDTO member)throws Exception {
 		
 		return (int)sqlSession.selectOne(ns+"m_phoneAf", member);
 	}
-	
+	public int check_m_pwd(MemberDTO member)throws Exception {
+		
+		return (int)sqlSession.selectOne(ns+"check_m_pwd", member);
+	}
 
+	
 	
 }
 

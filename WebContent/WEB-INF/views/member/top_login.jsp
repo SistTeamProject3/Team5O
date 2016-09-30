@@ -32,8 +32,11 @@
 	<tr>
 		<td><input class="form-control" type="text" name="m_id" id="_id" size="20"></td>
 		<td><input class="form-control" type="password" name="m_password" id="_pwd"size="20"></td>
-		<td><a href="#none" id="_login" class="btn btn-default" title="로그인">로그인</a>	</td>
-		<td><a href="#none" id="_regi" class="btn btn-default" title="회원가입">회원가입</a></td>
+		<td><button type="button" onclick="top_login()" id="_login" class="btn btn-default" title="로그인">로그인</button>	</td>
+		<td>
+		<button type="button" onclick="top_regi()" id="_regi" class="btn btn-default" title="회원가입">회원가입</button>
+
+		</td>
 	</tr>
 	
 	</table>
@@ -42,8 +45,7 @@
 	</form> 
 	
 <script type="text/javascript">
-$("#_login").click(function(){
-	
+function top_login() {
 	if($("#_id").val() == ""){
 		alert("아이디를 입력해 주십시오.");
 		$("#_id").focus();
@@ -55,11 +57,11 @@ $("#_login").click(function(){
 	}else{
 		$("#_frmForm").attr({"target":"_self", "action":"NewsFeedList.do"}).submit();
 	}
-});
-
-$("#_regi").click(function(){
+}
+function top_regi(){
 	$("#_frmForm").attr({"target":"_self", "action":"regi.do"}).submit();
-});
+}
+
 </script>
 </body>
 

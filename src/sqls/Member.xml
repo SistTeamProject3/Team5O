@@ -74,11 +74,17 @@
 	<update id="change_m_phone" parameterType="sist.co.model.MemberDTO">
 		UPDATE TP3_MEMBER SET M_PHONE = #{m_phone} WHERE M_ID=#{m_id}
 	</update>
+	<update id="change_m_pwd" parameterType="sist.co.model.MemberDTO">
+		UPDATE TP3_MEMBER SET M_PASSWORD=#{m_password} WHERE M_ID=#{m_id}
+	</update>
 
 	<select id="m_phoneAf" parameterType="sist.co.model.MemberDTO" resultType="java.lang.Integer">
 		SELECT NVL(COUNT(*),0) FROM TP3_MEMBER WHERE M_PHONE=#{m_phone}
 	</select>
 	
+	<select id="check_m_pwd" parameterType="sist.co.model.MemberDTO" resultType="java.lang.Integer">
+		SELECT NVL(COUNT(*),0) FROM TP3_MEMBER WHERE M_PASSWORD=#{m_password} AND M_ID=#{m_id}
+	</select>
 
 
 </mapper>  

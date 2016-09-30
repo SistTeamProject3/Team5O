@@ -21,7 +21,7 @@ ${login.m_nickname}
 <button onclick="modify_nickname1()">수정</button>
 </div>
 <div id="_m_nickname">
-<input type="text" id="m_nickname" maxlength="4">
+<input type="text" id="m_nickname" onkeypress="return nameCode(event)" maxlength="5">
 <button onclick="modify_nickname()">확인</button>
 <button onclick="nick_cancel()">취소</button>
 </div>
@@ -53,6 +53,32 @@ ${login.m_phone}
 
 <hr>
 
+
+<button type="button" onclick="modify_pwd1()" id="_modify_pwd">패스워드 변경</button>
+<div id="ch_pwd">
+현재 비밀번호<input type="text" id ="_pwd">
+<button type="button" onclick="check_pwd()" id="_check_pwd">패스워드 확인</button>
+</div>
+<div id="new_pwd">
+새로운 비밀번호<input type="text" id ="new_pwd1" placeholder="비밀번호 입력">
+새로운 비밀번호 확인<input type="text" id ="new_pwd2" placeholder="비밀번호 재입력" onkeyup="checkpwd()">
+</div>
+<div id="_checkPwd">
+
+</div>
+<div>
+<button type="button" id="_pwd_ok" onclick="modify_pwd()">확인</button>
+<button type="button" id="_pwd_cancel" onclick="pwd_cancel()">취소</button>
+</div>
+
+<hr>
+
+
+
+
+
+
+
 <div id="_gender">
 <c:if test="${login.m_gender eq 0}" >
 	남자
@@ -80,12 +106,24 @@ $("#_m_gender").hide();
 $("#_file").hide();
 $("#_check_phone2").hide();
 
+$("#ch_pwd").hide();
+$("#_pwd_ok").hide();
+$("#new_pwd").hide();
+$("#_pwd_cancel").hide();
+
+
+
+
+
 var id = $("#_id").val();
 
+function modify_pwd1(){
+	$("#ch_pwd").show();
+	$("#_modify_pwd").hide();
+}
 
 function modify_phone1(){
 	$("#_m_phone1 option").not(":selected").attr("disabled", "");
-
 	$("#_m_phone2").attr("readonly", false);
 	$("#_m_phone3").attr("readonly", false);
 	$("#_phone").hide();
@@ -95,6 +133,7 @@ function modify_nickname1(){
 	$("#_nickname").hide();
 	$("#_m_nickname").show();
 }
+
 function modify_gender1(){
 	$("#_gender").hide();
 	$("#_m_gender").show();
@@ -113,6 +152,18 @@ function gender_cancel() {
 	$("#_m_gender").hide();
 	$("#_gender").show();
 }
+function pwd_cancel() {
+	$("#_modify_pwd").show();
+	$("#ch_pwd").hide();
+	$("#new_pwd").hide();
+	$("#_pwd_cancel").hide();
+	$("#_pwd_ok").hide();
+	$("#_checkPwd").html("");
+	$("#new_pwd1").val("");
+	$("#new_pwd2").val("");
+	
+}
+
 
 function modify_nickname(){
 	var nick = $("#m_nickname").val();
@@ -185,6 +236,74 @@ function modify_phone(){
 	}
 })
 }
+function check_pwd(){
+	var pwd = $("#_pwd").val();
+	
+	$.ajax({
+	type:"POST",
+	url:"./check_m_pwd.do",
+	data:{"m_id":id,"m_password":pwd},
+	
+	success:function(msg){
+		output_pwd(msg);
+	},
+	error:function(request,error){
+		alert("폰번호 변경 실패!.");
+	}
+})
+}
+
+function output_pwd(msg) {
+	if(msg.message=='Sucs'){
+		alert("올바른 패스워드입니다.");
+		$("#_modify_pwd").hide();
+		$("#ch_pwd").hide();
+		$("#new_pwd").show();
+		$("#_pwd_cancel").show();
+		
+	}else{
+		alert("패스워드가 틀렸습니다.");
+	}
+}
+
+function checkpwd(){
+	
+	var check_pwd1 = $("#new_pwd1").val();
+	
+	if(check_pwd1!=""){
+		if(check_pwd1 != check_pwd2){
+			$("#_checkPwd").html("비밀번호가 틀립니다.");
+		}else{
+			$("#_checkPwd").html("동일한 패스워드입니다.");
+			$("#_pwd_ok").show();
+		}
+	}
+}
+
+function modify_pwd(){
+	var pwd1 = $("#new_pwd1").val();
+
+	$.ajax({
+	type:"POST",
+	url:"./change_m_pwd.do",
+	data:{"m_id":id,"m_password":pwd1},
+	
+	success:function(msg){
+		output_pwd(msg);
+	},
+	error:function(request,error){
+		alert("폰번호 변경 실패!.");
+	}
+})
+}
+
+
+
+
+
+
+
+
 
 function modify_gender(){
 	var gender = $(":input:radio[name='m_gender_']:checked").val();
@@ -240,6 +359,19 @@ function modify_marriage2(){
 
 }) 
 }
+
+function nameCode(event) {
+	event = event || window.event;
+	
+	var keyID = (event.which) ? event.which : event.keyCode;
+	
+	if(( keyID >=33 && keyID <= 47 )||( keyID >=123 && keyID <= 126 )||( keyID >=91 && keyID <= 96 )||( keyID >=58 && keyID <= 64 )||( keyID >=65 && keyID <= 90 )||( keyID >=97 && keyID <= 122 )||(keyID==32))
+		
+	{return false;}
+	else
+	{return;}
+}
+
 
 </script>
 

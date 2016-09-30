@@ -119,6 +119,22 @@ public class MemberImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return MemberDAO.m_phoneAf(member);
 	}
+
+
+	@Override
+	public int check_m_pwd(MemberDTO member) throws Exception {
+		// TODO Auto-generated method stub
+		return MemberDAO.check_m_pwd(member);
+	}
+
+
+	@Override
+	public boolean change_m_pwd(MemberDTO member) throws Exception {
+		// TODO Auto-generated method stub
+		return MemberDAO.change_m_pwd(member);
+	}
+	
+	
 	
 	
 	

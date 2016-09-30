@@ -57,6 +57,15 @@
             }
         }).open();
     }
+ 
+	function addCode(event) {
+		event = event || window.event;
+		var keyID = (event.which) ? event.which : event.keyCode;
+		if(( keyID >=33 && keyID <= 47 )||( keyID >=123 && keyID <= 126 )||( keyID >=91 && keyID <= 96 )||( keyID >=58 && keyID <= 64 )||( keyID >=65 && keyID <= 90 )||( keyID >=97 && keyID <= 122 )||(keyID==32))
+		{return false;}
+		else
+		{return;}
+	}
  </script>
 
 </head>
@@ -96,7 +105,7 @@
 			<input type="text" class="form-control" id="sample6_address" readonly="readonly" placeholder="주소" name="m_address1" size="50" value="<%=add1[0]%>">
 		</td>
 		<td>
-			<input type="text" class="form-control" id="sample6_address2" readonly="readonly" placeholder="상세주소" name="m_address2" size="50" value="<%=add1[1]%>" >
+			<input type="text" class="form-control" id="sample6_address2" readonly="readonly" placeholder="상세주소" name="m_address2" size="50" value="<%=add1[1]%>" onkeypress="return addCode(event)" maxlength="30" >
 			<input id="_m_address" type="hidden" name = "m_address">
 		</td>
 	</tr>

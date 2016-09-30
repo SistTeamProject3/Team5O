@@ -2,6 +2,7 @@ package sist.co.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -30,8 +31,12 @@ import sist.co.service.MemberService;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.activation.*;
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
+
 import java.io.*;
 import java.util.*;
+import java.security.Key;
 import java.security.Security;
 import sist.co.service.NewsFeedService;
 
@@ -50,7 +55,7 @@ public class MemBerController {
 	
 	@RequestMapping(value="login.do", method=RequestMethod.GET)
 	public String login(Model model){
-		logger.info("환영합니다 SistMemberController login" + new Date());
+		logger.info("환영합니다 login login" + new Date());
 		return "login.tiles";
 	}	
 	
@@ -62,15 +67,18 @@ public class MemBerController {
 	
 	@RequestMapping(value="loginAf.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String loginAf (HttpServletRequest request, MemberDTO member, Model model) throws Exception{
-		logger.info("환영합니다 SistMemberController login" + new Date());
+		logger.info("환영합니다 loginAf loginAf" + new Date());
 		
 		MemberDTO login = null;
 		login =  MemberService.login(member);
 		
 		if(login != null && !login.getM_id().equals("")){
 			request.getSession().setAttribute("login", login);
-			return "main.tiles";
+			request.getSession().setMaxInactiveInterval(60*60*24);
+
 			
+			return "main.tiles";
+
 		}else{
 			
 			return "redirect:/login.do";
@@ -80,7 +88,7 @@ public class MemBerController {
 	
 	@RequestMapping(value="regi.do", method=RequestMethod.GET)
 	public String regi(Model model){
-		logger.info("환영합니다 SistMemberController login" + new Date());
+		logger.info("환영합니다 regi regi" + new Date());
 		return "regi.tiles";
 	}
 	
@@ -103,6 +111,8 @@ public class MemBerController {
 			member.setM_content("");
 		}
 		
+		
+
 		MemberService.add_member(member);
 		return "redirect:/login.do";
 	}
@@ -110,12 +120,12 @@ public class MemBerController {
 
 	@RequestMapping(value="my_page.do", method=RequestMethod.GET)
 	public String mypage(Model model){
-		logger.info("환영합니다 SistMemberController login" + new Date());
+		logger.info("환영합니다 mypage mypage" + new Date());
 		return "my_page.tiles";
 	}
 	@RequestMapping(value="time_line.do", method=RequestMethod.GET)
 	public String time_line(Model model){
-		logger.info("환영합니다 SistMemberController login" + new Date());
+		logger.info("환영합니다 time_line time_line" + new Date());
 		return "time_line.tiles";
 	}
 	
@@ -124,7 +134,7 @@ public class MemBerController {
 	@RequestMapping(value="change_m_mypage1.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public MemberDTO change_m_mypage1(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
-		logger.info("환영합니다 SistMemberController change_m_mypage" + new Date());
+		logger.info("환영합니다 change_m_mypage1 change_m_mypage1" + new Date());
 
 		MemberService.change_m_office(member);
 
@@ -132,32 +142,35 @@ public class MemBerController {
 		login =  MemberService.login2(member);
 		
 		request.getSession().setAttribute("login", login);
-
+		request.getSession().setMaxInactiveInterval(60*60*24);
+		
 		return login;
 	}
 	@RequestMapping(value="change_m_mypage2.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public MemberDTO change_m_mypage2(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
-		logger.info("환영합니다 SistMemberController change_m_mypage1" + new Date());
+		logger.info("환영합니다 change_m_mypage2 change_m_mypage2" + new Date());
 		MemberService.change_m_highschool(member);
 		MemberDTO login = null;
 		login =  MemberService.login2(member);
 		
 		request.getSession().setAttribute("login", login);
-
+		request.getSession().setMaxInactiveInterval(60*60*24);
+		
 		return login;
 	}
 	@RequestMapping(value="change_m_mypage3.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public MemberDTO change_m_mypage3(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
-		logger.info("환영합니다 SistMemberController change_m_mypage2" + new Date());
+		logger.info("환영합니다 change_m_mypage3 change_m_mypage3" + new Date());
 		MemberService.change_m_university(member);
 
 		MemberDTO login = null;
 		login =  MemberService.login2(member);
 		
 		request.getSession().setAttribute("login", login);
-
+		request.getSession().setMaxInactiveInterval(60*60*24);
+		
 		return login;
 	}
 	
@@ -165,7 +178,7 @@ public class MemBerController {
 	@RequestMapping(value="change_m_marriage.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public MemberDTO change_m_marriage(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
-		logger.info("환영합니다 SistMemberController change_m_marriage" + new Date());
+		logger.info("환영합니다 change_m_marriage change_m_marriage" + new Date());
 
 		MemberService.change_m_marriage(member);
 		
@@ -173,6 +186,7 @@ public class MemBerController {
 		login =  MemberService.login2(member);
 		
 		request.getSession().setAttribute("login", login);
+		request.getSession().setMaxInactiveInterval(60*60*24);
 		
 		return login;
 	}
@@ -180,7 +194,7 @@ public class MemBerController {
 	@RequestMapping(value="change_m_content.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public MemberDTO change_m_content(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
-		logger.info("환영합니다 SistMemberController change_m_content" + new Date());
+		logger.info("환영합니다 change_m_content change_m_content" + new Date());
 
 		MemberService.change_m_content(member);
 		
@@ -188,6 +202,7 @@ public class MemBerController {
 		login =  MemberService.login2(member);
 		
 		request.getSession().setAttribute("login", login);
+		request.getSession().setMaxInactiveInterval(60*60*24);
 		
 		return login;
 	}
@@ -203,14 +218,14 @@ public class MemBerController {
 		login =  MemberService.login2(member);
 		
 		request.getSession().setAttribute("login", login);
-		
+		request.getSession().setMaxInactiveInterval(60*60*24);
 		return login;
 	}
 	
 	@RequestMapping(value="change_m_nickname.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public MemberDTO change_m_nickname(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
-		logger.info("환영합니다 SistMemberController change_m_nickname" + new Date());
+		logger.info("환영합니다 change_m_nickname change_m_nickname" + new Date());
 		
 		System.out.println("자 여긴 들어옴??? 닉넴 변경임 ㅎㅎ"+member.getM_nickname());
 		MemberService.change_m_nickname(member);
@@ -219,6 +234,7 @@ public class MemBerController {
 		login =  MemberService.login2(member);
 		
 		request.getSession().setAttribute("login", login);
+		request.getSession().setMaxInactiveInterval(60*60*24);
 		
 		return login;
 	}
@@ -226,7 +242,7 @@ public class MemBerController {
 	@RequestMapping(value="change_m_gender.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public MemberDTO change_m_gender(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
-		logger.info("환영합니다 SistMemberController change_m_gender" + new Date());
+		logger.info("환영합니다 change_m_gender change_m_gender" + new Date());
 		
 		MemberService.change_m_gender(member);
 		
@@ -234,6 +250,7 @@ public class MemBerController {
 		login =  MemberService.login2(member);
 		
 		request.getSession().setAttribute("login", login);
+		request.getSession().setMaxInactiveInterval(60*60*24);
 		
 		return login;
 	}
@@ -248,14 +265,32 @@ public class MemBerController {
 		login =  MemberService.login2(member);
 		
 		request.getSession().setAttribute("login", login);
+		request.getSession().setMaxInactiveInterval(60*60*24);
+		
+		return login;
+	}
+	@RequestMapping(value="change_m_pwd.do", method={RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public MemberDTO change_m_pwd(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
+		logger.info("환영합니다 SistMemberController change_m_pwd" + new Date());
+		
+		MemberService.change_m_pwd(member);
+		
+		MemberDTO login = null;
+		login =  MemberService.login2(member);
+		
+		request.getSession().setAttribute("login", login);
+		request.getSession().setMaxInactiveInterval(60*60*24);
 		
 		return login;
 	}
 	
+	
+	
 	@RequestMapping(value="m_phoneAf.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public MsgMember m_phoneAf(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
-		logger.info("환영합니다 SistMemberController change_m_phone" + new Date());
+		logger.info("환영합니다 SistMemberController m_phoneAf" + new Date());
 		
 		int count= MemberService.m_phoneAf(member);
 		
@@ -270,6 +305,27 @@ public class MemBerController {
 		return msg;
 	}
 	
+	@RequestMapping(value="check_m_pwd.do", method={RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public MsgMember check_m_pwd(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
+		logger.info("환영합니다 SistMemberController m_phoneAf" + new Date());
+		
+		int count= MemberService.check_m_pwd(member);
+		
+		System.out.println("count = " + count);
+		
+		MsgMember msg = new MsgMember();
+		if(count > 0){	
+			msg.setMessage("Sucs");		
+		}else{
+			msg.setMessage("No");
+		}
+		return msg;
+	}
+	
+	
+	
+	
 	@RequestMapping(value="change_m_profile.do", method=RequestMethod.POST)
 	public String change_m_profile(HttpServletRequest request,MemberDTO member,
 		@RequestParam(value="fileload_j", required=false) MultipartFile fileload, Model model)throws Exception{
@@ -279,24 +335,13 @@ public class MemBerController {
 		List<NewsFeedDTO> NewsFeedList =  newsFeedService.getNewsFeedList();
         model.addAttribute("NewsFeedList",NewsFeedList);
 		
-		System.out.println("m_id = " + member.getM_id());
-		System.out.println("여기까진 찍히냐 ?1");
-		
-		System.out.println("fileload = " + fileload);
-		
 		member.setM_profile(fileload.getOriginalFilename());
-		System.out.println("여기까진 찍히냐 ?2");
 		String fupload = request.getServletContext().getRealPath("/upload");	
-		System.out.println("여기까진 찍히냐 ?3");
 		String f = member.getM_profile();
-		System.out.println("여기까진 찍히냐 ?4");
 		String newFile = FUpUtil.getNewFile(f);
-		System.out.println("여기까진 찍히냐 ?5");
 		logger.info(fupload+"/" + newFile);
 		
 		member.setM_profile(newFile);
-		
-		System.out.println("올라가는 이름?!"+member.getM_profile());
 		
 		try {
 			File file = new File(fupload+"/"+newFile);
@@ -304,21 +349,16 @@ public class MemBerController {
 			FileUtils.writeByteArrayToFile(file, fileload.getBytes());
 			
 			MemberService.change_m_profile(member);
-			
-
-			
 		} catch (Exception e) {
 			logger.info("pdsupload 실패!");
 		}
-		
-		
 		MemberDTO login = null;
 		
 		login =  MemberService.login2(member);
 		
 		request.getSession().setAttribute("login", login);
+		request.getSession().setMaxInactiveInterval(60*60*24);
 		
-		System.out.println("메인타일즈 가기전임");
 		return "main.tiles";
 		
 	}
@@ -404,9 +444,7 @@ public class MemBerController {
 		return msg;
 		
 	}
-	
-	
-	
+
 	private static class SMTPAuthenticator extends javax.mail.Authenticator {
 		 
 		  public PasswordAuthentication getPasswordAuthentication() {
