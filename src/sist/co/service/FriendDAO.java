@@ -63,11 +63,18 @@ public class FriendDAO {
 		return sqlSession.selectList(ns+"searchsomeone", memberdto);
 	}
 	
-	//친구맺기(친구 요청 보내기)
+	//친구맺기(친구 요청 보내기) : 기존 데이터 존재 x
 	public boolean befriend(FriendDTO friendDTO) throws Exception{
 		sqlSession.insert(ns+"befriend", friendDTO);
 		return true;
 	}
+	
+	//친구맺기(친구 요청 보내기) : 기존 데이터 존재 o
+	public boolean befriendupate(FriendDTO friendDTO) throws Exception{
+		sqlSession.update(ns+"befriendupdate", friendDTO);
+		return true;
+	}
+	
 	
 	// 친구요청 수락 (받은 친구요청)
 	public boolean accept(FriendDTO friendDTO) throws Exception{
@@ -95,9 +102,15 @@ public class FriendDAO {
 		return true;
 	}
 	
-	// 차단하기 
+	// 차단하기  : 기존 데이터 존재 x
 	public boolean block(FriendDTO friendDTO) throws Exception{
 		sqlSession.insert(ns+"block", friendDTO);
+		return true;
+	}
+	
+	// 차단하기  : 기존 데이터 존재 o
+	public boolean blockupdate(FriendDTO friendDTO) throws Exception{
+		sqlSession.update(ns+"blockupdate", friendDTO);
 		return true;
 	}
 	
@@ -107,9 +120,25 @@ public class FriendDAO {
 		return true;
 	}
 	
+	// 해당 회원을 차단한 친구 리스트
+	public List<String> blockme(String m_id) throws Exception{
+		return sqlSession.selectList(ns+"blockme", m_id);
+	}
+
+	// 그룹 변경
+	public boolean changegroup(FriendDTO friendDTO) throws Exception{
+		sqlSession.update(ns+"changegroup", friendDTO);
+		return true;
+	}
 	
+	//FRIEND TABLE에 데이터 존재 여부 확인
+	public int confirmdata(FriendDTO friendDTO) throws Exception{
+		return sqlSession.selectOne(ns+"confirmdata", friendDTO);
+	}
 	
-	
-	
+	//친구요청관련 : 2명의 id를 넣고 차단 확인
+	public String youblockme(FriendDTO friendDTO) throws Exception{
+		return sqlSession.selectOne(ns+"youblockme", friendDTO);
+	}
 	
 }

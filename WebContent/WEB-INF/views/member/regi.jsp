@@ -27,7 +27,7 @@ table {
 var a_number = "";
 var count_ = 0;				//인증 횟수용
 var checkemail_ = 0;		//이메일인증 눌렀는지 체크
-var check_aa_number_ = 0;	//인증번호 성공했는지 확인.
+var check_aa_number_ = 1;	//인증번호 성공했는지 확인.
 var checkpwd_= 0;			//패스워드 입력했나 확인.
 var checkadd_= 0;			//우편번호 찾기 했는지 확인.
 var checkphone_= 0;			//폰 번호 중복찾기 했는지 확인.

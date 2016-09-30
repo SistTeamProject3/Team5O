@@ -65,7 +65,8 @@
 			    </div>    
 			    <div class="form-group">
 			      <div class="col-lg-10 col-lg-offset-2">
-			      	<button class="btn btn-primary" type="submit">검색</button>
+			      	<!-- <button class="btn btn-primary" type="submit">검색</button> -->
+			      	<a href="javascript:Searchingone()" class="btn btn-primary">검색</a>
 			        <button class="btn btn-default" type="reset">리셋</button>
 			      </div>
 			    </div>

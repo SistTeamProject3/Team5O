@@ -33,9 +33,6 @@
 				<tiles:insertAttribute name="my_page2"/>
 				</div>
 			</div>		
-			<div id="content_wrap2">
-				<tiles:insertAttribute name="right_main2"/>
-			</div>
 		</div>
 		
 		<div id="footer_wrap">
