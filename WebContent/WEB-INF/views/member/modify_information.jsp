@@ -61,7 +61,7 @@ ${login.m_phone}
 </div>
 <div id="new_pwd">
 새로운 비밀번호<input type="text" id ="new_pwd1" placeholder="비밀번호 입력">
-새로운 비밀번호 확인<input type="text" id ="new_pwd2" placeholder="비밀번호 재입력" onkeyup="checkpwd()">
+새로운 비밀번호 확인<input type="text" id ="new_pwd2" placeholder="비밀번호 재입력" onkeyup="che_pwd()">
 </div>
 <div id="_checkPwd">
 
@@ -266,16 +266,17 @@ function output_pwd(msg) {
 	}
 }
 
-function checkpwd(){
-	
+function che_pwd(){
 	var check_pwd1 = $("#new_pwd1").val();
+	var check_pwd2 = $("#new_pwd2").val();
 	
 	if(check_pwd1!=""){
 		if(check_pwd1 != check_pwd2){
 			$("#_checkPwd").html("비밀번호가 틀립니다.");
 		}else{
-			$("#_checkPwd").html("동일한 패스워드입니다.");
 			$("#_pwd_ok").show();
+			$("#_checkPwd").html("동일한 패스워드입니다.");
+			
 		}
 	}
 }
@@ -289,20 +290,21 @@ function modify_pwd(){
 	data:{"m_id":id,"m_password":pwd1},
 	
 	success:function(msg){
-		output_pwd(msg);
+		
+		alert("패스워드 변경 성공")
+		$("#_modify_pwd").show();
+		$("#ch_pwd").hide();
+		$("#_pwd_ok").hide();
+		$("#new_pwd").hide();
+		$("#_pwd_cancel").hide();
+		$("#_checkPwd").html("");
+		
 	},
 	error:function(request,error){
-		alert("폰번호 변경 실패!.");
+		alert("패스워드 변경 실패!");
 	}
 })
 }
-
-
-
-
-
-
-
 
 
 function modify_gender(){

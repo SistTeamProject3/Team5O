@@ -32,7 +32,8 @@ m_stopdate VARCHAR2(8)
 
 select * from TP3_MEMBER;
 
-
+delete TP3_MEMBER where m_id = 'jossi89@hanmail.net';
+delete TP3_MEMBER where m_phone = 'jossi89@hanmail.net';
 
 
 UPDATE TP3_MEMBER SET M_OFFICE = #{m_office} WHERE ID='s@s'
