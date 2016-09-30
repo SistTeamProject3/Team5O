@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,19 +49,25 @@ public class FriendController {
 		logger.info("friendmain");
 		return "friendmain.tiles";
 	}
-		
+	
+	/*
+	 * 공동 작업자: 김명호
+	 * param: eventSeq(이벤트 시퀀스)
+	 */
 	@RequestMapping(value="infriendsearch.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String infriendsearch(String m_id, HttpServletRequest request, Model model) throws Exception{		
+	public String infriendsearch(String m_id, HttpServletRequest request, Model model,
+							@RequestParam (value = "eventSeq", defaultValue = "0") int eventSeq) throws Exception{		
+		
 		logger.info("infriendsearch");
 		
-		m_id="qwer";	// 임시 회원 id
+		MemberDTO loginMember = (MemberDTO) request.getSession().getAttribute("login");
 		
 		//profile 경로
 		String imgpath = request.getServletContext().getRealPath("/upload");
 		System.out.println("imgpath" + imgpath);
 		
 		//요청수락안한 친구, 차단한 친구, 비활성화된 친구 를 제외, follow친구를 포함한 리스트  + 이 친구 각각의 한마디글 뽑아오기
-		List<FriendDTO> flist = friendService.getFriendsList(m_id);		// 해당 회원의 친구목록(요청수락안한 친구, 차단한 친구, 비활성화된 친구 를 제외)
+		List<FriendDTO> flist = friendService.getFriendsList(loginMember.getM_id());		// 해당 회원의 친구목록(요청수락안한 친구, 차단한 친구, 비활성화된 친구 를 제외)
 		//수정할점0908 list정렬 : collection.sort(list명) 단, list<string>.
 
 		HashMap<String, MemberDTO> finformlist = new HashMap<String, MemberDTO>();
@@ -72,15 +79,25 @@ public class FriendController {
 		model.addAttribute("flist", flist);				// 그룹 단위로 출력하기 위해서 필요함. 즉,순수하게 정렬하기 위해 필요 : (수정할점0906) 그룹별 출력, 그룹변경 할 수 있도록 버튼만들기 
 		model.addAttribute("finformlist", finformlist);	// 해당 회원 모든 친구들의 정보 
 		model.addAttribute("imgpath", imgpath);
-		model.addAttribute("login_id", m_id);
+		model.addAttribute("login_id", loginMember.getM_id());
+		
+		// 명호님 전용
+		if ( eventSeq > 0 ) {
+			EventDTO event = eventService.selectEventDetail(eventSeq);
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("event", event);
+			session.setAttribute("finformlist", finformlist);
+			session.setAttribute("imgpath", imgpath);
+			session.setMaxInactiveInterval(60*60);		// 1분 동안 유지
+			
+			return "forward:/NewsFeedList2.do?link=event&eventSeq=" + eventSeq;
+		}
 		
 		return "infriendsearch.tiles";
 	}
 	
 	/*
-	 * 공동 작업자: 김명호
-	 * param: eventSeq(이벤트 시퀀스)
-	 */
 	@RequestMapping(value="friendlist.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String friendlist(String m_id, HttpServletRequest request, Model model,
 							@RequestParam (value = "seq", defaultValue = "0") int eventSeq) throws Exception{
@@ -113,14 +130,19 @@ public class FriendController {
 		if ( eventSeq > 0 ) {
 			
 			EventDTO event = eventService.selectEventDetail(eventSeq);
-			model.addAttribute("event", event);
 			
-			return "event_detail.tiles";
+			HttpSession session = request.getSession();
+			session.setAttribute("event", event);
+			session.setAttribute("finformlist", finformlist);
+			session.setAttribute("imgpath", imgpath);
+			session.setMaxInactiveInterval(60*60);		// 1분 동안 유지
+			
+			return "forward:/NewsFeedList2.do?link=event";
 		}
 		
 		return "friendlist.tiles";
 	}
-	
+	*/
 	@RequestMapping(value="friendask.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String friendask(String m_id, HttpServletRequest request, Model model) throws Exception{
 		

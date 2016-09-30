@@ -336,6 +336,27 @@ pre {
 			</table>
 		</div>
 		
+		<!--		뉴스피드 리스트			-->
+		<div>
+			<%-- 
+			<c:if test="${fn:length(NewsFeedList) ne 0}">
+				<input type="hidden" name="m_id" value="${login.m_id }" >
+				
+				<c:forEach var="news" items="${NewsFeedList }" varStatus="i"> 
+					<c:if test="${ news.n_event_seq == event.e_seq }">
+						<jsp:include page="/WEB-INF/views/newsfeed/newsfeed_list.jsp" />
+					</c:if>
+				</c:forEach> 
+			</c:if>
+			--%>
+			
+			<jsp:include page="/WEB-INF/views/newsfeed/newsfeed_list.jsp" >
+				<jsp:param name="viewPage" value="event" />
+			</jsp:include>
+			
+		</div>
+		<!--	 // 뉴스피드 리스트			-->
+		
 	</div>
 	<div class="event_main_wrap_right">
 		<div class="event_main_join_list">

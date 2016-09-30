@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import sist.co.util.CalendarUtil;
 import sist.co.util.FUpUtil;
@@ -125,11 +127,13 @@ public class EventController {
 		
 		logger.info("event_detail.do 접근 " + new Date());
 		
-	//	EventDTO event = eventService.selectEventDetail(seq);
-	//	model.addAttribute("event", event);
+		/*
+		RedirectView rv = new RedirectView("forward:/friendlist.do?seq=" + seq);
+		rv.setExposeModelAttributes(false);
+		return new ModelAndView(rv);
+		*/
 		
-		return "redirect:/friendlist.do?seq=" + seq;
-	//	return "event_detail.tiles";
+		return "forward:/infriendsearch.do?eventSeq=" + seq;
 	}
 	/*
 	@RequestMapping(value="event_invite.do", method={RequestMethod.GET, RequestMethod.POST})

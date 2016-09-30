@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sist.co.model.NewsFeedDTO;
+import sist.co.model.NewsFeedLikeDTO;
+import sist.co.model.NewsFeedListDTO;
 import sist.co.service.NewsFeedDAO;
 import sist.co.service.NewsFeedService;
 
@@ -27,12 +29,12 @@ public class NewsFeedImpl implements NewsFeedService {
 	}
 
 	@Override
-	public List<NewsFeedDTO> getNewsFeedList() {
-		return newsFeeDAO.getNewsFeedList();
+	public List<NewsFeedDTO> getNewsFeedList(NewsFeedListDTO newsfeedlistDTO) {
+		return newsFeeDAO.getNewsFeedList(newsfeedlistDTO);
 	}
 
 	@Override
-	public NewsFeedDTO addPrintNewsFeed(int lastseq) {
+	public List<NewsFeedDTO> addPrintNewsFeed(int lastseq) {
 		return newsFeeDAO.addPrintNewsFeed(lastseq);
 	}
 
@@ -45,6 +47,41 @@ public class NewsFeedImpl implements NewsFeedService {
 	@Override
 	public void deleteNews(int seq) {
 		newsFeeDAO.deleteNews(seq);
+		
+	}
+
+	@Override
+	public String getImageFile(int seq) {
+
+		return newsFeeDAO.getImageFile(seq);
+	}
+
+	@Override
+	public void insertLike(NewsFeedLikeDTO dto) {
+		newsFeeDAO.insertLike(dto);
+		
+	}
+
+	@Override
+	public int getLikeListCount(NewsFeedLikeDTO dto) {
+		// TODO Auto-generated method stub
+		return newsFeeDAO.getLikeListCount(dto);
+	}
+
+	@Override
+	public void deleteLike(NewsFeedLikeDTO dto) {
+		newsFeeDAO.deleteLike(dto);	
+	}
+
+	@Override
+	public List<String> getLikeList(int seq) {
+		// TODO Auto-generated method stub
+		return newsFeeDAO.getLikeList(seq);
+	}
+
+	@Override
+	public void insertComment(NewsFeedDTO dto) {
+		newsFeeDAO.insertComment(dto);
 		
 	}
 

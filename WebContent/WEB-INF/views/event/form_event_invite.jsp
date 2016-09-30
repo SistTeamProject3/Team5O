@@ -176,7 +176,7 @@
 					
 					<c:forEach var="friend" items="${ finformlist }">
 						<div class="search_friend_info" style="height: 55px;">
-							<table class="tbl_search_friend" m_id="${ friend.value.m_id }">
+							<table class="tbl_search_friend" data-m_id="${ friend.value.m_id }">
 								<col width="70px" /><col width="300px" /><col width="70px" />
 								<tr>
 									<td>
@@ -217,7 +217,7 @@
 									</td>
 									<td style="text-align: center;">
 										<img id="chk_image" class="chk_image" alt="체크 이미지" 
-											src="image/event/invite_check_off.png" check="0" />
+											src="image/event/invite_check_off.png" data-check="0" />
 									</td>
 								</tr>
 							</table>
@@ -275,11 +275,12 @@ $(document).ready(function () {
 	var inviteMemberList = "";	// 선택한 친구를 초대 리스트에 저장
 	var choiceCnt = 0;			// 선택한 친구 개수 저장
 	
+	// 초대할 친구 선택
 	$('.tbl_search_friend').on('click', function() {
 		var target = $(this).find('.chk_image');
-		var chkVal = $(target).attr('check');
+		var chkVal = $(target).attr('data-check');
 		
-		var m_id = $(this).attr('m_id');
+		var m_id = $(this).attr('data-m_id');
 		var choiceFriendTag = "<div id = choice-" + m_id + ">"
 							+ "<div class='add_choice_friend_info'>"
 							+ "<img alt='프로필 사진' src='image/event/profile_base.jpg'" 
@@ -291,7 +292,7 @@ $(document).ready(function () {
 		// 체크되지 않은 상태면
 		if ( chkVal == 0 ) {
 			$(target).attr('src', 'image/event/invite_check_on.png');
-			$(target).attr('check', 1);
+			$(target).attr('data-check', '1');
 			
 			// 선택한 친구는 선택 리스트에 추가
 			$('#add_choice_friend').prepend(choiceFriendTag);
@@ -306,7 +307,7 @@ $(document).ready(function () {
 		// 체크된 상태면	
 		} else {
 			$(target).attr('src', 'image/event/invite_check_off.png');
-			$(target).attr('check', 0);
+			$(target).attr('data-check', '0');
 			
 			// 선택한 친구를 선택 리스트에서 제거
 			$('#choice-' + m_id).remove();
@@ -323,7 +324,7 @@ $(document).ready(function () {
 	// 마우스 올려놓기
 	$('.tbl_search_friend').on('mouseover', function() {
 		var target = $(this).find('.chk_image');
-		var chkVal = $(target).attr('check');
+		var chkVal = $(target).attr('data-check');
 		
 		if ( chkVal == 0 ) $(target).attr('src', 'image/event/invite_check_over.png');
 		
@@ -333,7 +334,7 @@ $(document).ready(function () {
 	// 마우스 벗어나기
 	$('.tbl_search_friend').on('mouseout', function() {
 		var target = $(this).find('.chk_image');
-		var chkVal = $(target).attr('value');
+		var chkVal = $(target).attr('data-check');
 		
 		if ( chkVal == 0 ) $(target).attr('src', 'image/event/invite_check_off.png');
 		
