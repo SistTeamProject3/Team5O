@@ -17,10 +17,15 @@
 <definition name="my_page.tiles" template="/WEB-INF/views/layouts-mypage.jsp">
 	<put-attribute name="header2" value="/WEB-INF/views/common/header.jsp"/>
 	<put-attribute name="top_inc2" value="/WEB-INF/views/common/top_main.jsp"/>
-	<put-attribute name="my_page2" value="/WEB-INF/views/member/my_page.jsp"/>
-	<put-attribute name="right_main2" value="/WEB-INF/views/bbs/bbslist.jsp"/>
+	<put-attribute name="my_page1" value="/WEB-INF/views/member/my_page.jsp"/>
+	<put-attribute name="my_page2" value="/WEB-INF/views/member/information.jsp"/>
 	<put-attribute name="bottom_inc2" value="/WEB-INF/views/common/bottom.jsp"/>
 </definition> 
+
+<definition name="time_line.tiles" extends="my_page.tiles">
+	<put-attribute name="my_page2" value="/WEB-INF/views/member/time_line.jsp"/>
+</definition> 
+
 
 <definition name="login.tiles" template="/WEB-INF/views/layouts-login.jsp">
 	<put-attribute name="top_inc" value="/WEB-INF/views/member/top_login.jsp"/>
@@ -54,7 +59,7 @@
 <!-- 그룹 리스트 출력 -->
 
 <definition name="group_list.tiles" template="/WEB-INF/views/layouts-grouplist.jsp">
-	<put-attribute name="top_inc" value="/WEB-INF/views/common/top.jsp"/>
+	<put-attribute name="top_inc" value="/WEB-INF/views/common/top_main.jsp"/>
 	<put-attribute name="center_main" value="/WEB-INF/views/group/group_list.jsp"/>
 	<put-attribute name="bottom_inc" value="/WEB-INF/views/common/bottom.jsp"/>
 </definition>
@@ -165,12 +170,12 @@
 	<put-attribute name="right_main" value="/WEB-INF/views/friends/right_friendssearch.jsp"/>
 </definition>
 
-
+<!-- 
 <definition name="friendlist.tiles" extends="friendmain.tiles">
 	<put-attribute name="center_main" value="/WEB-INF/views/friends/friend_list.jsp"/>
 	<put-attribute name="right_main" value="/WEB-INF/views/friends/right_friendssearch.jsp"/>
 </definition>
-
+ -->
 <definition name="friendask.tiles" extends="friendmain.tiles">
 	<put-attribute name="center_main" value="/WEB-INF/views/friends/friend_ask.jsp"/>
 	<put-attribute name="right_main" value="/WEB-INF/views/friends/right_friendssearch.jsp"/>
@@ -216,6 +221,15 @@
 
 <definition name="outfriendsearchmain.tiles" extends="friendmain.tiles">
 	<put-attribute name="center_main" value="/WEB-INF/views/friends/out_friend_search_main.jsp"/>
+</definition>
+
+<!-- git병합 후, my_page.tiles 지우기 -->
+<definition name="Movefriendsmain.tiles" template="/WEB-INF/views/layouts-mypage.jsp">
+	<put-attribute name="header2" value="/WEB-INF/views/common/header.jsp"/>
+	<put-attribute name="top_inc2" value="/WEB-INF/views/common/top_main.jsp"/>
+	<put-attribute name="my_page1" value="/WEB-INF/views/friends/friend_page.jsp"/>
+	<put-attribute name="my_page2" value="/WEB-INF/views/newsfeed/newsfeed_list2.jsp"/>
+	<put-attribute name="bottom_inc2" value="/WEB-INF/views/common/bottom.jsp"/>
 </definition>
 
 

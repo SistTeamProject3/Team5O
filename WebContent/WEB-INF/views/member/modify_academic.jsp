@@ -12,41 +12,69 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js" ></script>
 <script type="text/javascript">
 
-function change_m_mypage(){
+
+
+function change_m_mypage1(){
 
 	var id = $("#_id").val();
 	
 	var office = $("#_office").val();
-	var highschool = $("#_highschool").val();
-	var university = $("#_university").val();
 	
 	$.ajax({
 	type:"POST",
-	url:"./change_m_mypage.do",
-	data:{"m_id":id,"m_office":office,"m_highschool":highschool,"m_university":university},
-	
+	url:"./change_m_mypage1.do",
+	data:{"m_id":id,"m_office":office},
 	success:function(msg){
-		if(office!=""){
 			$("#_basics_office").html(office);
 			$('#_modify_office').show();
 			$('#_office').hide();
 			$('#_add_office2').hide();
 			$('#_basics_office').show();
-		}
-		else if(highschool !=""){
+	},
+	error:function(request,error){
+		alret("공백 문자열은 불가능 합니다.");
+		/* alert("message.:"+request.responseText); */
+	}
+})  
+}
+function change_m_mypage2(){
+
+	var id = $("#_id").val();
+
+	var highschool = $("#_highschool").val();
+	
+	$.ajax({
+	type:"POST",
+	url:"./change_m_mypage2.do",
+	data:{"m_id":id,"m_highschool":highschool},
+	success:function(msg){
 			$("#_basics_highschool").html(highschool);
 			$('#_modify_highschool').show();
 			$('#_highschool').hide();
 			$('#_add_highschool2').hide();
 			$('#_basics_highschool').show();		
-		}
-		else if(university !=""){
+	},
+	error:function(request,error){
+		alret("공백 문자열은 불가능 합니다.");
+		/* alert("message.:"+request.responseText); */
+	}
+})  
+}
+function change_m_mypage3(){
+
+	var id = $("#_id").val();
+	var university = $("#_university").val();
+	
+	$.ajax({
+	type:"POST",
+	url:"./change_m_mypage3.do",
+	data:{"m_id":id,"m_university":university},
+	success:function(msg){
 			$("#_basics_university").html(university);
 			$('#_modify_university').show();
 			$('#_university').hide();
 			$('#_add_university2').hide();
 			$('#_basics_university').show();
-		}
 	},
 	error:function(request,error){
 		alert("message.:"+request.responseText);
@@ -55,7 +83,14 @@ function change_m_mypage(){
 }
 
 
-
+function academicCode(event) {
+	event = event || window.event;
+	var keyID = (event.which) ? event.which : event.keyCode;
+	if(( keyID >=33 && keyID <= 47 )||( keyID >=123 && keyID <= 126 )||( keyID >=91 && keyID <= 96 )||( keyID >=58 && keyID <= 64 )||(keyID==32))
+	{return false;}
+	else
+	{return;}
+}
 
 
 </script>
@@ -75,8 +110,8 @@ function change_m_mypage(){
 	<c:if test="${login.m_office eq null}">
 		<button id="_add_office" value="modify_office">직장 추가</button>
 	</c:if>
-	<input type="text" size="30" id="_office" value="">
-	<button onclick="change_m_mypage()" id="_add_office2">확인</button>
+	<input type="text" size="30" id="_office" value="" onkeypress="return academicCode(event)" maxlength="30">
+	<button onclick="change_m_mypage1()" id="_add_office2">확인</button>
 	
 	<div id="_basics_office">${login.m_office}</div>
 	<button value="modify_office" id="_modify_office">수정</button>
@@ -89,8 +124,8 @@ function change_m_mypage(){
 	<c:if test="${login.m_highschool eq null}">
 		<button id="_add_highschool" value="modify_highschool">고등학교 추가</button>
 	</c:if>
-	<input type="text" size="30" id="_highschool" value="">
-	<button onclick="change_m_mypage()" id="_add_highschool2">확인</button>
+	<input type="text" size="30" id="_highschool" value="" onkeypress="return academicCode(event)" maxlength="30">
+	<button onclick="change_m_mypage2()" id="_add_highschool2">확인</button>
 	
 	<div id="_basics_highschool">${login.m_highschool}</div>
 	<button value="modify_highschool" id="_modify_highschool">수정</button>
@@ -104,8 +139,8 @@ function change_m_mypage(){
 	<c:if test="${login.m_university eq null}">
 		<button id="_add_university" value="modify_university">대학교 추가</button>
 	</c:if>
-		<input type="text" size="30" id="_university" value="">
-		<button onclick="change_m_mypage()" id="_add_university2">확인</button>
+		<input type="text" size="30" id="_university" value="" onkeypress="return academicCode(event)" maxlength="30">
+		<button onclick="change_m_mypage3()" id="_add_university2">확인</button>
 
 	<div id="_basics_university">${login.m_university}</div>
 	<button value="modify_university" id="_modify_university">수정</button>
@@ -144,10 +179,10 @@ $(function(){
 	var btn = $(this).attr("value");
 	
 	if(btn=="modify_office"){
-			
+/* 			
 		$("#_highschool").val("");
 		$("#_university").val("");
-		
+		 */
 		$('#_office').show();
 		$('#_add_office').hide();
 		$('#_add_office2').show();
@@ -155,10 +190,10 @@ $(function(){
 		$('#_modify_office').hide();
       
 	}else if(btn=="modify_highschool"){
-		
+/* 		
 		$("#_office").val("");
 		$("#_university").val("");
-
+ */
 		$('#_highschool').show();
 		$('#_add_highschool').hide();
 		$('#_add_highschool2').show();
@@ -166,10 +201,10 @@ $(function(){
 		$('#_modify_highschool').hide();
     	  	
 	}else if(btn=="modify_university"){
-		
+/* 		
 		$("#_office").val("");
 		$("#_highschool").val("");
-		
+		 */
 		$('#_university').show();
 		$('#_add_university').hide();
 		$('#_add_university2').show();

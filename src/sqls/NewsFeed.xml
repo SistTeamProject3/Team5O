@@ -75,6 +75,17 @@
    AND N_EVENT_SEQ=#{seq}
 ]]>
 </if>
+
+<if test="viewPage == 'people'">
+<![CDATA[
+   SELECT *
+   FROM (SELECT * FROM TP3_NEWSFEED ORDER BY N_SEQ DESC)
+   WHERE ROWNUM<5 
+   AND N_STEP=0
+   AND M_ID=#{m_id}
+]]>
+</if>
+
 </select>
 
 <select id="addPrintNewsFeed" parameterType="Integer"  resultType="sist.co.model.NewsFeedDTO">

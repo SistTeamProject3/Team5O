@@ -20,4 +20,5 @@ public interface NewsFeedService {
 	public void deleteLike (NewsFeedLikeDTO dto);
 	public List<String> getLikeList(int seq);
 	public void insertComment (NewsFeedDTO dto);
+	public List<NewsFeedDTO> getAllNewsFeedList();
 }

@@ -19,7 +19,7 @@ function news_scrollEvent(){
  	  $.ajax({
  	        type: 'POST',
  	        url: 'test2.do',
- 	        data: {'lastseq' : lastseq},
+ 	        data: {'lastseq' : lastseq ,'viewPage' : 'main','eventSeq' : '0'},
  			async: false ,
  			cache: false,
  	        success: function(data) {
@@ -104,8 +104,10 @@ ${news.n_seq }
 		<!-- 한영선: "태그3가지(장소,친구,기분상태)" (in 뉴스피드 테이블 1)  -->
 		<tr>
 			<td colspan="3"  align=left>
-				<pre width="50px">${news.n_content}</pre>
 				
+				<c:if test="${ param.viewPage eq 'main' }">
+					<pre width="50px">${news.n_content}</pre>
+				</c:if>
 				<c:if test="${news.n_tag_where ne NULL}">
 					<strong>${news.n_tag_where}</strong>&nbsp;에서
 				</c:if>
@@ -179,13 +181,14 @@ ${news.n_seq }
 <!-- 한영선: 뉴스피드 테이블2 (댓글리스트 출력) -->
 <div id="newsfeedlist_bottom${news.n_seq }">
 	<table class="newsfeed_list_table2${news.n_seq }"  >
-		<c:forEach var="news2" items="${NewsFeedList }" varStatus="j"> 
+		<c:forEach var="news2" items="${NewsFeedList2 }" varStatus="j"> 
+		
 			<c:if test="${news.n_seq eq news2.n_parent}">	
-				<tr class="comment2${news.n_seq }">
+				<tr class="comment2${news.n_seq }"style="display: none;">
 					<td rowspan="2">프사</td>
 					<td colspan="2" align="left">&nbsp;<Strong>${news2.m_id }</Strong> &nbsp;&nbsp;${news2.n_content }</td>
 				</tr>
-				<tr class="comment3${news.n_seq }"  align="left">
+				<tr class="comment3${news.n_seq }"  align="left"style="display: none;">
 					<td colspan="2">&nbsp;<a>좋아요</a>&nbsp;·&nbsp;<a>답글달기</a>&nbsp;·&nbsp;${news2.n_wdate }</td>
 				</tr>
 			</c:if>

@@ -25,10 +25,16 @@ table {
 
 <script>
 var a_number = "";
-var count = 0;
-var check_member = 0;	//이메일 인증버튼을 눌렀나 확인.
-var check_aa_number = 0; //인증 성공했는지 확인.
-var checkFirst = false;
+var count_ = 0;				//인증 횟수용
+var checkemail_ = 0;		//이메일인증 눌렀는지 체크
+var check_aa_number_ = 1;	//인증번호 성공했는지 확인.
+var checkpwd_= 0;			//패스워드 입력했나 확인.
+var checkadd_= 0;			//우편번호 찾기 했는지 확인.
+var checkphone_= 0;			//폰 번호 중복찾기 했는지 확인.
+
+
+
+
 
     function sample6_execDaumPostcode() {
         new daum.Postcode({
@@ -98,29 +104,23 @@ var checkFirst = false;
 		var mail = $("#_mail").val();
 		
 		if(mail != "직접입력"){
+			$("#_id2").val(mail);
+			$("#_id2").attr("readonly", true);
 
-			$("#_id2").attr({"value":mail, "readonly":"readonly"});
 		
 		}else{
-		
-			$("#_id2").attr({"value":"", "readonly":false});
+			$("#_id2").val("");
+			$("#_id2").attr("readonly", false);
 		
 		}		
 	}
-	
-	
-	
-	
-	
-	
-	
-	  function aa_number() {
+	function aa_number() {
 		
 		var a_usernumber = $("#_a_number").val();
 		
 		if(a_number!=a_usernumber){
 			
-			count = count+1;	
+			count_ = count_+1;	
 			
 			$("#aa_number_check").html("인증 " + count + "회 실패");
 
@@ -129,9 +129,9 @@ var checkFirst = false;
 				location.href="login.do";
 			}
 			
-		}else{
+		}else if(a_usernumber != ""){
 			$("#aa_number_check").html("인증성공!");
-			check_aa_number = check_aa_number+1;
+			check_aa_number_ = 1;
 		}
 	} 
    
@@ -145,11 +145,8 @@ var checkFirst = false;
 			alert("이메일을 입력해 주세요.");
 		}else{
 			var id = id1+"@"+id2;
-			/*  test(m_id); */
 			check_member2(id);
-			
 		}
-		
 	}
 	
 	function check_member2(a){
@@ -166,28 +163,72 @@ var checkFirst = false;
 		}
 
 	}) 
-	}
-
+	}	
 	function output(msg) {
 		
 		if(msg.message=='Sucs'){
 			$("#check_member").html("사용할 수 없는 아이디 입니다.");
 		}else{
 			$("#check_member").html("사용할 수 있는 아이디 입니다.");
+			$("#_id1").attr("readonly", true);
+			$("#_id2").attr("readonly", true);
 			
-			
+			checkemail_ = 1;
 			a_number = msg.message;
 			
 			alert("이메일 확인 후 승인번호를 입력하세요");
 		}
 	}
+	function check_phone() {
+
+		var phone1 = $("#_m_phone1").val();
+		var phone2 = $("#_m_phone2").val();
+		var phone3 = $("#_m_phone3").val();
+		if(phone1=="" || phone2=="" || phone3==""){
+			alert("번호를 입력하세요");
+		}else{
+			var phone = phone1+phone2+phone3;
+			alert("여긴 체크하는곳임");
+			check_phone2(phone);
+		}
+	}
+	function check_phone2(a){
+		alert("여긴 오나?");
+		$.ajax({
+		type:"POST",
+		url:"m_phoneAf.do",
+		data:"m_phone="+a,
+		
+		success:function(msg){
+			alert("성공??");
+			outputphone(msg);
+		},
+		error:function(request,error){
+			alert("폰번호 체크 실패.");
+		}
+	})
+	}
+	function outputphone(msg) {
+		alert("ajax끝");
+		if(msg.message=='Sucs'){
+			alert("사용할 수 없는 핸드폰 번호 입니다.");
+		}else{
+			alert("사용할 수 있는 핸드폰 번호 입니다.");
+			$("#_m_phone1 option").not(":selected").attr("disabled", "disabled");
+			$("#_m_phone2").attr("readonly", true);
+			$("#_m_phone3").attr("readonly", true);
+			$("#_check_phone1").hide();
+			checkphone_ = 1;
+
+		}
+	}
+
 	
 	function add_member_cancel() {
 		
 		location.href="login.do";
 		
 	}
-	
 	
 	function add_member() {
 		// 생일 및 폰 번호 설정부분
@@ -224,24 +265,33 @@ var checkFirst = false;
 		var add1 = $("#sample6_address").val();
 		var add2 = $("#sample6_address2").val();
 		
-		var address = add1+add2;
+		if(add2 != ""){
+			checkadd_ = 1;
+		}
+
+		var address = add1+"-"+add2;
 		
-		$("#_m_address").attr("value", address);
-		
-		
-		//
-		
-		$("#_addmember").attr({"target":"_self", "action":"regiAf.do"}).submit();
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		if(checkemail_ == 0){
+			alert("이메일 인증을 해 주십시오.");
+			$("#_id1").focus();
+		}else if(check_aa_number_ == 0){
+			alert("인증번호를 확인하여 주십시오.");
+			$("#_a_number").focus();
+		}else if(checkpwd_ == 0){
+			alert("올바른 패스워드를 입력해 주십시오.");
+			$("#_pwd1").focus();
+		}else if(checkadd_ == 0){
+			alert("올바른 주소를 입력해 주십시오.");
+			$("#sample6_postcode").focus();
+		}else if(checkphone_ == 0){
+			alert("휴대폰 번호 중복체크를 해 주십시오.");
+			$("#_m_phone2").focus();
+		}else{
+			alert("회원가입 완료");
+			$("#_m_address").attr("value", address);
+			$("#_addmember").attr({"target":"_self", "action":"regiAf.do"}).submit();
+		}
+
 		/* if($("#_userid").val()== ""){
 			alert($("#_userid").attr("data-msg") + " 입력해 주십시오");
 			$("#_userid").focus();
@@ -259,51 +309,73 @@ var checkFirst = false;
 		} */
 	}
 	
-	function checkId() {
-		if (checkFirst == false) {
-			//0.5초 후에 sendKeyword()함수 실행
-			setTimeout("sendId();", 500);
-			loopSendKeyword = true;
-		}
-			checkFirst = true;
-		}
-	
 	function checkpwd(){
-		  
+		
 		var check_pwd1 = $("#_pwd1").val();
 		var check_pwd2 = $("#_pwd2").val();
-				
-		if(check_pwd1 != check_pwd2){
-			$("#_checkPwd").html("비밀번호가 틀립니다.");
-		}else{
-			$("#_checkPwd").html("동일한 패스워드입니다.");
+		
+		if(check_pwd1!=""){
+			if(check_pwd1 != check_pwd2){
+				$("#_checkPwd").html("비밀번호가 틀립니다.");
+				checkpwd_ = 0;
+			}else{
+				$("#_checkPwd").html("동일한 패스워드입니다.");
+				checkpwd_ = 1;
+			}
 		}
-		
 	}
-	
 	function phoneCode(event) {
-		
 		event = event || window.event;
 		var keyID = (event.which) ? event.which : event.keyCode;
-		
-		
-		if( (keyID==8) || (keyID==9) || ( keyID >=48 && keyID <= 57 ) || ( keyID >=96 && keyID <= 105 ) )
-		{
-			return;
-		}
+		if((keyID==8) || (keyID==9) || ( keyID >=48 && keyID <= 57 ) || ( keyID >=96 && keyID <= 105 ))
+		{return;}
 		else
-		{
-			
-			return false;
-			
-		}
+		{return false; }
 	}
-	
+	function idCode(event) {
+		event = event || window.event;
+		var keyID = (event.which) ? event.which : event.keyCode;
+		if( (keyID==46) || (keyID==8) || (keyID==9) || ( keyID >=48 && keyID <= 57 ) || ( keyID >=65 && keyID <= 90 ) || ( keyID >=97 && keyID <= 122 ) )
+		{return;}
+		else
+		{return false;}
+	}
+	function pwdCode(event) {
+		event = event || window.event;
+		var keyID = (event.which) ? event.which : event.keyCode;
+		if( (keyID==32) )
+		{return false;}
+		else
+		{return;}
+	}
+	function nameCode(event) {
+		event = event || window.event;
+		
+		var keyID = (event.which) ? event.which : event.keyCode;
+		
+		if(( keyID >=33 && keyID <= 47 )||( keyID >=123 && keyID <= 126 )||( keyID >=91 && keyID <= 96 )||( keyID >=58 && keyID <= 64 )||( keyID >=65 && keyID <= 90 )||( keyID >=97 && keyID <= 122 )||(keyID==32))
+			
+		{return false;}
+		else
+		{return;}
+	}
+	function addCode(event) {
+		event = event || window.event;
+		var keyID = (event.which) ? event.which : event.keyCode;
+		if(( keyID >=33 && keyID <= 47 )||( keyID >=123 && keyID <= 126 )||( keyID >=91 && keyID <= 96 )||( keyID >=58 && keyID <= 64 )||( keyID >=65 && keyID <= 90 )||( keyID >=97 && keyID <= 122 )||(keyID==32))
+		{return false;}
+		else
+		{return;}
+	}
+	function academicCode(event) {
+		event = event || window.event;
+		var keyID = (event.which) ? event.which : event.keyCode;
+		if(( keyID >=33 && keyID <= 47 )||( keyID >=123 && keyID <= 126 )||( keyID >=91 && keyID <= 96 )||( keyID >=58 && keyID <= 64 )||(keyID==32))
+		{return false;}
+		else
+		{return;}
+	}
 
-
-   
-   
-   
 </script>
 
 
@@ -324,14 +396,14 @@ var checkFirst = false;
 			*아이디
 		</td>
 		<td>
-			<input class="form-control" id="_id1" type="text" name="m_id1" size="30" placeholder="Email">
+			<input class="form-control" id="_id1" type="text" name="m_id1" size="30" placeholder="Email" onkeypress="return idCode(event)" maxlength="12">
 			<input type="hidden" id="_m_id" name="m_id">
 		</td>
 		<td>
 			@
 		</td>
 		<td>
-			<input class="form-control" id="_id2" type="text" name="m_id2" size="30">
+			<input class="form-control" id="_id2" type="text" name="m_id2" size="30" onkeypress="return idCode(event)" maxlength="12">
 		</td>
 		<td>
 			<select class="form-control" onchange="change_email()" id="_mail">
@@ -352,7 +424,7 @@ var checkFirst = false;
 	<tr>
 		<td></td>
 		<td >
-			<input class="form-control" id="_a_number" type="text" name="ab_number" size="30" placeholder="승인번호 입력">
+			<input onkeypress="return phoneCode(event)" maxlength="8" class="form-control" id="_a_number" type="text" name="ab_number" size="30" placeholder="승인번호 입력">
 		</td>
 		<td></td>
 		<td style="text-align: left;">
@@ -368,13 +440,13 @@ var checkFirst = false;
 			*비밀번호
 		</td>	
 		<td>
-			<input class="form-control" id="_pwd1" name="m_password" type="password" placeholder="Password">
+		<input class="form-control" id="_pwd1" name="m_password" type="password" placeholder="Password" onkeypress="return pwdCode(event)" maxlength="12">
 		</td>
 		<td>
 			*확인
 		</td>	
 		<td>
-			<input class="form-control" id="_pwd2" type="password" placeholder="비밀번호 재입력" onkeyup="checkpwd()">
+		<input class="form-control" id="_pwd2" type="password" placeholder="비밀번호 재입력" onkeyup="checkpwd()" onkeypress="return pwdCode(event)" maxlength="12">
 		</td>
 		<td colspan="2">
 			<div id="_checkPwd"></div>
@@ -393,7 +465,7 @@ var checkFirst = false;
 			*이름
 		</td>
 		<td>
-			<input class="form-control" id="_name" name="m_name" type="text" style="ime-mode:active" placeholder="이름">
+			<input class="form-control" id="_name" name="m_name" type="text" style="ime-mode:active" placeholder="이름" onkeypress="return nameCode(event)" maxlength="10">
 		</td>
 		<td style="margin-left: 200px;">
 			<input type="radio" name="m_gender" value="0" checked="checked">남자
@@ -429,7 +501,7 @@ var checkFirst = false;
 			<input type="text" class="form-control" id="sample6_address" readonly="readonly" placeholder="주소" name="m_address1" size="50">
 		</td>
 		<td>
-			<input type="text" class="form-control" id="sample6_address2" readonly="readonly" placeholder="상세주소" name="m_address2" size="50" >
+			<input type="text" class="form-control" id="sample6_address2" readonly="readonly" placeholder="상세주소" name="m_address2" size="50" onkeypress="return addCode(event)" maxlength="30">
 			<input id="_m_address" type="hidden" name = "m_address">
 		</td>
 	</tr>
@@ -511,18 +583,18 @@ var checkFirst = false;
 		<td>
 			<input class="form-control" id="_m_phone3" type="text" placeholder="5678" style="ime-mode:disabled;" onkeydown="return phoneCode(event)" maxlength="4"> 
 		</td>
-		
+		<td><button type="button" id="_check_phone1" onclick="check_phone()" class="btn btn-info">휴대전화 중복확인</button>
 	</tr>
 	</table>
 	<table>
 	<col width="100px;"><col width="auto"><col width="100px;"><col width="auto"><col width="100px;"><col width="auto">
 	<tr>
 		<td>고등학교 </td>
-		<td><input class="form-control" name="m_highschool" type="text" placeholder="고등학교"></td>
+		<td><input class="form-control" name="m_highschool" type="text" placeholder="고등학교" onkeypress="return academicCode(event)" maxlength="30"></td>
 		<td>대학교 </td>
-		<td><input class="form-control" name="m_university" type="text" placeholder="대학교"></td>
+		<td><input class="form-control" name="m_university" type="text" placeholder="대학교" onkeypress="return academicCode(event)" maxlength="30"></td>
 		<td>직장</td>
-		<td> <input class="form-control" name="m_office" type="text" placeholder="직장"></td>
+		<td> <input class="form-control" name="m_office" type="text" placeholder="직장" onkeypress="return academicCode(event)" maxlength="30"></td>
 		
 	</tr>
 	

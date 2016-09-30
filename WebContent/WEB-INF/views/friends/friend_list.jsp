@@ -135,7 +135,7 @@ function infriends(){
 	                  <!-- (수정할거:0905)사진 크기에 따라 변하면 안됌.  -->
 	                    <img src="${pathone }" alt="이미지없음" width="300px"> 
 	                    <div class="caption">
-	                       <h3>${finform.key }</h3>	<!-- (수정할점0908)id로 출력됨 => 이름(nickname)으로 출력해야함 -->
+	                       <h3>${finform.value.m_name }</h3>	<!-- (수정할점0908)id로 출력됨 => 이름(nickname)으로 출력해야함 -->
 	                       <p>${finform.value.m_content}</p>
 	                       <p>
 	                       <c:forEach items="${flist}" var="f" varStatus="vs">

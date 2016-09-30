@@ -20,7 +20,7 @@
 }
 </style>
 
-<h1>in_friend_search</h1>
+<h1>in_friend_someone</h1>
 
 
 
@@ -41,14 +41,14 @@
 	              <!-- (수정할거:0905)사진 크기에 따라 변하면 안됌.  -->
 			<img src="${pathone }" alt="이미지없음" width="200px"> 
 			<div class="caption">
-				<h3><a href="javascript:Movefriendsmain('${finform.key}')">${finform.value.m_name }</a></h3>		
+				<h3>${finform.value.m_name }</h3>		
 				<p>${finform.value.m_content}</p>
 				<p>
 				<c:forEach items="${flist}" var="f" varStatus="vs">
 					<c:if test="${f.f_id eq finform.value.m_id }"> 
 						<div class="btn-group ">
 							<!-- <div class="btn-group btn-group-justified"> -->	
-							<a class="btn btn-default" href="#" style="height: 40px" onclick="return false;">
+							<a class="btn btn-default " href="#" style="height: 40px">
 								<p class="mywh" id="mywh${f.f_id }">
 									<c:if test="${f.f_group eq 0}">
 										<img src="image/friend/family.jpg" alt="이미지없음" id="myicon${f.f_id }" class="myicon"><span id="_mywh${f.f_id }">가족</span>

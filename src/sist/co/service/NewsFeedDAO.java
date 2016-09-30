@@ -32,6 +32,11 @@ public class NewsFeedDAO {
 		sqlSession.insert(ns+"writeNewsFeedImage2", dto);
 	}
 	
+	public List<NewsFeedDTO> getAllNewsFeedList(){
+	      List<NewsFeedDTO> list = sqlSession.selectList(ns+"getAllNewsFeedList");
+	      return list;
+	}
+	
 	public List<NewsFeedDTO> getNewsFeedList(NewsFeedListDTO newsfeedlistDTO){
 		List<NewsFeedDTO> list = sqlSession.selectList(ns+"getNewsFeedList", newsfeedlistDTO);
 		return list;

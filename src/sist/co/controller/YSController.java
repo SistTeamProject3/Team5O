@@ -126,16 +126,6 @@ public class YSController {
 		}
 		
 	return "forward:/NewsFeedList2.do?link=" + link + "&eventSeq=" + eventSeq;  
-    
-      /*
-      if ( newsfeeddto.getG_seq() != 0 ) {
-    	  logger.info("조건이 들어감");
-    	 
-    	  return "redirect:/group_detail.do?g_seq="+newsfeeddto.getG_seq();
-      }else {
-    	  return "redirect:/NewsFeedList2.do?link=" + link + "&eventSeq=" + eventSeq;  
-      }
-      */
    }
    
 	@RequestMapping(value = "NewsFeedList.do", method = { RequestMethod.GET, RequestMethod.POST })
@@ -151,6 +141,7 @@ public class YSController {
 
 			NewsFeedListDTO newsfeedlistDTO = new NewsFeedListDTO("main", null, 0);
 			List<NewsFeedDTO> NewsFeedList = newsFeedService.getNewsFeedList(newsfeedlistDTO);
+			List<NewsFeedDTO> NewsFeedList2 = newsFeedService.getAllNewsFeedList();
 
 			for (int i = 0; i < NewsFeedList.size(); i++) {
 				if (NewsFeedList.get(i).getN_form_num() == 1) {
@@ -158,8 +149,10 @@ public class YSController {
 					NewsFeedList.get(i).setFilename(fname);
 				}
 			}
-			
+		
 			model.addAttribute("NewsFeedList", NewsFeedList);
+			model.addAttribute("NewsFeedList2", NewsFeedList2);
+			
 			request.getSession().setAttribute("login", login);
 			return "main.tiles";
 
@@ -182,6 +175,7 @@ public class YSController {
 		logger.info("YSController NewsFeedList2 " + new Date());
 		
 		logger.info("link: " + link + ", eventSeq: " + eventSeq);
+		logger.info("member: " + member.toString());
 	
 		NewsFeedListDTO newsfeedlistDTO = null;
 		
@@ -191,7 +185,10 @@ public class YSController {
 		else if ( link.equals("event") )	newsfeedlistDTO = new NewsFeedListDTO("event", null, eventSeq);
 		else								newsfeedlistDTO = new NewsFeedListDTO("main", null, 0);
 		
+		logger.info("member: " + member.toString());
 		List<NewsFeedDTO> NewsFeedList = newsFeedService.getNewsFeedList(newsfeedlistDTO);
+		List<NewsFeedDTO> NewsFeedList2 = newsFeedService.getAllNewsFeedList();
+
 		for (int i = 0; i < NewsFeedList.size(); i++) {
 			if (NewsFeedList.get(i).getN_form_num() == 1) {
 				String fname = newsFeedService.getImageFile((NewsFeedList.get(i).getN_seq()));
@@ -200,6 +197,7 @@ public class YSController {
 		}
 	
 		model.addAttribute("NewsFeedList", NewsFeedList);
+		model.addAttribute("NewsFeedList2", NewsFeedList2);
 		
 		if ( link.equals("event") ) {
 			HttpSession session = request.getSession();
@@ -208,7 +206,21 @@ public class YSController {
 			model.addAttribute("imgpath", session.getAttribute("imgpath"));
 			
 			return "event_detail.tiles";
+			
+			
+		} else if ( link.equals("people") ) {	// ay
+			String m_id = ((MemberDTO)request.getSession().getAttribute("login")).getM_id();
+			
+			//profile 경로
+			String imgpath = request.getServletContext().getRealPath("/upload");
+			model.addAttribute("NewsFeedList",NewsFeedList);
+			model.addAttribute("member", member);
+			model.addAttribute("imgpath", imgpath);
+			model.addAttribute("login_id", m_id);
+			
+			return "Movefriendsmain.tiles";
 		}
+			
 	
 		return "main.tiles";
 }   
@@ -224,20 +236,30 @@ public class YSController {
    }*/
    
    
-   @RequestMapping(value="test2.do", 
+@RequestMapping(value="test2.do", 
          method={RequestMethod.GET, RequestMethod.POST})
-   public String test2(Model model, int lastseq){   
+   public String test2(Model model, int lastseq){
       logger.info("YSController test2" + new Date());
-      List<NewsFeedDTO> list  =  newsFeedService.addPrintNewsFeed(lastseq);
       
-      if(list.size()==0){
+      List<NewsFeedDTO> NewsFeedList  =  newsFeedService.addPrintNewsFeed(lastseq);
+      List<NewsFeedDTO> NewsFeedList2 = newsFeedService.getAllNewsFeedList();
+      if(NewsFeedList.size()==0){
          System.out.println("null이다");
          
       }else{
-         model.addAttribute("NewsFeedList",list);
+        for (int i = 0; i < NewsFeedList.size(); i++) {
+         if (NewsFeedList.get(i).getN_form_num() == 1) {
+            String fname = newsFeedService.getImageFile((NewsFeedList.get(i).getN_seq()));
+            NewsFeedList.get(i).setFilename(fname);
+         }
+      }
+   
+      model.addAttribute("NewsFeedList", NewsFeedList);
+      model.addAttribute("NewsFeedList2", NewsFeedList2);
       }
       return "newsfeed.tiles";
-   }
+}
+
    
    
    @RequestMapping(value="updateShow.do", 

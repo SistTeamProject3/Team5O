@@ -1,7 +1,10 @@
 package sist.co.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +34,9 @@ import sist.co.model.EventDTO;
 import sist.co.model.FriendDTO;
 import sist.co.service.EventService;
 import sist.co.service.FriendService;
+import sist.co.service.NewsFeedService;
 import sist.co.model.MemberDTO;
+import sist.co.model.NewsFeedDTO;
 
 @Controller
 public class FriendController {
@@ -42,8 +47,11 @@ public class FriendController {
 	private FriendService friendService;
 	
 	@Autowired
-	EventService eventService;
+	private EventService eventService;
 	
+	@Autowired
+	private NewsFeedService newsFeedService;
+		
 	@RequestMapping(value="friendmain.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String friendmain(Model model) throws Exception{		
 		logger.info("friendmain");
@@ -54,6 +62,7 @@ public class FriendController {
 	 * 공동 작업자: 김명호
 	 * param: eventSeq(이벤트 시퀀스)
 	 */
+	//(수정할거0930) : 친구SNS로 들어갔을 때, 친구 누르면 ‘친구의 친구’가 떠야함. 따라서, infrendssearch에 ‘로그인한 회원’이 아닌 ‘친구의 아이디’가 들어가야함. by ay
 	@RequestMapping(value="infriendsearch.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String infriendsearch(String m_id, HttpServletRequest request, Model model,
 							@RequestParam (value = "eventSeq", defaultValue = "0") int eventSeq) throws Exception{		
@@ -97,58 +106,14 @@ public class FriendController {
 		return "infriendsearch.tiles";
 	}
 	
-	/*
-	@RequestMapping(value="friendlist.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String friendlist(String m_id, HttpServletRequest request, Model model,
-							@RequestParam (value = "seq", defaultValue = "0") int eventSeq) throws Exception{
-		
-		logger.info("friendsearch");
-		
-	//	m_id="qwer";	// 임시 회원 id
-		MemberDTO loginMember = (MemberDTO) request.getSession().getAttribute("login");
-		
-		//profile 경로
-		String imgpath = request.getServletContext().getRealPath("/upload");
-		System.out.println("imgpath" + imgpath);
-		
-		//요청수락안한 친구, 차단한 친구, 비활성화된 친구 를 제외, follow친구를 포함한 리스트  + 이 친구 각각의 한마디글 뽑아오기
-		List<FriendDTO> flist = friendService.getFriendsList(loginMember.getM_id());		// 해당 회원의 친구목록(요청수락안한 친구, 차단한 친구, 비활성화된 친구 를 제외)
-		//수정할점0908 list정렬 : collection.sort(list명) 단, list<string>.
-
-		HashMap<String, MemberDTO> finformlist = new HashMap<String, MemberDTO>();
-		for(int i = 0; i < flist.size(); i++){
-			MemberDTO memdto = friendService.getFriendsInformation(flist.get(i).getF_id());	
-			finformlist.put(flist.get(i).getF_id(), memdto);		// 친구아이디를 key값으로 친구의 한마디 글 뽑아오기
-		}
-		
-		model.addAttribute("flist", flist);				// 그룹 단위로 출력하기 위해서 필요함. 즉,순수하게 정렬하기 위해 필요 : (수정할점0906) 그룹별 출력, 그룹변경 할 수 있도록 버튼만들기 
-		model.addAttribute("finformlist", finformlist);	// 해당 회원 모든 친구들의 정보 
-		model.addAttribute("imgpath", imgpath);
-		
-		System.out.println("success");
-		
-		if ( eventSeq > 0 ) {
-			
-			EventDTO event = eventService.selectEventDetail(eventSeq);
-			
-			HttpSession session = request.getSession();
-			session.setAttribute("event", event);
-			session.setAttribute("finformlist", finformlist);
-			session.setAttribute("imgpath", imgpath);
-			session.setMaxInactiveInterval(60*60);		// 1분 동안 유지
-			
-			return "forward:/NewsFeedList2.do?link=event";
-		}
-		
-		return "friendlist.tiles";
-	}
-	*/
+	
 	@RequestMapping(value="friendask.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String friendask(String m_id, HttpServletRequest request, Model model) throws Exception{
 		
 		logger.info("friendask");
 		
-		m_id="qwer";	// 임시 회원 id
+		//m_id="qwer";	// 임시 회원 id
+		m_id = ((MemberDTO)request.getSession().getAttribute("login")).getM_id();
 		
 		//profile 경로
 		String imgpath = request.getServletContext().getRealPath("/upload");
@@ -187,7 +152,8 @@ public class FriendController {
 		
 		logger.info("familygroup");
 		
-		m_id="qwer";	// 임시 회원 id
+		//m_id="qwer";	// 임시 회원 id
+		m_id = ((MemberDTO)request.getSession().getAttribute("login")).getM_id();
 		
 		//profile 경로
 		String imgpath = request.getServletContext().getRealPath("/upload");
@@ -207,6 +173,7 @@ public class FriendController {
 		model.addAttribute("familylistinform", familylistinform);
 		model.addAttribute("fstotalnum", fstotalnum);
 		model.addAttribute("imgpath", imgpath);
+		model.addAttribute("login_id", m_id);
 		
 		return "familygroup.tiles";
 	}
@@ -217,7 +184,8 @@ public class FriendController {
 		
 		logger.info("bestgroup");
 
-		m_id="qwer";	// 임시 회원 id
+		//m_id="qwer";	// 임시 회원 id
+		m_id = ((MemberDTO)request.getSession().getAttribute("login")).getM_id();
 		
 		//profile 경로
 		String imgpath = request.getServletContext().getRealPath("/upload");
@@ -235,6 +203,7 @@ public class FriendController {
 		model.addAttribute("bestlistinform", bestlistinform);
 		model.addAttribute("fstotalnum", fstotalnum);
 		model.addAttribute("imgpath", imgpath);
+		model.addAttribute("login_id", m_id);
 		
 		return "bestgroup.tiles";
 	}
@@ -245,7 +214,8 @@ public class FriendController {
 		
 		logger.info("knowgroup");
 		
-		m_id="qwer";	// 임시 회원 id
+		//m_id="qwer";	// 임시 회원 id
+		m_id = ((MemberDTO)request.getSession().getAttribute("login")).getM_id();
 		
 		//profile 경로
 		String imgpath = request.getServletContext().getRealPath("/upload");
@@ -264,6 +234,7 @@ public class FriendController {
 		model.addAttribute("knowlistinform", knowlistinform);
 		model.addAttribute("fstotalnum", fstotalnum);
 		model.addAttribute("imgpath", imgpath);
+		model.addAttribute("login_id", m_id);
 		
 		return "knowgroup.tiles";
 	}
@@ -274,7 +245,8 @@ public class FriendController {
 		
 		logger.info("blockgroup");
 		
-		m_id="qwer";	// 임시 회원 id
+		//m_id="qwer";	// 임시 회원 id
+		m_id = ((MemberDTO)request.getSession().getAttribute("login")).getM_id();
 		
 		//profile 경로
 		String imgpath = request.getServletContext().getRealPath("/upload");
@@ -305,11 +277,13 @@ public class FriendController {
 		
 		logger.info("outfriendsearchmain");
 		
-		m_id="qwer";	//임의의 m_id
+		
+		//m_id="qwer";	//임의의 m_id
+		m_id = ((MemberDTO)request.getSession().getAttribute("login")).getM_id();
 		
 		//profile 경로
 		String imgpath = request.getServletContext().getRealPath("/upload");
-		System.out.println("imgpath" + imgpath);
+		//System.out.println("imgpath" + imgpath);
 		
 		//1. <친구의 친구 id, 내 친구들중 몇명과 친구를 맺고있는지> 
 		HashMap<String, Integer> hashfsflist = new HashMap<String, Integer>();	// 내 친구들이 많이 아는 친구일 수록 리스트 상단에 떠야하는데 이를 위한 정렬을 위해 필요한 Hashmap.
@@ -320,7 +294,7 @@ public class FriendController {
 			
 			List<FriendDTO> fslist = friendService.getFriendsList(flist.get(i).getF_id());	// 내 친구의 친구리스트. 단, 나는 제외되어야함. because 알수도있는 친구에 내가 뜨면 안돼니.. 
 			System.out.println(flist.get(i).getF_id()+ "의 fslist.size():"+ fslist.size());
-			
+						
 			for(int j = 0; j < fslist.size(); j++){
 				if(!hashfsflist.containsKey(fslist.get(j).getF_id())){
 					hashfsflist.put(fslist.get(j).getF_id(), 1);
@@ -332,10 +306,11 @@ public class FriendController {
 			}	
 		}
 		
-
-		//2. 나 혹은 상대방이 친구요청 미수락한 경우는 검색리스트에 뜨면안됌. 따라서 hashfsflist에서 지워야함
+		
+		//2. '나 혹은 상대방이 친구요청 미수락' 및 '날 차단한 친구'의 경우는 검색리스트에 뜨면안됌. 따라서 hashfsflist에서 지워야함
 		List<FriendDTO> ansflist = friendService.getAnsFriendsList(m_id); // 수신된 친구 요청 보기
 		List<FriendDTO> askflist = friendService.getAskFriendsList(m_id); // 전송한 친구 요청 보기
+		List<String> blockmeflist = friendService.blockme(m_id);		  // 날 차단한 회원은 리스트에 띄우면 안됌
 		for(int i = 0; i < ansflist.size(); i++){
 			hashfsflist.remove(ansflist.get(i).getM_id());
 			System.out.println("삭제1 : " + ansflist.get(i).getM_id());
@@ -344,15 +319,17 @@ public class FriendController {
 			hashfsflist.remove(askflist.get(i).getF_id());
 			System.out.println("삭제2 : " + askflist.get(i).getF_id());
 		}
-		
-		
+		for(int i = 0; i < blockmeflist.size(); i++){
+			hashfsflist.remove(blockmeflist.get(i));
+			System.out.println("삭제3 : " + askflist.get(i).getF_id());
+		}		
 			
 		//Hashmap value로 정렬한 최종 알수도있는친구(친구의 친구) 리스트
 		List<MemberDTO> fsflistinform = new ArrayList<MemberDTO>();
 		
 		//3. order by Hashmap's Value (DESC)
 		OrderHashMap orderhashmap = new OrderHashMap();
-		List<String> orderfsflist = orderhashmap.orderbyValue(m_id, hashfsflist);
+		List<String> orderfsflist = orderhashmap.orderbyValue(m_id, hashfsflist);	//m_id로 정렬 =>(수정할점 0927)m_nickname으로 정렬해야함. 원래 리스트뿌릴때 nickname으로 뿌려주기때문
 		for(int i = 0; i < orderfsflist.size(); i++){
 			MemberDTO memdto = friendService.getFriendsInformation(orderfsflist.get(i));
 			fsflistinform.add(memdto);
@@ -374,7 +351,8 @@ public class FriendController {
 		
 		logger.info("outfriendssearch");
 		
-		m_id="qwer";	// 임시 id
+		//m_id="qwer";	// 임시 회원 id
+		m_id = ((MemberDTO)request.getSession().getAttribute("login")).getM_id();
 		
 		//profile 경로
 		String imgpath = request.getServletContext().getRealPath("/upload");
@@ -424,10 +402,10 @@ public class FriendController {
 		}
 			
 		
-		
-		//3. 나 혹은 상대방이 친구요청 미수락한 경우는 검색리스트에 뜨면안됌. 따라서 hashfsflist에서 지워야함
+		//3. '나 혹은 상대방이 친구요청 미수락' 및 '날 차단한 친구'의 경우, '모르는 친구'로 검색된 사람의 친구요청받는범위가 '친구의친구'일경우 는 검색리스트에 뜨면안됌. 따라서 hashfsflist에서 지워야함
 		List<FriendDTO> ansflist = friendService.getAnsFriendsList(m_id); // 수신된 친구 요청 보기
 		List<FriendDTO> askflist = friendService.getAskFriendsList(m_id); // 전송한 친구 요청 보기
+		List<String> blockmeflist = friendService.blockme(m_id);		  // 날 차단한 회원은 리스트에 띄우면 안됌
 		for(int i = 0; i < ansflist.size(); i++){
 			hashfsflist.remove(ansflist.get(i).getM_id());
 			for(int j = 0; j < searchflist.size(); j++){
@@ -444,7 +422,20 @@ public class FriendController {
 			}
 			System.out.println("삭제2 : " + askflist.get(i).getF_id());
 		}
-
+		for(int i = 0; i < blockmeflist.size(); i++){
+			hashfsflist.remove(blockmeflist.get(i));
+			for(int j = 0; j < searchflist.size(); j++){
+				if(searchflist.get(j).getM_id().equals(blockmeflist.get(i)))
+					searchflist.remove(j);	
+			}
+			System.out.println("삭제3 : " + blockmeflist.get(i));
+		}
+		for(int i = 0; i < searchflist.size(); i++){	// '모르는 친구'로 검색된 사람의 친구요청받는범위가 '친구의친구'일경우 삭제. (왜냐하면, 해당 회원의 친구요청받는 범위가 "친구의친구"일 경우, 이미 알수도있는 친구에 있을 테니) 
+			if(searchflist.get(i).getM_ask() == 1){
+				System.out.println("삭제4 : " + searchflist.get(i).getM_id());
+				searchflist.remove(i);
+			}
+		}
 		
 		
 		
@@ -497,7 +488,7 @@ public class FriendController {
 	@RequestMapping(value="befriends.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public String befriends(@RequestParam(value = "m_id", required = false) String m_id,
-							@RequestParam(value = "f_id", required = false) String f_id){
+							@RequestParam(value = "f_id", required = false) String f_id) throws Exception{
 		
 		logger.info("befriends");
 		
@@ -508,12 +499,25 @@ public class FriendController {
 		
 		boolean isS = false;
 		
+		//상대방이 날 차단했는지 확인
+		String isI_blockme = friendService.youblockme(friendDTO);	// 차단 : 1, 차단x : 0	
+		System.out.println("isI_blockme : " + isI_blockme);
+		
+		// 기존 데이터 있을 경우, update, 없으면 insert
+		int isI = 0;
+		isI = friendService.confirmdata(friendDTO);		
+		System.out.println("isI : " + isI);
+		
 		try{
-			friendService.befriend(friendDTO);
-			isS = true;
+			if(isI_blockme == null || "0".equals(isI_blockme)){
+				if(isI > 0)	friendService.befriendupate(friendDTO);	//update
+				else		friendService.befriend(friendDTO);		//insert
+				isS = true;
+			}
 		}catch (Exception e) {
 			e.getMessage();
 		}
+		
 		
 		if(isS){
 			return f_id;
@@ -526,7 +530,7 @@ public class FriendController {
 	@RequestMapping(value="accept.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public String accept(@RequestParam(value = "m_id", required = false) String m_id, 
-						 @RequestParam(value = "f_id", required = false) String f_id){
+						 @RequestParam(value = "f_id", required = false) String f_id) throws Exception{
 		
 		logger.info("accept");
 		
@@ -535,7 +539,7 @@ public class FriendController {
 		friendDTO.setF_id(f_id);
 		
 		boolean isS = false;
-		
+
 		try{
 			friendService.accept(friendDTO);
 			isS = true;
@@ -641,7 +645,7 @@ public class FriendController {
 	@RequestMapping(value="block.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public String block(@RequestParam(value="m_id", required=false) String m_id, 
-						 @RequestParam(value="f_id", required=false) String f_id){
+						 @RequestParam(value="f_id", required=false) String f_id) throws Exception{
 	
 
 		logger.info("block");
@@ -652,8 +656,14 @@ public class FriendController {
 		
 		boolean isS = false;
 		
+		int isI = 0;
+		isI = friendService.confirmdata(friendDTO);		// 기존 데이터 있을 경우, update, 없으면 insert
+		System.out.println("isI : " + isI);
+		
+		
 		try{
-			friendService.block(friendDTO);
+			if(isI > 0) friendService.blockupdate(friendDTO);	//update
+			else 		friendService.block(friendDTO);			//insert
 			isS = true;
 		}catch(Exception e){
 			e.getMessage();
@@ -668,33 +678,71 @@ public class FriendController {
 		
 	}
 	
-/*	@RequestMapping(value="infriendssearch.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String infriendssearch(HttpServletRequest request, String m_id, @RequestParam(value="insearchname") String insearchname){
+	@RequestMapping(value="changegroup.do", method={RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public String block(@RequestParam(value="m_id", required=false) String m_id, 
+						 @RequestParam(value="f_id", required=false) String f_id,
+						 @RequestParam(value="f_group", required=false) String f_group){
 	
-		logger.info("infriendssearch");
+		logger.info("changegroup");
+		
+		FriendDTO friendDTO = new FriendDTO();
+		friendDTO.setM_id(m_id);
+		friendDTO.setF_id(f_id);
+		friendDTO.setF_group(Integer.parseInt(f_group));
+		
+		boolean isS = false;
+		
+		try{
+			friendService.changegroup(friendDTO);
+			isS = true;
+		}catch(Exception e){
+			e.getMessage();
+		}
+		
+		if(isS){
+			return f_id;
+		}else{
+			return "fail";
+		}
+		
+		
+	}
+	
+	
+	
+	@RequestMapping(value="infriendssomeone.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String infriendssearch(HttpServletRequest request, Model model, String m_id, @RequestParam(value="insearchname") String insearchname) throws Exception{
+	
+		logger.info("infriendssomeone");
+		System.out.println("insearchname : " + insearchname);
+		System.out.println("m_id : " + m_id);
+		
+		m_id = "qwer"; 	//임의 
 		
 		//profile 경로
 		String imgpath = request.getServletContext().getRealPath("/upload");
+		 
+		//요청수락안한 친구, 차단한 친구, 비활성화된 친구 를 제외, follow친구를 포함한 리스트  + 이 친구 각각의 한마디글 뽑아오기
+		List<FriendDTO> flist = friendService.getFriendsList(m_id);		// 해당 회원의 친구목록(요청수락안한 친구, 차단한 친구, 비활성화된 친구 를 제외)
+		//수정할점0908 list정렬 : collection.sort(list명) 단, list<string>.
+
+		HashMap<String, MemberDTO> finformlist = new HashMap<String, MemberDTO>();
+		for(int i = 0; i < flist.size(); i++){
+			MemberDTO memdto = friendService.getFriendsInformation(flist.get(i).getF_id());
+			if(memdto.getM_name().toUpperCase().equals(insearchname.toUpperCase())
+					|| memdto.getM_name().toUpperCase().contains(insearchname.toUpperCase())){	//대소문자 구분x. 정확하게 매치 + 일부문자열포함된 친구만 출력
+				finformlist.put(flist.get(i).getF_id(), memdto);		// 친구아이디를 key값으로 친구의 한마디 글 뽑아오기
+			}
+		}
+			
+		model.addAttribute("flist", flist);				// 그룹 단위로 출력하기 위해서 필요함. 즉,순수하게 정렬하기 위해 필요 : (수정할점0906) 그룹별 출력, 그룹변경 할 수 있도록 버튼만들기 
+		model.addAttribute("finformlist", finformlist);	// 해당 회원 모든 친구들의 정보 
+		model.addAttribute("imgpath", imgpath);
+		model.addAttribute("login_id", m_id);
 		
 		
-		
-		
-		
-		return "infriendssearch.tiles";
+		return "infriendssomeone.tiles";
 	}
-	
-*/
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

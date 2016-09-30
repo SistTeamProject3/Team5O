@@ -9,42 +9,8 @@
 <!-- <link rel="stylesheet" href="css/ay.css"> -->	<!-- tiles를 사용하면, layouts-tiles.jsp기준으로 경로 설정하면 됌 -->
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="js/friend.js"></script>
 
-<script type="text/javascript">
-function stranger(param, inpid){
-	
-	if($("#"+param).val()=="친구 끊기"){
-		
-		$.ajax({
-			type:"POST",
-			url:"stranger.do",
-			data:{"m_id":'${login_id}', "f_id":inpid},
-			success: function(response){
-				$("#"+param).attr({"value":"차단 하기", "class":"btn btn-default"});		
-			},error: function(request, status, error){
-				alert("error  code:"+request.status+"\n"+"error:"+error);
-			}
-			
-		});
-		
-	}else if($("#"+param).val()=="차단 하기"){
-		
-		$.ajax({
-			type:"POST",
-			url:"block.do",
-			data:{"m_id":'${login_id}', "f_id":inpid},
-			success: function(response){
-				$("#"+param).attr({"value":"차단 완료" , "disabled":true});		
-			},error: function(request, status, error){
-				alert("error  code:"+request.status+"\n"+"error:"+error);
-			}
-			
-		});
-		
-	}
-	
-}
-</script>
 <!-- 프로필사진 경로 : C:\springstudy\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\SpringSample\upload -->
 
 <h1>family_group</h1>
@@ -57,7 +23,7 @@ function stranger(param, inpid){
 		<td colspan="3">가족 <font color="gray">( ${fn:length(familylistinform) } 명 )</font></td>
 	</tr>
 	<c:if test="${fn:length(familylistinform) eq 0}">
-		<tr><td colspan="3" style="text-align: center;">가족 그룹 내 인원이 없습니다</td></tr>	
+		<tr><td colspan="3" style="text-align: center;">해당 그룹 내 인원이 없습니다</td></tr>	
 	</c:if> 
 	<c:forEach items="${familylistinform }" var="famf" varStatus="famfS">
 		<c:if test="${famfS.count%2 eq 0}">
@@ -77,7 +43,7 @@ function stranger(param, inpid){
 			</c:forEach>
 		</td> 
 		<td style="text-align: center; vertical-align: middle;">
-			<p><input type="button" id="${famf.f_id }" class="btn btn-primary" value="친구 끊기" onclick="stranger(id, '${famf.f_id}')"></p>
+			<p><input type="button" id="fg_${fstn.f_id }" class="btn btn-primary" value="친구 끊기" onclick="stranger(id, '${fstn.f_id}', '${login_id }')"></p>
 		</td>
 		</tr>
 	</c:forEach>

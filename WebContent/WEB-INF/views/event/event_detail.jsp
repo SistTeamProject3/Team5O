@@ -198,6 +198,7 @@ pre {
 		</span>
 	</div>
 	
+	<!-- 주최자와 로그인 사용자와 동일하면 초대/수정 보임 -->
 	<c:if test="${ login.m_id == event.m_id }">
 		<div class="event_modify btn-group btn-group-justified">
 			<a href="#" class="btn btn-default" data-toggle="modal" 
@@ -271,7 +272,6 @@ pre {
 		<br/>
 		
 		<div class="event_main_newsfeed">
-			<!-- 영선이거 연동 시 기존 Form 깨짐 발생 -->
 			<jsp:include page="/WEB-INF/views/newsfeed/newsfeed_write.jsp" >
 				<jsp:param name="viewPage" value="event" />
 				<jsp:param name="eventSeq" value="${ event.e_seq }" />
@@ -341,10 +341,12 @@ pre {
 		
 		<!--		뉴스피드 리스트			-->
 		<div>
+			
 			<jsp:include page="/WEB-INF/views/newsfeed/newsfeed_list.jsp" >
 				<jsp:param name="viewPage" value="event" />
 				<jsp:param name="eventSeq" value="${ event.e_seq }" />
 			</jsp:include>
+			
 		</div>
 		<!--	 // 뉴스피드 리스트			-->
 		
