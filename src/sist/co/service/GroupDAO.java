@@ -225,4 +225,12 @@ public class GroupDAO {
 	}
 	
 	
+	//댓글
+	public List<GroupPhotoDTO> group_coment(GroupPhotoDTO gdto)throws Exception{
+		return sqlSession.selectList(ns+"group_coment", gdto);
+	}
+	
+	public List<GroupPhotoDTO> group_add_coment(GroupPhotoDTO gdto)throws Exception{
+		return sqlSession.selectList(ns+"group_add_coment", gdto);
+	}
 }

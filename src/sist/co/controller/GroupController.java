@@ -741,4 +741,26 @@ public class GroupController {
 		model.addAttribute("vdto", vdto);
 		return "group_vote_result.tiles";
 	}
+	@RequestMapping(value="group_coment.do", method={RequestMethod.GET,RequestMethod.POST})
+	public String group_coment(Model model, GroupPhotoDTO gdto,int l_num)throws Exception{
+		logger.info("댓글 작성 시퀀스 확인" +gdto.toString());
+		logger.info("l_num" +l_num);
+		
+		List<GroupPhotoDTO> clist =  groupService.group_coment(gdto);
+		model.addAttribute("clist", clist);
+		model.addAttribute("l_num", l_num);
+		return "group_coment.tiles";
+	}
+	@RequestMapping(value="group_add_coment.do", method={RequestMethod.GET,RequestMethod.POST})
+	public String group_add_coment(Model model, GroupPhotoDTO gdto,int l_num)throws Exception{
+		logger.info("추가 댓글 작성 시퀀스 확인" +gdto.toString());
+		logger.info("l_num" +l_num);
+		gdto.setG_seq(l_num);
+		logger.info("들어간거" +gdto.getG_seq());
+		List<GroupPhotoDTO> clist =  groupService.group_add_coment(gdto);
+		model.addAttribute("clist", clist);
+		model.addAttribute("l_num", l_num);
+		return "group_coment.tiles";
+	}
+	
 }

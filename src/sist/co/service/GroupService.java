@@ -89,4 +89,7 @@ public interface GroupService {
 	//결과
 	public List<VotelistDTO> vote_result(VoterDTO vo)throws Exception;
 	public VoterDTO my_vote(VoterDTO vo)throws Exception;
+	
+	public List<GroupPhotoDTO> group_coment(GroupPhotoDTO gdto)throws Exception;
+	public List<GroupPhotoDTO> group_add_coment(GroupPhotoDTO gdto)throws Exception;
 }

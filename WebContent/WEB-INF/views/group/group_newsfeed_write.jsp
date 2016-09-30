@@ -96,27 +96,20 @@
 			</tr>
 			<tr id=friend style="display: none;">
 				<td><h6>함께한 친구</h6></td>
-				<td colspan="2"><input type="text" id="n_tag_friend"
+				<td colspan="4"><input type="text" id="n_tag_friend"
 					name="n_tag_friend" onKeyDown="onKeyDown();"
 					onclick="this.value=''"></td>
 			</tr>
 			<tr id=feel style="display: none;">
 				<td id="printFeel"><h6>나는지금</h6></td>
 				<td colspan="3">
-					<div class="dropdown">
-						<button class="btn btn-primary dropdown-toggle" type="button"
-							data-toggle="dropdown">
-							<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu">
-							<li onclick="getState('기뻐요'); setState('1')" value="1"><img
-								src="image/happy.jpg">기뻐요</li>
-							<li onclick="getState('슬퍼요'); setState('2')" value="2"><img
-								src="image/sad.jpg">슬퍼요</li>
-							<li onclick="getState('피곤해요'); setState('3')" value="3"><img
-								src="image/tired.jpg">피곤해요</li>
-						</ul>
-					</div>
+					    <div class="dropdown">
+                  <ul class="dropdown-menu5">
+                   <li onclick="getState('기뻐요'); setState('1')" value="1"><img src="image/happy.jpg">기뻐요</a></li>
+                   <li onclick="getState('슬퍼요'); setState('2')" value="2"><img src="image/sad.jpg">슬퍼요</a></li>
+                   <li onclick="getState('피곤해요'); setState('3')" value="3"><img src="image/tired.jpg">피곤해요</a></li>
+                 </ul>
+           </div> 
 				</td>
 			</tr>
 
@@ -245,7 +238,7 @@ function onKeyDown()
     {
      $("#_friend").text("");
      $("#nowFriend").show();
-     $("#nowFriend").prepend($("#_friend").val()+",");
+     $("#nowFriend").prepend($("#n_tag_friend").val()+",");
     }
 }
 
@@ -256,7 +249,7 @@ function onKeyDown2()
 	      $("#_where").text("");
 	      $("#nowWhere").show();
 	      $("#nowWhere").text("");
-	      $("#nowWhere").text($("#_where").val()+"에서");
+	      $("#nowWhere").text($("#n_tag_where").val()+"에서");
 	      $("#nowWhere").append("&nbsp;&nbsp;<i class='fa fa-times' aria-hidden='true' onclick=\"deleteArea('nowWhere')\"></i>"); 
 	      $("#_where").text("");
 	     }

@@ -303,5 +303,28 @@ SELECT * FROM TP3_VOTER
 WHERE N_VOTE_SEQ =#{n_vote_seq} and M_ID=#{m_id}
 </select>
 
+<select id="group_coment" parameterType="sist.co.model.GroupPhotoDTO" resultType="sist.co.model.GroupPhotoDTO">
+<![CDATA[ 
+SELECT * FROM(
+SELECT ROWNUM NUM,CC.* FROM(
+(SELECT BC.* FROM 
+(select AC.* from (select B.M_PROFILE,A.* from TP3_NEWSFEED A INNER JOIN TP3_MEMBER B ON A.M_ID=B.M_ID order by N_WDATE DESC) AC) BC)CC)
+WHERE (N_PARENT = #{n_parent})
+)WHERE NUM >=1 and NUM <=10
+]]>
+</select>
+
+<select id="group_add_coment" parameterType="sist.co.model.GroupPhotoDTO" resultType="sist.co.model.GroupPhotoDTO">
+<![CDATA[ 
+SELECT * FROM(
+SELECT ROWNUM NUM,CC.* FROM(
+(SELECT BC.* FROM 
+(select AC.* from (select B.M_PROFILE,A.* from TP3_NEWSFEED A INNER JOIN TP3_MEMBER B ON A.M_ID=B.M_ID order by N_WDATE DESC) AC) BC)CC)
+WHERE (N_PARENT = #{n_parent})
+)WHERE NUM >= #{g_seq}-9 and NUM <=#{g_seq}
+]]>
+</select>
+
+
 </mapper>
 

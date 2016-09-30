@@ -164,7 +164,7 @@ ${news.n_seq }
 		
 		<!-- 한영선: 댓글 입력  (in 뉴스피드 테이블 1)  -->
 		<tr id ="show_comment${news.n_seq }" style="display: none;">
-			<td>프사사진</td>
+		<td>프사사진</td>
 			<td colspan="2"><input type="text"  style="width:100%;" id="n_content${news.n_seq }" name="n_content" onkeydown="onKeyDown_comment('${news.n_seq }')"></td>
 		</tr>
 		<!-- // 한영선: 댓글 입력  (in 뉴스피드 테이블 1)  -->

@@ -230,5 +230,15 @@ public class GroupImpl implements GroupService {
 	public VoterDTO my_vote(VoterDTO vo) throws Exception {
 		return groupDAO.my_vote(vo);
 	}
+
+	@Override
+	public List<GroupPhotoDTO> group_coment(GroupPhotoDTO gdto) throws Exception {
+		return groupDAO.group_coment(gdto);
+	}
+
+	@Override
+	public List<GroupPhotoDTO> group_add_coment(GroupPhotoDTO gdto) throws Exception {
+		return groupDAO.group_add_coment(gdto);
+	}
 	
 }
