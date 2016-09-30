@@ -43,8 +43,8 @@
 <insert id="insertEventInvite" parameterType="map">
 	INSERT ALL
 	<foreach collection="list" item="item">
-	INTO TP3_EVENT_INVITE(E_SEQ, M_ID, EI_JOIN)
-	VALUES(#{item.e_seq}, #{item.m_id}, 0)
+	INTO TP3_EVENT_INVITE(E_SEQ, M_ID, EI_JOIN, EI_WRITE_DATE)
+	VALUES(#{item.e_seq}, #{item.m_id}, 0, SYSDATE)
 	</foreach>
 	SELECT * FROM DUAL
 </insert>

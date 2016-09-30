@@ -355,11 +355,17 @@ $(document).ready(function () {
 /*			▼ ▼ ▼ ▼			*/
 function confirmInput() {
 	var inputEvtTitle = $('#event_name').val();
+	var inputEvtDate = $('#start_date').val();
 	var inputEvtContent = $('#e_content').val();
 	
 	if ( inputEvtTitle == '' ) {
 		$('#event_name').focus();
 		alert("이벤트 이름을 입력해주세요.");
+		
+		return false;
+		
+	} else if ( inputEvtDate == '' ) {
+		alert("이벤트 날짜를 입력해주세요.");
 		
 		return false;
 		
