@@ -47,87 +47,95 @@ public class YSController {
    @Autowired
    MemberService MemberService;
 
-   @RequestMapping(value="writeNewsFeed.do", 
-         method=RequestMethod.POST)
+   @RequestMapping(value="writeNewsFeed.do", method=RequestMethod.POST)
    public String writeNewsFeed(NewsFeedDTO newsfeeddto,
                      HttpServletRequest request,
-                     @RequestParam(value="fileloadd", required=false)
-                     MultipartFile fileload, Model model){
-   
-      logger.info("YSController writeNewsFeed " + new Date());
-      System.out.println(newsfeeddto.toString());
-      if(fileload!=null){
-         System.out.println(" 야호 null이 아니다");
-      System.out.println("fileload.getSize()=="+fileload.getSize());
-      System.out.println("fileload.getSize()=="+fileload.getSize());
-      System.out.println("fileload.getSize()=="+fileload.getSize());
-      }
-      else{
-         System.out.println("null이다");
-         System.out.println("null이다");
-         System.out.println("null이다");
-         System.out.println("null이다");
-         System.out.println("null이다");
-      }
+                     Model model,
+                     @RequestParam(value="fileloadd", required=false) MultipartFile fileload,
+                     @RequestParam (value = "viewPage", defaultValue = "") String link,
+                     @RequestParam (value = "n_event_seq", defaultValue = "0") int eventSeq
+                     ){
+	   
+    	   logger.info("YSController writeNewsFeed " + new Date());
+		System.out.println(newsfeeddto.toString());
 
-      newsfeeddto.setFilename(fileload.getOriginalFilename());
+		if (fileload != null) {
+			System.out.println(" 야호 null이 아니다");
+			System.out.println("fileload.getSize()==" + fileload.getSize());
+			System.out.println("fileload.getSize()==" + fileload.getSize());
+			System.out.println("fileload.getSize()==" + fileload.getSize());
+		} else {
+			System.out.println("null이다");
+			System.out.println("null이다");
+			System.out.println("null이다");
+			System.out.println("null이다");
+			System.out.println("null이다");
+		}
 
-      System.out.println(newsfeeddto.toString());
-      String fupload = request.getServletContext().getRealPath("/upload");
-      //String fupload = "c:\\upload";   
-      logger.info(": " + fupload);
-      
-      String f = newsfeeddto.getFilename();      
-      String newFile = FUpUtil.getNewFile(f);      
-      logger.info(fupload+ "/" + newFile);
-      
-      if(newsfeeddto.getN_tag_feel()==null){
-         newsfeeddto.setN_tag_feel("");
-      }
-      
-      newsfeeddto.setFilename(newFile);
-      System.out.println("newFile==="+newFile);
-      System.out.println("newFile==="+newFile);
-      System.out.println("newFile==="+newFile);
-      System.out.println("newFile==="+newFile);
-      
-      System.out.println("getSize"+fileload.getSize());
-      if(fileload.getSize()==0){
-         try{      
-            File file = new File(fupload + "/" + newFile);      
-            FileUtils.writeByteArrayToFile(file, fileload.getBytes());
-   
-            newsFeedService.writeNewsFeed(newsfeeddto);
-            System.out.println("여기"+newsfeeddto.toString());
-            logger.info("writeNewsFeed success");
-            
-         }catch(IOException e){
-   
-            logger.info("writeNewsFeed fail!");
-         }
+		newsfeeddto.setFilename(fileload.getOriginalFilename());
 
-      }else{
-         try{    
-        
-            File file = new File(fupload + "/" + newFile);      
-            FileUtils.writeByteArrayToFile(file, fileload.getBytes());
-   
-            newsFeedService.writeNewsFeedImage(newsfeeddto);
-         
-            logger.info("writeNewsFeed success");
-            
-         }catch(IOException e){
-   
-            logger.info("writeNewsFeed fail!");
-         }
-      }
+		System.out.println(newsfeeddto.toString());
+		String fupload = request.getServletContext().getRealPath("/upload");
+		// String fupload = "c:\\upload";
+		logger.info(": " + fupload);
+
+		String f = newsfeeddto.getFilename();
+		String newFile = FUpUtil.getNewFile(f);
+		logger.info(fupload + "/" + newFile);
+
+		if (newsfeeddto.getN_tag_feel() == null) {
+			newsfeeddto.setN_tag_feel("");
+		}
+
+		newsfeeddto.setFilename(newFile);
+		System.out.println("newFile===" + newFile);
+		System.out.println("newFile===" + newFile);
+		System.out.println("newFile===" + newFile);
+		System.out.println("newFile===" + newFile);
+
+		System.out.println("getSize" + fileload.getSize());
+		if (fileload.getSize() == 0) {
+			try {
+				File file = new File(fupload + "/" + newFile);
+				FileUtils.writeByteArrayToFile(file, fileload.getBytes());
+
+				System.out.println("여기" + newsfeeddto.toString());
+				newsFeedService.writeNewsFeed(newsfeeddto);
+
+				logger.info("writeNewsFeed success");
+
+			} catch (IOException e) {
+
+				logger.info("writeNewsFeed fail!");
+			}
+
+		} else {
+			try {
+
+				File file = new File(fupload + "/" + newFile);
+				FileUtils.writeByteArrayToFile(file, fileload.getBytes());
+
+				newsFeedService.writeNewsFeedImage(newsfeeddto);
+
+				logger.info("writeNewsFeed success");
+
+			} catch (IOException e) {
+
+				logger.info("writeNewsFeed fail!");
+			}
+		}
+		
+	return "forward:/NewsFeedList2.do?link=" + link + "&eventSeq=" + eventSeq;  
+    
+      /*
       if ( newsfeeddto.getG_seq() != 0 ) {
     	  logger.info("조건이 들어감");
     	 
     	  return "redirect:/group_detail.do?g_seq="+newsfeeddto.getG_seq();
       }else {
-    	  return "redirect:/NewsFeedList2.do";  
+    	  return "redirect:/NewsFeedList2.do?link=" + link + "&eventSeq=" + eventSeq;  
       }
+      */
    }
    
 	@RequestMapping(value = "NewsFeedList.do", method = { RequestMethod.GET, RequestMethod.POST })
@@ -150,7 +158,7 @@ public class YSController {
 					NewsFeedList.get(i).setFilename(fname);
 				}
 			}
-			System.out.println("NewsFeedList의NewsFeedList" + NewsFeedList.size());
+			
 			model.addAttribute("NewsFeedList", NewsFeedList);
 			request.getSession().setAttribute("login", login);
 			return "main.tiles";
@@ -172,6 +180,8 @@ public class YSController {
 			@RequestParam (value = "eventSeq", defaultValue = "0") int eventSeq) throws Exception {
 	
 		logger.info("YSController NewsFeedList2 " + new Date());
+		
+		logger.info("link: " + link + ", eventSeq: " + eventSeq);
 	
 		NewsFeedListDTO newsfeedlistDTO = null;
 		
@@ -287,13 +297,15 @@ public class YSController {
    
    @RequestMapping(value="writeComment.do", 
            method={RequestMethod.GET, RequestMethod.POST})
-     public String writeComment(Model model,NewsFeedDTO newsfeeddto ){ 
+     public String writeComment(Model model,NewsFeedDTO newsfeeddto,
+    		 					@RequestParam (value = "viewPage", defaultValue = "") String link,
+    		 					@RequestParam (value = "eventSeq", defaultValue = "0") int eventSeq){ 
 	      logger.info("YSController writeComment " + new Date());
 
 	      System.out.println(newsfeeddto.toString());
 	      newsFeedService.insertComment(newsfeeddto);
 	      
-	      return "redirect:/NewsFeedList2.do";
+	      return "redirect:/NewsFeedList2.do?link=" + link + "&eventSeq=" + eventSeq;
 	   }
 
 }

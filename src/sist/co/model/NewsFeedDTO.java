@@ -34,7 +34,7 @@ START WITH 1 INCREMENT BY 1
 
 public class NewsFeedDTO implements Serializable{
 
-   private int n_seq;
+	private int n_seq;
    private int g_seq;
    private int n_form_num;
    private String m_id;

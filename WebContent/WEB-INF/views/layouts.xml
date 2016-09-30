@@ -71,8 +71,26 @@
 	<put-attribute name="center_main" value="/WEB-INF/views/group/recommend_group_list.jsp"/>
 </definition>
 
-<definition name="list.tiles" template="/WEB-INF/views/group/list_table.jsp">
+<definition name="list_table.tiles" template="/WEB-INF/views/group/list_table.jsp">
 </definition>
+
+<definition name="group_newsfeed_list.tiles" template="/WEB-INF/views/group/group_newsfeed_list.jsp">
+</definition>
+
+	<!-- 리스트 사진 폼 -->
+	<definition name="group_newsfeed_p_form.tiles" template="/WEB-INF/views/group/group_newsfeed_p_form.jsp">
+	</definition>
+	<!-- 리스트 비디오 폼 -->
+	<definition name="group_newsfeed_v_form.tiles" template="/WEB-INF/views/group/group_newsfeed_v_form.jsp">
+	</definition>
+	<!-- 리스트 투표 폼 -->
+	<definition name="group_newsfeed_b_form.tiles" template="/WEB-INF/views/group/group_newsfeed_b_form.jsp">
+	</definition>
+	
+	<!-- 투표 결과 확인 -->
+	<definition name="group_vote_result.tiles" template="/WEB-INF/views/group/group_vote_result.jsp">
+	</definition>
+	
 <!-- 그룹 리스트 출력 끝 -->
 
 <!-- 멤버 -->
@@ -123,6 +141,10 @@
 
 <definition name="group_detail_share_flie.tiles" extends="main.tiles">
 	<put-attribute name="center_main" value="/WEB-INF/views/group/group_detail_share_flie.jsp"/>
+</definition>
+<!-- 그룹 가입요청 -->
+<definition name="group_detail_request.tiles" extends="main.tiles">
+	<put-attribute name="center_main" value="/WEB-INF/views/group/group_detail_request.jsp"/>
 </definition>
 
 <!-- 파일 끝 -->

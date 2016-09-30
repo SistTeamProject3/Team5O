@@ -36,29 +36,45 @@
     right: 16px;
     font-size: 18px;
 }
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+ .dropdown-content {
+    display: none;
+    position: absolute;
+    padding-left: 22px; 
+} 
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
 </style>
 <form action="" id="fileForm" method="post" enctype="multipart/form-data">
 <input type="file" id="fileupload" name="fileload">
 <input type="hidden" value="${g_make.g_seq }" name="g_seq" id="g_seq">
 </form>
-
+${g_key}
 <div style="width: 100%; border: 1px solid black;">
 	<div class="div_header" style="width: 100%; height: 250px; border: 1px solid black;">
 		<!-- 1.그룹 가입여부에따른 다른 창 보여줄예정(조건문 걸기) -->
 		<div class="center" >
 		<c:if test="${g_make.g_photo eq null ||g_make.g_photo eq ''}">
 		<div>
-			<div style="border: 1px solid red; " align="center" >
-				<h6>그룹의 개성을 가장 잘 나타내는 사진을 한 장 고르세요.</h6>
-				<img id="filesearch" alt="사진" src="image/news_file.jpg">
-			</div>
+			<c:if test="${g_make.g_manager eq login.m_id}">
+				<div style="border: 1px solid red; " align="center" >
+					<h6>그룹의 개성을 가장 잘 나타내는 사진을 한 장 고르세요.</h6>
+					<img id="filesearch" alt="사진" src="image/news_file.jpg">
+				</div>
+			</c:if>
 		</div>	
 		</c:if>
 		</div>
 		<c:if test="${!empty g_make.g_photo}">
 			<div id="group_heder">
  			<img alt="배경" src="upload/${g_make.g_photo}" style="width: 100%; height: 250px;" >
-			<div class="topright"><button id="changeImage">사진 변경</button></div>
+			<div class="topright"><c:if test="${g_make.g_manager eq login.m_id}"><a href="#"><img id="changeImage" src="image/group_change.jpg" alt="사진변경"/></a></c:if></div>
 			</div>
 		</c:if>
 		<!-- 1.여기까지 -->
@@ -83,7 +99,18 @@
 			</c:if>
 		</div>
 		<div class="bottomright">
-			<button>가입함</button>
+			
+			<c:if test="${g_key eq true}">
+			<div class="dropdown">
+			${g_make.g_seq }<img alt="가입함" src="image/already_join.jpg">
+				<div class="dropdown-content">
+					<a href="#"><img id="g_out" alt="그룹 나가기" src="image/group_out.jpg"></a>
+			 	</div>
+			</div>
+			</c:if>
+			<c:if test="${g_key ne true}">
+			<a href="#"><img id="join_group" alt="가입하기" src="image/group_join.jpg"></a>
+			</c:if>
 		</div>
 	</div>
 	<div>
@@ -96,6 +123,7 @@
 			<button id="event">이벤트</button>
 			<button id="photo">사진</button>
 			<button id="file">파일</button>
+			<c:if test="${g_make.g_manager eq login.m_id}"><button id="request">가입요청</button></c:if> 
 		</form>
 		</div>
 		
@@ -123,6 +151,10 @@ $(document).ready(function() {
 	$("#file").click(function() {
 		$("#_frmForm").attr({"target":"_self","action":"group_detail_flie.do"}).submit();
 	});	
+	$("#request").click(function() {
+		$("#_frmForm").attr({"target":"_self","action":"group_detail_request.do"}).submit();
+	});	
+	
 	$("#fileupload").hide();
 	
 	$("#filesearch").click(function() {
@@ -146,7 +178,6 @@ $(document).ready(function() {
 			}else{
 				alert("제대로된 파일좀 올려줘");
 			}
-		      
 	});
 	$("#changeImage").hide();	
 		
@@ -157,11 +188,34 @@ $(document).ready(function() {
 	$("#group_heder").mouseout(function() {
 		$("#changeImage").hide();
 	});
-	  
 	
+});
+$("#join_group").click(function() {
+	alert("클릭");
+	var g_seq = $("#g_seq").attr("value");
+	var m_id = $("#g_id").attr("value");
+	var g_manager = $("#gmanager").attr("value");
+	 $.ajax({
+		 type:"POST",
+			url: "group_join_request.do?g_seq="+g_seq+"&g_manager="+g_manager+"&m_id="+m_id,
+		 success: function(result){
+			alert(result);
+		 	$("#join_group").attr('src','image/request.jpg'); 
+	    }, error: function(){
+	    	alert(result);
+	    }
+	}); 
+});
+
+$("#g_out").click(function() {
+	var g_seq = $("#g_seq").attr("value");
+	var m_id = $("#g_id").attr("value");
+	
+	$("#g_outForm").attr({"target":"_self","action":"group_out.do?g_seq="+g_seq+"&m_id="+m_id}).submit();
 	
 });
 </script>
-
-
-
+<form action="" method="post" id="g_outForm">
+<input type="hidden" value="${login.m_id }" id="g_id">
+<input type="hidden" value="${g_make.g_manager }" id="gmanager">
+</form>

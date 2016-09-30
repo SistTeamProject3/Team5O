@@ -144,6 +144,7 @@ for(int i=0;i<plist.size();i++){
 </div>
 <!-- 헤더 끝-->
 <hr>
+<c:if test="${g_key eq true || g_make.g_type eq 1 }">
 <div style="width: 100%; border: 1px solid black;">
 		<table style="width: 100%;" border="1">
 			<tr>
@@ -176,6 +177,7 @@ for(int i=0;i<plist.size();i++){
 	
 	
 	</div>
+</c:if>
 </div>
 <!-- 모달 -->
 <div class="container">

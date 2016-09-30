@@ -181,11 +181,11 @@ ${news.n_seq }
 	<table class="newsfeed_list_table2${news.n_seq }"  >
 		<c:forEach var="news2" items="${NewsFeedList }" varStatus="j"> 
 			<c:if test="${news.n_seq eq news2.n_parent}">	
-				<tr class="comment2${news.n_seq }" style="display: none;">
+				<tr class="comment2${news.n_seq }">
 					<td rowspan="2">프사</td>
 					<td colspan="2" align="left">&nbsp;<Strong>${news2.m_id }</Strong> &nbsp;&nbsp;${news2.n_content }</td>
 				</tr>
-				<tr class="comment3${news.n_seq }" style="display: none;" align="left">
+				<tr class="comment3${news.n_seq }"  align="left">
 					<td colspan="2">&nbsp;<a>좋아요</a>&nbsp;·&nbsp;<a>답글달기</a>&nbsp;·&nbsp;${news2.n_wdate }</td>
 				</tr>
 			</c:if>
@@ -243,6 +243,7 @@ function like(val, val2){
 }
 
 function showComment(val){
+
 	 status = $("#show_comment"+val).css("display");
 	 if(status=="none"){
 		$(".comment2"+val).show();
@@ -305,13 +306,16 @@ function onKeyDown_comment(val)
 	 	$("#newsfeedlist_bottom"+val).prepend(s); 
 		
 		var content = $("#n_content"+val).val();
-	   	 $.ajax({
-				type: 'GET',
-				data:{'n_seq':val, 'n_content':content, 'm_id':'${login.m_id }'},
-				url:'writeComment.do',
-	   	 });
-	   	
-	   	$("#n_content"+val).val("");
+		var viewPage = '${ param.viewPage }';
+		var eventSeq = '${ param.eventSeq }';
+		
+		$.ajax({
+			type: 'GET',
+			data:{'n_seq':val, 'n_content':content, 'm_id':'${login.m_id }', 'viewPage': viewPage, 'eventSeq' : eventSeq},
+			url:'writeComment.do',
+		 });
+		
+		$("#n_content"+val).val("");
    }
 }
 

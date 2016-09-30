@@ -6,12 +6,21 @@
 
 <mapper namespace="NewsFeed">
 
- <insert id="writeNewsFeed"
-   parameterType="sist.co.model.NewsFeedDTO">
-      INSERT INTO TP3_NEWSFEED
-      (N_SEQ,G_SEQ, N_FORM_NUM, M_ID, N_CONTENT, N_SHOW, N_WDATE ,N_TAG_FRIEND, N_TAG_WHERE, N_TAG_FEEL ,N_REF, N_STEP, N_DEPTH, N_PARENT, N_LIKECOUNT)
-      VALUES(TP3_NEWSFEED_SEQ.NEXTVAL,#{g_seq},
-         0, #{m_id}, #{n_content}, #{n_show}, SYSDATE,  #{n_tag_friend}, #{n_tag_where}, #{n_tag_feel}, (SELECT NVL(MAX(N_REF), 0)+1 FROM TP3_NEWSFEED),0,0,0,0)
+<insert id="writeNewsFeed" parameterType="sist.co.model.NewsFeedDTO">
+	<choose>
+	<when test="n_event_seq > 0">
+	INSERT INTO TP3_NEWSFEED
+	(N_SEQ,G_SEQ, N_FORM_NUM, M_ID, N_CONTENT, N_SHOW, N_WDATE ,N_TAG_FRIEND, N_TAG_WHERE, N_TAG_FEEL ,N_REF, N_STEP, N_DEPTH, N_PARENT, N_LIKECOUNT, N_EVENT_SEQ)
+	VALUES(TP3_NEWSFEED_SEQ.NEXTVAL,#{g_seq},
+	   0, #{m_id}, #{n_content}, #{n_show}, SYSDATE,  #{n_tag_friend}, #{n_tag_where}, #{n_tag_feel}, (SELECT NVL(MAX(N_REF), 0)+1 FROM TP3_NEWSFEED),0,0,0,0, #{n_event_seq})
+	</when>
+	<otherwise>
+	INSERT INTO TP3_NEWSFEED
+	(N_SEQ,G_SEQ, N_FORM_NUM, M_ID, N_CONTENT, N_SHOW, N_WDATE ,N_TAG_FRIEND, N_TAG_WHERE, N_TAG_FEEL ,N_REF, N_STEP, N_DEPTH, N_PARENT, N_LIKECOUNT)
+	VALUES(TP3_NEWSFEED_SEQ.NEXTVAL,#{g_seq},
+	   0, #{m_id}, #{n_content}, #{n_show}, SYSDATE,  #{n_tag_friend}, #{n_tag_where}, #{n_tag_feel}, (SELECT NVL(MAX(N_REF), 0)+1 FROM TP3_NEWSFEED),0,0,0,0)
+	</otherwise>
+	</choose>
 </insert>
 
  <insert id="writeNewsFeedImage"

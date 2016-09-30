@@ -272,8 +272,11 @@ pre {
 		
 		<div class="event_main_newsfeed">
 			<!-- 영선이거 연동 시 기존 Form 깨짐 발생 -->
-			<%-- <jsp:include page="/WEB-INF/views/newsfeed/newsfeed_list2.jsp" /> --%>
-			<jsp:include page="/WEB-INF/views/group/group_newsfeed_write.jsp" />
+			<jsp:include page="/WEB-INF/views/newsfeed/newsfeed_write.jsp" >
+				<jsp:param name="viewPage" value="event" />
+				<jsp:param name="eventSeq" value="${ event.e_seq }" />
+			</jsp:include>
+			<%-- <jsp:include page="/WEB-INF/views/group/group_newsfeed_write.jsp" /> --%>
 		</div>
 		
 		<!-- 임시용: 이벤트 뉴스피드 -->
@@ -352,6 +355,7 @@ pre {
 			
 			<jsp:include page="/WEB-INF/views/newsfeed/newsfeed_list.jsp" >
 				<jsp:param name="viewPage" value="event" />
+				<jsp:param name="eventSeq" value="${ event.e_seq }" />
 			</jsp:include>
 			
 		</div>

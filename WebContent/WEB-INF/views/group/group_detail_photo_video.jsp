@@ -5,9 +5,7 @@
 <fmt:requestEncoding value="utf-8"/>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
+<!DOCTYPE html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -24,8 +22,13 @@ li.liA {
     border : 0;
     float: left;
 }
+video{
+	width: 100%;
+    height: auto;
+}
 </style>
 <script>
+
 $(document).ready(function(){
     $("#g_photo").click(function() {
     	$("#photoForm").attr({"target":"_self","action":"group_detail_photo.do"}).submit();
@@ -33,11 +36,20 @@ $(document).ready(function(){
     $("#g_video").click(function() {
     	$("#photoForm").attr({"target":"_self","action":"group_detail_photo_video.do"}).submit();
 	});
-
+    $(".videoclass").click(function() {
+    	$("#md_video").attr("src",'');
+    	alert("모달값 "+ $("#md_video").attr("src"));
+    	alert("누른거"+$(this).attr("data-set"));
+    	$("#md_video").attr("src",$(this).attr("data-set"));
+    	alert("모달값 "+ $("#md_video").attr("src"));
+    }); 	
+ 
+    
+    
 });
 </script>
-</head>
-<body>
+
+
 <!-- 헤더 -->
 <div>
 <div style="width: 100%;">
@@ -63,10 +75,12 @@ $(document).ready(function(){
 			<table style="width: 100%;" border="1">
 				<tr>
 				<c:forEach items="${g_videolist }" var="vlist" varStatus="i">
-					<td>
-					<video width="640" height="360" controls="controls">
-    					<source src="upload/${vlist.nf_video }" type="video/mp4" />
+					<td style="width: 25%; height: 200px;">
+					<a data-toggle="modal" data-target="#Modalvideo" data-backdrop="static">
+					<video controls="controls" class="videoclass" data-set="upload/${vlist.nf_video }">
+    					<source id="video${i.count }" src="upload/${vlist.nf_video }" type="video/mp4" />
 					</video>
+					</a>
 					</td>
 				<c:if test="${i.count%4 eq 0 }">
 						</tr>
@@ -82,5 +96,26 @@ $(document).ready(function(){
 	</div>
 <!-- 뉴스피드 들어감 -->
 </div>
-</body>
-</html>
+
+<div class="container">
+  <!-- Trigger the modal with a button -->
+  <!-- Modal -->
+  <div class="modal fade" id="Modalvideo" role="dialog" aria-labelledby="myFullsizeModalLabel">
+    <div class="modal-dialog modal-lg modal-center">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" id="close" data-dismiss="modal">&times;</button>
+        	<video id="md_video" controls autoplay src="" type="video/mp4"></video>
+    			<!-- <source id="md_video" src=""/> -->
+		<!-- 	</video> -->
+		
+        </div>
+      	  <div class="modal-body">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

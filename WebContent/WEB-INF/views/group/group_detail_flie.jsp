@@ -49,12 +49,14 @@ $(document).ready(function(){
 </head>
 <body>
 <!-- 헤더 -->
+
 <div>
 <div style="width: 100%;">
 <jsp:include page="/WEB-INF/views/group/group_header.jsp"/>
 </div>
 <!-- 헤더 끝-->
 <hr>
+<c:if test="${g_key eq true || g_make.g_type eq 1 }">
 	<div style="width: 100%; border: 1px solid black;">
 		<table style="width: 100%;" border="1">
 			<tr>
@@ -117,8 +119,9 @@ $(document).ready(function(){
 	</table>
 	
 	</div>
-	
+</c:if>	
 </div>
+
 <form name="delfileup"  method="post" action="fileDownload.do">
    <input type="hidden" name="filename" value=""/>
 </form>

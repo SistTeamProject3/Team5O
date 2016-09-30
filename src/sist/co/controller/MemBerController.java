@@ -47,7 +47,7 @@ public class MemBerController {
 	
 	@RequestMapping(value="main.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String mainAf (HttpServletRequest request, MemberDTO member, Model model) throws Exception{
-		return "redirect:/NewsFeedList.do";
+		return "forward:/NewsFeedList.do";
 	}
 	
 	
