@@ -11,7 +11,7 @@ public interface NewsFeedService {
 	public void writeNewsFeed(NewsFeedDTO dto);
 	public void writeNewsFeedImage(NewsFeedDTO dto);
 	public List<NewsFeedDTO> getNewsFeedList(NewsFeedListDTO newsfeedlistDTO);
-	public List<NewsFeedDTO>  addPrintNewsFeed(int lastseq);
+	public List<NewsFeedDTO>  addPrintNewsFeed(NewsFeedListDTO newsfeedlistDTO);
 	public void updateShow(HashMap<String, Integer> map);
 	public void deleteNews(int seq);
 	public String getImageFile(int seq);

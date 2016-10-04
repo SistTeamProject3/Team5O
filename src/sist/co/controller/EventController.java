@@ -19,12 +19,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import sist.co.util.CalendarUtil;
 import sist.co.util.FUpUtil;
 import sist.co.model.EventDTO;
 import sist.co.model.EventInviteDTO;
+import sist.co.model.MsgEvent;
 import sist.co.service.EventService;
 
 @Controller
@@ -188,6 +190,25 @@ public class EventController {
 		eventService.insertEventInvite(inviteList);
 		
 		return "redirect:/event_detail.do?seq=" + seq;
+	}
+	
+	@RequestMapping(value="update_event_invite.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String event_invite(Model model, EventDTO event) throws Exception {
+		
+		logger.info("update_event_invite.do 접근 " + new Date());
+		logger.info("event: " + event);
+		
+		eventService.updateEventInvite(event);
+		/*
+		MsgEvent resultMsg = null;
+		
+		if ( event.getEi_join() == 1 )			resultMsg = new MsgEvent("참석");
+		else if ( event.getEi_join() == 2 )		resultMsg = new MsgEvent("불참");
+		else if ( event.getEi_join() == 3 )		resultMsg = new MsgEvent("모르겠음");
+		
+		return resultMsg;
+		*/
+		return "event_detail.tiles";
 	}
 	
 }

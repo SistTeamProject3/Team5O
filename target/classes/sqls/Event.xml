@@ -40,6 +40,13 @@
 </insert>
 -->
 
+<select id="selectEventInvite"	parameterType="sist.co.model.EventDTO"
+								resultType="sist.co.model.EventDTO">
+	SELECT * FROM TP3_EVENT_INVITE
+	WHERE E_SEQ=#{e_seq}
+	AND M_ID=#{m_id}
+</select>
+
 <insert id="insertEventInvite" parameterType="map">
 	INSERT ALL
 	<foreach collection="list" item="item">
@@ -48,5 +55,12 @@
 	</foreach>
 	SELECT * FROM DUAL
 </insert>
+
+<update id="updateEventInvite" parameterType="sist.co.model.EventDTO">
+	UPDATE TP3_EVENT_INVITE SET
+	EI_JOIN=#{ei_join}
+	WHERE E_SEQ=#{e_seq}
+	AND M_ID=#{m_id}
+</update>
 
 </mapper>  

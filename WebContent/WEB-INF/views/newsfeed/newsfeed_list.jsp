@@ -13,27 +13,41 @@ $(window).bind('scroll', function(){
 });
 
 function news_scrollEvent(){
-	 $(window).unbind('scroll');
-     var lastseq = $(".table:last").attr("data-seq");
+	$(window).unbind('scroll');
+	var lastseq = $(".table:last").attr("data-seq");
+	var viewPage;
+	var eventSeq;
+	
+	if ( '${ param.viewPage }' == '' ) {
+		viewPage = '${ viewPage }';
+	} else {
+		viewPage = '${ param.viewPage }';
+	}
+	
+	if ( '${ param.eventSeq }' == '' ) {
+		eventSeq = '${ eventSeq }';
+	} else {
+		eventSeq = '${ param.eventSeq }';
+	}
  	
- 	  $.ajax({
- 	        type: 'POST',
- 	        url: 'test2.do',
- 	        data: {'lastseq' : lastseq ,'viewPage' : 'main','eventSeq' : '0'},
- 			async: false ,
- 			cache: false,
- 	        success: function(data) {
- 	        	  $('#scrolling').append(data); 
- 	        	 $(window).bind('scroll', function(){
- 	        		   if ($(window).scrollTop() == $(document).height() - $(window).height()){
- 	        			  news_scrollEvent();
- 	        		   }   
- 	        	 }); 
- 	        },
- 	        error: function(data) {
- 	      		alert("error");
- 	        }
- 	     }); 
+	$.ajax({
+		type: 'POST',
+		url: 'test2.do',
+		data: {'lastSeq' : lastseq ,'link' : viewPage, 'eventSeq' : eventSeq},
+		async: false ,
+		cache: false,
+		success: function(data) {
+			$('#scrolling').append(data); 
+			$(window).bind('scroll', function(){
+				if ($(window).scrollTop() == $(document).height() - $(window).height()){
+				news_scrollEvent();
+				}   
+			}); 
+		},
+		error: function(data) {
+			alert("error");
+		}
+	}); 
 }
 
 </script>
@@ -104,10 +118,23 @@ ${news.n_seq }
 		<!-- 한영선: "태그3가지(장소,친구,기분상태)" (in 뉴스피드 테이블 1)  -->
 		<tr>
 			<td colspan="3"  align=left>
-				
-				<c:if test="${ param.viewPage eq 'main' }">
+				<%-- 
+				<c:if test="${ param.viewPage eq 'main' || viewPage eq 'main' }">
 					<pre width="50px">${news.n_content}</pre>
 				</c:if>
+				--%>
+				<pre width="50px">${news.n_content}</pre>
+				<!--	김명호: 이벤트 초대		-->
+				<%-- 
+				<c:if test="${ param.viewPage eq 'event' || viewPage eq 'event' }">
+					<jsp:include page="/WEB-INF/views/event/form_event_newsfeed.jsp">
+						<jsp:param value="${ news }" name="event"/>
+					</jsp:include>
+				</c:if>
+				--%>
+				<!-- // 김명호: 이벤트 초대		-->
+				
+				
 				<c:if test="${news.n_tag_where ne NULL}">
 					<strong>${news.n_tag_where}</strong>&nbsp;에서
 				</c:if>

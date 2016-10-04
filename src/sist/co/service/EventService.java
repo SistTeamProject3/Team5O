@@ -1,6 +1,5 @@
 package sist.co.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,5 +11,7 @@ public interface EventService {
 	void addEvent(EventDTO event) throws Exception;
 	List<EventDTO> selectEventList(String yyyymm) throws Exception;
 	EventDTO selectEventDetail(int seq) throws Exception;
+	EventDTO selectEventInvite(EventDTO event) throws Exception;
 	void insertEventInvite(HashMap<String, List<EventInviteDTO>> inviteList) throws Exception;
+	boolean updateEventInvite(EventDTO event) throws Exception;
 }

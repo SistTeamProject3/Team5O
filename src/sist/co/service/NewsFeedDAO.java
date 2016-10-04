@@ -42,8 +42,8 @@ public class NewsFeedDAO {
 		return list;
 	}
 	
-	public List<NewsFeedDTO>  addPrintNewsFeed(int lastseq){
-		List<NewsFeedDTO> list =  sqlSession.selectList(ns+"addPrintNewsFeed",lastseq);
+	public List<NewsFeedDTO>  addPrintNewsFeed(NewsFeedListDTO newsfeedlistDTO){
+		List<NewsFeedDTO> list =  sqlSession.selectList(ns+"addPrintNewsFeed", newsfeedlistDTO);
 		return list;
 	}
 	

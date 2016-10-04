@@ -34,7 +34,17 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
+	public EventDTO selectEventInvite(EventDTO event) throws Exception {
+		return eventDAO.selectEventInvite(event);
+	}
+
+	@Override
 	public void insertEventInvite(HashMap<String, List<EventInviteDTO>> inviteList) throws Exception {
 		eventDAO.insertEventInvite(inviteList);
+	}
+
+	@Override
+	public boolean updateEventInvite(EventDTO event) throws Exception {
+		return eventDAO.updateEventInvite(event);
 	}
 }

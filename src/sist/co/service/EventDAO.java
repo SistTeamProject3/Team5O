@@ -29,19 +29,17 @@ public class EventDAO {
 	public EventDTO selectEventDetail(int seq) {
 		return sqlSession.selectOne(ns + "selectEventDetail", seq);
 	}
-	/*
-	public void insertEventInvite(EventInviteDTO memberList) {
-		sqlSession.insert(ns + "insertEventInvite", memberList);
+	
+	public EventDTO selectEventInvite(EventDTO event) {
+		return sqlSession.selectOne(ns + "selectEventInvite", event);
 	}
-	*/
 	
 	public void insertEventInvite(HashMap<String, List<EventInviteDTO>> inviteList) {
 		sqlSession.insert(ns + "insertEventInvite", inviteList);
 	}
 	
-	/*
-	public void insertEventInvite(List<EventInviteDTO> memberList) {
-		sqlSession.insert(ns + "insertEventInvite", memberList);
+	public boolean updateEventInvite(EventDTO event) {
+		sqlSession.update(ns + "updateEventInvite", event);
+		return true;
 	}
-	*/
 }
