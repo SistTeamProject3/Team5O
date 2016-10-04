@@ -13,6 +13,6 @@
 
 </style>
 
-<div class="active item"><img src="image/event/b_pic1.jpg" class="title_image" /></div>
-<div class="item"><img src="image/event/b_pic2.jpg" class="title_image" /></div>
-<div class="item"><img src="image/event/b_pic3.jpg" class="title_image" /></div>
+<div class="active item"><img src="image/event/event_title_base_01.jpg" class="title_image" /></div>
+<div class="item"><img src="image/event/event_title_base_02.jpg" class="title_image" /></div>
+<div class="item"><img src="image/event/event_title_base_03.jpg" class="title_image" /></div>

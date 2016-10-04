@@ -8,12 +8,12 @@
 <insert id="addEvent" parameterType="sist.co.model.EventDTO">
 	INSERT INTO TP3_EVENT
 		(
-			E_SEQ, E_TYPE, G_SEQ, M_NAME, E_TITLE, E_CONTENT, E_LOCATION
+			E_SEQ, E_TYPE, G_SEQ, M_ID, M_NAME, E_TITLE, E_CONTENT, E_LOCATION
 			, E_START_DATE, E_END_DATE, E_WRITE_DATE, E_IMAGE
 		)
 	VALUES
 		(
-			TP3_EVENT_SEQ.NEXTVAL, 1, 0, #{m_name}, #{e_title}, #{e_content}, #{e_location}
+			TP3_EVENT_SEQ.NEXTVAL, 1, 0, #{m_id}, #{m_name}, #{e_title}, #{e_content}, #{e_location}
 			, #{e_start_date}, #{e_end_date}, SYSDATE, #{e_image}
 		)
 </insert>
@@ -23,5 +23,30 @@
 	WHERE SUBSTR(E_START_DATE, 1, 7) = #{yyyymm}
 	ORDER BY E_SEQ ASC
 </select>
+
+<select id="selectEventDetail" parameterType="Integer" resultType="sist.co.model.EventDTO">
+	SELECT * FROM TP3_EVENT
+	WHERE E_SEQ=#{seq}
+</select>
+
+<!-- 
+<insert id="insertEventInvite" parameterType="map">
+	
+	INSERT INTO TP3_EVENT_INVITE(EI_SEQ, E_SEQ, M_ID, EI_JOIN)
+	VALUES
+	<foreach collection="list" item="ac" index="index" open="" close="" separator=",">
+	(TP3_EVENT_INVITE_SEQ.NEXTVAL, #{ac.e_seq}, #{ac.m_id}, 0)
+	</foreach>
+</insert>
+-->
+
+<insert id="insertEventInvite" parameterType="map">
+	INSERT ALL
+	<foreach collection="list" item="item">
+	INTO TP3_EVENT_INVITE(E_SEQ, M_ID, EI_JOIN, EI_WRITE_DATE)
+	VALUES(#{item.e_seq}, #{item.m_id}, 0, SYSDATE)
+	</foreach>
+	SELECT * FROM DUAL
+</insert>
 
 </mapper>  

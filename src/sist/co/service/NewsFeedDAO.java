@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import sist.co.model.NewsFeedDTO;
 import sist.co.model.NewsFeedLikeDTO;
+import sist.co.model.NewsFeedListDTO;
 
 @Repository
 public class NewsFeedDAO {
@@ -31,8 +32,13 @@ public class NewsFeedDAO {
 		sqlSession.insert(ns+"writeNewsFeedImage2", dto);
 	}
 	
-	public List<NewsFeedDTO> getNewsFeedList(){
-		List<NewsFeedDTO> list = sqlSession.selectList(ns+"getNewsFeedList");
+	public List<NewsFeedDTO> getAllNewsFeedList(){
+	      List<NewsFeedDTO> list = sqlSession.selectList(ns+"getAllNewsFeedList");
+	      return list;
+	}
+	
+	public List<NewsFeedDTO> getNewsFeedList(NewsFeedListDTO newsfeedlistDTO){
+		List<NewsFeedDTO> list = sqlSession.selectList(ns+"getNewsFeedList", newsfeedlistDTO);
 		return list;
 	}
 	

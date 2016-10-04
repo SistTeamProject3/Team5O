@@ -72,6 +72,11 @@ public class FriendServiceImpl implements FriendService{
 	public boolean befriend(FriendDTO friendDTO) throws Exception {
 		return frienddao.befriend(friendDTO);
 	}
+	
+	@Override
+	public boolean befriendupate(FriendDTO friendDTO) throws Exception {
+		return frienddao.befriendupate(friendDTO);
+	}	
 
 	@Override
 	public boolean accept(FriendDTO friendDTO) throws Exception {
@@ -97,7 +102,34 @@ public class FriendServiceImpl implements FriendService{
 	public boolean block(FriendDTO friendDTO) throws Exception {
 		return frienddao.block(friendDTO);
 	}
+	
+	@Override
+	public boolean blockupdate(FriendDTO friendDTO) throws Exception {
+		return frienddao.blockupdate(friendDTO);
+	}
 
+	@Override
+	public boolean changegroup(FriendDTO friendDTO) throws Exception {
+		return frienddao.changegroup(friendDTO);
+	}
+
+	@Override
+	public int confirmdata(FriendDTO friendDTO) throws Exception {
+		return frienddao.confirmdata(friendDTO);
+	}
+
+	@Override
+	public List<String> blockme(String m_id) throws Exception {
+		return frienddao.blockme(m_id);
+	}
+
+	@Override
+	public String youblockme(FriendDTO friendDTO) throws Exception {
+		return frienddao.youblockme(friendDTO);
+	}
+
+
+	
 
 	
 	

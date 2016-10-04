@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import sist.co.model.NewsFeedDTO;
 import sist.co.model.NewsFeedLikeDTO;
+import sist.co.model.NewsFeedListDTO;
 import sist.co.service.NewsFeedDAO;
 import sist.co.service.NewsFeedService;
 
@@ -28,8 +29,8 @@ public class NewsFeedImpl implements NewsFeedService {
 	}
 
 	@Override
-	public List<NewsFeedDTO> getNewsFeedList() {
-		return newsFeeDAO.getNewsFeedList();
+	public List<NewsFeedDTO> getNewsFeedList(NewsFeedListDTO newsfeedlistDTO) {
+		return newsFeeDAO.getNewsFeedList(newsfeedlistDTO);
 	}
 
 	@Override
@@ -82,6 +83,11 @@ public class NewsFeedImpl implements NewsFeedService {
 	public void insertComment(NewsFeedDTO dto) {
 		newsFeeDAO.insertComment(dto);
 		
+	}
+
+	@Override
+	public List<NewsFeedDTO> getAllNewsFeedList() {
+		return newsFeeDAO.getAllNewsFeedList();
 	}
 
 	

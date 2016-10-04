@@ -30,9 +30,15 @@
 </div> 
 <!-- 한영선 : 뉴스피드 수정 클릭시 모달 출력  --> 
 
-<jsp:include page="newsfeed_write.jsp"/> 
+<jsp:include page="newsfeed_write.jsp">
+	<jsp:param name="viewPage" value="main" />
+	<jsp:param name="eventSeq" value="0" />
+</jsp:include> 
 
-<jsp:include page="newsfeed_list.jsp"/> 
+<jsp:include page="newsfeed_list.jsp">
+	<jsp:param name="viewPage" value="main" />
+	<jsp:param name="eventSeq" value="0" />
+</jsp:include> 
  
 
 

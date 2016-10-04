@@ -61,9 +61,49 @@ public class MemberDAO {
 		return true;
 	}
 	
+	public boolean change_m_address(MemberDTO member) throws Exception{
+		sqlSession.update(ns+"change_m_address", member);
+		return true;
+	}
+	
+	public boolean change_m_profile(MemberDTO member) throws Exception{
+		
+		System.out.println("DAO입니다만...???");
+		
+		sqlSession.update(ns+"change_m_profile", member);
+		return true;
+	}
+	
+	public boolean change_m_nickname(MemberDTO member) throws Exception{
+		sqlSession.update(ns+"change_m_nickname", member);
+		return true;
+	}
+	
+	public boolean change_m_gender(MemberDTO member) throws Exception{
+		sqlSession.update(ns+"change_m_gender", member);
+		return true;
+	}
+	public boolean change_m_phone(MemberDTO member) throws Exception{
+		sqlSession.update(ns+"change_m_phone", member);
+		return true;
+	}
+	public boolean change_m_pwd(MemberDTO member) throws Exception{
+		sqlSession.update(ns+"change_m_pwd", member);
+		return true;
+	}
 	
 	
+	public int m_phoneAf(MemberDTO member)throws Exception {
+		
+		return (int)sqlSession.selectOne(ns+"m_phoneAf", member);
+	}
+	public int check_m_pwd(MemberDTO member)throws Exception {
+		
+		return (int)sqlSession.selectOne(ns+"check_m_pwd", member);
+	}
 
+	
+	
 }
 
 

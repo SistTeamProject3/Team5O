@@ -578,79 +578,78 @@ public class GroupController {
 	@RequestMapping(value = "group_newsfeed.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String group_newsfeed(NewsFeedDTO ndto, HttpServletRequest request, @RequestParam(value="fileload", required=false)MultipartFile fileload, Model model)throws Exception {
 		logger.info(" 그룹 뉴스피드 시작 " + ndto.toString());
-		if(fileload !=null){
-			 logger.info(" 이름  " +fileload.getOriginalFilename());
-			 String arr[] = fileload.getOriginalFilename().split("\\.");
-			 logger.info(" 확장자  "+ arr[arr.length -1]);
-			 String type = arr[arr.length -1];
-			 type = type.toLowerCase();
-			 
-			if (type.equals("avi")||type.equals("mp4")||type.equals("wmv")) {
-				 ndto.setN_form_num(2);
-			}else if(type.equals("gif")||type.equals("png")||type.equals("jpg")||type.equals("jpeg")){
+		if (fileload != null) {
+			logger.info(" 이름  " + fileload.getOriginalFilename());
+			String arr[] = fileload.getOriginalFilename().split("\\.");
+			logger.info(" 확장자  " + arr[arr.length - 1]);
+			String type = arr[arr.length - 1];
+			type = type.toLowerCase();
+
+			if (type.equals("avi") || type.equals("mp4") || type.equals("wmv")) {
+				ndto.setN_form_num(2);
+			} else if (type.equals("gif") || type.equals("png") || type.equals("jpg") || type.equals("jpeg")) {
 				ndto.setN_form_num(1);
-			}else {
+			} else {
 				ndto.setN_form_num(3);
 			}
-			 
-			
-			logger.info(" 파일 있음   " + ndto.getN_form_num());	      
-		}else{
+
+			logger.info(" 파일 있음   " + ndto.getN_form_num());
+		} else {
 			ndto.setN_form_num(0);
-			logger.info(" 파일 없음 폼 번호" + ndto.getN_form_num());	      
-	    }
-		
+			logger.info(" 파일 없음 폼 번호" + ndto.getN_form_num());
+		}
+
 		ndto.setFilename(fileload.getOriginalFilename());
 		logger.info(" 오리지날 네임 확인 차  " + ndto.toString());
-		
+
 		String fupload = request.getServletContext().getRealPath("/upload");
 		logger.info(": " + fupload);
-		
-		String f = ndto.getFilename();      
-	    String newFile = FUpUtil.getNewFile(f);
-		
-	    logger.info(fupload+ "/" + newFile);
-	    
-	    if (ndto.getN_tag_feel() == null || ndto.getN_tag_feel().equals("")) {
-	    	ndto.setN_tag_feel("");
-		}
-	   
-	    ndto.setFilename(newFile);
-	    
-	    logger.info("newFile = " +newFile);
-	    logger.info("getSize = " + fileload.getSize());
-	    
-	    if(fileload.getSize()==0){
-	         try{      
-	        	logger.info(" 사이즈 0 확인 ");
-	        	 
-	            File file = new File(fupload + "/" + newFile);      
-	            FileUtils.writeByteArrayToFile(file, fileload.getBytes());
-	   
-	            logger.info(" 작성전 확인 "+ndto.toString());
-	            groupService.group_writeNewsFeed(ndto);
-	            logger.info(" 작성 완료 ");
-	            
-	         }catch(IOException e){
-	   
-	            logger.info(" 작성 실패 ");
-	         }
 
-	      }else{
-	          try{    
-	        	  logger.info(" 사이즈 0 이상 else 문 접근 ");
-	              File file = new File(fupload + "/" + newFile);      
-	              logger.info(" 파일 추가 ");
-	              FileUtils.writeByteArrayToFile(file, fileload.getBytes());
-	              logger.info(" 유틸 접근  ");
-	              groupService.group_writeNewsFeedImage(ndto);
-	              logger.info(" 작성 완료 ");
-	           }catch(IOException e){
-	     
-	        	  logger.info(" 작성 실패 ");
-	           }
-	        }
-	    
+		String f = ndto.getFilename();
+		String newFile = FUpUtil.getNewFile(f);
+
+		logger.info(fupload + "/" + newFile);
+
+		if (ndto.getN_tag_feel() == null || ndto.getN_tag_feel().equals("")) {
+			ndto.setN_tag_feel("");
+		}
+
+		ndto.setFilename(newFile);
+
+		logger.info("newFile = " + newFile);
+		logger.info("getSize = " + fileload.getSize());
+
+		if (fileload.getSize() == 0) {
+			try {
+				logger.info(" 사이즈 0 확인 ");
+
+				File file = new File(fupload + "/" + newFile);
+				FileUtils.writeByteArrayToFile(file, fileload.getBytes());
+
+				logger.info(" 작성전 확인 " + ndto.toString());
+				groupService.group_writeNewsFeed(ndto);
+				logger.info(" 작성 완료 ");
+
+			} catch (IOException e) {
+
+				logger.info(" 작성 실패 ");
+			}
+
+		} else {
+			try {
+				logger.info(" 사이즈 0 이상 else 문 접근 ");
+				File file = new File(fupload + "/" + newFile);
+				logger.info(" 파일 추가 ");
+				FileUtils.writeByteArrayToFile(file, fileload.getBytes());
+				logger.info(" 유틸 접근  ");
+				groupService.group_writeNewsFeedImage(ndto);
+				logger.info(" 작성 완료 ");
+			} catch (IOException e) {
+
+				logger.info(" 작성 실패 ");
+			}
+		}
+
 		return "redirect:/group_detail.do?g_seq="+ndto.getG_seq();
 	}
 	

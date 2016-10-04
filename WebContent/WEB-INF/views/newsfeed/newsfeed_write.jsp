@@ -27,6 +27,10 @@ width:20%;
 <form name="frmForm" id="_frmForm" action="writeNewsFeed.do" method="post" enctype="multipart/form-data">
 
 <input type="hidden" name="m_id" value="${login.m_id }" >
+<input type="hidden" name="viewPage" value="${ param.viewPage }" />
+<%-- <c:if test="${ !empty param.eventSeq }"> --%>
+<input type="hidden" name="n_event_seq" value="${ param.eventSeq }" />
+<%-- </c:if> --%>
 
 <table class="ys_write_table" style="width: 80%" border="1px solid black">
    <tr>
@@ -301,6 +305,7 @@ $("#finish").click(function() {
 	}
 	else{
 	   alert("피니쉬!!!!");
+	   alert($("#_frmForm").serialize());
 	   $("#_frmForm").attr({"target":"_self", "action":"writeNewsFeed.do"}).submit();
 	}
 

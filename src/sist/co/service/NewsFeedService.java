@@ -4,12 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import sist.co.model.NewsFeedDTO;
 import sist.co.model.NewsFeedLikeDTO;
+import sist.co.model.NewsFeedListDTO;
 
 public interface NewsFeedService {
 
 	public void writeNewsFeed(NewsFeedDTO dto);
 	public void writeNewsFeedImage(NewsFeedDTO dto);
-	public List<NewsFeedDTO> getNewsFeedList();
+	public List<NewsFeedDTO> getNewsFeedList(NewsFeedListDTO newsfeedlistDTO);
 	public List<NewsFeedDTO>  addPrintNewsFeed(int lastseq);
 	public void updateShow(HashMap<String, Integer> map);
 	public void deleteNews(int seq);
@@ -19,4 +20,5 @@ public interface NewsFeedService {
 	public void deleteLike (NewsFeedLikeDTO dto);
 	public List<String> getLikeList(int seq);
 	public void insertComment (NewsFeedDTO dto);
+	public List<NewsFeedDTO> getAllNewsFeedList();
 }
