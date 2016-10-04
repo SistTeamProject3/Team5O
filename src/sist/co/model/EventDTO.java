@@ -9,6 +9,7 @@ public class EventDTO implements Serializable {
 	private int 	e_seq;
 	private int 	e_type;
 	private int 	g_seq;
+	private String	m_id;
 	private String 	m_name;
 	private String	e_title;
 	private String	e_content;
@@ -20,12 +21,12 @@ public class EventDTO implements Serializable {
 	
 	public EventDTO() {}
 
-	public EventDTO(int e_seq, int e_type, int g_seq, String m_name, String e_title, String e_content,
+	public EventDTO(int e_seq, int e_type, int g_seq, String m_id, String m_name, String e_title, String e_content,
 			String e_location, String e_start_date, String e_end_date, String e_write_date, String e_image) {
-		super();
 		this.e_seq = e_seq;
 		this.e_type = e_type;
 		this.g_seq = g_seq;
+		this.m_id = m_id;
 		this.m_name = m_name;
 		this.e_title = e_title;
 		this.e_content = e_content;
@@ -38,10 +39,10 @@ public class EventDTO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "EventDTO [e_seq=" + e_seq + ", e_type=" + e_type + ", g_seq=" + g_seq + ", m_name=" + m_name
-				+ ", e_title=" + e_title + ", e_content=" + e_content + ", e_location=" + e_location + ", e_start_date="
-				+ e_start_date + ", e_end_date=" + e_end_date + ", e_write_date=" + e_write_date + ", e_image="
-				+ e_image + "]";
+		return "EventDTO [e_seq=" + e_seq + ", e_type=" + e_type + ", g_seq=" + g_seq + ", m_id=" + m_id + ", m_name="
+				+ m_name + ", e_title=" + e_title + ", e_content=" + e_content + ", e_location=" + e_location
+				+ ", e_start_date=" + e_start_date + ", e_end_date=" + e_end_date + ", e_write_date=" + e_write_date
+				+ ", e_image=" + e_image + "]";
 	}
 
 	public int getE_seq() {
@@ -66,6 +67,14 @@ public class EventDTO implements Serializable {
 
 	public void setG_seq(int g_seq) {
 		this.g_seq = g_seq;
+	}
+
+	public String getM_id() {
+		return m_id;
+	}
+
+	public void setM_id(String m_id) {
+		this.m_id = m_id;
 	}
 
 	public String getM_name() {
@@ -130,9 +139,5 @@ public class EventDTO implements Serializable {
 
 	public void setE_image(String e_image) {
 		this.e_image = e_image;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 }

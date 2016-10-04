@@ -9,26 +9,7 @@
 <!-- <link rel="stylesheet" href="css/ay.css"> -->	<!-- tiles를 사용하면, layouts-tiles.jsp기준으로 경로 설정하면 됌 -->
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-
-<script type="text/javascript">
-function cancleblock(val){
-	
-	$.ajax({
-		type:"POST",
-		url:"cancle.do",
-		data:{"m_id":'${login_id}', "f_id":val},
-		success: function(response){
-			$("#"+val).attr({"value":"차단 해제 완료", "class":"btn btn-default"});		
-		},error: function(request, status, error){
-			alert("error  code:"+request.status+"\n"+"error:"+error);
-		}
-		
-	});
-	
-	
-}
-</script>
-
+<script src="js/friend.js"></script>
 
 <!-- 프로필사진 경로 : C:\springstudy\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\SpringSample\upload -->
 
@@ -43,7 +24,7 @@ function cancleblock(val){
 		<td colspan="3">차단 <font color="gray">( ${fn:length(blocklistinform) } 명 )</font></td>
 	</tr>
 	<c:if test="${fn:length(blocklistinform) eq 0}">
-		<tr><td colspan="3" style="text-align: center;">아는 친구 그룹 내 인원이 없습니다</td></tr>	
+		<tr><td colspan="3" style="text-align: center;">해당 그룹 내 인원이 없습니다</td></tr>	
 	</c:if> 
 	<c:forEach items="${blocklistinform }" var="blockf" varStatus="blockfS">
 		<c:if test="${blockfS.count%2 eq 0}">
@@ -63,7 +44,7 @@ function cancleblock(val){
 			</c:forEach>
 		</td> 
 		<td style="text-align: center; vertical-align: middle;">
-			<input type="button" class="btn btn-primary" value="차단 해제" onclick="cancleblock('${blockf.m_id}')">
+			<input type="button" id="bg_${blockf.m_id }" class="btn btn-primary" value="차단 해제" onclick="cancleblock(id, '${blockf.m_id}', '${login_id }')">
 		</td>
 		</tr>
 	</c:forEach>

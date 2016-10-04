@@ -77,8 +77,70 @@ public class MemberImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return MemberDAO.change_m_content(member);
 	}
-	
 
+
+	@Override
+	public boolean change_m_address(MemberDTO member) throws Exception {
+		// TODO Auto-generated method stub
+		return MemberDAO.change_m_address(member);
+	}
+
+
+	@Override
+	public boolean change_m_profile(MemberDTO member) throws Exception {
+		// TODO Auto-generated method stub
+		return MemberDAO.change_m_profile(member);
+	}
+
+
+	@Override
+	public boolean change_m_nickname(MemberDTO member) throws Exception {
+		// TODO Auto-generated method stub
+		return MemberDAO.change_m_nickname(member);
+	}
+
+
+	@Override
+	public boolean change_m_gender(MemberDTO member) throws Exception {
+		// TODO Auto-generated method stub
+		return MemberDAO.change_m_gender(member);
+	}
+
+
+	@Override
+	public boolean change_m_phone(MemberDTO member) throws Exception {
+		// TODO Auto-generated method stub
+		return MemberDAO.change_m_phone(member);
+	}
+
+
+	@Override
+	public int m_phoneAf(MemberDTO member) throws Exception {
+		// TODO Auto-generated method stub
+		return MemberDAO.m_phoneAf(member);
+	}
+
+
+	@Override
+	public int check_m_pwd(MemberDTO member) throws Exception {
+		// TODO Auto-generated method stub
+		return MemberDAO.check_m_pwd(member);
+	}
+
+
+	@Override
+	public boolean change_m_pwd(MemberDTO member) throws Exception {
+		// TODO Auto-generated method stub
+		return MemberDAO.change_m_pwd(member);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

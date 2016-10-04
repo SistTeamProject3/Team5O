@@ -5,12 +5,9 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <fmt:requestEncoding value="utf-8"/>
 
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
 <style>
 
-ul {
+.event_left_menu {
 	list-style: none;
 	margin: 0px; 
 	padding: 0px;
@@ -22,7 +19,7 @@ ul {
 
 </style> 
 
-<ul>
+<ul class="event_left_menu">
 	<li><a href="event_calendar.do">달력</a></li>
 	<li><a href="#" id="event_write_form" data-toggle="modal" data-target="#myModal" onclick="return false">만들기</a></li>
 </ul>

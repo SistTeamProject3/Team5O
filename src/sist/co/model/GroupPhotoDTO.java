@@ -5,11 +5,6 @@ import java.sql.Date;
 
 public class GroupPhotoDTO implements Serializable{
 
-	
-	public GroupPhotoDTO(){
-		
-	}
-	
 	private int n_seq;
 	private int g_seq;
 	private int n_form_num;
@@ -24,6 +19,7 @@ public class GroupPhotoDTO implements Serializable{
 	private int n_ref;
 	private int n_step;
 	private int n_depth;
+	private int n_parent;
 	private int n_del;
 	private int n_share;
 	private int n_event_seq;
@@ -31,12 +27,17 @@ public class GroupPhotoDTO implements Serializable{
 	private String nf_photo;
 	private String nf_video;
 	private String nf_file;
-	
+	private int n_likecount;
+	private String m_profile;
+
+	public GroupPhotoDTO(){
+		
+	}
+
 	public GroupPhotoDTO(int n_seq, int g_seq, int n_form_num, String m_id, String n_content, String n_tag_friend,
 			String n_tag_where, String n_tag_feel, int n_show, Date n_wdate, int n_report, int n_ref, int n_step,
-			int n_depth, int n_del, int n_share, int n_event_seq, int n_vote_seq, String nf_photo, String nf_video,
-			String nf_file) {
-		
+			int n_depth, int n_parent, int n_del, int n_share, int n_event_seq, int n_vote_seq, String nf_photo,
+			String nf_video, String nf_file, int n_likecount, String m_profile) {
 		super();
 		this.n_seq = n_seq;
 		this.g_seq = g_seq;
@@ -52,6 +53,7 @@ public class GroupPhotoDTO implements Serializable{
 		this.n_ref = n_ref;
 		this.n_step = n_step;
 		this.n_depth = n_depth;
+		this.n_parent = n_parent;
 		this.n_del = n_del;
 		this.n_share = n_share;
 		this.n_event_seq = n_event_seq;
@@ -59,6 +61,8 @@ public class GroupPhotoDTO implements Serializable{
 		this.nf_photo = nf_photo;
 		this.nf_video = nf_video;
 		this.nf_file = nf_file;
+		this.n_likecount = n_likecount;
+		this.m_profile = m_profile;
 	}
 
 	@Override
@@ -66,9 +70,10 @@ public class GroupPhotoDTO implements Serializable{
 		return "GroupPhotoDTO [n_seq=" + n_seq + ", g_seq=" + g_seq + ", n_form_num=" + n_form_num + ", m_id=" + m_id
 				+ ", n_content=" + n_content + ", n_tag_friend=" + n_tag_friend + ", n_tag_where=" + n_tag_where
 				+ ", n_tag_feel=" + n_tag_feel + ", n_show=" + n_show + ", n_wdate=" + n_wdate + ", n_report="
-				+ n_report + ", n_ref=" + n_ref + ", n_step=" + n_step + ", n_depth=" + n_depth + ", n_del=" + n_del
-				+ ", n_share=" + n_share + ", n_event_seq=" + n_event_seq + ", n_vote_seq=" + n_vote_seq + ", nf_photo="
-				+ nf_photo + ", nf_video=" + nf_video + ", nf_file=" + nf_file + "]";
+				+ n_report + ", n_ref=" + n_ref + ", n_step=" + n_step + ", n_depth=" + n_depth + ", n_parent="
+				+ n_parent + ", n_del=" + n_del + ", n_share=" + n_share + ", n_event_seq=" + n_event_seq
+				+ ", n_vote_seq=" + n_vote_seq + ", nf_photo=" + nf_photo + ", nf_video=" + nf_video + ", nf_file="
+				+ nf_file + ", n_likecount=" + n_likecount + ", m_profile=" + m_profile + "]";
 	}
 
 	public int getN_seq() {
@@ -183,6 +188,14 @@ public class GroupPhotoDTO implements Serializable{
 		this.n_depth = n_depth;
 	}
 
+	public int getN_parent() {
+		return n_parent;
+	}
+
+	public void setN_parent(int n_parent) {
+		this.n_parent = n_parent;
+	}
+
 	public int getN_del() {
 		return n_del;
 	}
@@ -238,6 +251,23 @@ public class GroupPhotoDTO implements Serializable{
 	public void setNf_file(String nf_file) {
 		this.nf_file = nf_file;
 	}
+
+	public int getN_likecount() {
+		return n_likecount;
+	}
+
+	public void setN_likecount(int n_likecount) {
+		this.n_likecount = n_likecount;
+	}
+
+	public String getM_profile() {
+		return m_profile;
+	}
+
+	public void setM_profile(String m_profile) {
+		this.m_profile = m_profile;
+	}
+
 	
 	
 	

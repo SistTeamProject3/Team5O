@@ -12,8 +12,10 @@ import sist.co.model.GroupMemberDTO;
 import sist.co.model.GroupMemberListDTO;
 import sist.co.model.GroupPhotoDTO;
 import sist.co.model.GroupRequestDTO;
+import sist.co.model.NewsFeedDTO;
 import sist.co.model.VoteDTO;
 import sist.co.model.VotelistDTO;
+import sist.co.model.VoterDTO;
 import sist.co.service.GroupDAO;
 import sist.co.service.GroupService;
 @Service
@@ -77,8 +79,7 @@ public class GroupImpl implements GroupService {
 
 	@Override
 	public boolean groupimageUpload(GroupMakeDTO gmake) throws Exception {
-		groupDAO.groupimageUpload(gmake);
-		return true;
+		return 	groupDAO.groupimageUpload(gmake);
 	}
 
 	@Override
@@ -127,6 +128,117 @@ public class GroupImpl implements GroupService {
 	public boolean group_join_request(GroupRequestDTO rdto) throws Exception {
 		return groupDAO.group_join_request(rdto);
 	}
-	
+
+	@Override
+	public List<GroupMemberDTO> join_search(GroupRequestDTO rdto) throws Exception {
+		return groupDAO.join_search(rdto);
+		 
+	}
+	@Override
+	public List<GroupRequestDTO> join_requset_search(GroupRequestDTO rdto) throws Exception {
+		return groupDAO.join_requset_search(rdto);
+	}
+
+	@Override
+	public List<GroupRequestDTO> requset_list(GroupMakeDTO gmake) throws Exception {
+		return groupDAO.requset_list(gmake);
+	}
+
+	@Override
+	public boolean accept_group(GroupRequestDTO gdto) throws Exception {
+		return groupDAO.accept_group(gdto);
+	}
+
+	@Override
+	public boolean no_accept_group(GroupRequestDTO gdto) throws Exception {
+		return groupDAO.no_accept_group(gdto);
+	}
+
+	@Override
+	public boolean add_group_member(GroupRequestDTO gdto) throws Exception {
+		return groupDAO.add_group_member(gdto);
+	}
+
+	@Override
+	public List<GroupMemberDTO> select_mem(GroupMemberDTO g_memdto) throws Exception {
+		 return groupDAO.select_mem(g_memdto);
+	}
+
+	@Override
+	public boolean out_groupjoin(GroupMemberDTO gdto) throws Exception {
+		return groupDAO.out_groupjoin(gdto);
+	}
+
+	@Override
+	public boolean out_groupmember(GroupMemberDTO gdto) throws Exception {
+		return groupDAO.out_groupmember(gdto);
+	}
+	// 테스트
+
+	@Override
+	public void group_writeNewsFeed(NewsFeedDTO ndto) {
+		groupDAO.group_writeNewsFeed(ndto);
+		
+	}
+
+	@Override
+	public void group_writeNewsFeedImage(NewsFeedDTO ndto) {
+		groupDAO.group_writeNewsFeedImage(ndto);
+		
+	}
+
+	@Override
+	public List<GroupPhotoDTO> group_newsfeed_list(GroupMakeDTO gmake) throws Exception {
+		return groupDAO.group_newsfeed_list(gmake);
+	}
+
+	@Override
+	public List<GroupPhotoDTO> group_add_newsfeed_list(GroupListDTO gdto) throws Exception {
+		return groupDAO.group_add_newsfeed_list(gdto);
+	}
+
+	@Override
+	public GroupPhotoDTO group_newsfeed_p_form(int n_seq) throws Exception {
+		return groupDAO.group_newsfeed_p_form(n_seq);
+	}
+	@Override
+	public GroupPhotoDTO group_newsfeed_v_form(int n_seq) throws Exception {
+		return groupDAO.group_newsfeed_v_form(n_seq);
+	}
+
+	@Override
+	public VoteDTO group_newsfeed_b_form( VoteDTO vo) throws Exception {
+		return groupDAO.group_newsfeed_b_form(vo);
+	}
+
+	@Override
+	public List<VoterDTO> find_voter(VoteDTO vo) throws Exception {
+		return groupDAO.find_voter(vo);
+	}
+
+	@Override
+	public boolean add_voter(VoterDTO vo) throws Exception {
+		return groupDAO.add_voter(vo);
+	}
+
+	@Override
+	public List<VotelistDTO> vote_result(VoterDTO vo) throws Exception {
+		return groupDAO.vote_result(vo);
+	}
+
+	@Override
+	public VoterDTO my_vote(VoterDTO vo) throws Exception {
+		return groupDAO.my_vote(vo);
+	}
+
+	@Override
+	public List<GroupPhotoDTO> group_coment(GroupPhotoDTO gdto) throws Exception {
+		return groupDAO.group_coment(gdto);
+	}
+
+	@Override
+	public List<GroupPhotoDTO> group_add_coment(GroupPhotoDTO gdto) throws Exception {
+		return groupDAO.group_add_coment(gdto);
+	}
 	
 }

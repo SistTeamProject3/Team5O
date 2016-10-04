@@ -12,8 +12,10 @@ import sist.co.model.GroupMemberDTO;
 import sist.co.model.GroupMemberListDTO;
 import sist.co.model.GroupPhotoDTO;
 import sist.co.model.GroupRequestDTO;
+import sist.co.model.NewsFeedDTO;
 import sist.co.model.VoteDTO;
 import sist.co.model.VotelistDTO;
+import sist.co.model.VoterDTO;
 
 @Repository
 public class GroupDAO {
@@ -30,6 +32,10 @@ public class GroupDAO {
 	public GroupMakeDTO select_make_group(GroupMakeDTO group)throws Exception{
 		GroupMakeDTO dto = sqlSession.selectOne(ns+"select_make_group", group);
 		return dto;
+	}
+	
+	public List<GroupMemberDTO> select_mem(GroupMemberDTO g_memdto)throws Exception{
+		return sqlSession.selectList(ns+"select_mem", g_memdto);
 	}
 	
 	public boolean add_group_manager(GroupMemberDTO member)throws Exception{
@@ -115,4 +121,116 @@ public class GroupDAO {
 		return true;
 	}
 	
+	public List<GroupMemberDTO> join_search(GroupRequestDTO rdto)throws Exception{
+		return sqlSession.selectList(ns+"join_search", rdto);
+	}	
+	
+	public List<GroupRequestDTO> join_requset_search(GroupRequestDTO rdto)throws Exception{
+		return sqlSession.selectList(ns+"join_requset_search", rdto);
+	}	
+	
+	public List<GroupRequestDTO> requset_list(GroupMakeDTO gmake)throws Exception{
+		List<GroupRequestDTO> list = sqlSession.selectList(ns+"requset_list", gmake);
+		return list;
+	}
+
+	public boolean accept_group(GroupRequestDTO gdto)throws Exception{
+		sqlSession.update(ns+"accept_group", gdto);
+		return true;
+	}
+	public boolean no_accept_group(GroupRequestDTO gdto)throws Exception{
+		sqlSession.update(ns+"no_accept_group", gdto);
+		return true;
+	}
+	
+	public boolean add_group_member(GroupRequestDTO gdto)throws Exception{
+		sqlSession.insert(ns+"add_group_member", gdto);
+		return true;
+	}
+	
+	public boolean out_groupjoin(GroupMemberDTO gdto)throws Exception{
+		sqlSession.delete(ns+"out_groupjoin", gdto);
+		return true;
+	}
+	public boolean out_groupmember(GroupMemberDTO gdto)throws Exception{
+		sqlSession.delete(ns+"out_groupmember", gdto);
+		return true;
+	}
+	// 테스트중
+	public void group_writeNewsFeed(NewsFeedDTO ndto){
+		sqlSession.insert(ns+"group_writeNewsFeed", ndto);
+	}
+	
+	
+	public void group_writeNewsFeedImage(NewsFeedDTO ndto){
+		sqlSession.insert(ns+"group_writeNewsFeedImage", ndto);
+		if (ndto.getN_form_num() == 1) {
+			sqlSession.insert(ns+"group_writeNewsFeedImage2", ndto);
+		}
+		if (ndto.getN_form_num() == 2) {
+			sqlSession.insert(ns+"group_writeNewsFeedImage3", ndto);
+		}
+		if (ndto.getN_form_num() == 3) {
+			sqlSession.insert(ns+"group_writeNewsFeedImage4", ndto);
+		}
+		
+	}
+	
+	
+	//그룹 리스트
+	public List<GroupPhotoDTO> group_newsfeed_list(GroupMakeDTO gmake)throws Exception{
+		 List<GroupPhotoDTO> g_l_list = sqlSession.selectList(ns+"group_newsfeed_list", gmake);
+		return g_l_list;
+	}
+	//그룹 리스트 아작스
+	public List<GroupPhotoDTO> group_add_newsfeed_list(GroupListDTO gdto)throws Exception{
+		 List<GroupPhotoDTO> g_l_list = sqlSession.selectList(ns+"group_add_newsfeed_list", gdto);
+		return g_l_list;
+	}
+	
+	
+	//리스트 폼 
+	public GroupPhotoDTO group_newsfeed_p_form(int n_seq)throws Exception{
+		return sqlSession.selectOne(ns+"group_newsfeed_p_form", n_seq);
+	}
+	public GroupPhotoDTO group_newsfeed_v_form(int n_seq)throws Exception{
+		return sqlSession.selectOne(ns+"group_newsfeed_v_form", n_seq);
+	}
+	public VoteDTO group_newsfeed_b_form( VoteDTO vo)throws Exception{
+		return sqlSession.selectOne(ns+"group_newsfeed_b_form", vo);
+	}
+	
+	public List<VoterDTO> find_voter(VoteDTO vo)throws Exception{
+		List<VoterDTO> list = sqlSession.selectList(ns+"find_voter",vo);
+		
+		return  list;
+	}
+	
+	
+	// 투표 하기
+	public boolean add_voter(VoterDTO vo)throws Exception{
+		sqlSession.update(ns+"plus_votelist", vo);
+		sqlSession.insert(ns+"add_voter", vo);
+		
+		 return true;
+	} 
+	
+	public List<VotelistDTO> vote_result(VoterDTO vo)throws Exception{
+		List<VotelistDTO> list= sqlSession.selectList(ns+"vote_result", vo);
+		return list;
+	}
+	
+	public VoterDTO my_vote(VoterDTO vo)throws Exception{
+		return sqlSession.selectOne(ns+"my_vote", vo);
+	}
+	
+	
+	//댓글
+	public List<GroupPhotoDTO> group_coment(GroupPhotoDTO gdto)throws Exception{
+		return sqlSession.selectList(ns+"group_coment", gdto);
+	}
+	
+	public List<GroupPhotoDTO> group_add_coment(GroupPhotoDTO gdto)throws Exception{
+		return sqlSession.selectList(ns+"group_add_coment", gdto);
+	}
 }

@@ -26,13 +26,13 @@
 		
 		<div id="middle_wrap">
 			<div id="my_content_wrap">
-			
+				<div id="my_top_wrap">
+				<tiles:insertAttribute name="my_page1"/>
+				</div>	
+				<div id="my_content_wrap2">
 				<tiles:insertAttribute name="my_page2"/>
-
+				</div>
 			</div>		
-			<div id="content_wrap2">
-				<tiles:insertAttribute name="right_main2"/>
-			</div>
 		</div>
 		
 		<div id="footer_wrap">
