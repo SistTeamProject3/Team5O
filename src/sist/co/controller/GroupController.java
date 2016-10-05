@@ -92,6 +92,10 @@ public class GroupController {
 			model.addAttribute("l_num", gdto.getL_num());
 
 			return "recommend_group_list.tiles";
+		}else if (category.equals("local")) {
+			logger.info("들어옴" + new Date());
+		
+			return "local_group_list.tiles";
 		}else {
 
 			return "recommend_group_list.tiles";
@@ -298,8 +302,10 @@ public class GroupController {
 		}	
 		
 		GroupMakeDTO g_make = groupService.group_detail(gmake);
-		List<GroupPhotoDTO> g_flist = groupService.filelist(gmake);
 		model.addAttribute("g_make", g_make);
+		
+		gmake.setG_manager(memDTO.getM_id());
+		List<GroupPhotoDTO> g_flist = groupService.upfilelist(gmake);
 		model.addAttribute("g_flist", g_flist);
 		
 		return "group_detail_upload_flie.tiles";
@@ -664,8 +670,7 @@ public class GroupController {
 		
 		model.addAttribute("g_n_list", g_nlist);
 
-		
-		return "group_newsfeed_list.tiles";
+			return "group_newsfeed_list.tiles";
 	}
 	
 	
@@ -761,5 +766,41 @@ public class GroupController {
 		model.addAttribute("l_num", l_num);
 		return "group_coment.tiles";
 	}
+	
+	@RequestMapping(value="group_local_find.do", method={RequestMethod.GET,RequestMethod.POST})
+	public String local_find(Model model,HttpServletRequest request,GroupMakeDTO gdto,String tmp)throws Exception{
+		logger.info("들어온다 "+tmp+"시작"+gdto.getS_num()+","+gdto.getL_num());
+		memDTO =(MemberDTO)request.getSession().getAttribute("login");
+		String keyword = "";
+		String arr[] = tmp.split(",");
+		
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i].equals("1")) {
+				arr[i] ="서울";
+			}else if (arr[i].equals("2")) {
+				arr[i] ="경기";
+			}else if (arr[i].equals("3")) {
+				arr[i] ="강원";
+			}else if (arr[i].equals("4")) {
+				arr[i] ="충청";
+			}else if (arr[i].equals("5")) {
+				arr[i] ="전라";
+			}else {
+				arr[i] ="경상";
+			}
+			keyword += "["+arr[i]+"]|";
+		}
+		keyword = keyword.substring(0, keyword.length()-1);
+		logger.info("키워드 "+keyword);
+		gdto.setKeyword(keyword);
+		gdto.setG_manager(memDTO.getM_id());
+		List<GroupMakeDTO> list = new ArrayList<GroupMakeDTO>();
+		list = groupService.group_local_find(gdto);
+		logger.info("사이즈" +list.size());
+		model.addAttribute("list", list);
+		
+		return "g_local_list_table.tiles";
+	}
+	
 	
 }

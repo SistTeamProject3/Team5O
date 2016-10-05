@@ -240,5 +240,12 @@ public class GroupImpl implements GroupService {
 	public List<GroupPhotoDTO> group_add_coment(GroupPhotoDTO gdto) throws Exception {
 		return groupDAO.group_add_coment(gdto);
 	}
+
+	@Override
+	public List<GroupMakeDTO> group_local_find(GroupMakeDTO gdto) throws Exception {
+		return groupDAO.group_local_find(gdto);
+	}
+	
+	
 	
 }

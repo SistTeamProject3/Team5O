@@ -92,4 +92,6 @@ public interface GroupService {
 	
 	public List<GroupPhotoDTO> group_coment(GroupPhotoDTO gdto)throws Exception;
 	public List<GroupPhotoDTO> group_add_coment(GroupPhotoDTO gdto)throws Exception;
+	
+	public List<GroupMakeDTO> group_local_find(GroupMakeDTO gdto)throws Exception;
 }

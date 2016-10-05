@@ -57,8 +57,8 @@ $(document).ready(function(){
 </div>
 <!-- 헤더 끝-->
 <hr>
-<div style="width: 100%; border: 1px solid black;">
-		<table style="width: 100%;" border="1">
+<div style="width: 100%;" class="table table-bordered">
+		<table style="width: 100%;" class="table table-bordered">
 			<tr>
 			<td align="left">
 			<form action="" id="photoForm" method="post">
@@ -72,12 +72,12 @@ $(document).ready(function(){
 			
 		</table>
 		<c:if test="${!empty g_videolist}">	
-			<table style="width: 100%;" border="1">
+			<table style="width: 100%;" class="table table-bordered">
 				<tr>
 				<c:forEach items="${g_videolist }" var="vlist" varStatus="i">
-					<td style="width: 25%; height: 200px;">
+					<td style="width: 25%; height: 200px; margin-left: 5px; margin-right: 5px;" align="center" valign="middle">
 					<a data-toggle="modal" data-target="#Modalvideo" data-backdrop="static">
-					<video controls="controls" class="videoclass" data-set="upload/${vlist.nf_video }">
+					<video  controls="controls" class="videoclass" data-set="upload/${vlist.nf_video }">
     					<source id="video${i.count }" src="upload/${vlist.nf_video }" type="video/mp4" />
 					</video>
 					</a>

@@ -55,9 +55,11 @@
 <input type="file" id="fileupload" name="fileload">
 <input type="hidden" value="${g_make.g_seq }" name="g_seq" id="g_seq">
 </form>
-${g_key}
-<div style="width: 100%; border: 1px solid black;">
-	<div class="div_header" style="width: 100%; height: 250px; border: 1px solid black;">
+
+
+<div style="width: 100%;">
+<div>
+	<div class="div_header table table-bordered" style="width: 100%; height: 250px; margin-bottom: 0px; margin-top: 0px;">
 		<!-- 1.그룹 가입여부에따른 다른 창 보여줄예정(조건문 걸기) -->
 		<div class="center" >
 		<c:if test="${g_make.g_photo eq null ||g_make.g_photo eq ''}">
@@ -113,25 +115,26 @@ ${g_key}
 			</c:if>
 		</div>
 	</div>
+	</div>
 	<div>
-		
-		<div style="width: 60%; float: left; border: 1px solid black;">
+		<div style="width: 100%; margin-left: 10px; margin-top: 4px;" class="table table-bordered" align="left">
 		<form action="" method="post" id="_frmForm">
 		<input type="hidden" value="${g_make.g_seq }" name="g_seq" id="g_seq">
-			<button id="debate">토론</button>
-			<button id="member">멤버</button>
-			<button id="event">이벤트</button>
-			<button id="photo">사진</button>
-			<button id="file">파일</button>
-			<c:if test="${g_make.g_manager eq login.m_id}"><button id="request">가입요청</button></c:if> 
+			<button id="debate"  class="btn btn-danger">토론</button>
+			<button id="member"  class="btn btn-danger">멤버</button>
+			<!-- <button id="event"  class="btn btn-danger">이벤트</button> -->
+			<button id="photo"  class="btn btn-danger">사진</button>
+			<button id="file"  class="btn btn-danger">파일</button>
+			<c:if test="${g_make.g_manager eq login.m_id}"><button id="request"  class="btn btn-danger">가입요청</button></c:if> 
 		</form>
 		</div>
-		
+	</div>
+		<!-- 
 		<div style="width: 40%; float: left; border: 1px solid black;">
 			<input type="text" placeholder="이 그룹 검색" value="">
 			<button>검색</button>
 		</div>
-	</div>
+		 -->
 </div>
 
 <script type="text/javascript">

@@ -14,17 +14,36 @@
  <style>
 .profile{
 }
+.c_profile {
+width: 25px;
+height: 25px;
+margin-bottom: 3px;
+margin-top: 2px;
+}
+.profile_flied{
+width: 10%;
+margin-left: 1px;
+}
+.c_name{
+margin-left: 3px;
+width: 10%;
+text-align: left;
+}
+.c_content{
+text-align: left;
+width: 60%;
+}
 </style>
-
-<table style="width: 100%;">
+<c:if test="${!empty g_n_list }">
+<table style="width: 100%;" class="table table-hover" >
 	<tr>
 		<td>
 	<c:forEach items="${g_n_list }" var="g_nlist" varStatus="i">
 	<br>
-	<table border="1" style="width: 100%;">
+	<table style="width: 100%;"class="table table-bordered" >
 	<!-- 기본 사항 -->
 			<tr>
-				<td rowspan="2">
+				<td rowspan="2" style="width: 50px;">
 				<c:if test="${g_nlist.m_profile eq null}">
 				<img class="profile" alt="프로필" src="image/basic_profile.jpg">
 				</c:if>
@@ -32,10 +51,10 @@
 				<img class="profile" alt="프로필" src="upload/${g_nlist.m_profile}">
 				</c:if>
 				</td>
-				<td>작성자 : ${g_nlist.m_id}</td>
+				<td align="left">작성자 : ${g_nlist.m_id}</td>
 			</tr>
 			<tr>
-				<td>${g_nlist.n_wdate}</td>
+				<td align="left">${g_nlist.n_wdate}</td>
 			</tr>
 	<!-- 작성 내용 -->
 			<tr>
@@ -76,6 +95,7 @@
 			<script type="text/javascript">
 			$(document).ready(function() {
 				var a =${g_nlist.n_seq};
+				
 				$.ajax({
 					type: 'POST',
 					url: 'group_newsfeed_v_form.do?n_seq='+a,
@@ -225,8 +245,8 @@
 </table>
 
 
-<script type="text/javascript">
 
+<script type="text/javascript">
 
 
 function like(val, val2){
@@ -314,12 +334,25 @@ function removeNews(val){
 
 function onKeyDown_comment(val)
 {
+
     if(event.keyCode == 13)
 	{
-	 	var s = "<tr><td rowspan='2'>프사</td><td colspan='2' align='left'>&nbsp;<Strong>${login.m_id }</Strong> &nbsp;&nbsp;"+
-	 	$("#n_content"+val).val()+"</td></tr><tr><td colspan='2' align='left'>&nbsp;<a>좋아요</a>&nbsp;·&nbsp;<a>답글달기</a>&nbsp;·&nbsp;방금전</td></tr>";
-		
-	 	$("#newsfeedlist_bottom"+val).prepend(s); 
+    	
+    	
+   	
+ 	 	var s = "<table style='width: 100%;'><tr>";
+ 		s+="<td class='profile_flied'>";
+ 		s+="<c:if test='${!empty login.m_profile }'>";
+ 		s+="<img class='c_profile' alt='프로필' src='upload/${login.m_profile }'>";
+ 		s+="</c:if><c:if test='${empty login.m_profile }'>";
+ 		s+="<img class='c_profile' alt='프로필' src='image/basic_profile.jpg'>";
+ 		s+="</c:if></td><td class='c_name'>${login.m_id } :</td>";
+ 		s+="<td class='c_content'>"+$("#n_content"+val).val()+"</td>";
+ 		s+="<td class='c_time'>방금전</td></tr></table>"
+ 		
+ 		
+ 		
+	 	$("#coment"+val).prepend(s);  
 		
 		var content = $("#n_content"+val).val();
 	   	 $.ajax({
@@ -353,3 +386,4 @@ $.ajax({
 
 
 </script>
+</c:if>

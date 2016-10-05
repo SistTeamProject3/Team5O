@@ -245,7 +245,6 @@ public class YSController {
       List<NewsFeedDTO> NewsFeedList2 = newsFeedService.getAllNewsFeedList();
       if(NewsFeedList.size()==0){
          System.out.println("null이다");
-         
       }else{
         for (int i = 0; i < NewsFeedList.size(); i++) {
          if (NewsFeedList.get(i).getN_form_num() == 1) {

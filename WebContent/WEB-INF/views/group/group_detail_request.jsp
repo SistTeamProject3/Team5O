@@ -7,8 +7,8 @@
 <jsp:include page="/WEB-INF/views/group/group_header.jsp"/>
 </div>
 <br><br><br>
-<div style="width: 100%; border: 1px solid black;">
-		<table style="width: 100%;">
+<div style="width: 100%;" class="table table-bordered">
+		<table style="width: 100%;" class="table table-striped">
 			<c:if test="${empty requset_list}">
 			<tr><td colspan="2"><h4>가입 신청이 없습니다.</h4></td></tr>
 			</c:if>

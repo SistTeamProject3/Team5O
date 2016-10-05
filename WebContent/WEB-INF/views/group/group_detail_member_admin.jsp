@@ -53,8 +53,8 @@ $(document).ready(function(){
 <!-- 헤더 끝-->
 <hr>
 <!-- 멤버 -->
-	<div style="width: 100%; border: 1px solid black;">
-		<table style="width: 100%;" border="1">
+	<div style="width: 100%;" class="table table-striped">
+		<table style="width: 100%;"  class="table table-bordered">
 			<tr>
 			<td align="left">
 				<ul class="ulA">
@@ -63,7 +63,7 @@ $(document).ready(function(){
 					<li class="liA"><a href="#none" id="block">차단(${g_m_r_list.size() })</a>&nbsp;&nbsp;</li>
 					</ul>
 			</td>
-			<td align="right" style="width: 50%;"><button>추가</button>&nbsp;<span><input type="text" value="" name="keyword" id="keyword"><button id="name_search" placeholder="멤버 검색">검색</button>&nbsp;</span></td>
+			<td align="right" style="width: 50%;" class="form-inline"><span><input class="form-control" type="text" value="" placeholder="멤버 검색" name="keyword" id="keyword"></span><span><button id="name_search" class="btn btn-danger">검색</button>&nbsp;</span></td>
 			</tr>
 			<tr><td colspan="2" align="left"><h6>관리자</h6></td></tr>
 			<c:if test="${g_m_a_list.size() > 0}">
@@ -73,7 +73,14 @@ $(document).ready(function(){
 				<div style="width: 100%;">
 				<table>
 				<tr>
-				<td style="width: 20%;"><img alt="프로필" src="upload/${alist.m_profile }"></td>
+				<td style="width: 20%;">
+				<c:if test="${!empty alist.m_profile }">
+				<img class="m_profile" alt="프로필" src="upload/${alist.m_profile }">
+				</c:if>
+				<c:if test="${empty alist.m_profile }">
+				<img class="m_profile" alt="프로필" src="image/basic_profile.jpg">
+				</c:if>
+				</td>
 				<td style="width: 80%;">
 				<h5><a href="#">${alist.m_name}</a></h5>
 					<c:if test="${alist.m_university ne null}">

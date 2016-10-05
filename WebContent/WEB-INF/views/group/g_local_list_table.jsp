@@ -6,10 +6,10 @@
 
 
  <div id="list_div" style="margin-left: 15%; margin-right: 15%; margin-top: 5%; margin-bottom: 5%; ">
-	<c:if test="${re_list.size()>0 && re_list.size() ne 1 }">
+	<c:if test="${list.size()>0 && list.size() ne 1 }">
 		<table style="width: 100%;" class="table table-bordered">
 			<tr>
-				<c:forEach items="${re_list }" var="list" varStatus="i">
+				<c:forEach items="${list }" var="list" varStatus="i">
 					<td style="width: 50%; height: 250px;">
 						<div style="width: 100%; height: 100%;">
 							<table style="width: 100%; height: 100%;">

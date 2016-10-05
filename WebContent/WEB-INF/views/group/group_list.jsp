@@ -9,37 +9,25 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#top").click(function() {
-			$("#groupForm").attr({
-				"target" : "_self",
-				"action" : "group_list.do?category=top"
-			}).submit();
+			$("#groupForm").attr({"target" : "_self","action" : "group_list.do?category=top"}).submit();
 		});
 		$("#friends").click(function() {
-			$("#groupForm").attr({
-				"target" : "_self",
-				"action" : "group_list.do?category=membership"
-			}).submit();
+			$("#groupForm").attr({"target" : "_self","action" : "group_list.do?category=membership"}).submit();
 		});
 		$("#local").click(function() {
-			$("#groupForm").attr({
-				"target" : "_self",
-				"action" : "group_list.do?category=membership"
-			}).submit();
+			$("#groupForm").attr({"target" : "_self","action" : "group_list.do?category=local"}).submit();
 		});
 		$("#membership").click(function() {
-			$("#groupForm").attr({
-				"target" : "_self",
-				"action" : "group_list.do?category=membership"
-			}).submit();
+			$("#groupForm").attr({"target" : "_self","action" : "group_list.do?category=membership"}).submit();
 		});
 	});
 </script>
 <div style="width: 100%;">
-	<table style="width: 100%;">
+	<table style="width: 100%;" class="table table-striped">
 		<tr>
 			<td>
 				 <a href="#none" id="top">추천 그룹</a> <a href="#none" id="friends">친구의
-						그룹</a> <a href="#none" id="local">지역그룹</a> <b><a href="#none"
+						그룹</a> <a href="#none" id="local">지역그룹</a><b> <a href="#none"
 						id="membership">회원님의 그룹</a></b>
 			</td>
 		
@@ -53,14 +41,14 @@
 <br>
 
 <div>
-	<table>
+	<table class="table table-condensed">
 		<tr>
 			<th colspan="2"><h6>내가 관리하는 그룹</h6></th>
 		</tr>
 		<c:forEach items="${g_list}" var="glist" varStatus="i">
 			<c:if test="${glist.g_auth eq 3 }">
 				<tr>
-					<td><a href="group_detail.do?g_seq=${glist.g_seq}">${glist.g_name}</a></td>
+					<td align="left"><a href="group_detail.do?g_seq=${glist.g_seq}">${glist.g_name}</a></td>
 					<td></td>
 				</tr>
 			</c:if>
@@ -69,14 +57,14 @@
 </div>
 <br>
 <div>
-	<table>
+	<table class="table table-condensed">
 		<tr>
 			<th colspan="2"><h6>가입한 그룹</h6></th>
 		</tr>
 		<c:forEach items="${g_list}" var="glist" varStatus="i">
 			<c:if test="${glist.g_auth ne 3}">
 				<tr>
-					<td><a href="group_detail.do?g_seq=${glist.g_seq}">${glist.g_name}</a></td>
+					<td align="left"><a href="group_detail.do?g_seq=${glist.g_seq}">${glist.g_name}</a></td>
 					<td></td>
 				</tr>
 			</c:if>

@@ -24,6 +24,10 @@
     width : 50px;
     height: 50px;
 }
+.addvote{
+	width: 15px;
+	height: 15px;
+}
 </style>
 <form name="frmForm" id="group_frmForm" action="" method="post" enctype="multipart/form-data">
 <input type="hidden" name="m_id" value="${login.m_id}">
@@ -34,7 +38,7 @@
 <input type="hidden" name="n_show" value="5">
 </c:if>
 <input type="hidden" name="g_seq" value="${g_make.g_seq }">
-		<table style="width: 100%" border="1">
+		<table style="width: 100%" border="1" class="table table-bordered">
 			<col width="100"><col width="150"><col width="150"><col width="150">
 			<tr>
 				<td>
@@ -68,7 +72,7 @@
 				</c:if>
 				
 				</td>
-				<td colspan="3"><textarea id="n_content" name="n_content"
+				<td colspan="3"><textarea class="form-control" id="n_content" name="n_content"
 						style="overflow: hidden; width: 100%;" placeholder="글쓰기.."></textarea>
 					<div id="room_type">
 						<div id="image_preview2">
@@ -130,22 +134,22 @@
 					&nbsp;&nbsp;&nbsp;&nbsp; 
 					<a href="#none"> <img src="image/place.jpg" id="viewWhere" onclick="return false;"></a>
 					<span style="float: right;">
-					<img alt="게시하기" id="finish" src="image/temp.jpg">
+					<img alt="게시하기" id="finish" src="image/submit.png">
 					</span>
 				</td>
 			</tr>
 			<!-- 여기는 설문  -->
 			<tr class="make_vote">
-			<td colspan="4"><textarea id="q_content" name="q_content" style="overflow: hidden; width: 100%;" placeholder="질문을 올려보세요.."></textarea></td>
+			<td colspan="4"><textarea class="form-control" id="q_content" name="q_content" style="overflow: hidden; width: 100%;" placeholder="질문을 올려보세요.."></textarea></td>
 			</tr>
 			<tr class="make_vote">
 			<td colspan="4" id="votelist">
-			<span><input type="text" name="vote1" value=""><img src="" alt="추가" class="addvote"></span><br/>
-			<span><input type="text" name="vote2" value=""><img src="" alt="추가" class="addvote"></span><br/>
+			<span><input type="text" name="vote1" value=""><img src="image/plus-red.png" alt="추가" class="addvote"></span><br/>
+			<span><input type="text" name="vote2" value=""><img src="image/plus-red.png" alt="추가" class="addvote"></span><br/>
 			</td>
 			</tr>
 			<tr class="make_vote">
-			<td colspan="4"><img alt="게시하기" id="vote_submit" src="image/temp.jpg"></td>
+			<td colspan="4"><img alt="게시하기" id="vote_submit" src="image/submit.png"></td>
 			</tr>
 		</table>
 	</form>
@@ -188,7 +192,7 @@
  
  $(document).on("click",".addvote",function() {
 	if(num < 11){	 
- 		$("#votelist").append("<span><input type='text' name='vote"+num+"'><img src='' alt='추가' class='addvote'></span><br/>");
+ 		$("#votelist").append("<span><input type='text' name='vote"+num+"'><img src='image/plus-red.png' alt='추가' class='addvote'></span><br/>");
  		num++
 	}
  });

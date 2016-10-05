@@ -30,10 +30,10 @@ $(document).ready(function(){
 	$(window).scroll(function() {
 		var posScroll = $(window).scrollTop() + $(window).height();
 		var maxHeight = $(document).height();
-
+		
+		
 		if (($(window).scrollTop() == $(document).height() - $(window).height())) {
 			s_num1 = s_num1+10;
-			alert(gseq);
 			l_num1 = l_num1+10;
 			$.ajax({
 				type: 'POST',
@@ -45,7 +45,7 @@ $(document).ready(function(){
 					$('#add_g_list').append(data); 
 				},
 				error: function(data) {
-					alert("실패...");
+					alert("오류..");
 				}
 			}); 
 		}
@@ -65,12 +65,18 @@ $(document).ready(function(){
 </div>
 <!-- 헤더 끝-->
 <hr>
-<c:if test="${g_key eq true || g_make.g_type eq 1 }">
+<c:if test="${g_key eq true }">
 <div style="width: 70%;">
 	<jsp:include page="/WEB-INF/views/group/group_newsfeed_write.jsp"/>
 	<%-- <jsp:include page="/WEB-INF/views/group/test.jsp"/>  --%>
 </div>
 </c:if>
+<c:if test="${g_key ne true }">
+<div style="width: 70%;">
+<h5>글쓰기는 그룹 가입후 작성 가능합니다.</h5>
+</div>
+</c:if>
+
 <br/>
 <c:if test="${g_key eq true || g_make.g_type eq 1 }">
 <div style="width: 70%;">

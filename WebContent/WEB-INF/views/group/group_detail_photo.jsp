@@ -145,8 +145,8 @@ for(int i=0;i<plist.size();i++){
 <!-- 헤더 끝-->
 <hr>
 <c:if test="${g_key eq true || g_make.g_type eq 1 }">
-<div style="width: 100%; border: 1px solid black;">
-		<table style="width: 100%;" border="1">
+<div style="width: 100%;" class="table table-bordered">
+		<table style="width: 100%;" class="table table-bordered">
 			<tr>
 			<td align="left">
 			<form action="" id="photoForm" method="post">
@@ -158,7 +158,7 @@ for(int i=0;i<plist.size();i++){
 			</form>
 		</table>
 	<c:if test="${!empty g_photolist}">	
-		<table style="width: 100%;" border="1">
+		<table style="width: 100%;" class="table table-bordered">
 		<tr>
 		<c:forEach items="${g_photolist }" var="plist" varStatus="i">
 				<td style="width: 25%;">
