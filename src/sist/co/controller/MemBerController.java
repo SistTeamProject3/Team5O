@@ -24,6 +24,7 @@ import sist.co.util.FUpUtil;
 import sist.co.model.MemberDTO;
 import sist.co.model.MsgMember;
 import sist.co.model.NewsFeedDTO;
+import sist.co.model.NewsFeedListDTO;
 import sist.co.service.MemberService;
 
 //
@@ -61,7 +62,7 @@ public class MemBerController {
 	
 	@RequestMapping(value="main.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String mainAf (HttpServletRequest request, MemberDTO member, Model model) throws Exception{
-		return "redirect:/NewsFeedList.do";
+		return "forward:/NewsFeedList.do";
 	}
 	
 	
@@ -332,7 +333,8 @@ public class MemBerController {
 		
 		logger.info("환영~ change_m_profile change_m_profile " + new Date());
 
-		List<NewsFeedDTO> NewsFeedList =  newsFeedService.getNewsFeedList();
+		NewsFeedListDTO newsfeedlistDTO = new NewsFeedListDTO("main", null, 0);
+		List<NewsFeedDTO> NewsFeedList =  newsFeedService.getNewsFeedList(newsfeedlistDTO);
         model.addAttribute("NewsFeedList",NewsFeedList);
 		
 		member.setM_profile(fileload.getOriginalFilename());

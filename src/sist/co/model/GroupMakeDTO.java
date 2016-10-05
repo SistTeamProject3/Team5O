@@ -20,13 +20,17 @@ public class GroupMakeDTO implements Serializable{
 
 	 */
 	
-	private int g_seq;
+		private int g_seq;
 		private	String g_name;
 		private	String g_photo;
 		private int g_type;
 		private String g_manager;
 	//검색용
 	private String keyword;
+	
+	// 페이징 용
+	private int s_num;
+	private int l_num;
 	
 	public GroupMakeDTO(){
 		
@@ -51,18 +55,23 @@ public class GroupMakeDTO implements Serializable{
 		this.keyword = keyword;
 	}
 
+	public GroupMakeDTO(int g_seq, String g_name, String g_photo, int g_type, String g_manager, String keyword,
+			int s_num, int l_num) {
+		super();
+		this.g_seq = g_seq;
+		this.g_name = g_name;
+		this.g_photo = g_photo;
+		this.g_type = g_type;
+		this.g_manager = g_manager;
+		this.keyword = keyword;
+		this.s_num = s_num;
+		this.l_num = l_num;
+	}
+
 	@Override
 	public String toString() {
-		return "GroupmakeDTO [g_seq=" + g_seq + ", g_name=" + g_name + ", g_photo=" + g_photo + ", g_type=" + g_type
-				+ ", g_manager=" + g_manager + "]";
-	}
-
-	public String getKeyword() {
-		return keyword;
-	}
-
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
+		return "GroupMakeDTO [g_seq=" + g_seq + ", g_name=" + g_name + ", g_photo=" + g_photo + ", g_type=" + g_type
+				+ ", g_manager=" + g_manager + ", keyword=" + keyword + ", s_num=" + s_num + ", l_num=" + l_num + "]";
 	}
 
 	public int getG_seq() {
@@ -104,5 +113,30 @@ public class GroupMakeDTO implements Serializable{
 	public void setG_manager(String g_manager) {
 		this.g_manager = g_manager;
 	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+	public int getS_num() {
+		return s_num;
+	}
+
+	public void setS_num(int s_num) {
+		this.s_num = s_num;
+	}
+
+	public int getL_num() {
+		return l_num;
+	}
+
+	public void setL_num(int l_num) {
+		this.l_num = l_num;
+	}
+
 	
 }

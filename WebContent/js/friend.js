@@ -1,5 +1,5 @@
 function Movefriendsmain(val){
-	location.href="NewsFeedList2aboutfriend.do?m_id="+val;
+	location.href="NewsFeedList2.do?m_id="+val+"&link=people";
 }
 
 function Searchingin() {

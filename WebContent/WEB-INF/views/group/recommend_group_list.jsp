@@ -19,19 +19,23 @@ System.out.println("받은 값 S"+s_num+"L"+l_num);
 %>
  <script type="text/javascript">
 $(document).on("click",".g_join",function() {
+	var g_id = $(this).attr("id");
 	var g_seq = $(this).attr("data-set");
 	var g_manager = $(this).attr("manager");
-	var m_id = "FA";
-	alert(g_manager+"클릭"+g_seq);
+	var m_id = $("#m_id").attr("value");
+	var r_date= 0;
+	alert(g_id);
+/* 	var all_data ={"g_seq":g_seq, "g_manager":g_manager, "m_id":m_id, "r_date":0}; */
 	 $.ajax({
 		 type:"POST",
-		 data:{"g_seq":g_seq, "g_manager":g_manager, "m_id":m_id, "r_date":0},
-		 url:"group_join_request.do",
-		 /* url: "group_join_request.do?g_seq="+g_seq+"&g_manager="+g_manager+"&m_id="+m_id, */
+		/*  data: all_data, */
+		/*  url:"group_join_request.do", */
+			url: "group_join_request.do?g_seq="+g_seq+"&g_manager="+g_manager+"&m_id="+m_id,
 		 success: function(result){
 			alert(result);
-	    }, error: function(request){
-	    	alert("실패");
+		 	$("#"+g_id).attr('src','image/request.jpg'); 
+	    }, error: function(){
+	    	alert(result);
 	    }
 	});
 	
@@ -41,8 +45,8 @@ $(document).on("click",".g_join",function() {
 <script type="text/javascript">
 var s_num1 =1;
 var l_num1 =10;
-	 
- 
+var id = $("#m_id").attr("value");
+
 	$(document).ready(function() {
 		//리스트 출력 막으려고
 		var i = 0;
@@ -69,7 +73,7 @@ var l_num1 =10;
 				
 				$.ajax({
 					type: 'POST',
-					url: 'list.do?category=top&m_id='+'FA'+'&s_num='+s_num1+'&l_num='+l_num1,
+					url: 'list.do?category=top&m_id='+id+'&s_num='+s_num1+'&l_num='+l_num1,
 					async: false,
 					cache: false,
 					timeout: 10000,

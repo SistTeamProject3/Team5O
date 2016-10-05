@@ -57,51 +57,23 @@ public class FriendController {
 		logger.info("friendmain");
 		return "friendmain.tiles";
 	}
-		
-	// infriendsearch의 구버전 : friendlist.do
-	/*@RequestMapping(value="infriendsearch.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String infriendsearch(String m_id, HttpServletRequest request, Model model) throws Exception{		
-		logger.info("infriendsearch");
-		
-		//m_id="qwer";	// 임시 회원 id
-		m_id = ((MemberDTO)request.getSession().getAttribute("login")).getM_id();
-		
-		//profile 경로
-		String imgpath = request.getServletContext().getRealPath("/upload");
-		System.out.println("imgpath" + imgpath);
-		
-		//요청수락안한 친구, 차단한 친구, 비활성화된 친구 를 제외, follow친구를 포함한 리스트  + 이 친구 각각의 한마디글 뽑아오기
-		List<FriendDTO> flist = friendService.getFriendsList(m_id);		// 해당 회원의 친구목록(요청수락안한 친구, 차단한 친구, 비활성화된 친구 를 제외)
-		//수정할점0908 list정렬 : collection.sort(list명) 단, list<string>.
-
-		HashMap<String, MemberDTO> finformlist = new HashMap<String, MemberDTO>();
-		for(int i = 0; i < flist.size(); i++){
-			MemberDTO memdto = friendService.getFriendsInformation(flist.get(i).getF_id());	
-			finformlist.put(flist.get(i).getF_id(), memdto);		// 친구아이디를 key값으로 친구의 한마디 글 뽑아오기
-		}
-			
-		model.addAttribute("flist", flist);				// 그룹 단위로 출력하기 위해서 필요함. 즉,순수하게 정렬하기 위해 필요 : (수정할점0906) 그룹별 출력, 그룹변경 할 수 있도록 버튼만들기 
-		model.addAttribute("finformlist", finformlist);	// 해당 회원 모든 친구들의 정보 
-		model.addAttribute("imgpath", imgpath);
-		model.addAttribute("login_id", m_id);
-		
-		return "infriendsearch.tiles";
-	}*/
 	
-	
-	// (수정할거0930) : 친구SNS로 들어갔을 때, 친구 누르면 ‘친구의 친구’가 떠야함. 따라서, infrendssearch에 ‘로그인한 회원’이 아닌 ‘친구의 아이디’가 들어가야함. by ay
+	/*
+	 * 공동 작업자: 김명호
+	 * param: eventSeq(이벤트 시퀀스)
+	 */
+	//(수정할거0930) : 친구SNS로 들어갔을 때, 친구 누르면 ‘친구의 친구’가 떠야함. 따라서, infrendssearch에 ‘로그인한 회원’이 아닌 ‘친구의 아이디’가 들어가야함. by ay
 	@RequestMapping(value="infriendsearch.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String infriendsearch(String m_id, HttpServletRequest request, Model model,
-							@RequestParam (value = "seq", defaultValue = "0") int eventSeq) throws Exception{		
+							@RequestParam (value = "eventSeq", defaultValue = "0") int eventSeq) throws Exception{		
 		
 		logger.info("infriendsearch");
 		
-		//m_id="qwer";	// 임시 회원 id
 		MemberDTO loginMember = (MemberDTO) request.getSession().getAttribute("login");
 		
 		//profile 경로
 		String imgpath = request.getServletContext().getRealPath("/upload");
-		//System.out.println("imgpath" + imgpath);
+		System.out.println("imgpath" + imgpath);
 		
 		//요청수락안한 친구, 차단한 친구, 비활성화된 친구 를 제외, follow친구를 포함한 리스트  + 이 친구 각각의 한마디글 뽑아오기
 		List<FriendDTO> flist = friendService.getFriendsList(loginMember.getM_id());		// 해당 회원의 친구목록(요청수락안한 친구, 차단한 친구, 비활성화된 친구 를 제외)
@@ -118,7 +90,7 @@ public class FriendController {
 		model.addAttribute("imgpath", imgpath);
 		model.addAttribute("login_id", loginMember.getM_id());
 		
-		/*// 명호님 전용
+		// 명호님 전용
 		if ( eventSeq > 0 ) {
 			EventDTO event = eventService.selectEventDetail(eventSeq);
 			
@@ -128,12 +100,11 @@ public class FriendController {
 			session.setAttribute("imgpath", imgpath);
 			session.setMaxInactiveInterval(60*60);		// 1분 동안 유지
 			
-			return "forward:/NewsFeedList2.do?link=event";
-		}*/
+			return "forward:/NewsFeedList2.do?link=event&eventSeq=" + eventSeq;
+		}
 		
 		return "infriendsearch.tiles";
 	}
-	
 	
 	
 	@RequestMapping(value="friendask.do", method={RequestMethod.GET, RequestMethod.POST})
@@ -773,39 +744,5 @@ public class FriendController {
 		
 		return "infriendssomeone.tiles";
 	}
-	
-
-	//YSController에 추가할 것. 
-	@RequestMapping(value="NewsFeedList2aboutfriend.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String NewsFeedList2(HttpServletRequest request, MemberDTO member, Model model) throws Exception{   
-		   
-		logger.info("YSController NewsFeedList " + new Date());
-				   
-		//m_id="qwer";	// 임시 회원 id
-		String m_id = ((MemberDTO)request.getSession().getAttribute("login")).getM_id();
-		
-		//profile 경로
-		String imgpath = request.getServletContext().getRealPath("/upload");
-		//System.out.println("imgpath" + imgpath);
-		
-		List<NewsFeedDTO> NewsFeedList =  newsFeedService.getNewsFeedList();
-		model.addAttribute("NewsFeedList",NewsFeedList);
-		model.addAttribute("member", member);
-		model.addAttribute("imgpath", imgpath);
-		model.addAttribute("login_id", m_id);
-										
-		return "Movefriendsmain.tiles";
-
-	} 
-
-
-
-
-
-
-
-
-
-
 
 }

@@ -7,14 +7,14 @@
 
 <fmt:requestEncoding value="UTF-8"/>
 
-<!-- 날짜/시간 달력 Plugin -->
-<link rel="stylesheet" href="./css/bootstrap-material-datetimepicker.css" />
+<!-- 날짜-시간 달력 Plugin -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap-material-datetimepicker.css" />
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<script type="text/javascript" src="./js/material.min.js"></script>
-<script type="text/javascript" src="./js/moment-with-locales.min.js"></script>
-<script type="text/javascript" src="./js/bootstrap-material-datetimepicker.js"></script>
-<!-- // 날짜/시간 달력 Plugin -->
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/material.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/moment-with-locales.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/bootstrap-material-datetimepicker.js"></script>
+<!-- // 날짜-시간 달력 Plugin -->
 
 <%
 
@@ -33,14 +33,14 @@ pageContext.setAttribute("day", day);
 %>
 
 <style type="text/css">
-table th {
+.tbl_event_write th {
 	text-align: right;
 	padding-right: 10px;
 	padding-top: 15px;
 	padding-bottom: 15px;
 }
 
-td {
+.tbl_event_write td {
 	text-align: left;
 }
 
@@ -58,7 +58,7 @@ td {
 </div>
 <div class="modal-body">
 	<form id="frm_event_write" action="event_write.do" method="POST" enctype="multipart/form-data">
-		<table style="width: 100%;">
+		<table class="tbl_event_write" style="width: 100%;">
 		<col style="width: 20%;" /><col style="width: 80%;" />
 		<tr>
 			<th>이벤트 사진</th>
@@ -113,14 +113,14 @@ td {
 			<th>이벤트 이름</th>
 			<td>
 				<input type="text" id="event_name" name="e_title" class="form-control frm_event_write" 
-				maxlength="100" placeholder="간결하고 명확한 이름을 추가하세요" />
+				maxlength="50" placeholder="간결하고 명확한 이름을 추가하세요" />
 			</td>
 		</tr>
 		
 		<tr>
 			<th>장소</th>
 			<td>
-				<input type="text" name="e_location" class="form-control frm_event_write" 
+				<input type="text" id="e_location" name="e_location" class="form-control frm_event_write" 
 				maxlength="100" placeholder="장소 또는 주소를 포함하세요" />
 			</td>
 		</tr>
@@ -155,12 +155,13 @@ td {
 		<tr>
 			<th>설명</th>
 			<td>
-				<textarea rows="3" id="e_content" name="e_content" class="form-control" 
+				<textarea rows="3" id="e_content" name="e_content" class="form-control" maxlength="1000"
 				placeholder="이벤트에 대해 자세히 알려주세요" style="resize: none;"></textarea>
 			</td>
 		</tr>
 		</table>
 		
+		<input type="hidden" id="m_id" name="m_id" />
 		<input type="hidden" id="m_name" name="m_name" />
 		<input type="hidden" id="e_image" name="e_image" />
 		<input type="hidden" id="e_start_date" name="e_start_date" />
@@ -282,12 +283,13 @@ $(document).ready(function () {
 		}
 	});
 	
-	$('#start_date').bootstrapMaterialDatePicker(
+	
+ 	$('#start_date').bootstrapMaterialDatePicker(
 		{ weekStart : 0, format : 'YYYY-MM-DD HH:mm', minDate : new Date() } 
 		).on('change', function(e, date) {
-			$('#end_date').bootstrapMaterialDatePicker( 
+			 $('#end_date').bootstrapMaterialDatePicker( 
 				{ weekStart : 0, format : 'YYYY-MM-DD HH:mm', minDate : date }
-			);
+			); 
 		});
 	
 	// 종료 시간 추가 클릭
@@ -310,11 +312,20 @@ $(document).ready(function () {
 	// 이벤트 만들기 버튼 클릭
 	$('#event_write').click(function() {
 		
+		// 필수항목 입력 체크
 		var confirm = confirmInput();
 		
 		if ( confirm ) {
-			// 아이디 임시 값 저장 ※ 로그인 구현 완료되면 로그인한 아이디로 교체
-			$('#m_name').val("login_id");
+			// 작성자 저장 ※ form이 multi 방식으로 인코딩 되기 때문에 hidden으로 값을 넘겨줄 수 없음
+			$('#m_id').val('${ login.m_id }');
+			$('#m_name').val('${ login.m_name }');
+			
+			// 위치 값이 공백이면 '위치 없음'으로 저장
+			var location = $('#e_location').val();
+			
+			if ( location.trim() == '' ) {
+				$('#e_location').val('위치 없음');
+			}
 			
 			/*		날짜-시간 값 변환 & 저장		*/
 			var sDate = $('#start_date').val();
@@ -344,11 +355,17 @@ $(document).ready(function () {
 /*			▼ ▼ ▼ ▼			*/
 function confirmInput() {
 	var inputEvtTitle = $('#event_name').val();
+	var inputEvtDate = $('#start_date').val();
 	var inputEvtContent = $('#e_content').val();
 	
 	if ( inputEvtTitle == '' ) {
 		$('#event_name').focus();
 		alert("이벤트 이름을 입력해주세요.");
+		
+		return false;
+		
+	} else if ( inputEvtDate == '' ) {
+		alert("이벤트 날짜를 입력해주세요.");
 		
 		return false;
 		

@@ -5,9 +5,13 @@
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
- <style>
+-->
+
+<style>
 
  #image_preview {
     display:none;
@@ -15,8 +19,13 @@
  #image_preview2 {
     display:none;
 }
+.m_profile {
+    border-radius: 50%;
+    width : 50px;
+    height: 50px;
+}
 </style>
-<form name="frmForm" id="group_frmForm" action="writeNewsFeed.do" method="post" enctype="multipart/form-data">
+<form name="frmForm" id="group_frmForm" action="" method="post" enctype="multipart/form-data">
 <input type="hidden" name="m_id" value="${login.m_id}">
 <c:if test="${g_make.g_type eq 1 }">
 <input type="hidden" name="n_show" value="4">
@@ -25,7 +34,6 @@
 <input type="hidden" name="n_show" value="5">
 </c:if>
 <input type="hidden" name="g_seq" value="${g_make.g_seq }">
-<input type="hidden" name="n_show" value="4">
 		<table style="width: 100%" border="1">
 			<col width="100"><col width="150"><col width="150"><col width="150">
 			<tr>
@@ -36,7 +44,7 @@
 				</td>
 				<td>
 					<h6>
-						<a href="#none">사진/동영상 추가</a>
+						<a href="#none" id="add_pho">사진/동영상 추가</a>
 					</h6>
 				</td>
 				<td>
@@ -51,59 +59,59 @@
 				</td>
 			</tr>
 			<tr class="news_write">
-				<td rowspan="2">프사사진</td>
+				<td rowspan="2">
+				<c:if test="${!empty login.m_profile }">
+				<img class="m_profile" alt="프로필" src="upload/${login.m_profile }">
+				</c:if>
+				<c:if test="${empty login.m_profile }">
+				<img class="m_profile" alt="프로필" src="image/basic_profile.jpg">
+				</c:if>
+				
+				</td>
 				<td colspan="3"><textarea id="n_content" name="n_content"
 						style="overflow: hidden; width: 100%;" placeholder="글쓰기.."></textarea>
 					<div id="room_type">
 						<div id="image_preview2">
-							<label for="image"> <input type=file name="fileload2"
-								id="image2" style='display: none;'> <img
-								src='image/news_addfile.jpg' name="_file3" id="_file3"
-								border='0' onclick='hideAll();'>
+							<label for="image">
+							<input type="file" name="fileload2" id="image2" >
+							<img src='image/news_addfile.jpg' name="_file3" id="_file3" border='0' onclick='hideAll();'>
 							</label>
 						</div>
 						<div class="form-group">
 							<div id="image_preview">
-								<img src="#" width="150px" height="100px" /> <a
-									class='fa fa-times' onclick="remove_div(this)"></a>
+								<img src="#" width="150px" height="100px" /> <a class='fa fa-times' onclick="remove_div(this)"></a>
 							</div>
 						</div>
 					</div>
-					<div id="field"></div></td>
+					<div id="field"></div>
+				</td>
 			</tr>
 			<tr>
 				<td colspan="4">
-					<div id="nowFriend" style='display: none;'>
+					<div id="nowFriend">
 						<h6>님과 함께&nbsp;&nbsp;</h6>
 						<i class="fa fa-times" aria-hidden="true" onclick="deleteArea('nowFriend')"></i>
 					</div>
-					<div id="nowWhere" style='display: none;'></div>
-					<div id="nowFeel" style='display: none;'></div>
+					<div id="nowWhere"></div>
+					<div id="nowFeel"></div>
 				</td>
 			</tr>
 			<tr id=friend style="display: none;">
 				<td><h6>함께한 친구</h6></td>
-				<td colspan="2"><input type="text" id="n_tag_friend"
+				<td colspan="4"><input type="text" id="n_tag_friend"
 					name="n_tag_friend" onKeyDown="onKeyDown();"
 					onclick="this.value=''"></td>
 			</tr>
 			<tr id=feel style="display: none;">
 				<td id="printFeel"><h6>나는지금</h6></td>
 				<td colspan="3">
-					<div class="dropdown">
-						<button class="btn btn-primary dropdown-toggle" type="button"
-							data-toggle="dropdown">
-							<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu">
-							<li onclick="getState('기뻐요'); setState('1')" value="1"><img
-								src="image/happy.jpg">기뻐요</a></li>
-							<li onclick="getState('슬퍼요'); setState('2')" value="2"><img
-								src="image/sad.jpg">슬퍼요</a></li>
-							<li onclick="getState('피곤해요'); setState('3')" value="3"><img
-								src="image/tired.jpg">피곤해요</a></li>
-						</ul>
-					</div>
+					    <div class="dropdown">
+                  <ul class="dropdown-menu5">
+                   <li onclick="getState('기뻐요'); setState('1')" value="1"><img src="image/happy.jpg">기뻐요</a></li>
+                   <li onclick="getState('슬퍼요'); setState('2')" value="2"><img src="image/sad.jpg">슬퍼요</a></li>
+                   <li onclick="getState('피곤해요'); setState('3')" value="3"><img src="image/tired.jpg">피곤해요</a></li>
+                 </ul>
+           </div> 
 				</td>
 			</tr>
 
@@ -114,19 +122,17 @@
 					onclick="this.value=''"></td>
 			</tr>
 			<tr class="news_write">
-				<td colspan="4"><input type=file name="fileload" id="image"
-					style='display: none;'> <img src='image/photo.jpg'
-					name="_file2" id="_file2" border='0' onclick='hideAll();'>
-
-					&nbsp;&nbsp;&nbsp;&nbsp; <a href="#none"> <img
-						src="image/tag.jpg" id="viewFriend" onclick="return false;">
-				</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="#none"> <img
-						src="image/face.jpg" id="viewFeel" onclick="return false;">
-				</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="#none"> <img
-						src="image/place.jpg" id="viewWhere" onclick="return false;">
-				</a> <span style="float: right;"> <img alt="게시하기" id="finish"
-						src="image/temp.jpg">
-				</span></td>
+				<td colspan="4"><input type="file" name="fileload" id="image"> <img src='image/photo.jpg' name="_file2" id="_file2" border='0' onclick='hideAll();'>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="#none"><img src="image/tag.jpg" id="viewFriend" onclick="return false;"></a>
+					&nbsp;&nbsp;&nbsp;&nbsp; 
+					<a href="#none"> <img src="image/face.jpg" id="viewFeel" onclick="return false;"></a>
+					&nbsp;&nbsp;&nbsp;&nbsp; 
+					<a href="#none"> <img src="image/place.jpg" id="viewWhere" onclick="return false;"></a>
+					<span style="float: right;">
+					<img alt="게시하기" id="finish" src="image/temp.jpg">
+					</span>
+				</td>
 			</tr>
 			<!-- 여기는 설문  -->
 			<tr class="make_vote">
@@ -146,10 +152,20 @@
  <script type="text/javascript">
  var a ="";
  var countDiv=1;
+ $("#image2").hide();
+ $("#nowFriend").hide();
+ $("#nowWhere").hide();
+ $("#nowFeel").hide();
+ $("#friend").hide();
+ $("#feel").hide();
+ $("#where").hide();
+ $("#image").hide();
+ 
+
+ 
  
  // 설문과 게시글 변경 스크립트
-var num=3; 
- 
+ var num=3; 
  $(".make_vote").hide();
 
  $("#news_write").click(function () {
@@ -160,8 +176,16 @@ var num=3;
  $("#make_vote").click(function () {
 	 $(".news_write").hide();
 	 $(".make_vote").show();
-
+	 $("#image2").hide();
+	 $("#nowFriend").hide();
+	 $("#nowWhere").hide();
+	 $("#nowFeel").hide();
+	 $("#friend").hide();
+	 $("#feel").hide();
+	 $("#where").hide();
+	 $("#image").hide();
 	});
+ 
  $(document).on("click",".addvote",function() {
 	if(num < 11){	 
  		$("#votelist").append("<span><input type='text' name='vote"+num+"'><img src='' alt='추가' class='addvote'></span><br/>");
@@ -175,175 +199,162 @@ var num=3;
  // 여기서 끝
  
  $("#viewFriend").click(function() {
-	  status = $("#friend").css("display");
-	  if (status == "none") {
-	    $("#friend").css("display","");
-	    $("#feel").css("display","none");
-	    $("#where").css("display","none");
-	  }
-	  else {
-	    $("#friend").css("display","none");
-	  }
+	   $("#friend").show();
+       $("#feel").hide();
+       $("#where").hide();
 	});
  
  $("#viewFeel").click(function() {
-	  status = $("#feel").css("display");
-	  if (status == "none") {
-		  $("#friend").css("display","none");
-		  $("#feel").css("display","");
-		  $("#where").css("display","none");
-	  }
-	  else {
-	    $("#feel").css("display","none");
-	  }
+	   $("#friend").hide();
+       $("#feel").show();
+       $("#where").hide();
 	});
  
  $("#viewWhere").click(function() {
-	  status = $("#where").css("display");
-	  if (status == "none") {
-		  $("#friend").css("display","none");
-		  $("#feel").css("display","none");
-		  $("#where").css("display","");
-	  }
-	  else {
-	    $("#where").css("display","none");
-	  }
+	  $("#friend").hide();
+      $("#feel").hide();
+      $("#where").show();
 	});
 function hideAll(){
-	 $("#friend").css("display","none");
-	  $("#feel").css("display","none");
-	  $("#where").css("display","none");
+	  $("#friend").hide();
+      $("#feel").hide();
+      $("#where").hide();
 }
 function getState(val) {
-	$("#printFeel").text("");
-	$("#printFeel").append("나는지금  "+val);
-	
-	$("#nowFeel").css("display","");
-	$("#nowFeel").text("");
-	$("#nowFeel").text("나는지금  "+val);
-	$("#nowFeel").append("&nbsp;&nbsp;<i class='fa fa-times' aria-hidden='true' onclick=\"deleteArea('nowFeel')\"></i>"); 
+   	  $("#printFeel").text("");
+      $("#printFeel").append("나는지금  "+val);
+      $("#feel").hide();
+      $("#nowFeel").show();
+      $("#nowFeel").text("");
+      $("#nowFeel").text("나는지금  "+val);
+      $("#nowFeel").append("&nbsp;&nbsp;<i class='fa fa-times' aria-hidden='true' onclick=\"deleteArea('nowFeel')\"></i>");
 }
 
 function setState(val){
-	
-	$("#nowFeel").append("<input type='hidden' name='n_tag_feel' value="+val+">");
+	   $("#nowFeel").append("<input type='hidden' name='n_tag_feel' value="+val+">");
 }
 
 function onKeyDown()
 {
-     if(event.keyCode == 13)
-     {
-    	$("#nowFriend").css("display","");
-     	$("#nowFriend").prepend($("#n_tag_friend").val()+",");
-     }
+	if(event.keyCode == 13)
+    {
+     $("#_friend").text("");
+     $("#nowFriend").show();
+     $("#nowFriend").prepend($("#n_tag_friend").val()+",");
+    }
 }
 
 function onKeyDown2()
 {
-     if(event.keyCode == 13)
-     {
-	    $("#nowWhere").css("display","");
-		$("#nowWhere").text("");
-	    $("#nowWhere").text($("#n_tag_where").val()+"에서");
-		$("#nowWhere").append("&nbsp;&nbsp;<i class='fa fa-times' aria-hidden='true' onclick=\"deleteArea('nowWhere')\"></i>"); 
-		$("#n_tag_where").text("");
-     }
+	  if(event.keyCode == 13)
+	     {
+	      $("#_where").text("");
+	      $("#nowWhere").show();
+	      $("#nowWhere").text("");
+	      $("#nowWhere").text($("#n_tag_where").val()+"에서");
+	      $("#nowWhere").append("&nbsp;&nbsp;<i class='fa fa-times' aria-hidden='true' onclick=\"deleteArea('nowWhere')\"></i>"); 
+	      $("#_where").text("");
+	     }
 }
 
 function deleteArea(val){
-	$("#"+val).css("display","none");
+	 $("#"+val).hide();
 }
 
 $(function() {
-	  $("#n_content").keyup(function () {
-	    $(this).css("height","5px").css("height",(20+$(this).prop("scrollHeight"))+"px");
-	  });
+	 $("#ta").keyup(function () {
+	       $(this).css("height","5px").css("height",(20+$(this).prop("scrollHeight"))+"px");
+	     });
 	});
 
  $('#image').on('change', function() {
-	   
-    ext = $(this).val().split('.').pop().toLowerCase(); //확장자
+  ext = $(this).val().split('.').pop().toLowerCase(); //확장자
     
     if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg','mp4']) == -1) {
         resetFormElement($(this)); //폼 초기화
         window.alert('파일 업로드 할 수 없습니다. 파일은 gif, png, jpg, jpeg 만 가능합니다.');
     } else { 
-    	$("#image_preview2").css("display","");
+       $("#image_preview2").show();
         file = $('#image').prop("files")[0];
         blobURL = window.URL.createObjectURL(file);
+     //   alert("blobURL=="+file.name);
         
-       	a = a+file.name +",";	//업로드파일이름
+          a = a+file.name +",";   //업로드파일이름
+     //   alert("a="+a);
         
         $('#image_preview img').attr('src', blobURL);
         $('#image_preview').slideDown(); //업로드한 이미지 미리보기 
         $('#image_preview2').slideDown(); 
         $(this).slideUp(); //파일 양식 감춤
-      
         
    } 
 });
  $('#image2').on('change', function() {
-	   
-	    ext = $(this).val().split('.').pop().toLowerCase(); //확장자
-	    
-	    if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg','mp4']) == -1) {
-	        resetFormElement($(this)); //폼 초기화
-	        window.alert('파일 업로드 할 수 없습니다. 파일은 gif, png, jpg, jpeg 만 가능합니다.');
-	    } else { 
-	    	add_div();
-	    	$("#image_preview2").css("display","");
-	        file = $('#image2').prop("files")[0];
-	        blobURL = window.URL.createObjectURL(file);
-	        
-	       	a = a+file.name +",";	//업로드파일이름
-	        
-	        $('#image_preview img').attr('src', blobURL);
-	        $('#image_preview').slideDown(); //업로드한 이미지 미리보기 
-	        $('#image_preview2').slideDown(); 
-	        $(this).slideUp(); //파일 양식 감춤
-	   } 
-	});
+     
+     ext = $(this).val().split('.').pop().toLowerCase(); //확장자
+     
+     if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg','mp4']) == -1) {
+       resetFormElement($(this)); //폼 초기화
+       window.alert('파일 업로드 할 수 없습니다. 파일은 gif, png, jpg, jpeg 만 가능합니다.');
+     } else { 
+       add_div();
+       $("#image_preview2").show();
+       file = $('#image2').prop("files")[0];
+       blobURL = window.URL.createObjectURL(file);
+     //    alert("blobURL=="+file.name);
+         
+       a = a+file.name +",";   //업로드파일이름
+     //    alert("a="+a);
+                  
+       $('#image_preview img').attr('src', blobURL);
+       $('#image_preview').slideDown(); //업로드한 이미지 미리보기 
+       $('#image_preview2').slideDown(); 
+       $(this).slideUp(); //파일 양식 감춤
+    } 
+ });
 
  $('#image_preview a').bind('click', function() {
-    resetFormElement($('#image')); //전달한 양식 초기화
-    $(this).parent().slideUp(); //미리 보기 영역 감춤
-    $('#image_preview2').slideUp(); 
-    return false; //기본 이벤트 막음
-});
-function resetFormElement(e) {
-    e.wrap('<form>').closest('form').get(0).reset(); 
-    e.unwrap(); //감싼 <form> 태그를 제거
-}
+	   resetFormElement($('#image')); //전달한 양식 초기화
+	    $(this).parent().slideUp(); //미리 보기 영역 감춤
+	    $('#image_preview2').slideUp(); 
+	    return false; //기본 이벤트 막음
+	});
 
-function add_div(){
- 	 	var div = document.createElement('div');
-    	div.innerHTML = document.getElementById('image_preview').innerHTML;
-    	document.getElementById('field').appendChild(div); 
-}
+ function resetFormElement(e) {
+	   e.wrap('<form>').closest('form').get(0).reset(); 
+	    e.unwrap(); //감싼 <form> 태그를 제거
+	}
+ function add_div(){
+	   var div = document.createElement('div');
+	   div.innerHTML = document.getElementById('image_preview').innerHTML;
+	   document.getElementById('field').appendChild(div); 
+	}
+
 
 function remove_div(obj){
-	document.getElementById('field').removeChild(obj.parentNode);
-}
+    document.getElementById('field').removeChild(obj.parentNode);
+ }
 
 function test(){
 	alert("test");
 }
 
-$(function(){ 
-   $("#_file2").click(function(){                    
-        $("#image").click(); 
-   }); 
+$("#_file2").click(function(){                    
+    $("#image").click(); 
 }); 
 
-$(function(){ 
-	   $("#_file3").click(function(){                    
-	        $("#image2").click(); 
-	 	   
-	       });
-	}); 
+
+$("#_file3").click(function(){                    
+     $("#image2").click(); 
+});
+
 $("#finish").click(function() {
-	alert("피니쉬!!!!");
-	$("#group_frmForm").attr({"target":"_self", "action":"writeNewsFeed.do"}).submit();
+   alert("작성");
+   $("#group_frmForm").attr({"target":"_self", "action":"group_newsfeed.do"}).submit();
+});
+// 사진추가
+$("#add_pho").click(function() {
+	 $("#image").click();
 });
 
 </script>

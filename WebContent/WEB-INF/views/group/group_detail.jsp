@@ -9,17 +9,52 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <script>
+var s_num1 = 1;
+var l_num1 = 10;
+
 $(document).ready(function(){
-	 $("#writer").hide();
-  
+	var gseq = $("#g_seq").attr("value");
+	
+	$("#writer").hide();
     $("#content").click(function(){
         $("#writer").show();
     });
+    
+	$(window).scroll(function() {
+		var posScroll = $(window).scrollTop() + $(window).height();
+		var maxHeight = $(document).height();
+
+		if (($(window).scrollTop() == $(document).height() - $(window).height())) {
+			s_num1 = s_num1+10;
+			alert(gseq);
+			l_num1 = l_num1+10;
+			$.ajax({
+				type: 'POST',
+				url: 'group_newsfeed_list.do?g_seq='+gseq+'&s_num='+s_num1+'&l_num='+l_num1,
+				async: false,
+				cache: false,
+				timeout: 10000,
+				success: function(data) {
+					$('#add_g_list').append(data); 
+				},
+				error: function(data) {
+					alert("실패...");
+				}
+			}); 
+		}
+		
+	});
+
 });
+
+
 </script>
 </head>
 <body>
@@ -30,13 +65,47 @@ $(document).ready(function(){
 </div>
 <!-- 헤더 끝-->
 <hr>
+<c:if test="${g_key eq true || g_make.g_type eq 1 }">
 <div style="width: 70%;">
 	<jsp:include page="/WEB-INF/views/group/group_newsfeed_write.jsp"/>
+	<%-- <jsp:include page="/WEB-INF/views/group/test.jsp"/>  --%>
 </div>
+</c:if>
+<br/>
+<c:if test="${g_key eq true || g_make.g_type eq 1 }">
 <div style="width: 70%;">
-<%-- <jsp:include page="/WEB-INF/views/group/group_news_list.jsp"/> --%>
+<jsp:include page="/WEB-INF/views/group/group_newsfeed_list.jsp"/>
 </div>
+<div id="add_g_list" style="width: 70%;">
+
 </div>
+</c:if>
+</div>
+
+
+<div class="container">
+  <!-- Trigger the modal with a button -->
+  <!-- Modal -->
+  <div class="modal fade" id="Modalaaa" role="dialog" aria-labelledby="myFullsizeModalLabel">
+    <div class="modal-dialog modal-80size modal-center">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        	<!-- 여기에 모달 사진들어갑닌다. -->
+        	<div id="v_result_div"> 
+        	</div>
+        	
+<%--      	<jsp:include page="/WEB-INF/views/group/group_vote_result.jsp"></jsp:include>  --%>
+        </div>
+      	  <div class="modal-body">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 
 </body>
