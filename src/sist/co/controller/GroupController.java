@@ -103,9 +103,10 @@ public class GroupController {
 		
 	}
 	@RequestMapping(value = "list.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String list(Model model, GroupListDTO gdto, String category) throws Exception {
+	public String list(Model model, GroupListDTO gdto, String category,HttpServletRequest request) throws Exception {
 		logger.info("list " + new Date());
-		
+		memDTO =(MemberDTO)request.getSession().getAttribute("login");
+		gdto.setM_id(memDTO.getM_id());
 		List<GroupMakeDTO> re_list = new ArrayList<GroupMakeDTO>();
 		re_list = groupService.recommend_group_list(gdto);
 	

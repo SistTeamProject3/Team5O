@@ -36,13 +36,44 @@ var id = $("#m_id").attr("value");
 				 $.ajax({
 					 type:"POST",
 						url: "group_local_find.do?tmp="+tmp+"&l_num="+l_num1+"&s_num="+s_num1,
-					 success: function(result){
-						alert(result);
+					 success: function(data){
+						$('#s_div').empty(); 
+						$('#s_div').append(data); 
 				    }, error: function(){
-				    	alert(result);
+				    	alert(data);
 				    }
 				});
 		});
+		
+	 	$(window).scroll(function() {
+			var posScroll = $(window).scrollTop() + $(window).height();
+			var maxHeight = $(document).height();
+			
+			var items=[];
+			$('input[name="inlineCheckbox1"]:checkbox:checked').each(function(){items.push($(this).val());});
+			var tmp = items.join(',');
+			
+			if (($(window).scrollTop() == $(document).height() - $(window).height())) {
+				s_num1 = s_num1+10;
+				l_num1 = l_num1+10;
+				
+				$.ajax({
+					type: 'POST',
+					url: "group_local_find.do?tmp="+tmp+"&l_num="+l_num1+"&s_num="+s_num1,
+					async: false,
+					cache: false,
+					timeout: 10000,
+					success: function(data) {
+						$('#s_div').append(data); 
+					},
+					error: function(data) {
+						alert("실패...");
+					}
+				}); 
+			}
+			
+		});
+	 	
 	});
 </script>
 <div style="width: 100%;">
@@ -89,7 +120,9 @@ var id = $("#m_id").attr("value");
 </td>
 </tr>
 </table>
+<div id="s_div">
 
+</div>
 <form action="group_list.do" id="groupForm" method="post">
 	<input type="hidden" value="1" name="s_num">
 	<input type="hidden" value="10" name="l_num"> 

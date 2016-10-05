@@ -58,14 +58,40 @@ var id = $("#m_id").attr("value");
 			$("#groupForm").attr({"target" : "_self","action" : "group_list.do?category=membership"}).submit();
 		});
 		$("#local").click(function() {
-			$("#groupForm").attr({"target" : "_self","action" : "group_list.do?category=local"}).submit();
+			$("#groupForm").attr({"target" : "_self","action" : "group_list.do?category=membership"}).submit();
 		});
 		$("#membership").click(function() {
 			$("#groupForm").attr({"target" : "_self","action" : "group_list.do?category=membership"}).submit();
 		});
+	 	$(window).scroll(function() {
+			var posScroll = $(window).scrollTop() + $(window).height();
+			var maxHeight = $(document).height();
+
+			if (($(window).scrollTop() == $(document).height() - $(window).height())) {
+				s_num1 = s_num1+10;
+				l_num1 = l_num1+10;
+				
+				$.ajax({
+					type: 'POST',
+					url: 'list.do?category=top&m_id='+id+'&s_num='+s_num1+'&l_num='+l_num1,
+					async: false,
+					cache: false,
+					timeout: 10000,
+					success: function(data) {
+					  	$('#bdiv').append(data); 
+					},
+					error: function(data) {
+						alert("실패...");
+					}
+				}); 
+			}
+			
+		});
+ 
 
 	});
 </script>
+
 
 <div style="width: 100%;">
 	<table style="width: 100%;" class="table table-striped">
