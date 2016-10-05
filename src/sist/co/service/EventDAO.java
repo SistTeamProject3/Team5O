@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import sist.co.model.CalendarDTO;
 import sist.co.model.EventDTO;
 import sist.co.model.EventInviteDTO;
 
@@ -22,8 +23,12 @@ public class EventDAO {
 		sqlSession.insert(ns + "addEvent", event);
 	}
 	
-	public List<EventDTO> selectEventList(String yyyymm) {
-		return sqlSession.selectList(ns + "selectEventList", yyyymm);
+	public List<EventDTO> selectEventList(CalendarDTO calendar) {
+		return sqlSession.selectList(ns + "selectEventList", calendar);
+	}
+	
+	public List<EventDTO> selectEventInviteList(CalendarDTO calendar) {
+		return sqlSession.selectList(ns + "selectEventInviteList", calendar);
 	}
 	
 	public EventDTO selectEventDetail(int seq) {

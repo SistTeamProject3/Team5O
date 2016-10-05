@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import sist.co.model.CalendarDTO;
 import sist.co.model.EventDTO;
 import sist.co.model.EventInviteDTO;
 import sist.co.service.EventDAO;
@@ -24,8 +25,13 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public List<EventDTO> selectEventList(String yyyymm) throws Exception {
-		return eventDAO.selectEventList(yyyymm);
+	public List<EventDTO> selectEventList(CalendarDTO calendar) throws Exception {
+		return eventDAO.selectEventList(calendar);
+	}
+	
+	@Override
+	public List<EventDTO> selectEventInviteList(CalendarDTO calendar) throws Exception {
+		return eventDAO.selectEventInviteList(calendar);
 	}
 
 	@Override

@@ -19,14 +19,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import sist.co.util.CalendarUtil;
 import sist.co.util.FUpUtil;
+import sist.co.model.CalendarDTO;
 import sist.co.model.EventDTO;
 import sist.co.model.EventInviteDTO;
-import sist.co.model.MsgEvent;
+import sist.co.model.MemberDTO;
 import sist.co.service.EventService;
 
 @Controller
@@ -38,7 +38,7 @@ public class EventController {
 	EventService eventService;
 	
 	@RequestMapping(value="event_calendar.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String event_calendar(Model model) throws Exception {
+	public String event_calendar(Model model, HttpServletRequest request) throws Exception {
 		
 		logger.info("event_calendar.do 접근 " + new Date());
 		
@@ -50,8 +50,14 @@ public class EventController {
 		
 		String yyyymm = CalendarUtil.yyyy_mm(year, month + 1);
 		
+		MemberDTO member = (MemberDTO) request.getSession().getAttribute("login");
+		CalendarDTO calendar = new CalendarDTO();
+
+		calendar.setM_id(member.getM_id());
+		calendar.setYyyymm(yyyymm);
+		
 		List<EventDTO> eventList = new ArrayList<EventDTO>();
-		eventList = eventService.selectEventList(yyyymm);
+		eventList = eventService.selectEventList(calendar);
 		
 		model.addAttribute("eventList", eventList);
 		
@@ -63,14 +69,23 @@ public class EventController {
 	}
 	
 	@RequestMapping(value="form_calendar.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String calendar_form(Model model, String year, String month, String day) throws Exception {
+	public String calendar_form(Model model, String year, String month, String day,
+								HttpServletRequest request) throws Exception {
 		
 		logger.info("form_calendar.do 접근 " + new Date());
 		
 		String yyyymm = CalendarUtil.yyyy_mm(Integer.parseInt(year), Integer.parseInt(month) + 1);
 		
+		MemberDTO member = (MemberDTO) request.getSession().getAttribute("login");
+		CalendarDTO calendar = new CalendarDTO();
+
+		calendar.setM_id(member.getM_id());
+		calendar.setYyyymm(yyyymm);
+		
 		List<EventDTO> eventList = new ArrayList<EventDTO>();
-		eventList = eventService.selectEventList(yyyymm);
+		eventList = eventService.selectEventList(calendar);
+		
+		
 		
 		model.addAttribute("eventList", eventList);
 		
@@ -127,41 +142,8 @@ public class EventController {
 		
 		logger.info("event_detail.do 접근 " + new Date());
 		
-		/*
-		RedirectView rv = new RedirectView("forward:/friendlist.do?seq=" + seq);
-		rv.setExposeModelAttributes(false);
-		return new ModelAndView(rv);
-		*/
-		
 		return "forward:/infriendsearch.do?eventSeq=" + seq;
 	}
-	/*
-	@RequestMapping(value="event_invite.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String event_invite(Model model, int seq, String inviteMemberList) throws Exception {
-		
-		logger.info("event_invite.do 접근 " + new Date());
-		
-		List<EventInviteDTO> memberList = new ArrayList<EventInviteDTO>();
-		if ( inviteMemberList.length() > 0 ) {
-			
-			String[] memberIdList = inviteMemberList.split("-");
-			
-			for ( int i = 0; i < memberIdList.length; i++ ) {
-				logger.info("inviteList[" + i + "]: " + memberIdList[i]);
-				EventInviteDTO inviteMember = new EventInviteDTO(seq, memberIdList[i]);
-				memberList.add(inviteMember);
-			}
-		}
-		
-		for ( int i = 0; i < memberList.size(); i++ ) {
-			logger.info("memberList[" + i + "]: " + memberList.get(i).getM_id());
-		}
-		
-		eventService.insertEventInvite(memberList);
-		
-		return "redirect:/event_detail.do?seq=" + seq;
-	}
-	*/
 	
 	@RequestMapping(value="event_invite.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String event_invite(Model model, int seq, String inviteMemberList) throws Exception {
@@ -196,18 +178,9 @@ public class EventController {
 	public String event_invite(Model model, EventDTO event) throws Exception {
 		
 		logger.info("update_event_invite.do 접근 " + new Date());
-		logger.info("event: " + event);
 		
 		eventService.updateEventInvite(event);
-		/*
-		MsgEvent resultMsg = null;
 		
-		if ( event.getEi_join() == 1 )			resultMsg = new MsgEvent("참석");
-		else if ( event.getEi_join() == 2 )		resultMsg = new MsgEvent("불참");
-		else if ( event.getEi_join() == 3 )		resultMsg = new MsgEvent("모르겠음");
-		
-		return resultMsg;
-		*/
 		return "event_detail.tiles";
 	}
 	

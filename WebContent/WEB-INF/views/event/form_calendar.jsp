@@ -102,6 +102,7 @@ lastDay: ${ lastDay } --%>
 				<c:set var="moreViewCnt" value="0" />
 				<c:set var="moreView" value="false" />
 				
+				<!--	자신이 주최한 이벤트 리스트		-->
 				<c:forEach var="event" items="${ eventList }" varStatus="eventCnt">
 				
 					<c:set var="sDateArr" value="${ fn:split(event.e_start_date, '-') }" />
@@ -170,6 +171,79 @@ lastDay: ${ lastDay } --%>
 						
 					</c:if>
 				</c:forEach>
+				<!-- // 자신이 주최한 이벤트 리스트		-->
+				
+				<!--	초대 받은 이벤트 리스트		-->
+				<c:forEach var="event" items="${ eventList }" varStatus="eventCnt">
+				
+					<c:set var="sDateArr" value="${ fn:split(event.e_start_date, '-') }" />
+					
+					<c:forEach var="sDateText" items="${ sDateArr }" varStatus="sDateCnt">
+						<c:choose>
+						<c:when test="${ sDateCnt.count == 1 }">
+							<c:set var="eventYear" value="${ sDateText }" />
+						</c:when>
+						<c:when test="${ sDateCnt.count == 2 }">
+							<c:set var="eventMonth" value="${ sDateText }" />
+						</c:when>
+						<c:when test="${ sDateCnt.count == 3 }">
+							<c:set var="eventDay" value="${ sDateText }" />
+						</c:when>
+						</c:choose>
+					</c:forEach>
+					
+					<c:if test="${ eventYear == year 
+					&& (eventMonth-1) == month 
+					&& eventDay == calCnt.count }">
+						
+						<c:choose>
+						<c:when test="${ dayListCnt < 3 }">
+							<div>
+								<a href="event_detail.do?seq=${ event.e_seq }">
+									<span><img src="image/event/calendar_list_symbol_02.png" 
+									class="list_symbol" /></span>
+									<c:choose>
+									<c:when test="${ fn:length(event.e_title) > 8 }">
+										${ fn:substring(event.e_title, 0, 8) }...
+									</c:when>
+									<c:otherwise>
+										${ event.e_title }
+									</c:otherwise>
+									</c:choose>
+								</a>
+							</div>
+							<c:set var="dayListCnt" value="${ dayListCnt + 1 }" />
+						</c:when>
+						
+						<c:otherwise>
+							
+							<c:set var="dayListCnt" value="${ dayListCnt + 1 }" />
+							<c:set var="moreViewCnt" value="${ moreViewCnt + 1 }" />
+							
+							<c:choose>
+							<c:when test="${ moreView == false }">
+								<div>
+									&nbsp;
+									<a href="#" id="event_more_view" 
+									onclick="return false">${ moreViewCnt }개 더보기...</a>
+								</div>
+								<c:set var="moreView" value="true" />
+							</c:when>
+							
+							<c:otherwise>
+								<script type="text/javascript">
+									$('#event_more_view').text('${ moreViewCnt }' + "개 더보기...");
+								</script>
+							</c:otherwise>
+							</c:choose>
+							
+						</c:otherwise>
+						</c:choose>
+						
+					</c:if>
+				</c:forEach>
+				<!-- // 초대 받은 이벤트 리스트		-->
+				
 			</td>
 		
 			<!-- 달의 마지막 날이 일요일이면 행 추가를 막기 위해 'i.count != lastDay' 조건 추가 -->
