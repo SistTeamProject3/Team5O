@@ -59,7 +59,11 @@ public class EventController {
 		List<EventDTO> eventList = new ArrayList<EventDTO>();
 		eventList = eventService.selectEventList(calendar);
 		
+		List<EventDTO> eventInviteList = new ArrayList<EventDTO>();
+		eventInviteList = eventService.selectEventInviteList(calendar);
+		
 		model.addAttribute("eventList", eventList);
+		model.addAttribute("eventInviteList", eventInviteList);
 		
 		model.addAttribute("year", year);
 		model.addAttribute("month", month);
@@ -85,9 +89,11 @@ public class EventController {
 		List<EventDTO> eventList = new ArrayList<EventDTO>();
 		eventList = eventService.selectEventList(calendar);
 		
-		
+		List<EventDTO> eventInviteList = new ArrayList<EventDTO>();
+		eventInviteList = eventService.selectEventInviteList(calendar);
 		
 		model.addAttribute("eventList", eventList);
+		model.addAttribute("eventInviteList", eventInviteList);
 		
 		model.addAttribute("year", year);
 		model.addAttribute("month", month);

@@ -1,9 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.*" %>
+<%@ page import="sist.co.model.EventInviteMemberDTO" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <fmt:requestEncoding value="UTF-8"/>
+
+<%
+List<EventInviteMemberDTO> EventInviteMemberList = (List<EventInviteMemberDTO>) request.getAttribute("EventInviteMemberList");
+
+for ( int i = 0; i < EventInviteMemberList.size(); i++ ) {
+	System.out.println("EventInviteMemberList 개수: " + EventInviteMemberList.get(i).getEi_write_date());
+}
+
+pageContext.setAttribute("EventInviteMemberList", EventInviteMemberList);
+
+%>
 
 <link rel="stylesheet" type="text/css" href="css/jquery.mCustomScrollbar.css"/>
 <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
@@ -81,6 +94,10 @@
 	border: 1px solid #CCCCCC;
 	background-color: aqua;
 	cursor: pointer;
+}
+
+.tbl_search_friend_off {
+	background-color: #EEE;
 }
 
 /*	 // 검색된 친구 리스트		*/
@@ -167,16 +184,26 @@
 					<table style="width: 100%;">
 						<col style="width: 50%;" /><col style="width: 50%;" />
 						<tr>
-							<td style="text-align: left;">친구(${ finformlist.size() })</td>
+							<td style="text-align: left;">친구(${ EventInviteMemberList.size() })</td>
 							<td style="text-align: right;">모두 선택</td>
 						</tr>
 					</table>
 					
 					<br/>
-					
-					<c:forEach var="friend" items="${ finformlist }">
+					<%-- 
+					<% for ( int j = 0; j < EventInviteMemberList.size(); j++ ) {
+					%>
+						<%= EventInviteMemberList.get(j).getEi_write_date() %>
+					<%
+					}
+					%>
+					--%>
+					<c:forEach var="friend" items="<%= EventInviteMemberList %>">
+						
 						<div class="search_friend_info" style="height: 55px;">
-							<table class="tbl_search_friend" data-m_id="${ friend.value.m_id }">
+							<table	<c:if test="${ empty friend.ei_write_date }">class="tbl_search_friend"</c:if>
+									<c:if test="${ !empty friend.ei_write_date }">class="tbl_search_friend_off"</c:if>
+								 data-m_id="${ friend.m_id }">
 								<col width="70px" /><col width="300px" /><col width="70px" />
 								<tr>
 									<td>
@@ -184,28 +211,28 @@
 											width="50px" height="50px" />
 									</td>
 									<td style="text-align: left;">
-										${ friend.value.m_id }
+										${ friend.m_id }
 										<br/>
 										<!-- 추가 정보 출력 우선순위(직장 > 대학교 > 고등학교 > 거주지) -->
 										<!-- 아무것도 없으면 공백 -->
 										<font style="color: #AAA;">
 										<c:choose>
-										<c:when test="${ !empty friend.value.m_office }">
-											${ friend.value.m_office }
+										<c:when test="${ !empty friend.m_office }">
+											${ friend.m_office }
 										</c:when>
 										
 										<c:otherwise>
 											<c:choose>
-												<c:when test="${ !empty friend.value.m_university }">
-													${ friend.value.m_university }
+												<c:when test="${ !empty friend.m_university }">
+													${ friend.m_university }
 												</c:when>
 												
-												<c:when test="${ !empty friend.value.m_highschool }">
-													${ friend.value.m_highschool }
+												<c:when test="${ !empty friend.m_highschool }">
+													${ friend.m_highschool }
 												</c:when>
 												
-												<c:when test="${ !empty friend.value.m_address }">
-													${ friend.value.m_address }
+												<c:when test="${ !empty friend.m_address }">
+													${ friend.m_address }
 												</c:when>
 												
 												<c:otherwise>
@@ -216,8 +243,13 @@
 										</font>
 									</td>
 									<td style="text-align: center;">
+										<c:if test="${ empty friend.ei_write_date }">
 										<img id="chk_image" class="chk_image" alt="체크 이미지" 
 											src="image/event/invite_check_off.png" data-check="0" />
+										</c:if>
+										<c:if test="${ !empty friend.ei_write_date }">
+										초대됨
+										</c:if>
 									</td>
 								</tr>
 							</table>
@@ -248,6 +280,11 @@
 </div>	<!-- #modal_invite_refresh -->
 <!--  // Modal	 -->
 
+<form id="frm_event_invite_list" action="event_invite.do" method="POST">
+	<input type="hidden" id="seq" name="seq" />
+	<input type="hidden" id="inviteMemberList" name="inviteMemberList" />
+</form>
+
 <!--		script			-->
 <!--		▼ ▼ ▼ ▼			-->
 <script type="text/javascript">
@@ -258,6 +295,7 @@ $('#event_test').click(function() {
 */
 
 $(document).ready(function () {
+	
 	// 이벤트 만들기 팝업 초기 설정
 	$('#event_write_form').click(function() {
 		
@@ -346,6 +384,15 @@ $(document).ready(function () {
 	$('#btn_event_invite').click(function() {
 		var eventSeq = '${ event.e_seq }';
 		
+	//	$('#seq').val(eventSeq);
+	//	$('#inviteMemberList').val(inviteMemberList);
+		
+	//	$('#frm_event_invite_list').submit();
+		/* 
+		var modalTag2 = $('.invite_content').html();
+		$('.invite_content_left').remove();
+		$('.invite_content_right').remove();
+		*/
 		$.ajax({
 			url: 'event_invite.do',
 			type: 'POST',
@@ -354,6 +401,20 @@ $(document).ready(function () {
 			cache: false,
 			success: function(data) {
 				alert("초대 완료");
+			//	$('#btn_event_close').click();
+			},
+			error: function(data) {
+				alert("실패..." + "\n" + "data: " + data);
+			}
+		});
+		
+		$.ajax({
+			url: 'event_detail.do',
+			type: 'POST',
+			data: { 'seq' : eventSeq },
+			async: false,
+			cache: false,
+			success: function(data) {
 				$('#btn_event_close').click();
 			},
 			error: function(data) {
@@ -373,9 +434,17 @@ $(document).ready(function () {
 	
 	// 모달 초기화
 	function initModal() {
-		$('#modal_invite').remove();
+		$('#modal_invite_refresh').remove();
 		$('#modal_invite_wrap').html(modalTag);
 	}
+	
+	
+	
+	
+	
+	
+
+	
 });
 
 /*		기타 function		*/

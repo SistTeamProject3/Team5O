@@ -15,12 +15,21 @@
 }
 
 .day {
-	width: 100px; 
+	width: 150px; 
 	padding-top: 5px;
 	padding-left: 10px;
 	text-align: left;
 	vertical-align: top;
 	border-top: 1px solid #303030;
+}
+
+.event_title_wrap {
+	width: 140px;
+	display: inline-block;
+	overflow: hidden; 
+	white-space: nowrap; 
+	text-overflow: ellipsis; 
+	vertical-align: middle;
 }
 
 </style>
@@ -127,18 +136,11 @@ lastDay: ${ lastDay } --%>
 						
 						<c:choose>
 						<c:when test="${ dayListCnt < 3 }">
-							<div>
-								<a href="event_detail.do?seq=${ event.e_seq }">
+							<div class="event_title_wrap">
+								<a href="event_detail.do?seq=${ event.e_seq }"  style="font-size: 10pt;">
 									<span><img src="image/event/calendar_list_symbol_02.png" 
 									class="list_symbol" /></span>
-									<c:choose>
-									<c:when test="${ fn:length(event.e_title) > 8 }">
-										${ fn:substring(event.e_title, 0, 8) }...
-									</c:when>
-									<c:otherwise>
-										${ event.e_title }
-									</c:otherwise>
-									</c:choose>
+									${ event.e_title }
 								</a>
 							</div>
 							<c:set var="dayListCnt" value="${ dayListCnt + 1 }" />
@@ -174,9 +176,9 @@ lastDay: ${ lastDay } --%>
 				<!-- // 자신이 주최한 이벤트 리스트		-->
 				
 				<!--	초대 받은 이벤트 리스트		-->
-				<c:forEach var="event" items="${ eventList }" varStatus="eventCnt">
+				<c:forEach var="eventInvite" items="${ eventInviteList }" varStatus="eventCnt">
 				
-					<c:set var="sDateArr" value="${ fn:split(event.e_start_date, '-') }" />
+					<c:set var="sDateArr" value="${ fn:split(eventInvite.e_start_date, '-') }" />
 					
 					<c:forEach var="sDateText" items="${ sDateArr }" varStatus="sDateCnt">
 						<c:choose>
@@ -198,18 +200,10 @@ lastDay: ${ lastDay } --%>
 						
 						<c:choose>
 						<c:when test="${ dayListCnt < 3 }">
-							<div>
-								<a href="event_detail.do?seq=${ event.e_seq }">
-									<span><img src="image/event/calendar_list_symbol_02.png" 
-									class="list_symbol" /></span>
-									<c:choose>
-									<c:when test="${ fn:length(event.e_title) > 8 }">
-										${ fn:substring(event.e_title, 0, 8) }...
-									</c:when>
-									<c:otherwise>
-										${ event.e_title }
-									</c:otherwise>
-									</c:choose>
+							<div class="event_title_wrap">
+								<i class="fa fa-envelope-square" aria-hidden="true"></i>
+								<a href="event_detail.do?seq=${ eventInvite.e_seq }" style="font-size: 10pt;">
+									&nbsp;${ eventInvite.e_title }
 								</a>
 							</div>
 							<c:set var="dayListCnt" value="${ dayListCnt + 1 }" />

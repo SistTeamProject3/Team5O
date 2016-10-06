@@ -25,6 +25,14 @@
 	ORDER BY E_SEQ ASC
 </select>
 
+<select id="selectEventInviteMember"	parameterType="sist.co.model.EventInviteDTO" 
+										resultType="sist.co.model.EventInviteMemberDTO">
+	SELECT * FROM TP3_MEMBER A
+	LEFT JOIN (SELECT * FROM TP3_EVENT_INVITE WHERE E_SEQ=#{e_seq}) B
+	ON A.M_ID = B.M_ID
+	WHERE A.M_ID=#{m_id}
+</select>
+
 <select id="selectEventInviteList" parameterType="sist.co.model.CalendarDTO" resultType="sist.co.model.EventDTO">
 	SELECT * FROM TP3_EVENT A INNER JOIN 
 	(SELECT * FROM TP3_EVENT_INVITE

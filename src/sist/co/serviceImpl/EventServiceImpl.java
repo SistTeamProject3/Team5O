@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import sist.co.model.CalendarDTO;
 import sist.co.model.EventDTO;
 import sist.co.model.EventInviteDTO;
+import sist.co.model.EventInviteMemberDTO;
 import sist.co.service.EventDAO;
 import sist.co.service.EventService;
 
@@ -42,6 +43,11 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public EventDTO selectEventInvite(EventDTO event) throws Exception {
 		return eventDAO.selectEventInvite(event);
+	}
+
+	@Override
+	public EventInviteMemberDTO selectEventInviteMember(EventInviteDTO eventInvite) throws Exception {
+		return eventDAO.selectEventInviteMember(eventInvite);
 	}
 
 	@Override

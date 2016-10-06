@@ -201,7 +201,7 @@ pre {
 	<!-- 주최자와 로그인 사용자와 동일하면 초대/수정 보임 -->
 	<c:if test="${ login.m_id == event.m_id }">
 		<div class="event_modify btn-group btn-group-justified">
-			<a href="#" class="btn btn-default" data-toggle="modal" 
+			<a href="#" id="btn_modal_invite" class="btn btn-default" data-toggle="modal" 
 				data-target="#modal_invite" onclick="return false">
 				<i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;초대</a>
 			<a href="#" class="btn btn-default"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;수정</a>
@@ -209,9 +209,11 @@ pre {
 	</c:if>
 </div>
 
+<!--		Modal: 초대 팝업		-->
 <div id="modal_invite_wrap">
-<jsp:include page="form_event_invite.jsp" />
+	<jsp:include page="form_event_invite.jsp" />
 </div>
+<!--	 // Modal: 초대 팝업		-->
 
 <br/>
 
@@ -391,6 +393,30 @@ $(document).ready(function() {
 				alert("실패..." + "\n" + "data: " + data);
 			}
 		});
+	});
+	
+	
+	var modalTag = $('#modal_invite_wrap').html();
+	
+	$('#btn_modal_invite').click(function() {
+		
+		var eventSeq = '${ event.e_seq }';
+		
+		$.ajax({
+			url: 'event_detail.do',
+			type: 'POST',
+			data: { 'seq' : eventSeq },
+			async: false,
+			cache: false,
+			success: function(data) {
+				$('#modal_invite_refresh').remove();
+				$('#modal_invite_wrap').html(modalTag);
+			},
+			error: function(data) {
+				alert("실패..." + "\n" + "data: " + data);
+			}
+		});
+		
 	});
 	
 	

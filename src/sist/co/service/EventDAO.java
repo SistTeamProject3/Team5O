@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import sist.co.model.CalendarDTO;
 import sist.co.model.EventDTO;
 import sist.co.model.EventInviteDTO;
+import sist.co.model.EventInviteMemberDTO;
 
 @Repository
 public class EventDAO {
@@ -37,6 +38,10 @@ public class EventDAO {
 	
 	public EventDTO selectEventInvite(EventDTO event) {
 		return sqlSession.selectOne(ns + "selectEventInvite", event);
+	}
+	
+	public EventInviteMemberDTO selectEventInviteMember(EventInviteDTO eventInvite) {
+		return sqlSession.selectOne(ns + "selectEventInviteMember", eventInvite);
 	}
 	
 	public void insertEventInvite(HashMap<String, List<EventInviteDTO>> inviteList) {

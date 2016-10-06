@@ -121,7 +121,8 @@ values(TP3_FRIEND_SEQ.nextval, 'qwer', 'asktest1',  0, 2, 0);
 insert into TP3_FRIEND
 values(TP3_FRIEND_SEQ.nextval, 'qwer', 'asktest2', 0, 2, 0);
 
-
+-- 테스트
+SELECT * FROM TP3_FRIEND;
 
 -- [뉴스피드] --
 
@@ -317,6 +318,25 @@ SELECT * FROM TP3_EVENT A INNER JOIN
 WHERE M_ID = 'asd') B
 ON A.E_SEQ = B.E_SEQ
 WHERE SUBSTR(E_START_DATE, 1, 7)='2016-10';
+
+
+SELECT * FROM TP3_MEMBER A INNER JOIN 
+(SELECT * FROM TP3_EVENT_INVITE
+WHERE M_ID = 'asd') B
+ON A.M_ID = B.M_ID
+WHERE E_SEQ = 4;
+
+SELECT * FROM TP3_EVENT_INVITE
+WHERE E_SEQ = 4;
+
+SELECT * FROM TP3_EVENT_INVITE
+WHERE E_SEQ = 4
+AND M_ID = 'asd';
+
+SELECT * FROM TP3_MEMBER A
+LEFT JOIN (SELECT * FROM TP3_EVENT_INVITE WHERE E_SEQ = 4) B
+ON A.M_ID = B.M_ID
+WHERE A.M_ID = 'asd';
 
 
 -- [ 그룹 ] --
