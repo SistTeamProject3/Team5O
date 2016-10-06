@@ -10,6 +10,15 @@
 
 <style type="text/css">
 
+.tbl_calendar {
+	width: 100%; 
+	border-collapse: separate; 
+	border-spacing: 10px; 
+	border-radius: 5px; 
+	border: 1px solid #AAA;
+	background-color: #FFF;
+}
+
 .dayOfWeek {
 	text-align: center;
 }
@@ -64,11 +73,12 @@ lastDay: ${ lastDay } --%>
 <!-- // 확인용 테스트 -->
 
 <div class="event_calendar">
-	<table style="width: 100%; border-collapse: separate; border-spacing: 10px; border-radius: 5px; background-color: #181818;">
+	<table class="tbl_calendar">
 		<tr>
 			<td colspan="7" align="left" style="padding: 10px 0px;">
-				<span><img id="_prev_month" class="prev_month" src="image/left.png" alt="이전 달"/></span>
-				<span><img id="_next_month" class="next_month" src="image/right.png" alt="다음 달"/></span>
+				<!-- <span><img id="_prev_month" class="prev_month" src="image/left.png" alt="이전 달"/></span> -->
+				<span><a href="#" class="btn btn-danger btn-xs prev_month" onclick="return false">이전 달</a></span>
+				<!-- <span><img id="_next_month" class="next_month" src="image/right.png" alt="다음 달"/></span> -->
 				<span>${ year }년 ${ month + 1 }월</span>
 			</td>
 		</tr>
@@ -87,17 +97,17 @@ lastDay: ${ lastDay } --%>
 		
 		<!-- 시작 날 이전 표시: 달력이 '월요일'부터 시작하며, 시작 요일을 제외하기 위해 '-2' 처리 -->
 		<c:choose>
-			<c:when test="${ startDay > 1 }">
-				<c:forEach begin="1" end="${ startDay - 2 }">
-					<td class="day">공백 - 이전</td>
-				</c:forEach>
-			</c:when>
-			
-			<c:otherwise>
-				<c:forEach begin="1" end="6">
-					<td class="day">공백 - 이전</td>
-				</c:forEach>
-			</c:otherwise>
+		<c:when test="${ startDay > 1 }">
+			<c:forEach begin="1" end="${ startDay - 2 }">
+				<td class="day"></td>
+			</c:forEach>
+		</c:when>
+		
+		<c:otherwise>
+			<c:forEach begin="1" end="6">
+				<td class="day"></td>
+			</c:forEach>
+		</c:otherwise>
 		</c:choose>
 		<!-- // 시작 날 이전 표시 -->
 		
@@ -250,7 +260,7 @@ lastDay: ${ lastDay } --%>
 		
 		<!-- 종료 날 이후 표시 -->
 		<c:forEach begin="1" end="${ (7 - (startDay + lastDay - 2) % 7) % 7 }">
-			<td class="day">공백 - 이후</td>
+			<td class="day"></td>
 		</c:forEach>
 		</tr>
 		<!-- // 종료 날 이후 표시 -->
