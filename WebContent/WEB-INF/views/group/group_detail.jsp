@@ -9,16 +9,25 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+ -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+<style>
+video{
+	width: 100%;
+    height: auto;
+}
+
+
+</style>
+
 
 <script>
 var s_num1 = 1;
 var l_num1 = 10;
-
+	
 $(document).ready(function(){
 	var gseq = $("#g_seq").attr("value");
 	
@@ -52,6 +61,17 @@ $(document).ready(function(){
 		
 	});
 
+});
+
+$(document).on("click",".g_nlistp",function(){
+	var modal_src =  $(this).attr("src");
+	$("#g_list_photo").attr("src",modal_src);
+});
+
+
+$(document).on("click",".videoclass",function(){
+	var modal_video =  $(this).attr("data-set");
+	$("#g_list_video").attr("src",modal_video);
 });
 
 
@@ -112,6 +132,49 @@ $(document).ready(function(){
 </div>
 
 
+
+<div class="container">
+  <!-- Trigger the modal with a button -->
+  <!-- Modal -->
+  <div class="modal fade" id="Modalpho" role="dialog" aria-labelledby="myFullsizeModalLabel">
+    <div class="modal-dialog modal-80size modal-center">
+      <!-- Modal content-->
+       <div class="modal-content" >
+   <!--   <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        	여기에 모달 사진들어갑닌다.
+        </div>  -->
+        	
+      	  <div class="modal-body">
+        <img id="g_list_photo" src="image/bac.jpg" style="width: 100%;height: auto;">
+        </div>
+      </div> 
+    </div>
+  </div>
+</div>
+
+
+
+<div class="container">
+  <!-- Trigger the modal with a button -->
+  <!-- Modal -->
+  <div class="modal fade" id="Modalvid" role="dialog" aria-labelledby="myFullsizeModalLabel">
+    <div class="modal-dialog modal-lg modal-center">
+      <!-- Modal content-->
+      <div class="modal-content">
+      <!--   <div class="modal-header">
+    			<source id="md_video" src=""/>
+			</video>
+		
+        </div> -->
+      	  <div class="modal-body">
+      	  <video id="g_list_video" controls autoplay src="" type="video/mp4"></video>
+      	  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 </body>

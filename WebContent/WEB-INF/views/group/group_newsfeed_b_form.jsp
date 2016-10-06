@@ -100,9 +100,9 @@ $(document).ready(function() {
 <button id="vbtn${vodto.n_vote_seq }"  class="btn btn-danger">투표하기</button>
 </c:if>
 <c:if test="${!empty find}">
- <a data-toggle="modal" data-target="#Modalaaa">
+<a data-toggle="modal" data-target="#Modalaaa">
 <img  alt="결과보기" src="image/result.jpg"  id="rbtn${vodto.n_vote_seq }">
-</a> 
+</a>
 </c:if>
 </td>
 </tr>

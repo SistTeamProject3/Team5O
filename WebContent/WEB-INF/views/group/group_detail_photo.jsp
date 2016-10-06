@@ -58,8 +58,15 @@ str.push("${plist.nf_photo}");
 </script>
 </c:forEach>
 <script>
-
-
+$(document).on('keydown','.modal',function(e){
+	if(e.keyCode == 37)
+	  {
+	    $("#prebtn").click();
+	  }
+	if (e.keyCode == 39) {
+		  $("#nextbtn").click();
+	  }
+});
 
 $(document).ready(function(){
 	var img_num = 0;
@@ -80,6 +87,7 @@ $(document).ready(function(){
     	$("#m_photo").attr("src",$(this).attr("src"));
     	
 	});
+    
     $("#prebtn").click(function() {
 		img_num--;
 		if (img_num<=0) {
@@ -180,23 +188,24 @@ for(int i=0;i<plist.size();i++){
 </c:if>
 </div>
 <!-- 모달 -->
-<div class="container">
+<div class="container" >
   <!-- Trigger the modal with a button -->
   <!-- Modal -->
   <div class="modal fade" id="ModalPhoto" role="dialog" aria-labelledby="myFullsizeModalLabel">
     <div class="modal-dialog modal-80size modal-center">
       <!-- Modal content-->
       <div class="modal-content">
-        <div class="modal-header">
+    <!--     <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-        	<!-- 여기에 모달 사진들어갑닌다. -->
-		<div class="container1">       
-        	<div class="btnleft"><img id="prebtn" style="width: 50px; height: 50px;" src="image/pre.png" alt="이전"></div>
-        	<img src="" alt="사진" id="m_photo" style="width: 100%; height: auto;">
-       		<div class="btnright"><img id="nextbtn" style="width: 50px; height: 50px;" src="image/next.png" alt="다음"></div>
-      </div>
-        </div>
-      	  <div class="modal-body">
+        	여기에 모달 사진들어갑닌다.
+		
+        </div> -->
+      	  <div class="modal-body" >
+	      	<div class="container1">       
+	        	<div class="btnleft"><img id="prebtn" style="width: 50px; height: 50px;" src="image/pre.png" alt="이전" ></div>
+	        	<img src="" alt="사진" id="m_photo" style="width: 100%; height: auto;">
+	       		<div class="btnright"><img id="nextbtn" style="width: 50px; height: 50px;" src="image/next.png" alt="다음"></div>
+	      	</div>
         </div>
       </div>
     </div>

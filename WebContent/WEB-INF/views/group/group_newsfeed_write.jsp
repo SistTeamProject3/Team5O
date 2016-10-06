@@ -144,8 +144,8 @@
 			</tr>
 			<tr class="make_vote">
 			<td colspan="4" id="votelist">
-			<span><input type="text" name="vote1" value=""><img src="image/plus-red.png" alt="추가" class="addvote"></span><br/>
-			<span><input type="text" name="vote2" value=""><img src="image/plus-red.png" alt="추가" class="addvote"></span><br/>
+			<span><input type="text" name="vote1" value="" id="v1"><img src="image/plus-red.png" alt="추가" class="addvote"></span><br/>
+			<span><input type="text" name="vote2" value="" id="v2"><img src="image/plus-red.png" alt="추가" class="addvote"></span><br/>
 			</td>
 			</tr>
 			<tr class="make_vote">
@@ -192,14 +192,48 @@
  
  $(document).on("click",".addvote",function() {
 	if(num < 11){	 
- 		$("#votelist").append("<span><input type='text' name='vote"+num+"'><img src='image/plus-red.png' alt='추가' class='addvote'></span><br/>");
+ 		$("#votelist").append("<span><input type='text' name='vote"+num+"' id='v"+num+"'><img src='image/plus-red.png' alt='추가' class='addvote'></span><br/>");
  		num++
 	}
  });
  $("#vote_submit").click(function() {
-		alert("전달");
-		$("#group_frmForm").attr({"target":"_self", "action":"make_vote.do"}).submit();
-	});
+	var arr = new Array(); 
+	var send = 0;
+	var q_content = $("#q_content").val();
+	
+	for(var i=1;i<11;i++ ){
+		arr[i] = $("#v"+i).val();
+		var a = arr[i];
+	}
+	if(arr[1] =="" || arr[2] ==""){
+		alert("투표 항목을 입력하세요");
+	}else {
+		for(var i = 1; i<10 ;i++){
+				for(var j = i+1;j< 11;j++){
+			if (arr[i] != "" && arr[i] != null) {
+					if(arr[i]==arr[j]){
+						send=1;
+						break;
+					}
+				}	
+			}
+		}
+		if (send==1) {
+			alert("항목이 겹치면 쓰나?");
+		} else {
+			
+			if (q_content == "") {
+				alert("글은 써야지...?")
+			} else {
+				$("#group_frmForm").attr({"target":"_self", "action":"make_vote.do"}).submit();   
+			}
+			
+			
+		 	
+		}
+	}
+  
+ });
  // 여기서 끝
  
  $("#viewFriend").click(function() {
