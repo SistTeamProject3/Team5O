@@ -15,7 +15,9 @@ public interface EventService {
 	List<EventDTO> selectEventInviteList(CalendarDTO calendar) throws Exception;
 	EventDTO selectEventDetail(int seq) throws Exception;
 	EventDTO selectEventInvite(EventDTO event) throws Exception;
-	public EventInviteMemberDTO selectEventInviteMember(EventInviteDTO eventInvite) throws Exception;
+	EventInviteMemberDTO selectEventInviteMember(EventInviteDTO eventInvite) throws Exception;
+	List<EventInviteDTO> selectEventInviteResult(int seq);
 	void insertEventInvite(HashMap<String, List<EventInviteDTO>> inviteList) throws Exception;
 	boolean updateEventInvite(EventDTO event) throws Exception;
+	
 }

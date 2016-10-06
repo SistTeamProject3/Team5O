@@ -41,6 +41,11 @@
 	WHERE SUBSTR(E_START_DATE, 1, 7)=#{yyyymm}
 </select>
 
+<select id="selectEventInviteResult" parameterType="Integer" resultType="sist.co.model.EventInviteDTO">
+	SELECT * FROM TP3_EVENT_INVITE
+	WHERE E_SEQ=#{e_seq}
+</select>
+
 <select id="selectEventDetail" parameterType="Integer" resultType="sist.co.model.EventDTO">
 	SELECT * FROM TP3_EVENT
 	WHERE E_SEQ=#{seq}

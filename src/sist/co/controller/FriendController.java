@@ -84,7 +84,7 @@ public class FriendController {
 		HashMap<String, MemberDTO> finformlist = new HashMap<String, MemberDTO>();
 		
 		// 명호 전용: 초대할 친구 리스트
-		List<EventInviteMemberDTO> EventInviteMemberList = new ArrayList<EventInviteMemberDTO>();
+		List<EventInviteMemberDTO> eventInviteMemberList = new ArrayList<EventInviteMemberDTO>();
 		
 		for(int i = 0; i < flist.size(); i++){
 			MemberDTO memdto = friendService.getFriendsInformation(flist.get(i).getF_id());	
@@ -92,9 +92,9 @@ public class FriendController {
 			
 			
 			// 명호 전용: 초대할 친구 리스트 조회 & 저장
-			EventInviteDTO eventInvite = new EventInviteDTO(eventSeq, flist.get(i).getF_id());
+			EventInviteDTO eventInvite = new EventInviteDTO(eventSeq, flist.get(i).getF_id(), 0, null);
 			EventInviteMemberDTO eventInviteMember = eventService.selectEventInviteMember(eventInvite);
-			EventInviteMemberList.add(eventInviteMember);
+			eventInviteMemberList.add(eventInviteMember);
 		}
 			
 		model.addAttribute("flist", flist);				// 그룹 단위로 출력하기 위해서 필요함. 즉,순수하게 정렬하기 위해 필요 : (수정할점0906) 그룹별 출력, 그룹변경 할 수 있도록 버튼만들기 
@@ -111,7 +111,7 @@ public class FriendController {
 			HttpSession session = request.getSession();
 			session.setAttribute("event", event);
 			session.setAttribute("finformlist", finformlist);
-			session.setAttribute("EventInviteMemberList", EventInviteMemberList);
+			session.setAttribute("eventInviteMemberList", eventInviteMemberList);
 			session.setAttribute("imgpath", imgpath);
 		//	session.setMaxInactiveInterval(60*60);		// 1시간 동안 유지
 			

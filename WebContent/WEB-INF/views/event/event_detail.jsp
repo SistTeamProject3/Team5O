@@ -344,10 +344,29 @@ pre {
 		<div class="event_main_join_list">
 			<table class="tbl_join_list">
 				<col style="width: 33%;" /><col style="width: 33%;" /><col style="width: 33%;" />
+				
+				<!--	참석 여부 계산	-->
+				<c:set var="event_join1" value="0" />	<!-- 참석 개수 -->
+				<c:set var="event_join2" value="0" />	<!-- 불참 개수 -->
+				<c:set var="event_join3" value="0" />	<!-- 모르겠음 개수 -->
+				<c:forEach var="memberResult" items="${ eventInviteResult }">
+					<c:choose>
+					<c:when test="${ memberResult.ei_join == 1 }">
+						<c:set var="event_join1" value="${ event_join1 + 1 }" />
+					</c:when>
+					<c:when test="${ memberResult.ei_join == 2 }">
+						<c:set var="event_join2" value="${ event_join2 + 1 }" />
+					</c:when>
+					<c:when test="${ memberResult.ei_join == 3 }">
+						<c:set var="event_join3" value="${ event_join3 + 1 }" />
+					</c:when>
+					</c:choose>
+				</c:forEach>
+				
 				<tr>
-					<td class="join_list_num">0</td>
-					<td class="join_list_num">1</td>
-					<td class="join_list_num">2</td>
+					<td id="join_result1" class="join_list_num">${ event_join1 }</td>
+					<td id="join_result2" class="join_list_num">${ event_join2 }</td>
+					<td class="join_list_num">${ eventInviteResult.size() }</td>
 				</tr>
 				
 				<tr>
@@ -378,7 +397,12 @@ $(document).ready(function() {
 		
 		var target = $(this);
 		var imgTag = "<i class='fa fa-check' aria-hidden='true'></i>";
-	
+		/* 
+		$('.btn_event_join').find('i').remove();
+		target.find('.event_join_check_img').html(imgTag);
+	 	*/
+		$('#frm_event_join_result').attr('action', 'update_event_invite.do').attr('method', 'POST').submit();
+		/* 
 		$.ajax({
 			url: 'update_event_invite.do',
 			type: 'POST',
@@ -393,6 +417,7 @@ $(document).ready(function() {
 				alert("실패..." + "\n" + "data: " + data);
 			}
 		});
+		 */
 	});
 	
 	

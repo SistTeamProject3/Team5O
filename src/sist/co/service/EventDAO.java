@@ -44,6 +44,10 @@ public class EventDAO {
 		return sqlSession.selectOne(ns + "selectEventInviteMember", eventInvite);
 	}
 	
+	public List<EventInviteDTO> selectEventInviteResult(int seq) {
+		return sqlSession.selectList(ns + "selectEventInviteResult", seq);
+	}
+	
 	public void insertEventInvite(HashMap<String, List<EventInviteDTO>> inviteList) {
 		sqlSession.insert(ns + "insertEventInvite", inviteList);
 	}

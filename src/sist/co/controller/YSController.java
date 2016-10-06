@@ -213,7 +213,8 @@ public class YSController {
 			model.addAttribute("eventInvite", eventInvite);
 			model.addAttribute("event", session.getAttribute("event"));
 			model.addAttribute("finformlist", session.getAttribute("finformlist"));
-			model.addAttribute("EventInviteMemberList", session.getAttribute("EventInviteMemberList"));
+			model.addAttribute("eventInviteMemberList", session.getAttribute("eventInviteMemberList"));
+			model.addAttribute("eventInviteResult", session.getAttribute("eventInviteResult"));
 			model.addAttribute("imgpath", session.getAttribute("imgpath"));
 			
 			return "event_detail.tiles";

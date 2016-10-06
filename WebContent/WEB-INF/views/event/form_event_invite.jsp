@@ -8,13 +8,13 @@
 <fmt:requestEncoding value="UTF-8"/>
 <%-- 
 <%
-List<EventInviteMemberDTO> EventInviteMemberList = (List<EventInviteMemberDTO>) request.getAttribute("EventInviteMemberList");
+List<EventInviteMemberDTO> eventInviteMemberList = (List<EventInviteMemberDTO>) request.getAttribute("eventInviteMemberList");
 
-for ( int i = 0; i < EventInviteMemberList.size(); i++ ) {
-	System.out.println("EventInviteMemberList 개수: " + EventInviteMemberList.get(i).getEi_write_date());
+for ( int i = 0; i < eventInviteMemberList.size(); i++ ) {
+	System.out.println("eventInviteMemberList 개수: " + eventInviteMemberList.get(i).getEi_write_date());
 }
 
-pageContext.setAttribute("EventInviteMemberList", EventInviteMemberList);
+pageContext.setAttribute("eventInviteMemberList", eventInviteMemberList);
 
 %>
 --%>
@@ -185,7 +185,7 @@ pageContext.setAttribute("EventInviteMemberList", EventInviteMemberList);
 				<!--	 // 초대 그룹		-->
 				
 				<!--		초대할 친구 리스트		-->
-				<c:set var="memberList" value="${ EventInviteMemberList }" />
+				<c:set var="memberList" value="${ eventInviteMemberList }" />
 				
 				<div class="invite_content_search_list_wrap invite_form_border mCustomScrollbar" 
 					data-mcs-theme="minimal-dark">

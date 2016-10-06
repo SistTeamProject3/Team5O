@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -144,9 +145,14 @@ public class EventController {
 	}
 	
 	@RequestMapping(value="event_detail.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String event_detail(Model model, int seq) throws Exception {
+	public String event_detail(Model model, HttpServletRequest request, int seq) throws Exception {
 		
 		logger.info("event_detail.do 접근 " + new Date());
+		
+		List<EventInviteDTO> eventInviteResult = eventService.selectEventInviteResult(seq);
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("eventInviteResult", eventInviteResult);
 		
 		return "forward:/infriendsearch.do?eventSeq=" + seq;
 	}
@@ -162,15 +168,16 @@ public class EventController {
 			String[] memberIdList = inviteMemberList.split("-");
 			
 			for ( int i = 0; i < memberIdList.length; i++ ) {
-				logger.info("inviteList[" + i + "]: " + memberIdList[i]);
-				EventInviteDTO inviteMember = new EventInviteDTO(seq, memberIdList[i]);
+			//	logger.info("inviteList[" + i + "]: " + memberIdList[i]);
+				EventInviteDTO inviteMember = new EventInviteDTO(seq, memberIdList[i], 0, null);
 				memberList2.add(inviteMember);
 			}
 		}
-		
+		/*
 		for ( int i = 0; i < memberList2.size(); i++ ) {
 			logger.info("memberList[" + i + "]: " + memberList2.get(i).getM_id());
 		}
+		*/
 		
 		HashMap<String, List<EventInviteDTO>> inviteList = new HashMap<String, List<EventInviteDTO>>();
 		inviteList.put("list", memberList2);
@@ -187,7 +194,9 @@ public class EventController {
 		
 		eventService.updateEventInvite(event);
 		
-		return "event_detail.tiles";
+		return "redirect:/event_detail.do?seq=" + event.getE_seq();
+		
+	//	return "event_detail.tiles";
 	}
 	
 }
