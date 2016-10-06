@@ -245,6 +245,11 @@ public class GroupImpl implements GroupService {
 	public List<GroupMakeDTO> group_local_find(GroupMakeDTO gdto) throws Exception {
 		return groupDAO.group_local_find(gdto);
 	}
+
+	@Override
+	public boolean group_name_update(GroupMakeDTO gdto) throws Exception {
+		return groupDAO.group_name_update(gdto);
+	}
 	
 	
 	

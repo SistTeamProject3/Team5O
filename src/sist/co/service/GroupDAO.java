@@ -238,4 +238,10 @@ public class GroupDAO {
 		return sqlSession.selectList(ns+"group_local_find", gdto);
 	}
 	
+	public boolean group_name_update(GroupMakeDTO gdto)throws Exception{
+		 sqlSession.update(ns+"group_name_update", gdto);
+		 
+		 return true;
+	}
+	
 }

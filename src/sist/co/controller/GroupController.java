@@ -803,5 +803,14 @@ public class GroupController {
 		return "g_local_list_table.tiles";
 	}
 	
+	@RequestMapping(value="group_name_update.do", method={RequestMethod.GET,RequestMethod.POST})
+	public String group_name_update(Model model, GroupMakeDTO gdto)throws Exception{
+		logger.info("수정 받은거 "+gdto.toString());
+		
+		groupService.group_name_update(gdto);
+		
+		return "redirect:/group_detail.do?g_seq="+gdto.getG_seq();
+	}
+	
 	
 }

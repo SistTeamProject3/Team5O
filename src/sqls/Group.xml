@@ -342,5 +342,12 @@ WHERE REGEXP_LIKE(BC.M_ADDRESS,#{keyword})
 ]]>
 </select>
 
+
+<update id="group_name_update" parameterType="sist.co.model.GroupMakeDTO">
+UPDATE TP3_MAKEGROUP SET G_NAME = #{g_name}
+WHERE G_SEQ = #{g_seq}
+</update>
+
+
 </mapper>
 

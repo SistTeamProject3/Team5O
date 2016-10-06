@@ -8,6 +8,8 @@
 <fmt:requestEncoding value="utf-8" />
 <script type="text/javascript">
 	$(document).ready(function() {
+		$(".b_name").hide();
+		
 		$("#top").click(function() {
 			$("#groupForm").attr({"target" : "_self","action" : "group_list.do?category=top"}).submit();
 		});
@@ -20,7 +22,23 @@
 		$("#membership").click(function() {
 			$("#groupForm").attr({"target" : "_self","action" : "group_list.do?category=membership"}).submit();
 		});
+		
+		$(".update_gn").click(function() {
+			var seq= $(this).attr("data-set");
+			$(".b_name").not(this).hide();
+			$("#b_name"+seq).show();
+		});
+	
+		$(".up_g_n").click(function() {
+			var seq = $(this).attr("data-set");
+			var g_name = $("#up_name"+seq).val();
+			
+			$("#groupForm").attr({"target" : "_self","action" : "group_name_update.do?g_seq="+seq+"&g_name="+g_name}).submit();
+			
+		});
+		
 	});
+
 </script>
 <div style="width: 100%;">
 	<table style="width: 100%;" class="table table-striped">
@@ -48,8 +66,13 @@
 		<c:forEach items="${g_list}" var="glist" varStatus="i">
 			<c:if test="${glist.g_auth eq 3 }">
 				<tr>
-					<td align="left"><a href="group_detail.do?g_seq=${glist.g_seq}">${glist.g_name}</a></td>
-					<td></td>
+					<td align="left"><a href="group_detail.do?g_seq=${glist.g_seq}">${glist.g_name}</a>
+					<span class="b_name" id="b_name${glist.g_seq}">
+					<input type="text" value="${glist.g_name}" id="up_name${glist.g_seq }">
+					<button class="up_g_n btn btn-danger" data-set="${glist.g_seq}">수정</button>
+					</span>					
+					</td>
+					<td><button class="update_gn btn btn-danger" id="update_gn${glist.g_seq}" data-set="${glist.g_seq }" >그룹 명 수정 </button></td>
 				</tr>
 			</c:if>
 		</c:forEach>
