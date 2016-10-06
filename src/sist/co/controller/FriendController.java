@@ -96,10 +96,6 @@ public class FriendController {
 			EventInviteMemberDTO eventInviteMember = eventService.selectEventInviteMember(eventInvite);
 			EventInviteMemberList.add(eventInviteMember);
 		}
-		
-		for ( int j = 0; j < EventInviteMemberList.size(); j++ ) {
-			logger.info("EventInviteMemberList: " + EventInviteMemberList.get(j).toString());
-		}
 			
 		model.addAttribute("flist", flist);				// 그룹 단위로 출력하기 위해서 필요함. 즉,순수하게 정렬하기 위해 필요 : (수정할점0906) 그룹별 출력, 그룹변경 할 수 있도록 버튼만들기 
 		model.addAttribute("finformlist", finformlist);	// 해당 회원 모든 친구들의 정보 

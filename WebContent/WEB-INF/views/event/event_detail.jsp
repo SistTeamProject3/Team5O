@@ -397,7 +397,7 @@ $(document).ready(function() {
 	
 	
 	var modalTag = $('#modal_invite_wrap').html();
-	
+	/* 
 	$('#btn_modal_invite').click(function() {
 		
 		var eventSeq = '${ event.e_seq }';
@@ -418,7 +418,7 @@ $(document).ready(function() {
 		});
 		
 	});
-	
+	*/
 	
 	/* 
 	// 이벤트 참석 여부 결정

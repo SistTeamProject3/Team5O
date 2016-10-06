@@ -3,6 +3,7 @@ package sist.co.model;
 public class EventInviteMemberDTO {
 
 	private String	m_id;
+	private String	m_name;
 	private String	m_profile;
 	private String	m_highschool;
 	private String	m_university;
@@ -13,11 +14,11 @@ public class EventInviteMemberDTO {
 	private String	ei_write_date;
 
 	public EventInviteMemberDTO() {}
-	
 
-	public EventInviteMemberDTO(String m_id, String m_profile, String m_highschool, String m_university,
+	public EventInviteMemberDTO(String m_id, String m_name, String m_profile, String m_highschool, String m_university,
 			String m_office, String m_address, int e_seq, String ei_write_date) {
 		this.m_id = m_id;
+		this.m_name = m_name;
 		this.m_profile = m_profile;
 		this.m_highschool = m_highschool;
 		this.m_university = m_university;
@@ -29,9 +30,9 @@ public class EventInviteMemberDTO {
 
 	@Override
 	public String toString() {
-		return "EventInviteMemberDTO [m_id=" + m_id + ", m_profile=" + m_profile + ", m_highschool=" + m_highschool
-				+ ", m_university=" + m_university + ", m_office=" + m_office + ", m_address=" + m_address + ", e_seq="
-				+ e_seq + ", ei_write_date=" + ei_write_date + "]";
+		return "EventInviteMemberDTO [m_id=" + m_id + ", m_name=" + m_name + ", m_profile=" + m_profile
+				+ ", m_highschool=" + m_highschool + ", m_university=" + m_university + ", m_office=" + m_office
+				+ ", m_address=" + m_address + ", e_seq=" + e_seq + ", ei_write_date=" + ei_write_date + "]";
 	}
 
 	public String getM_id() {
@@ -40,6 +41,14 @@ public class EventInviteMemberDTO {
 
 	public void setM_id(String m_id) {
 		this.m_id = m_id;
+	}
+
+	public String getM_name() {
+		return m_name;
+	}
+
+	public void setM_name(String m_name) {
+		this.m_name = m_name;
 	}
 
 	public String getM_profile() {
