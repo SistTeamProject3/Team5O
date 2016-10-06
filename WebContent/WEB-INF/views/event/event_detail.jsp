@@ -201,10 +201,14 @@ pre {
 	<!-- 주최자와 로그인 사용자와 동일하면 초대/수정 보임 -->
 	<c:if test="${ login.m_id == event.m_id }">
 		<div class="event_modify btn-group btn-group-justified">
-			<a href="#" id="btn_modal_invite" class="btn btn-default" data-toggle="modal" 
-				data-target="#modal_invite" onclick="return false">
+			<a href="#" id="btn_modal_invite" class="btn btn-default" 
+				data-toggle="modal" data-target="#modal_invite" onclick="return false">
 				<i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;초대</a>
-			<a href="#" class="btn btn-default"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;수정</a>
+			<a href="#" id="event_update" class="btn btn-default" 
+				data-toggle="modal" data-target="#modal_event_write" onclick="return false">
+				<i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;수정</a>
+			<a href="#" id="event_delete" class="btn btn-default" onclick="return false">
+				<i class="fa fa-trash" aria-hidden="true"></i>&nbsp;삭제</a>
 		</div>
 	</c:if>
 </div>
@@ -390,6 +394,19 @@ $(document).ready(function() {
 		$('.event_date_title').css('top', '220px');
 	}
 	
+	// 이벤트 삭제하기
+	$('#event_delete').click(function() {
+		var deleteCfm = confirm("이벤트를 삭제하시겠습니까?");
+		
+		if ( deleteCfm ) {
+			var eventSeq = '${ event.e_seq }';
+			location.href="event_delete.do?seq=" + eventSeq;
+			
+		} else {
+			return false;
+		}
+	});
+	
 	// 이벤트 참석여부 결정
 	$('.btn_event_join').click(function() {
 		var choice = $(this).attr('data-value');
@@ -421,7 +438,7 @@ $(document).ready(function() {
 	});
 	
 	
-	var modalTag = $('#modal_invite_wrap').html();
+//	var modalTag = $('#modal_invite_wrap').html();
 	/* 
 	$('#btn_modal_invite').click(function() {
 		

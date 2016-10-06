@@ -26,6 +26,16 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
+	public boolean updateEvent(EventDTO event) throws Exception {
+		return eventDAO.updateEvent(event);
+	}
+
+	@Override
+	public boolean deleteEvent(int seq) throws Exception {
+		return eventDAO.deleteEvent(seq);
+	}
+
+	@Override
 	public List<EventDTO> selectEventList(CalendarDTO calendar) throws Exception {
 		return eventDAO.selectEventList(calendar);
 	}
@@ -63,5 +73,10 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public boolean updateEventInvite(EventDTO event) throws Exception {
 		return eventDAO.updateEventInvite(event);
+	}
+
+	@Override
+	public boolean deleteEventInvite(int seq) throws Exception {
+		return eventDAO.deleteEventInvite(seq);
 	}
 }

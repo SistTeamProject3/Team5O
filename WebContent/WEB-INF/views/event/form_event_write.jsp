@@ -47,7 +47,7 @@ pageContext.setAttribute("day", day);
 </style>
 
 <!-- 	Modal	 -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
+<div class="modal fade" id="modal_event_write" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
 <div class="modal-header">
@@ -65,14 +65,17 @@ pageContext.setAttribute("day", day);
 			<td style="border: 1px solid #505050; border-radius: 2px; height: 200px;">
 				<div id="image_wrap_before">
 					
+					<!-- 보류
 					<span>
 						<a href="#" id="title_image_choice" class="btn btn-default" 
 						style="width: 50%; float: left; border-radius: 0px;">주제 선택</a>
 					</span>
+					-->
 					
+					<!-- 주제 선택 구현 시 'width: 50%'로 변경 필요 -->
 					<span>
 						<a href="#" id="image_upload" class="btn btn-default" 
-						style="width: 50%; border-radius: 0px;">사진 업로드</a>
+						style="width: 100%; border-radius: 0px;">사진 업로드</a>
 						<!-- 파일 업로드 버튼 '찾아보기' 숨김 -->
 						<input type="file" id="btn_image_upload" name="image_name" accept="image/*" />
 					</span>
@@ -161,6 +164,7 @@ pageContext.setAttribute("day", day);
 		</tr>
 		</table>
 		
+		<input type="hidden" id="e_seq" name="e_seq" />
 		<input type="hidden" id="m_id" name="m_id" />
 		<input type="hidden" id="m_name" name="m_name" />
 		<input type="hidden" id="e_image" name="e_image" />
@@ -179,6 +183,8 @@ pageContext.setAttribute("day", day);
 </div>
 <!--  // Modal	 -->
 
+<input type="hidden" id="event_work" />
+
 <!--		script			-->
 <!--		▼ ▼ ▼ ▼			-->
 <script type="text/javascript">
@@ -189,6 +195,21 @@ $('#event_test').click(function() {
 */
 
 $(document).ready(function () {
+	/*		'이벤트 만들기'로 이벤트 모달을 오픈할 경우 처리		*/
+	$('#event_write_form').click(function() {
+		$('#frm_event_write').attr('action', 'event_write.do');
+		$('#event_write').text("이벤트 만들기");
+	});
+	/*	 // '이벤트 만들기'로 이벤트 모달을 오픈할 경우 처리		*/
+	
+	/*		'이벤트 수정하기'로 이벤트 모달을 오픈할 경우 처리		*/
+	$('#event_update').click(function() {
+		$('#frm_event_write').attr('action', 'event_update.do');
+		$('#event_write').text("이벤트 수정하기");
+		$('#e_seq').val('${ event.e_seq }');
+	});
+	/*	 // '이벤트 수정하기'로 이벤트 모달을 오픈할 경우 처리		*/
+	
 	// 이벤트 만들기 팝업 초기 설정
 	$('#event_write_form').click(function() {
 		// 이벤트 제목 커서 이동

@@ -24,6 +24,16 @@ public class EventDAO {
 		sqlSession.insert(ns + "addEvent", event);
 	}
 	
+	public boolean updateEvent(EventDTO event) throws Exception {
+		sqlSession.update(ns + "updateEvent", event);
+		return true;
+	}
+	
+	public boolean deleteEvent(int seq) throws Exception {
+		sqlSession.delete(ns + "deleteEvent", seq);
+		return true;
+	}
+	
 	public List<EventDTO> selectEventList(CalendarDTO calendar) {
 		return sqlSession.selectList(ns + "selectEventList", calendar);
 	}
@@ -54,6 +64,11 @@ public class EventDAO {
 	
 	public boolean updateEventInvite(EventDTO event) {
 		sqlSession.update(ns + "updateEventInvite", event);
+		return true;
+	}
+	
+	public boolean deleteEventInvite(int seq) {
+		sqlSession.delete(ns + "deleteEventInvite", seq);
 		return true;
 	}
 }

@@ -38,6 +38,7 @@ public class EventController {
 	@Autowired
 	EventService eventService;
 	
+	// 달력 생성
 	@RequestMapping(value="event_calendar.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String event_calendar(Model model, HttpServletRequest request) throws Exception {
 		
@@ -73,6 +74,7 @@ public class EventController {
 		return "event_calendar.tiles";
 	}
 	
+	// 달력 추가 생성
 	@RequestMapping(value="form_calendar.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String calendar_form(Model model, String year, String month, String day,
 								HttpServletRequest request) throws Exception {
@@ -103,12 +105,12 @@ public class EventController {
 		return "form_calendar.tiles";
 	}
 	
+	// 이벤트 생성
 	@RequestMapping(value="event_write.do", method=RequestMethod.POST)
 	public String addEvent(Model model, EventDTO event, HttpServletRequest request,
 							@RequestParam(value="image_name", required=false) MultipartFile fileload) throws Exception {
 		
 		logger.info("event_write.do 접근 " + new Date());
-		logger.info("event.toString(): " + event.toString());
 	//	logger.info("fileload.getOriginalFilename(): " + fileload.getOriginalFilename());
 		
 		if ( event.getE_image().equals("") ) {
@@ -144,6 +146,61 @@ public class EventController {
 		return "redirect:/event_calendar.do";
 	}
 	
+	// 이벤트 수정
+	@RequestMapping(value="event_update.do", method=RequestMethod.POST)
+	public String updateEvent(Model model, EventDTO event, HttpServletRequest request,
+							@RequestParam(value="image_name", required=false) MultipartFile fileload) throws Exception {
+		
+		logger.info("event_update.do 접근 " + new Date());
+		logger.info("event.toString(): " + event.toString());
+	//	logger.info("fileload.getOriginalFilename(): " + fileload.getOriginalFilename());
+		
+		if ( event.getE_image().equals("") ) {
+			event.setE_image(fileload.getOriginalFilename());
+		}
+			
+		if ( !fileload.getOriginalFilename().equals("") ) {
+			
+			String fupload = request.getServletContext().getRealPath("/upload");
+			
+	//		logger.info("fupload: " + fupload);
+			
+			String f = event.getE_image();
+			String newFile = FUpUtil.getNewFile(f);
+			
+	//		logger.info("fupload: " + "/" + newFile);
+			
+			event.setE_image(newFile);
+			
+			File file = new File(fupload + "/" + newFile);
+			FileUtils.writeByteArrayToFile(file, fileload.getBytes());
+		}
+		
+		try {
+			eventService.updateEvent(event);
+			logger.info("업로드 성공");
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+			logger.info("업로드 실패");
+		}
+		
+		return "redirect:/event_detail.do?seq=" + event.getE_seq();
+	}
+	
+	// 이벤트 삭제
+	@RequestMapping(value="event_delete.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String event_update(Model model, int seq) throws Exception {
+		
+		logger.info("event_delete.do 접근 " + new Date());
+		
+		eventService.deleteEvent(seq);
+		eventService.deleteEventInvite(seq);
+		
+		return "redirect:/event_calendar.do";
+	}
+	
+	// 이벤트 상세보기
 	@RequestMapping(value="event_detail.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String event_detail(Model model, HttpServletRequest request, int seq) throws Exception {
 		
@@ -157,6 +214,7 @@ public class EventController {
 		return "forward:/infriendsearch.do?eventSeq=" + seq;
 	}
 	
+	// 이벤트 초대
 	@RequestMapping(value="event_invite.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String event_invite(Model model, int seq, String inviteMemberList) throws Exception {
 		
@@ -195,8 +253,6 @@ public class EventController {
 		eventService.updateEventInvite(event);
 		
 		return "redirect:/event_detail.do?seq=" + event.getE_seq();
-		
-	//	return "event_detail.tiles";
 	}
 	
 }

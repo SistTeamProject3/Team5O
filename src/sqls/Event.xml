@@ -5,6 +5,7 @@
 
 <mapper namespace="Event">
 
+<!-- 이벤트 생성 -->
 <insert id="addEvent" parameterType="sist.co.model.EventDTO">
 	INSERT INTO TP3_EVENT
 		(
@@ -18,6 +19,31 @@
 		)
 </insert>
 
+<!-- 이벤트 수정 -->
+<insert id="updateEvent" parameterType="sist.co.model.EventDTO">
+	UPDATE TP3_EVENT SET
+		E_TITLE=#{e_title},
+		E_CONTENT=#{e_content},
+		E_LOCATION=#{e_location},
+		E_START_DATE=#{e_start_date},
+		E_END_DATE=#{e_end_date},
+		E_IMAGE=#{e_image}
+	WHERE E_SEQ=#{e_seq}
+</insert>
+
+<!-- 이벤트 삭제 -->
+<delete id="deleteEvent" parameterType="Integer">
+	DELETE FROM TP3_EVENT
+	WHERE E_SEQ=#{e_seq}
+</delete>
+
+<!-- 초대 회원 리스트 삭제 ※ 이벤트 삭제 시 같이 삭제 -->
+<delete id="deleteEventInvite" parameterType="Integer">
+	DELETE FROM TP3_EVENT_INVITE
+	WHERE E_SEQ=#{e_seq}
+</delete>
+
+<!-- 이벤트 리스트 불러오기 -->
 <select id="selectEventList" parameterType="sist.co.model.CalendarDTO" resultType="sist.co.model.EventDTO">
 	SELECT * FROM TP3_EVENT
 	WHERE SUBSTR(E_START_DATE, 1, 7)=#{yyyymm}
@@ -25,6 +51,7 @@
 	ORDER BY E_SEQ ASC
 </select>
 
+<!-- 이벤트에 초대 가능한 친구 리스트 불러오기 -->
 <select id="selectEventInviteMember"	parameterType="sist.co.model.EventInviteDTO" 
 										resultType="sist.co.model.EventInviteMemberDTO">
 	SELECT * FROM TP3_MEMBER A

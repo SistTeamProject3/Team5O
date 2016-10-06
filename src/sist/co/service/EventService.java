@@ -11,6 +11,8 @@ import sist.co.model.EventInviteMemberDTO;
 public interface EventService {
 
 	void addEvent(EventDTO event) throws Exception;
+	boolean updateEvent(EventDTO event) throws Exception;
+	boolean deleteEvent(int seq) throws Exception;
 	List<EventDTO> selectEventList(CalendarDTO calendar) throws Exception;
 	List<EventDTO> selectEventInviteList(CalendarDTO calendar) throws Exception;
 	EventDTO selectEventDetail(int seq) throws Exception;
@@ -19,5 +21,5 @@ public interface EventService {
 	List<EventInviteDTO> selectEventInviteResult(int seq);
 	void insertEventInvite(HashMap<String, List<EventInviteDTO>> inviteList) throws Exception;
 	boolean updateEventInvite(EventDTO event) throws Exception;
-	
+	boolean deleteEventInvite(int seq) throws Exception;
 }
