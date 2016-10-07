@@ -34,8 +34,8 @@ public class NewsFeedImpl implements NewsFeedService {
 	}
 
 	@Override
-	public List<NewsFeedDTO> addPrintNewsFeed(int lastseq) {
-		return newsFeeDAO.addPrintNewsFeed(lastseq);
+	public List<NewsFeedDTO> addPrintNewsFeed(NewsFeedListDTO newsfeedlistDTO) {
+		return newsFeeDAO.addPrintNewsFeed(newsfeedlistDTO);
 	}
 
 	@Override
@@ -88,6 +88,11 @@ public class NewsFeedImpl implements NewsFeedService {
 	@Override
 	public List<NewsFeedDTO> getAllNewsFeedList() {
 		return newsFeeDAO.getAllNewsFeedList();
+	}
+
+	@Override
+	public void updateNewsfeed(NewsFeedDTO dto) {
+		newsFeeDAO.updateNewsfeed(dto);
 	}
 
 	

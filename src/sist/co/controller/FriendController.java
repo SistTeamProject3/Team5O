@@ -31,6 +31,8 @@ import sist.co.help.OrderHashMap;
 import sist.co.help.SelectKeyword;
 import sist.co.help.ValueComparator;
 import sist.co.model.EventDTO;
+import sist.co.model.EventInviteDTO;
+import sist.co.model.EventInviteMemberDTO;
 import sist.co.model.FriendDTO;
 import sist.co.service.EventService;
 import sist.co.service.FriendService;
@@ -80,9 +82,19 @@ public class FriendController {
 		//수정할점0908 list정렬 : collection.sort(list명) 단, list<string>.
 
 		HashMap<String, MemberDTO> finformlist = new HashMap<String, MemberDTO>();
+		
+		// 명호 전용: 초대할 친구 리스트
+		List<EventInviteMemberDTO> eventInviteMemberList = new ArrayList<EventInviteMemberDTO>();
+		
 		for(int i = 0; i < flist.size(); i++){
 			MemberDTO memdto = friendService.getFriendsInformation(flist.get(i).getF_id());	
 			finformlist.put(flist.get(i).getF_id(), memdto);		// 친구아이디를 key값으로 친구의 한마디 글 뽑아오기
+			
+			
+			// 명호 전용: 초대할 친구 리스트 조회 & 저장
+			EventInviteDTO eventInvite = new EventInviteDTO(eventSeq, flist.get(i).getF_id(), 0, null);
+			EventInviteMemberDTO eventInviteMember = eventService.selectEventInviteMember(eventInvite);
+			eventInviteMemberList.add(eventInviteMember);
 		}
 			
 		model.addAttribute("flist", flist);				// 그룹 단위로 출력하기 위해서 필요함. 즉,순수하게 정렬하기 위해 필요 : (수정할점0906) 그룹별 출력, 그룹변경 할 수 있도록 버튼만들기 
@@ -90,15 +102,18 @@ public class FriendController {
 		model.addAttribute("imgpath", imgpath);
 		model.addAttribute("login_id", loginMember.getM_id());
 		
-		// 명호님 전용
+		// 명호 전용
 		if ( eventSeq > 0 ) {
+			// 
+			
 			EventDTO event = eventService.selectEventDetail(eventSeq);
 			
 			HttpSession session = request.getSession();
 			session.setAttribute("event", event);
 			session.setAttribute("finformlist", finformlist);
+			session.setAttribute("eventInviteMemberList", eventInviteMemberList);
 			session.setAttribute("imgpath", imgpath);
-			session.setMaxInactiveInterval(60*60);		// 1분 동안 유지
+		//	session.setMaxInactiveInterval(60*60);		// 1시간 동안 유지
 			
 			return "forward:/NewsFeedList2.do?link=event&eventSeq=" + eventSeq;
 		}

@@ -1,262 +1,215 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-    <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
- <style>
-textarea
-{
-  width:100%; 
-}
-
-th{
-width:20%; 
-}
-
- #image_preview {
-    display:none;
-}
-
- #image_preview2 {
-    display:none;
-}
-</style>
-  
-  
-</head>
-<body>
 
 <!-- header -->
 <div class="modal-header">
- 수정하자아아아아아~~
-  <button type="button" class="close"  data-dismiss="modal">×</button>
+짜잔~
+<button type="button" class="close"  data-dismiss="modal">×</button>
 </div>
 
 <!-- body -->
 <div class="modal-body">
   
 <form name="frmForm2" id="_frmForm2" action="writeNewsFeed.do" method="post" enctype="multipart/form-data">
-id===${news.m_id}
-<table class="ys_update_table" style="width: 100%" border="1px solid black">
+<input type="hidden" name="n_seq" value="${param.n_seq }">
+<table class="ys_update_table${param.n_seq }" style="width: 100%" border="1px solid black">
 	<tr>
-		<td colspan="4">상태</td>
+		<td colspan="4">수정하세여</td>
 	</tr>
 	
-	<tr>
+ 	<tr>
 		<th width=300px; rowspan="2">프사사진</th>
-		<td>
-
-		<textarea id="ta2" name="n_content" style="overflow: hidden"></textarea>
-		
-		<div id="room_type">
-				<div id="image_preview2_2" >
-		    	  	  	
-		    	  	  	<label for="image">
-							 <input type=file  name="fileload2" id="image2_2" style='display: none;'> 
-							<img src='image/news_addfile.jpg' name="_file3" id="_file3_2" border='0' onclick='hideAll2();'> 
-						</label>
-			    			
-			
-				</div> 
-				<div class="form-group">
+		<td colspan="2">
+			<textarea id="ta2" name="n_content" style="overflow: hidden">${param.n_content }</textarea>
 				
-					<div id="image_preview_2">
-					 	<img src="#" width="150px" height="100px"/>
-					 	<a class='fa fa-times' onclick="remove_div2(this)"></a> 
-    				</div>			
+			<c:if test="${param.file_name ne ''}">
+				<div id="nowImage${param.n_seq }">
+				<img alt="이미지없음" src="upload/${param.file_name }" width="200px" height="200px" >
+				<i class="fa fa-times" aria-hidden="true" onclick="deleteArea('nowImage${param.n_seq }')"></i>
 				</div>
-		</div>
-		
-		<div id="field_2" ></div>
+				<br>
+			</c:if>
+			
+				<div id="field_2" ></div>
+				
+				<div id="nowWhere_2${param.n_seq }">
+				<c:if test="${param.n_tag_where ne ''}">
+					${param.n_tag_where}&nbsp;에서&nbsp;&nbsp;<i class="fa fa-times" aria-hidden="true" onclick="deleteArea('nowWhere_2${param.n_seq }')"></i>
+				</c:if>
+				</div>
+				
+				<div id="nowFriend_2${param.n_seq }" >
+				<c:if test="${param.n_tag_friend ne ''}">				
+					${param.n_tag_friend}&nbsp;
+					님과 함께&nbsp;&nbsp;<i class="fa fa-times" aria-hidden="true" onclick="deleteArea('nowFriend_2${param.n_seq }')"></i>
+				</c:if>
+				</div>	
 
+				<div id="nowFeel_2${param.n_seq }">
+				<c:if test="${param.n_tag_feel ne ''}">
+					&nbsp;&nbsp;&nbsp;나는 지금
+					<c:choose>
+						<c:when test="${param.n_tag_feel eq 1}"><strong>기뻐요</strong><img src="image/happy.jpg" width="5px" height="5px"></c:when>
+						<c:when test="${param.n_tag_feel eq 2}"><strong>슬퍼요</strong><img src="image/sad.jpg"></c:when>
+						<c:otherwise><strong>피곤해요</strong><img src="image/tired.jpg"></c:otherwise>
+					</c:choose>
+					<i class="fa fa-times" aria-hidden="true" onclick="deleteArea('nowFeel_2${param.n_seq }')"></i>
+				</c:if>	
+				</div>	
 		</td>
-	</tr>
-
-	<tr>
-		<td colspan="4">
-			<div id="nowFriend_2" style='display: none;'>님과 함께&nbsp;&nbsp;<i class="fa fa-times" aria-hidden="true" onclick="deleteArea2('nowFriend')"></i> </div>
-			<div id="nowWhere_2" style='display: none;'></div>
-			<div id="nowFeel_2"  style='display: none;'></div>
-		</td>
-	</tr>
+	</tr> 
 	
-	
-	
-	<tr id="friend_2" style="display:none;">
+	<tr id="friend_2${param.n_seq }" style="display:none;">
 		<th>함께한 친구</th>
-		<td colspan="2"><input type ="text" id="_friend_2" name="n_tag_friend"  onKeyDown="onKeyDown3();"  onclick="this.value=''"></td>
+		<td colspan="2"><input type ="text" id="_friend_2${param.n_seq }" name="n_tag_friend" onKeyDown="onKeyDown3(${param.n_seq });"  onclick="this.value=''"></td>
 	</tr>
 
 	
-	<tr id="feel_2" style="display:none;">	
-	
-		<th id="printFeel_2">나는지금</th>
-		<td colspan="3">
+	<tr id="feel_2${param.n_seq }" style="display:none;">	
+		<td colspan="2">
 			 <div class="dropdown">
-		   		 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-				 <span class="caret"></span></button>
-					  <ul class="dropdown-menu">
-					    <li onclick="getState2('기뻐요'); setState2('1')" value="1"><img src="image/happy.jpg">기뻐요</a></li>
-					    <li onclick="getState2('슬퍼요'); setState2('2')" value="2"><img src="image/sad.jpg">슬퍼요</a></li>
-					    <li onclick="getState2('피곤해요'); setState2('3')" value="3"><img src="image/tired.jpg">피곤해요</a></li>
+					  <ul class="dropdown-menuu">
+					    <li onclick="getState2('기뻐요',${param.n_seq }); setState2('1',${param.n_seq })" value="1"><img src="image/happy.jpg">기뻐요</a></li>
+					    <li onclick="getState2('슬퍼요',${param.n_seq }); setState2('2',${param.n_seq })" value="2"><img src="image/sad.jpg">슬퍼요</a></li>
+					    <li onclick="getState2('피곤해요',${param.n_seq }); setState2('3',${param.n_seq })" value="3"><img src="image/tired.jpg">피곤해요</a></li>
 					  </ul>
 		 	 </div>
-		<!--   <input type="hidden" name="tag_feel" value="0"/>  -->
 		</td>
 	</tr>
 	
-	<tr id="where_2" style="display:none;">
+	<tr id="where_2${param.n_seq }" style="display:none;">
 				<th>장소</th>
-					<td colspan="3"><input type ="text" id="_where_2" name="n_tag_where" onKeyDown="onKeyDown4();" onclick="this.value=''"></td>
+					<td colspan="2"><input type ="text" id="_where_2${param.n_seq }" name="n_tag_where" onKeyDown="onKeyDown4(${param.n_seq });"  value="${param.n_tag_where }" onclick="this.value=''"></td>
 	</tr>
 
 	<tr> 
 	<td colspan="4">
 	
-	<!-- 	
- 			<br/> 
-		  	<input type=file  name="image" id="image_2" style='display: none;'> 
-			<img src='image/news_file.jpg' border='0' onclick='hideAll2();'>
-				
-  		 -->
- 	
-  		 <!--  <label for="image"> -->
-  		 	<input type=file  name="fileload2" id="image_2" style='display: none;'> 
-			<img src='image/news_file.jpg' name="_file2" id="_file2_2" border='0' onclick='hideAll2();'>
-		<!-- 	</label> -->
-	
-		<!-- <span class="fa fa-camera-retro fa-2x"></span> -->
-		&nbsp;&nbsp;&nbsp;&nbsp;
-		<span  style="color:blue" class="fa fa-users fa-2x" id="viewFriend_2"  onclick="return false;"></span>
-		&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="fa fa-smile-o fa-2x" id="viewFeel_2"  onclick="return false;"></span>
-		&nbsp;&nbsp;&nbsp;&nbsp;
-		<span class="fa fa-map-marker fa-2x"  id="viewWhere_2"  onclick="return false;"></span>
+		<input type=file  name="fileloadd" id="image_2${param.n_seq }" style='display: none;'> 
+		<img src='image/news_file.jpg' name="_file2${param.n_seq }" id="_file2_2${param.n_seq }" border='0' onclick='hideAll2(${param.n_seq });'>
 
-		<span style="float:right;"> 
-			<select name="n_show" >
-				<option value="1">전체공개</option>
-				<option value="2">친구만</option>
-				<option value="3">나만보기</option>
-			</select>
-			
-			</span>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<span  style="color:blue" class="fa fa-users fa-2x" id="viewFriend_2${param.n_seq }"  onclick="return false;"></span>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="fa fa-smile-o fa-2x" id="viewFeel_2${param.n_seq }"  onclick="return false;"></span>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="fa fa-map-marker fa-2x"  id="viewWhere_2${param.n_seq }"  onclick="return false;"></span>
+
 	</td>
 
 	</tr>
 </table>
 
-
-
 </form>
 </div>
 <!-- Footer -->
 <div class="modal-footer">
-  <button type="button" class="btn btn-default"  id="update_2" data-dismiss="modal" >수정완료</button>
+  <button type="button" class="btn btn-default"  id="update_2"  onclick="finish()" >수정완료</button>
 </div>
 
 <script type="text/javascript">
  var a ="";
  var countDiv=1;
  
- $("#viewFriend_2").click(function() {
-	  status = $("#friend_2").css("display");
+$("#viewFriend_2${param.n_seq }").click(function() {
+	  status = $("#friend_2${param.n_seq }").css("display");
 	  if (status == "none") {
-	    $("#friend_2").css("display","");
-	    $("#feel_2").css("display","none");
-	    $("#where_2").css("display","none");
+			$("#friend_2${param.n_seq }").show();
+			$("#where_2${param.n_seq }").hide();
+			$("#feel_2${param.n_seq }").hide();
 	  }
 	  else {
-	    $("#friend_2").css("display","none");
+			$("#friend_2${param.n_seq }").hide();
 	  }
-	});
+});
  
- $("#viewFeel_2").click(function() {
-	  status = $("#feel_2").css("display");
+$("#viewFeel_2${param.n_seq }").click(function() {
+	  status = $("#feel_2${param.n_seq }").css("display");
 	  if (status == "none") {
-		  $("#friend_2").css("display","none");
-		  $("#feel_2").css("display","");
-		  $("#where_2").css("display","none");
+			$("#friend_2${param.n_seq }").hide();
+			$("#where_2${param.n_seq }").hide();
+			$("#feel_2${param.n_seq }").show();
 	  }
 	  else {
-	    $("#feel_2").css("display","none");
+			$("#feel_2${param.n_seq }").hide();
 	  }
-	});
+});
  
- $("#viewWhere_2").click(function() {
-	  status = $("#where_2").css("display");
+$("#viewWhere_2${param.n_seq }").click(function() {
+	  status = $("#where_2${param.n_seq }").css("display");
 	  if (status == "none") {
-		  $("#friend_2").css("display","none");
-		  $("#feel_2").css("display","none");
-		  $("#where_2").css("display","");
+			$("#friend_2${param.n_seq }").hide();
+			$("#where_2${param.n_seq }").show();
+			$("#feel_2${param.n_seq }").hide();
 	  }
 	  else {
-	    $("#where_2").css("display","none");
+			$("#where_2${param.n_seq }").hide();
 	  }
-	});
+});
  
-function hideAll2(){
-	 $("#friend_2").css("display","none");
-	  $("#feel_2").css("display","none");
-	  $("#where_2").css("display","none");
+function hideAll2(seq){
+	 $("#friend_2"+seq).hide();
+	  $("#feel_2"+seq).hide();
+	  $("#where_2"+seq).hide();
+}
+function getState2(val,seq) {
+
+	$("#nowFeel_2"+seq).css("display","");
+	$("#nowFeel_2"+seq).text("");
+	$("#nowFeel_2"+seq).text("나는지금  "+val);
+	$("#nowFeel_2"+seq).append("&nbsp;&nbsp;<i class='fa fa-times' aria-hidden='true' onclick=\"deleteArea('nowFeel_2"+seq+"')\"></i>"); 
+
 }
 
-
-function getState2(val) {
-
-	$("#printFeel_2").text("");
-	$("#printFeel_2").append("나는지금  "+val);
-	
-	$("#nowFeel_2").css("display","");
-	$("#nowFeel_2").text("");
-	$("#nowFeel_2").text("나는지금  "+val);
-	$("#nowFeel_2").append("&nbsp;&nbsp;<i class='fa fa-times' aria-hidden='true' onclick=\"deleteArea2('nowFeel')\"></i>"); 
-
-
-	
+function setState2(val,seq){
+	$("#nowFeel_2"+seq).append("<input type='hidden' name='n_tag_feel' value="+val+">");
 }
 
-function setState2(val){
-	
-/* 	$("#tag_feel").attr("value",val); */
-	$("#nowFeel_2").append("<input type='hidden' name='tag_feel' value="+val+">");
-}
-
-function onKeyDown3()
+function onKeyDown3(seq)
 {
      if(event.keyCode == 13)
      {
-    	$("#nowFriend_2").css("display","");
-     	$("#nowFriend_2").prepend($("#_friend_2").val()+",");
+		status = $("#nowFriend_2"+seq).css("display");
+		$("#nowFriend_2"+seq).show();
+		if (status == "none") {
+			$("#nowFriend_2"+seq).text("");
+	  		$("#nowFriend_2"+seq).prepend($("#_friend_2"+seq).val()+"&nbsp;&nbsp;님과 함께 <i class='fa fa-times' aria-hidden='true' onclick=\"deleteArea('nowFriend_2"+seq+"')\"></i>");
+
+		}else{
+	  		$("#nowFriend_2"+seq).prepend($("#_friend_2"+seq).val()+",");
+	    
+    	}
      }
 }
 
-function onKeyDown4()
+function onKeyDown4(seq)
 {
      if(event.keyCode == 13)
      {
-	    $("#nowWhere_2").css("display","");
-		$("#nowWhere_2").text("");
-	    $("#nowWhere_2").text($("#_where_2").val()+"에서");
-		$("#nowWhere_2").append("&nbsp;&nbsp;<i class='fa fa-times' aria-hidden='true' onclick=\"deleteArea2('nowWhere')\"></i>"); 
-		$("#_where_2").text("");
+		status = $("#nowWhere_2"+seq).css("display");
+		$("#nowWhere_2"+seq).show();
+		if (status == "none") {
+	
+			$("#nowWhere_2"+seq).text("");
+		    $("#nowWhere_2"+seq).text($("#_where_2"+seq).val()+"에서");
+			$("#nowWhere_2"+seq).append("&nbsp;&nbsp;<i class='fa fa-times' aria-hidden='true' onclick=\"deleteArea('nowWhere_2"+seq+"')\"></i>"); 
+
+		}else{
+		
+			$("#nowWhere_2"+seq).text("");
+		    $("#nowWhere_2"+seq).text($("#_where_2"+seq).val()+"에서");
+			$("#nowWhere_2"+seq).append("&nbsp;&nbsp;<i class='fa fa-times' aria-hidden='true' onclick=\"deleteArea('nowWhere_2"+seq+"')\"></i>"); 
+
+		}
      }
 }
 
 function deleteArea2(val){
-	$("#"+val+"_2").css("display","none");
+	$("#"+val+"_2").hide();
 }
 
 $(function() {
@@ -338,9 +291,7 @@ function remove_div2(obj){
 	document.getElementById('field_2').removeChild(obj.parentNode);
 }
 
-function test(){
-	alert("test");
-}
+
 
 $(function(){ 
    $("#_file2_2").click(function(){                    
@@ -353,17 +304,17 @@ $(function(){
 	        $("#image2_2").click(); 
 	 	   
 	       });
-	}); 
-
-$("#update_2").click(function(){
-		alert("update");
-});
-
-
-
-
+	});
+	
+function finish(){
+ 	if($("#ta2").val()==""){
+		alert("본문 텍스트 작성은 필수입니다!!!!!!!!!");
+	}
+	else{
+	   alert("피니쉬!!!!");
+	   alert($("#_frmForm2").serialize());
+	   $("#_frmForm2").attr({"target":"_self", "action":"updateNewsFeed.do"}).submit();
+	}
+}
 
 </script>
-
-</body>
-</html>

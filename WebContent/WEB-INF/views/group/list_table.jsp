@@ -7,7 +7,7 @@
 
  <div id="list_div" style="margin-left: 15%; margin-right: 15%; margin-top: 5%; margin-bottom: 5%; ">
 	<c:if test="${re_list.size()>0 && re_list.size() ne 1 }">
-		<table style="width: 100%;" border="1">
+		<table style="width: 100%;" class="table table-bordered">
 			<tr>
 				<c:forEach items="${re_list }" var="list" varStatus="i">
 					<td style="width: 50%; height: 250px;">
@@ -22,7 +22,7 @@
 									</c:if>
 								</tr>
 								<tr>
-									<td style="width: 80%; height: 20%;"><a href="group_detail.do?g_seq=${list.g_seq}">${ list.g_name}</a></td>
+									<td style="width: 80%; height: 20%;"><h4><a href="group_detail.do?g_seq=${list.g_seq}">${ list.g_name}</a></h4></td>
 									<td style="width: 20%; height: 20%;"><img alt="가입" id="g_join${list.g_seq}" class="g_join" data-set="${list.g_seq}" manager="${list.g_manager}" src="image/g_join.jpg"></td>
 								</tr>
 							</table>

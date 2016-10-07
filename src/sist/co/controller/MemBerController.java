@@ -65,7 +65,6 @@ public class MemBerController {
 		return "forward:/NewsFeedList.do";
 	}
 	
-	
 	@RequestMapping(value="loginAf.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String loginAf (HttpServletRequest request, MemberDTO member, Model model) throws Exception{
 		logger.info("환영합니다 loginAf loginAf" + new Date());
@@ -77,7 +76,6 @@ public class MemBerController {
 			request.getSession().setAttribute("login", login);
 			request.getSession().setMaxInactiveInterval(60*60*24);
 
-			
 			return "main.tiles";
 
 		}else{
@@ -111,8 +109,6 @@ public class MemBerController {
 		if(member.getM_content()==null){
 			member.setM_content("");
 		}
-		
-		
 
 		MemberService.add_member(member);
 		return "redirect:/login.do";
@@ -124,12 +120,16 @@ public class MemBerController {
 		logger.info("환영합니다 mypage mypage" + new Date());
 		return "my_page.tiles";
 	}
-	@RequestMapping(value="time_line.do", method=RequestMethod.GET)
-	public String time_line(Model model){
-		logger.info("환영합니다 time_line time_line" + new Date());
-		return "time_line.tiles";
-	}
 	
+	/*영선 수정합니다~~~ */
+	@RequestMapping(value="time_line.do", method=RequestMethod.GET)
+	public String time_line(Model model,String m_id){
+		logger.info("환영합니다 time_line time_line" + new Date());
+		System.out.println("m_id=="+m_id);
+
+		return "redirect:/NewsFeedList2.do?m_id="+m_id+"&link=people";
+	}
+	/*영선  */
 	
 	
 	@RequestMapping(value="change_m_mypage1.do", method={RequestMethod.GET, RequestMethod.POST})
@@ -333,7 +333,7 @@ public class MemBerController {
 		
 		logger.info("환영~ change_m_profile change_m_profile " + new Date());
 
-		NewsFeedListDTO newsfeedlistDTO = new NewsFeedListDTO("main", null, 0);
+		NewsFeedListDTO newsfeedlistDTO = new NewsFeedListDTO("main", null, 0, 0);
 		List<NewsFeedDTO> NewsFeedList =  newsFeedService.getNewsFeedList(newsfeedlistDTO);
         model.addAttribute("NewsFeedList",NewsFeedList);
 		

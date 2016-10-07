@@ -67,12 +67,26 @@
 </if>
 
 <if test="viewPage == 'event'">
+<!-- 
 <![CDATA[
-   SELECT *
-   FROM (SELECT * FROM TP3_NEWSFEED ORDER BY N_SEQ DESC)
-   WHERE ROWNUM<5 
-   AND N_STEP=0
-   AND N_EVENT_SEQ=#{seq}
+	SELECT *
+	FROM (SELECT * FROM TP3_NEWSFEED ORDER BY N_SEQ DESC)
+	WHERE ROWNUM<5 
+	AND N_STEP=0
+	AND N_EVENT_SEQ=#{seq}
+]]>
+-->
+<![CDATA[
+SELECT * FROM(
+SELECT ROWNUM NUM,CC.* FROM(
+(SELECT BC.* FROM (
+SELECT AC.* FROM (
+SELECT * FROM TP3_NEWSFEED A INNER JOIN TP3_EVENT B ON A.N_EVENT_SEQ=B.E_SEQ ORDER BY A.N_SEQ DESC) 
+AC)
+BC)
+CC)
+WHERE (N_STEP=0 AND N_EVENT_SEQ=#{seq} ) 
+)WHERE NUM >=1 and NUM <=5
 ]]>
 </if>
 
@@ -88,14 +102,32 @@
 
 </select>
 
-<select id="addPrintNewsFeed" parameterType="Integer"  resultType="sist.co.model.NewsFeedDTO">
+<select id="addPrintNewsFeed"	parameterType="sist.co.model.NewsFeedListDTO"  
+								resultType="sist.co.model.NewsFeedDTO">
 <!--    SELECT * FROM TP3_NEWSFEED
    WHERE N_SEQ BETWEEN #{lastseq}-6 AND #{lastseq}-1
    ORDER BY N_SEQ DESC -->
-   <![CDATA[    
+<if test="viewPage == 'main'">
+<![CDATA[    
 	SELECT * FROM (  SELECT * FROM (SELECT * FROM TP3_NEWSFEED ORDER BY N_SEQ DESC)
-   WHERE ROWNUM<6 AND N_SEQ<#{lastseq})
-      ]]>
+	WHERE ROWNUM<6 AND N_SEQ<#{lastSeq})
+]]>
+</if>
+
+<if test="viewPage == 'event'">
+<![CDATA[
+SELECT * FROM(
+SELECT ROWNUM NUM,CC.* FROM(
+(SELECT BC.* FROM (
+SELECT AC.* FROM (
+SELECT * FROM TP3_NEWSFEED A INNER JOIN TP3_EVENT B ON A.N_EVENT_SEQ=B.E_SEQ ORDER BY A.N_SEQ DESC) 
+AC)
+BC)
+CC)
+WHERE (N_STEP=0 AND N_EVENT_SEQ=#{seq} ) AND N_SEQ<#{lastSeq}
+)WHERE NUM<6
+]]>
+</if>
 </select>
 
 <select id="getImageFile" resultType="String">
@@ -152,7 +184,10 @@
       (SELECT N_DEPTH FROM TP3_NEWSFEED WHERE N_SEQ=#{n_seq})+1,1,#{n_seq})
 </insert>
 
-
+<update id="updateNewsFeed" parameterType="sist.co.model.NewsFeedDTO">
+	UPDATE TP3_NEWSFEED SET N_CONTENT=#{n_content}, N_TAG_FRIEND= #{n_tag_friend}, N_TAG_WHERE= #{n_tag_where}, N_TAG_FEEL=#{n_tag_feel}, N_WDATE=SYSDATE
+	WHERE N_SEQ=#{n_seq}
+</update>
 
 
 

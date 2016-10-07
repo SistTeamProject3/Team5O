@@ -44,13 +44,13 @@ $(document).ready(function(){
     	 var m_id = $(this).attr("data-set");
     	 var g_seq = $("#g_seq").attr("value");
     	 var i =  $(this).attr("i-count");
-    	 alert(i);
+    	/*  alert(i); */
     	 
     	 $.ajax({
     		 type:"POST",
     			url: "group_mem_out.do?g_seq="+g_seq+"&m_id="+m_id,
     		 success: function(result){
-    			alert(result);
+    			/* alert(result); */
     			$("#profileTable"+i).hide();
     	    }, error: function(){
     	    	alert(result);
@@ -71,8 +71,8 @@ $(document).ready(function(){
 <hr>
 <!-- 멤버 -->
 <c:if test="${g_key eq true || g_make.g_type eq 1 }">
-	<div style="width: 100%; border: 1px solid black;">
-		<table style="width: 100%;" border="1">
+	<div style="width: 100%;" class="table table-bordered">
+		<table style="width: 100%;" class="table table-bordered">
 			<tr>
 			<td align="left">
 				<ul class="ulA">
@@ -81,7 +81,7 @@ $(document).ready(function(){
 					<li class="liA"><a href="#none" id="block">차단(${g_m_r_list.size()})</a>&nbsp;&nbsp;</li>
 					</ul>
 			</td>
-				<td align="right" style="width: 50%;"><button>추가</button>&nbsp;<span><input type="text" value="" name="keyword" id="keyword"><button id="name_search" placeholder="멤버 검색">검색</button>&nbsp;</span></td>
+				<td align="right" style="width: 50%;"class="form-inline"><span><input class="form-control" type="text" value="" placeholder="멤버 검색" name="keyword" id="keyword"></span><span><button id="name_search" class="btn btn-danger">검색</button>&nbsp;</span></td>
 			</tr>
 			<c:if test="${g_m_list.size() == 0}">
 			<tr><td colspan="2"><h4>검색 결과가 없습니다.</h4></td></tr>
@@ -93,7 +93,23 @@ $(document).ready(function(){
 				<div style="width: 100%;">
 				<table id="profileTable${i.count }">
 				<tr>
-				<td style="width: 20%;"><img alt="프로필" src="upload/${mlist.m_profile }"></td>
+				<td style="width: 20%;">
+				<c:if test="${mlist.m_profile eq 'member_basic.jpg'}">
+   				<img alt="사진없음" src="image/${mlist.m_profile}" class="m_profile">
+   				</c:if>
+   				<c:if test="${mlist.m_profile ne 'member_basic.jpg'}">
+   				<img alt="사진없음" src="upload/${mlist.m_profile}" class="m_profile">
+   				</c:if>	
+			<%-- 	
+				<c:if test="${!empty mlist.m_profile && mlist.m_profile ne 'member_basic.jpg'}">
+				<img class="m_profile" alt="프로필" src="upload/${mlist.m_profile}">
+				</c:if>
+				<c:if test="${empty mlist.m_profile || mlist.m_profile eq 'member_basic.jpg' }">
+				<img class="m_profile" alt="프로필" src="image/basic_profile.jpg">
+				</c:if>
+			 --%>
+				</td>
+				
 				<td style="width: 70%;">
 				<h5><a href="#">${mlist.m_name}</a></h5>
 					<c:if test="${mlist.m_university ne null}">
