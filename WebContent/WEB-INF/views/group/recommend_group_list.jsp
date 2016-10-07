@@ -14,7 +14,6 @@ int s_num = (int)snum;
 Object lnum = request.getAttribute("l_num");
 int l_num = (int)lnum;
 
-System.out.println("받은 값 S"+s_num+"L"+l_num);
 
 %>
  <script type="text/javascript">

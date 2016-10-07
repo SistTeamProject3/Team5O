@@ -53,7 +53,6 @@ public class GroupController {
 		groupService.group_make(group);
 		// 만든 그룹으로 가기 위해 작성
 		GroupMakeDTO Mdto = groupService.select_make_group(group);
-		logger.info("멤버 Mdto  " + Mdto.getG_manager());
 		
 		// 그룹에 멤버 넣기
 		GroupMemberDTO member = new GroupMemberDTO();
@@ -119,7 +118,6 @@ public class GroupController {
 	@RequestMapping(value = "group_detail.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String group_detail(Model model, GroupMakeDTO gmake,HttpServletRequest request) throws Exception {
 		logger.info(" group_detail " + new Date());
-		logger.info(gmake.toString() +"투스트링");
 		memDTO =(MemberDTO)request.getSession().getAttribute("login");
 		//가입 유무 확인
 		GroupMemberDTO g_memdto= new GroupMemberDTO(gmake.getG_seq(), memDTO.getM_id(),0 );
@@ -774,6 +772,7 @@ public class GroupController {
 		memDTO =(MemberDTO)request.getSession().getAttribute("login");
 		String keyword = "";
 		String arr[] = tmp.split(",");
+		
 		
 		for (int i = 0; i < arr.length; i++) {
 			if (arr[i].equals("1")) {
