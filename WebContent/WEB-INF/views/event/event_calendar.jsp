@@ -7,7 +7,7 @@
 
 <fmt:requestEncoding value="UTF-8"/>
 
-<link rel="stylesheet" type="text/css" href="css/bootswatch.css"/>
+<!-- <link rel="stylesheet" type="text/css" href="css/bootswatch.css"/> -->
 
 <div id="_event_calendar_prev_month" class="event_calendar"></div>
 

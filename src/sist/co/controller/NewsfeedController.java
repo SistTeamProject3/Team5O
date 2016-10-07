@@ -31,7 +31,7 @@ import sist.co.model.SistPDSDTO;
 
 import sist.co.service.NewsFeedService;
 import sist.co.util.FUpUtil;
-
+import sist.co.service.EventService;
 import sist.co.service.MemberService;
 
 
@@ -46,6 +46,9 @@ public class NewsfeedController {
    
    @Autowired
    MemberService MemberService;
+   
+   @Autowired
+   EventService eventService;
 
    @RequestMapping(value="writeNewsFeed.do", method=RequestMethod.POST)
    public String writeNewsFeed(NewsFeedDTO newsfeeddto,
@@ -127,13 +130,11 @@ public class NewsfeedController {
 
 		/*logger.info("YSController NewsFeedList " + new Date());*/
 
-		MemberDTO login = null;
-
-		login = MemberService.login(member);
+		MemberDTO login = MemberService.login(member);
 
 		if (login != null && !login.getM_id().equals("")) {
 
-			NewsFeedListDTO newsfeedlistDTO = new NewsFeedListDTO("main", null, 0);
+			NewsFeedListDTO newsfeedlistDTO = new NewsFeedListDTO("main", null, 0, 0);
 			List<NewsFeedDTO> NewsFeedList = newsFeedService.getNewsFeedList(newsfeedlistDTO);
 			List<NewsFeedDTO> NewsFeedList2 = newsFeedService.getAllNewsFeedList();
 
@@ -156,10 +157,7 @@ public class NewsfeedController {
 		}
 	}
 	
-    /*
-	 * 공동 작업자: 김명호
-	 * param: link(이벤트 페이지에서 넘너옴)
-	 */
+	// 공동 작업
 	@RequestMapping(value = "NewsFeedList2.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String NewsFeedList2(HttpServletRequest request, MemberDTO member, Model model,
 			@RequestParam (value = "link", defaultValue = "") String link,
@@ -168,28 +166,27 @@ public class NewsfeedController {
 /*		logger.info("YSController NewsFeedList2 " + new Date());
 		
 		logger.info("link: " + link + ", eventSeq: " + eventSeq);
-		logger.info("member: " + member.toString());*/
-	
+		logger.info("member: " + member.toString());
+*/
+		String peopleNameArr[];
+		String peopleName = "";
 		NewsFeedListDTO newsfeedlistDTO = null;
 		
-		/*System.out.println("수정전"+member.getM_id());*/
 
-		String peopleName_final="";
-		/*System.out.println("수정후"+member.getM_id());*/
-		
 		// 공동 작업
-		if ( link.equals("main") ) 			newsfeedlistDTO = new NewsFeedListDTO("main", null, 0);
-		else if ( link.equals("people") ) 	{
-			String peopleName[] = member.getM_id().split(",");
-			member.setM_id(peopleName[0]);
-			peopleName_final=peopleName[0];
-			newsfeedlistDTO = new NewsFeedListDTO("people", member.getM_id(), 0);
+		if ( link.equals("main") ) 			newsfeedlistDTO = new NewsFeedListDTO("main", null, 0, 0);
+		else if ( link.equals("people") ) {
+			peopleNameArr = member.getM_id().split(",");
+			member.setM_id(peopleNameArr[0]);
+			peopleName = peopleNameArr[0];
+			newsfeedlistDTO = new NewsFeedListDTO("people", member.getM_id(), 0, 0);
 		}
-		else if ( link.equals("event") )	newsfeedlistDTO = new NewsFeedListDTO("event", null, eventSeq);
-		else								newsfeedlistDTO = new NewsFeedListDTO("main", null, 0);
+		else if ( link.equals("event") )	newsfeedlistDTO = new NewsFeedListDTO("event", null, eventSeq, 0);
+		else								newsfeedlistDTO = new NewsFeedListDTO("main", null, 0, 0);
 		
+//		logger.info("member: " + member.toString());
 
-		/*logger.info("member: " + member.toString());*/
+		
 		List<NewsFeedDTO> NewsFeedList = newsFeedService.getNewsFeedList(newsfeedlistDTO);
 		List<NewsFeedDTO> NewsFeedList2 = newsFeedService.getAllNewsFeedList();
 
@@ -202,15 +199,30 @@ public class NewsfeedController {
 	
 		model.addAttribute("NewsFeedList", NewsFeedList);
 		model.addAttribute("NewsFeedList2", NewsFeedList2);
+		model.addAttribute("viewPage", link);
+		model.addAttribute("eventSeq", eventSeq);
 		
 		if ( link.equals("event") ) {
 			HttpSession session = request.getSession();
+			MemberDTO loginMember = (MemberDTO) session.getAttribute("login");
+			
+			EventDTO event = new EventDTO();
+			event.setE_seq(eventSeq);
+			event.setM_id(loginMember.getM_id());
+			
+			EventDTO eventInvite = eventService.selectEventInvite(event);
+			/*if ( eventInvite != null ) {
+				logger.info("eventInvite: " + eventInvite.toString());
+			}*/
+			
+			model.addAttribute("eventInvite", eventInvite);
 			model.addAttribute("event", session.getAttribute("event"));
 			model.addAttribute("finformlist", session.getAttribute("finformlist"));
+			model.addAttribute("eventInviteMemberList", session.getAttribute("eventInviteMemberList"));
+			model.addAttribute("eventInviteResult", session.getAttribute("eventInviteResult"));
 			model.addAttribute("imgpath", session.getAttribute("imgpath"));
 			
 			return "event_detail.tiles";
-			
 			
 		} else if ( link.equals("people") ) {   // 영선수정
 			/*	 	         String m_id = ((MemberDTO)request.getSession().getAttribute("login")).getM_id();
@@ -220,7 +232,9 @@ public class NewsfeedController {
 	  
 	         model.addAttribute("member", member);
 	         model.addAttribute("imgpath", imgpath);*/
-	         model.addAttribute("peopleName", peopleName_final);
+
+	         model.addAttribute("peopleName", peopleName);
+
 	         
 	         return "time_line.tiles";
 	      }
@@ -228,42 +242,46 @@ public class NewsfeedController {
 		return "main.tiles";
 }   
    
-   
-/*   @RequestMapping(value="test.do", 
-         method={RequestMethod.GET, RequestMethod.POST})
-   public String test(Model model, int lastseq){   
-	 
-      logger.info("YSController test" + new Date());
-      model.addAttribute("lastseq",lastseq);
-      return "redirect:/test2.do";
-   }*/
-   
-   
-@RequestMapping(value="test2.do", 
-         method={RequestMethod.GET, RequestMethod.POST})
-   public String test2(Model model, int lastseq){
-      logger.info("YSController test2" + new Date());
-      
-      List<NewsFeedDTO> NewsFeedList  =  newsFeedService.addPrintNewsFeed(lastseq);
-      List<NewsFeedDTO> NewsFeedList2 = newsFeedService.getAllNewsFeedList();
-      if(NewsFeedList.size()==0){
-         System.out.println("null이다");
-         
-      }else{
-        for (int i = 0; i < NewsFeedList.size(); i++) {
-         if (NewsFeedList.get(i).getN_form_num() == 1) {
-            String fname = newsFeedService.getImageFile((NewsFeedList.get(i).getN_seq()));
-            NewsFeedList.get(i).setFilename(fname);
-         }
-      }
-   
-      model.addAttribute("NewsFeedList", NewsFeedList);
-      model.addAttribute("NewsFeedList2", NewsFeedList2);
-      }
-      return "newsfeed.tiles";
-}
 
-   
+	@RequestMapping(value = "test2.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public String test2(Model model,
+			@RequestParam (value = "link", defaultValue = "") String link,
+			@RequestParam (value = "eventSeq", defaultValue = "0") int eventSeq,
+			@RequestParam (value = "lastSeq", defaultValue = "0") int lastSeq) {
+		
+		logger.info("YSController test2 " + new Date());
+		logger.info("link: " + link + ", eventSeq: " + eventSeq + ", lastSeq: " + lastSeq);
+
+
+		NewsFeedListDTO newsfeedlistDTO = null;
+
+		// 공동 작업
+		if (link.equals("main"))			newsfeedlistDTO = new NewsFeedListDTO("main", null, 0, lastSeq);
+		else if (link.equals("event"))		newsfeedlistDTO = new NewsFeedListDTO("event", null, eventSeq, lastSeq);
+		else								newsfeedlistDTO = new NewsFeedListDTO("main", null, 0, lastSeq);
+
+		model.addAttribute("viewPage", link);
+		model.addAttribute("eventSeq", eventSeq);
+		
+		List<NewsFeedDTO> NewsFeedList = newsFeedService.addPrintNewsFeed(newsfeedlistDTO);
+		List<NewsFeedDTO> NewsFeedList2 = newsFeedService.getAllNewsFeedList();
+		
+		if (NewsFeedList.size() == 0) {
+			System.out.println("null이다");
+
+		} else {
+			for (int i = 0; i < NewsFeedList.size(); i++) {
+				if (NewsFeedList.get(i).getN_form_num() == 1) {
+					String fname = newsFeedService.getImageFile((NewsFeedList.get(i).getN_seq()));
+					NewsFeedList.get(i).setFilename(fname);
+				}
+			}
+
+			model.addAttribute("NewsFeedList", NewsFeedList);
+			model.addAttribute("NewsFeedList2", NewsFeedList2);
+		}
+		return "newsfeed.tiles";
+	}
    
    @RequestMapping(value="updateShow.do", 
             method={RequestMethod.GET, RequestMethod.POST})

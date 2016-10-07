@@ -14,26 +14,42 @@ $(window).bind('scroll', function(){
 
 function news_scrollEvent(){
 
-	 $(window).unbind('scroll');
-     var lastseq = $(".table:last").attr("data-seq");
- 	  $.ajax({
- 	        type: 'POST',
- 	        url: 'test2.do',
- 	        data: {'lastseq' : lastseq ,'viewPage' : 'main','eventSeq' : '0'},
- 			async: false ,
- 			cache: false,
- 	        success: function(data) {
- 	        	  $('#scrolling').append(data); 
- 	        	 $(window).bind('scroll', function(){
- 	        		   if ($(window).scrollTop() == $(document).height() - $(window).height()){
- 	        			  news_scrollEvent();
- 	        		   }   
- 	        	 }); 
- 	        },
- 	        error: function(data) {
- 	      		alert("error");
- 	        }
- 	     }); 
+	$(window).unbind('scroll');
+	var lastseq = $(".table:last").attr("data-seq");
+	var viewPage;
+	var eventSeq;
+	
+	if ( '${ param.viewPage }' == '' ) {
+		viewPage = '${ viewPage }';
+	} else {
+		viewPage = '${ param.viewPage }';
+	}
+	
+	if ( '${ param.eventSeq }' == '' ) {
+		eventSeq = '${ eventSeq }';
+	} else {
+		eventSeq = '${ param.eventSeq }';
+	}
+ 	
+	$.ajax({
+		type: 'POST',
+		url: 'test2.do',
+		data: {'lastSeq' : lastseq ,'link' : viewPage, 'eventSeq' : eventSeq},
+		async: false ,
+		cache: false,
+		success: function(data) {
+			$('#scrolling').append(data); 
+			$(window).bind('scroll', function(){
+				if ($(window).scrollTop() == $(document).height() - $(window).height()){
+				news_scrollEvent();
+				}   
+			}); 
+		},
+		error: function(data) {
+			alert("error");
+		}
+	}); 
+
 }
 
 </script>
@@ -50,15 +66,15 @@ function news_scrollEvent(){
   <div class="modal-dialog">
     <div class="modal-content">
     
-			<jsp:include page="/WEB-INF/views/newsfeed/newsfeed_update_modal.jsp">
-				<jsp:param value="${news.n_seq}" name="n_seq"/>
-				<jsp:param value="${news.n_content}" name="n_content"/>
-				<jsp:param value="${news.n_tag_where}" name="n_tag_where"/>
-				<jsp:param value="${news.n_tag_friend}" name="n_tag_friend"/>
-				<jsp:param value="${news.n_tag_feel}" name="n_tag_feel"/>
-				<jsp:param value="${news.filename }" name="file_name"/>
-			</jsp:include>
-			
+         <jsp:include page="/WEB-INF/views/newsfeed/newsfeed_update_modal.jsp">
+            <jsp:param value="${news.n_seq}" name="n_seq"/>
+            <jsp:param value="${news.n_content}" name="n_content"/>
+            <jsp:param value="${news.n_tag_where}" name="n_tag_where"/>
+            <jsp:param value="${news.n_tag_friend}" name="n_tag_friend"/>
+            <jsp:param value="${news.n_tag_feel}" name="n_tag_feel"/>
+            <jsp:param value="${news.filename }" name="file_name"/>
+         </jsp:include>
+         
     </div>
   </div> 
 </div> 
@@ -72,10 +88,10 @@ function news_scrollEvent(){
 <br><br>
 
 <!-- 한영선: 뉴스피드 테이블 1 (댓글리스트 출력 제외한 나머지 전부) -->
-<div class="table2" data-seq="${news.n_seq }" id="newsfeedlist_total${news.n_seq }" style="width: 80%; border: 1px solid black;">
+<div class="table2" data-seq="${news.n_seq }" id="newsfeedlist_total${news.n_seq }" style="width: 800px;">
 <div class="table" data-seq="${news.n_seq }" id="newsfeedlist_top${news.n_seq }">
 
-	<table class="newsfeed_list_table${news.n_seq }" style="width: 100%; ">
+	<table class="newsfeed_list_table${news.n_seq } table  table-condensed table-bordered " style="width: 100%; ">
 		<tr>
 			
 			<td width=80px; rowspan="2">
@@ -90,7 +106,7 @@ function news_scrollEvent(){
 			<td>
 			
 			<!-- 한영선: "수정/삭제" (in 뉴스피드 테이블 1)  -->
-			<select name="update_select">
+			<select name="update_select" class="form-control">
 			 	<option value=""><삭제/수정></option>
 			 	<option  value="삭제" onclick="removeNews('${news.n_seq}')" >삭제</option>
 			 	<option value="수정" data-toggle="modal" data-target=".yss${news.n_seq }">수정</option>
@@ -103,7 +119,7 @@ function news_scrollEvent(){
 			<td align=left>작성시간 : ${news.n_wdate}</td>
 			<td>
 				<!-- 한영선: "공개 대상" (in 뉴스피드 테이블 1)  -->
-				<select class="dropdown-menu4" id="total">
+				<select class="dropdown-menu4 form-control" id="total">
 				<c:choose>
 					<c:when test="${news.n_show eq 1}"> 
 						<option value=""><공개 대상></option>
@@ -211,34 +227,37 @@ function news_scrollEvent(){
 		<!-- // 한영선: 댓글 입력  (in 뉴스피드 테이블 1)  -->
 
 	</table>
+
 </div>
 <!-- // 한영선: 뉴스피드 테이블 1 (댓글리스트 출력 제외한 나머지 전부) -->
 
 
 <!-- 한영선: 뉴스피드 테이블2 (댓글리스트 출력) -->
 <div id="newsfeedlist_bottom${news.n_seq }">
-	<table class="newsfeed_list_table2${news.n_seq }"  >
-		<c:forEach var="news2" items="${NewsFeedList2 }" varStatus="j"> 
-		
-			<c:if test="${news.n_seq eq news2.n_parent}">	
-				<tr class="comment2${news.n_seq }"style="display: none;">
-					<td rowspan="2">
-<%-- 					<c:if test="${login.m_profile eq 'member_basic.jpg'}">
-					<img alt="사진없음" src="./image/${login.m_profile}" height="50px" width="50px">
-					</c:if>
-					<c:if test="${login.m_profile ne 'member_basic.jpg'}">
-					<img alt="사진없음" src="upload/${login.m_profile}" height="50px" width="50px">
-					</c:if> --%>
-					</td>
-					
-					<td colspan="2" align="left">&nbsp;<Strong>${news2.m_id }</Strong> &nbsp;&nbsp;${news2.n_content }</td>
-				</tr>
-				<tr class="comment3${news.n_seq }"  align="left"style="display: none;">
-					<td colspan="2">&nbsp;<a>좋아요</a>&nbsp;·&nbsp;<a>답글달기</a>&nbsp;·&nbsp;${news2.n_wdate }</td>
-				</tr>
-			</c:if>
-		</c:forEach>
-	</table>
+
+   <table class="newsfeed_list_table2${news.n_seq }"  >
+      <c:forEach var="news2" items="${NewsFeedList2 }" varStatus="j"> 
+      
+         <c:if test="${news.n_seq eq news2.n_parent}">   
+            <tr class="comment2${news.n_seq }"style="display: none;">
+               <td rowspan="2">
+<%--                <c:if test="${login.m_profile eq 'member_basic.jpg'}">
+               <img alt="사진없음" src="./image/${login.m_profile}" height="50px" width="50px">
+               </c:if>
+               <c:if test="${login.m_profile ne 'member_basic.jpg'}">
+               <img alt="사진없음" src="upload/${login.m_profile}" height="50px" width="50px">
+               </c:if> --%>
+               </td>
+               
+               <td colspan="2" align="left">&nbsp;<Strong>${news2.m_id }</Strong> &nbsp;&nbsp;${news2.n_content }</td>
+            </tr>
+            <tr class="comment3${news.n_seq }"  align="left"style="display: none;">
+               <td colspan="2">&nbsp;<a>좋아요</a>&nbsp;·&nbsp;<a>답글달기</a>&nbsp;·&nbsp;${news2.n_wdate }</td>
+            </tr>
+         </c:if>
+      </c:forEach>
+   </table>
+
 </div>
 <!-- // 한영선: 뉴스피드 테이블2 (댓글리스트 출력) -->
 
@@ -261,91 +280,92 @@ function news_scrollEvent(){
 <script type="text/javascript">
 
 function like(val, val2){
-	var now_like_member
-		$.ajax({
-		type: 'GET',
-		url:'Like.do',
-		data:{'seq':val , 'm_id':'${login.m_id}'},
-		async: false ,
-		cache: false,
-		success: function(data) {
-			now_like_member=data;
-	    },
-	    error: function(data) {
-			alert("like error");
-	    } 
-	}); 
+   var now_like_member
+      $.ajax({
+      type: 'GET',
+      url:'Like.do',
+      data:{'seq':val , 'm_id':'${login.m_id}'},
+      async: false ,
+      cache: false,
+      success: function(data) {
+         now_like_member=data;
+       },
+       error: function(data) {
+         alert("like error");
+       } 
+   }); 
 
-	status = $("#like_btn"+val).css("color");
-	if(status=="rgb(255, 0, 0)"){
-		$(" #like_btn"+val).css("color","black");
-		$(" #like_btn_second"+val).css("color","black");
-		$("#show_like_member"+val).css("display","none");
-		
-	}else{
-		$(" #like_btn"+val).css("color","red");
-		$(" #like_btn_second"+val).css("color","red");
-		$("#show_like_member"+val).show();
-		$("#like_member"+val).text(now_like_member);
-	};
+   status = $("#like_btn"+val).css("color");
+   if(status=="rgb(255, 0, 0)"){
+      $(" #like_btn"+val).css("color","black");
+      $(" #like_btn_second"+val).css("color","black");
+      $("#show_like_member"+val).css("display","none");
+      
+   }else{
+      $(" #like_btn"+val).css("color","red");
+      $(" #like_btn_second"+val).css("color","red");
+      $("#show_like_member"+val).show();
+      $("#like_member"+val).text(now_like_member);
+   };
 }
 
 function showComment(val){
 
-	 status = $("#show_comment"+val).css("display");
-	 if(status=="none"){
-		$(".comment2"+val).show();
-		$(".comment3"+val).show();
-		$("#show_comment"+val).show();
-	 }else{
-		 $(".comment2"+val).hide();
-		 $(".comment3"+val).hide();
-		 $("#show_comment"+val).hide();
-	 }
+    status = $("#show_comment"+val).css("display");
+    if(status=="none"){
+      $(".comment2"+val).show();
+      $(".comment3"+val).show();
+      $("#show_comment"+val).show();
+    }else{
+       $(".comment2"+val).hide();
+       $(".comment3"+val).hide();
+       $("#show_comment"+val).hide();
+    }
 }
 
 function updateShow(val){
-	 $.ajax({
-		type: 'GET',
-		url:'updateShow.do',
-		data:{'val':val},
-	 })
+    $.ajax({
+      type: 'GET',
+      url:'updateShow.do',
+      data:{'val':val},
+    })
 }
 
 function changeShow(val,val2){
-	if(val2=="1"){
-		$("#dropdown-menu-"+1+"-"+val).css("color","red");
-		$("#dropdown-menu-"+2+"-"+val).css("color","black");
-		$("#dropdown-menu-"+3+"-"+val).css("color","black");
-	}else if(val2=="2"){
-		$("#dropdown-menu-"+1+"-"+val).css("color","black");
-		$("#dropdown-menu-"+2+"-"+val).css("color","red");
-		$("#dropdown-menu-"+3+"-"+val).css("color","black");
-	}else if(val2=="3"){
-		$("#dropdown-menu-"+1+"-"+val).css("color","black");
-		$("#dropdown-menu-"+2+"-"+val).css("color","black");
-		$("#dropdown-menu-"+3+"-"+val).css("color","red");
-	}
+   if(val2=="1"){
+      $("#dropdown-menu-"+1+"-"+val).css("color","red");
+      $("#dropdown-menu-"+2+"-"+val).css("color","black");
+      $("#dropdown-menu-"+3+"-"+val).css("color","black");
+   }else if(val2=="2"){
+      $("#dropdown-menu-"+1+"-"+val).css("color","black");
+      $("#dropdown-menu-"+2+"-"+val).css("color","red");
+      $("#dropdown-menu-"+3+"-"+val).css("color","black");
+   }else if(val2=="3"){
+      $("#dropdown-menu-"+1+"-"+val).css("color","black");
+      $("#dropdown-menu-"+2+"-"+val).css("color","black");
+      $("#dropdown-menu-"+3+"-"+val).css("color","red");
+   }
 }
 
 function removeNews(val){
-	 $.ajax({
-			type: 'GET',
-			url:'deleteNews.do',
-			data:{'val':val},
-		    success: function(data) {
-		    	$(".newsfeed_list_table"+val).hide();
-		    	$(".newsfeed_list_table2"+val).hide();
-		    },
+    $.ajax({
+         type: 'GET',
+         url:'deleteNews.do',
+         data:{'val':val},
+          success: function(data) {
+             $(".newsfeed_list_table"+val).hide();
+             $(".newsfeed_list_table2"+val).hide();
+          },
             error: function(data) {
                alert("removeNews error");
             }
-		 });
+       });
 }
 
 function onKeyDown_comment(val)
 {
     if(event.keyCode == 13)
+
 	{
 	 	var s = "<tr><td rowspan='2'></td><td colspan='2' align='left'>&nbsp;<Strong>${login.m_id }</Strong> &nbsp;&nbsp;"+
 	 	$("#n_content"+val).val()+"</td></tr><tr><td colspan='2' align='left'>&nbsp;<a>좋아요</a>&nbsp;·&nbsp;<a>답글달기</a>&nbsp;·&nbsp;방금전</td></tr>";
@@ -363,6 +383,7 @@ function onKeyDown_comment(val)
 		 });
 		
 		$("#n_content"+val).val("");
+
    }
 }
 

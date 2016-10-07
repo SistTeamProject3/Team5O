@@ -333,7 +333,7 @@ public class MemBerController {
 		
 		logger.info("환영~ change_m_profile change_m_profile " + new Date());
 
-		NewsFeedListDTO newsfeedlistDTO = new NewsFeedListDTO("main", null, 0);
+		NewsFeedListDTO newsfeedlistDTO = new NewsFeedListDTO("main", null, 0, 0);
 		List<NewsFeedDTO> NewsFeedList =  newsFeedService.getNewsFeedList(newsfeedlistDTO);
         model.addAttribute("NewsFeedList",NewsFeedList);
 		

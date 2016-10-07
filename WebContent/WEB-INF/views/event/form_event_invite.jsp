@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.*" %>
+<%@ page import="sist.co.model.EventInviteMemberDTO" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -7,6 +9,9 @@
 
 <link rel="stylesheet" type="text/css" href="css/jquery.mCustomScrollbar.css"/>
 <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+
+<!--	자동완성 라이브러리	-->
+<script src="js/bootstrap3-typeahead.min.js"></script>
 
 <style type="text/css">
 
@@ -67,7 +72,8 @@
 /*		검색된 친구 리스트		*/
 
 .invite_content_search_list_wrap {
-	width: 70%;
+	/* width: 70%; 친구 그룹이 존재할 경우 사용*/
+	width: 100%;
 	height: 90%;
 	padding: 15px;
 	float: right;
@@ -81,6 +87,10 @@
 	border: 1px solid #CCCCCC;
 	background-color: aqua;
 	cursor: pointer;
+}
+
+.tbl_search_friend_off {
+	background-color: #EEE;
 }
 
 /*	 // 검색된 친구 리스트		*/
@@ -138,19 +148,20 @@
 	</button>
 	<h4 class="modal-title" id="myModalLabel">친구 초대</h4>
 </div>
-<div class="modal-body modal-body-invite">
-	<form id="frm_event_invite" action="event_invite.do" method="POST">
+<div id="modal_invite_body" class="modal-body modal-body-invite">
+	<!-- <form id="frm_event_invite" action="event_invite.do" method="POST"> -->
 		<div class="invite_content">
 			<div class="invite_content_left">
 				
 				<!--		친구할 초대 검색		-->
 				<div class="invite_content_head">
-					<input type="text" class="form-control" placeholder="닉네임을 검색해주세요."
-						style="width: 100%; height:100%; padding: 5px;" />
+					<input type="text" id="invite_friend_search" class="form-control typeahead" placeholder="이름을 검색해주세요."
+						contenteditable="true" style="width: 100%; height:100%; padding: 5px;" />
 				</div>
 				<!--	 // 친구할 초대 검색		-->
 				
 				<!--		초대 그룹		-->
+				<!-- 보류
 				<div class="invite_content_friend_group_wrap invite_form_border mCustomScrollbar">
 					<div>
 						<ul class="invite_content_friend_group_type">
@@ -159,53 +170,61 @@
 						</ul>
 					</div>
 				</div>
+				-->
 				<!--	 // 초대 그룹		-->
 				
 				<!--		초대할 친구 리스트		-->
+				<c:set var="memberList" value="${ eventInviteMemberList }" />
+				
 				<div class="invite_content_search_list_wrap invite_form_border mCustomScrollbar" 
 					data-mcs-theme="minimal-dark">
 					<table style="width: 100%;">
 						<col style="width: 50%;" /><col style="width: 50%;" />
 						<tr>
-							<td style="text-align: left;">친구(${ finformlist.size() })</td>
-							<td style="text-align: right;">모두 선택</td>
+							<td style="text-align: left;">친구(${ memberList.size() })</td>
+							<td style="text-align: right;">
+								<a href="#" id="btn_invite_all" onclick="return false">모두 선택</a>
+							</td>
 						</tr>
 					</table>
 					
 					<br/>
-					
-					<c:forEach var="friend" items="${ finformlist }">
-						<div class="search_friend_info" style="height: 55px;">
-							<table class="tbl_search_friend" data-m_id="${ friend.value.m_id }">
-								<col width="70px" /><col width="300px" /><col width="70px" />
+						
+					<c:forEach var="friend" items="${ memberList }">
+						<div class="search_friend_info ${ friend.m_name }" style="height: 55px;">
+							<table	<c:if test="${ empty friend.ei_write_date }">class="tbl_search_friend ${ friend.m_name }"</c:if>
+									<c:if test="${ !empty friend.ei_write_date }">class="tbl_search_friend_off ${ friend.m_name }"</c:if>
+								 data-m_id="${ friend.m_id }" data-m_name="${ friend.m_name }">
+								<%-- <col width="70px" /><col width="300px" /><col width="70px" /> --%>
+								<col width="70px" /><col width="500px" /><col width="70px" />
 								<tr>
 									<td>
 										<img alt="프로필 사진" src="image/event/profile_base.jpg" 
 											width="50px" height="50px" />
 									</td>
 									<td style="text-align: left;">
-										${ friend.value.m_id }
+										${ friend.m_name }
 										<br/>
 										<!-- 추가 정보 출력 우선순위(직장 > 대학교 > 고등학교 > 거주지) -->
 										<!-- 아무것도 없으면 공백 -->
 										<font style="color: #AAA;">
 										<c:choose>
-										<c:when test="${ !empty friend.value.m_office }">
-											${ friend.value.m_office }
+										<c:when test="${ !empty friend.m_office }">
+											${ friend.m_office }
 										</c:when>
 										
 										<c:otherwise>
 											<c:choose>
-												<c:when test="${ !empty friend.value.m_university }">
-													${ friend.value.m_university }
+												<c:when test="${ !empty friend.m_university }">
+													${ friend.m_university }
 												</c:when>
 												
-												<c:when test="${ !empty friend.value.m_highschool }">
-													${ friend.value.m_highschool }
+												<c:when test="${ !empty friend.m_highschool }">
+													${ friend.m_highschool }
 												</c:when>
 												
-												<c:when test="${ !empty friend.value.m_address }">
-													${ friend.value.m_address }
+												<c:when test="${ !empty friend.m_address }">
+													${ friend.m_address }
 												</c:when>
 												
 												<c:otherwise>
@@ -216,13 +235,19 @@
 										</font>
 									</td>
 									<td style="text-align: center;">
+										<c:if test="${ empty friend.ei_write_date }">
 										<img id="chk_image" class="chk_image" alt="체크 이미지" 
 											src="image/event/invite_check_off.png" data-check="0" />
+										</c:if>
+										<c:if test="${ !empty friend.ei_write_date }">
+										초대됨
+										</c:if>
 									</td>
 								</tr>
 							</table>
 						</div>
 					</c:forEach>
+					
 				</div>
 				<!--	 // 초대할 친구 리스트		-->
 			</div>
@@ -235,7 +260,7 @@
 				</div>
 			</div>
 		</div>
-	</form>
+	<!-- </form> -->
 </div>
 <div class="modal-footer modal-footer-invite">
 	<!-- <button type="button" id="event_test" class="btn btn-default">테스트</button> -->
@@ -248,6 +273,11 @@
 </div>	<!-- #modal_invite_refresh -->
 <!--  // Modal	 -->
 
+<form id="frm_event_invite_list" action="event_invite.do" method="POST">
+	<input type="hidden" id="seq" name="seq" />
+	<input type="hidden" id="inviteMemberList" name="inviteMemberList" />
+</form>
+
 <!--		script			-->
 <!--		▼ ▼ ▼ ▼			-->
 <script type="text/javascript">
@@ -258,6 +288,7 @@ $('#event_test').click(function() {
 */
 
 $(document).ready(function () {
+	
 	// 이벤트 만들기 팝업 초기 설정
 	$('#event_write_form').click(function() {
 		
@@ -272,6 +303,11 @@ $(document).ready(function () {
 	/* 	 // 기본 환경설정 		*/
 	
 	/*		검색된 친구 리스트 시각효과		*/
+	// 모든 친구 선택
+	$('#btn_invite_all').click(function() {
+		$('.tbl_search_friend').click();
+	});
+	
 	var inviteMemberList = "";	// 선택한 친구를 초대 리스트에 저장
 	var choiceCnt = 0;			// 선택한 친구 개수 저장
 	
@@ -281,12 +317,13 @@ $(document).ready(function () {
 		var chkVal = $(target).attr('data-check');
 		
 		var m_id = $(this).attr('data-m_id');
-		var choiceFriendTag = "<div id = choice-" + m_id + ">"
+		var m_name = $(this).attr('data-m_name');
+		var choiceFriendTag = "<div id = choice-" + m_name + ">"
 							+ "<div class='add_choice_friend_info'>"
 							+ "<img alt='프로필 사진' src='image/event/profile_base.jpg'" 
 							+ "class='choice_friend_profile_image' />"
 							+ "<div class='choice_friend_info'>"
-							+ m_id
+							+ m_name
 							+ "</div></div></div>";
 		
 		// 체크되지 않은 상태면
@@ -310,7 +347,7 @@ $(document).ready(function () {
 			$(target).attr('data-check', '0');
 			
 			// 선택한 친구를 선택 리스트에서 제거
-			$('#choice-' + m_id).remove();
+			$('#choice-' + m_name).remove();
 			
 			// 초대 리스트에서 제거
 			inviteMemberList = inviteMemberList.replace(m_id + "-", "");
@@ -344,8 +381,27 @@ $(document).ready(function () {
 	
 	/*		선택한 친구에게 초대 발송		*/
 	$('#btn_event_invite').click(function() {
+		
+		// 선택한 대상이 없을 경우
+		if ( inviteMemberList == '' ) {
+			alert("대상이 없어 초대되지 않았습니다.");
+			$('#btn_event_close').click();
+			return false;
+		} 
+		
 		var eventSeq = '${ event.e_seq }';
 		
+		$('#seq').val(eventSeq);
+		$('#inviteMemberList').val(inviteMemberList);
+		
+		$('#frm_event_invite_list').submit();
+		alert("초대 완료");
+		/* 
+		var modalTag2 = $('.invite_content').html();
+		$('.invite_content_left').remove();
+		$('.invite_content_right').remove();
+		*/
+		/* 보류
 		$.ajax({
 			url: 'event_invite.do',
 			type: 'POST',
@@ -354,14 +410,79 @@ $(document).ready(function () {
 			cache: false,
 			success: function(data) {
 				alert("초대 완료");
+			//	$('#btn_event_close').click();
+			},
+			error: function(data) {
+				alert("실패..." + "\n" + "data: " + data);
+			}
+		});
+		
+		$.ajax({
+			url: 'event_detail.do',
+			type: 'POST',
+			data: { 'seq' : eventSeq },
+			async: false,
+			cache: false,
+			success: function(data) {
 				$('#btn_event_close').click();
 			},
 			error: function(data) {
 				alert("실패..." + "\n" + "data: " + data);
 			}
 		});
+		*/
 	});
 	/*	 // 선택한 친구에게 초대 발송		*/
+	
+	/* 데이터 갱신이 되지 않아 submit으로 대체
+	// 모달 초기화를 위해 html 저장
+	var modalTag = $('#modal_invite_wrap').html();
+	
+	$('#modal_invite').on('hidden.bs.modal', function(){
+	//	$(this).find('form')[0].reset();	form에 있는 모든 input 값 초기화
+		initModal();
+	});
+	
+	// 모달 초기화
+  	function initModal() {
+		$('#modal_invite_wrap').empty();
+		$('#modal_invite_wrap').html(modalTag);
+	}
+ 	*/
+	
+	/* 
+	function initModal() {
+		$('#modal_invite').modal({
+			remote : 'form_event_invite.jsp',
+			refresh : true
+		});
+	}
+	 */
+	
+	/*		초대 리스트 친구 검색		*/
+	$('#invite_friend_search').keyup(function() {
+		
+		var inputText;
+		
+		if ( event.keyCode == 13 ) {
+			inputText = $(this).val();
+			$('.' + inputText).click();
+			$(this).val('');
+		}
+		
+	});
+	
+	var searchMemberList = new Array();
+	
+	<c:forEach var="member" items="${ EventInviteMemberList }">
+	searchMemberList.push('${ member.m_name }');
+	</c:forEach>
+	
+	$('.typeahead').typeahead({
+		source : searchMemberList
+	});
+	
+	/*	 // 초대 리스트 친구 검색		*/
 	
 	// 모달 초기화를 위해 html 저장
 	var modalTag = $('#modal_invite_wrap').html();
@@ -372,13 +493,23 @@ $(document).ready(function () {
 	});
 	
 	// 모달 초기화
-	function initModal() {
-		$('#modal_invite').remove();
+  	function initModal() {
+		$('#modal_invite_wrap').empty();
 		$('#modal_invite_wrap').html(modalTag);
 	}
+
+	
 });
 
 /*		기타 function		*/
 /*		▼ ▼ ▼ ▼ ▼ ▼		*/
+
+function invite_friend_search() {
+	if ( event.ketCode == 13 ) {
+		alert("엔터 입력");
+	} else {
+		alert("아니야");
+	}
+}
 
 </script>
