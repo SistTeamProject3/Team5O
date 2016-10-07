@@ -20,15 +20,6 @@
 
 
 <body>
-<!-- 한영선 : 뉴스피드 수정 클릭시 모달 출력  --> 
-<div class="modal fade yss">
-  <div class="modal-dialog">
-    <div class="modal-content">
-       <jsp:include page="/WEB-INF/views/newsfeed/newsfeed_update_modal.jsp"/>
-    </div>
-  </div> 
-</div> 
-<!-- 한영선 : 뉴스피드 수정 클릭시 모달 출력  --> 
 
 <jsp:include page="newsfeed_write.jsp">
 	<jsp:param name="viewPage" value="main" />

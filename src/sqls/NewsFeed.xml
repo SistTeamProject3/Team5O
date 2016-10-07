@@ -184,7 +184,10 @@ WHERE (N_STEP=0 AND N_EVENT_SEQ=#{seq} ) AND N_SEQ<#{lastSeq}
       (SELECT N_DEPTH FROM TP3_NEWSFEED WHERE N_SEQ=#{n_seq})+1,1,#{n_seq})
 </insert>
 
-
+<update id="updateNewsFeed" parameterType="sist.co.model.NewsFeedDTO">
+	UPDATE TP3_NEWSFEED SET N_CONTENT=#{n_content}, N_TAG_FRIEND= #{n_tag_friend}, N_TAG_WHERE= #{n_tag_where}, N_TAG_FEEL=#{n_tag_feel}, N_WDATE=SYSDATE
+	WHERE N_SEQ=#{n_seq}
+</update>
 
 
 
