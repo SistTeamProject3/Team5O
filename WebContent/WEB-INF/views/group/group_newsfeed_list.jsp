@@ -354,16 +354,17 @@ function onKeyDown_comment(val)
       
       
        
-       
-        var s = "<table style='width: 100%;'><tr>";
-       s+="<td class='profile_flied'>";
-       s+="<c:if test="${login.m_profile eq 'member_basic.jpg' }">";
-       s+=" <img alt='사진없음' src='image/${login.m_profile}' height='50px' width='50px'>";
-       s+="</c:if><c:if test="${login.m_profile ne 'member_basic.jpg'}">";
-       s+="<img alt='사진없음' src='upload/${login.m_profile}' height='50px' width='50px'>";
-       s+="</c:if></td><td class='c_name'>${login.m_id } :</td>";
-       s+="<td class='c_content'>"+$("#n_content"+val).val()+"</td>";
-       s+="<td class='c_time'>방금전</td></tr></table>"
+    var s = "<h6>";
+	s+= "<table style='width: 100%; margin-bottom: 10px;'><tr>";
+	s+="<td class='profile_flied'>";
+	s+="<c:if test="${login.m_profile eq 'member_basic.jpg' }">";
+	s+=" <img alt='사진없음' src='image/${login.m_profile}' height='25px' width='25px'>";
+	s+="</c:if><c:if test="${login.m_profile ne 'member_basic.jpg'}">";
+	s+="<img alt='사진없음' src='upload/${login.m_profile}' height='25px' width='25px'>";
+	s+="</c:if></td><td class='c_name'>${login.m_id } :</td>";
+	s+="<td class='c_content'>"+$("#n_content"+val).val()+"</td>";
+	s+="<td class='c_time'>방금전</td></tr></table>";
+	s+="</h6>";
        
        
        
