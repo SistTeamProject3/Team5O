@@ -112,9 +112,13 @@ lastDay: ${ lastDay } --%>
 		<!-- // 시작 날 이전 표시 -->
 		
 		<!-- 시작 날 ~ 종료 날 표시 -->
+		<jsp:useBean id="calUtil" class="sist.co.util.CalendarUtil" />
 		<c:forEach begin="1" end="${ lastDay }" varStatus="calCnt">
 			
-			<td class="day">
+			<c:set var="eventDate" value="${ year }년 ${ month+1 }월 ${ calCnt.count }일" />
+			<c:set var="dayDate" value="${ calUtil.yy(year) }/${ calUtil.two(month+1) }/${ calUtil.two(calCnt.count) }" />
+			<c:set var="dayDate2" value="${ year }-${ calUtil.two(month+1) }-${ calUtil.two(calCnt.count) }" />
+			<td class="day" data-eventDate="${ eventDate }" data-dayDate="${ dayDate }" data-dayDate2="${ dayDate2 }">
 				<div>${ calCnt.count }</div>
 				
 				<c:set var="dayListCnt" value="0" />
@@ -268,3 +272,60 @@ lastDay: ${ lastDay } --%>
 	</table>
 	<br/><br/>
 </div>
+
+<input type="hidden" id="modal_day_event_open" data-toggle="modal" data-target="#modal_day_event" />
+
+<!-- 	Modal	 -->
+<div id="modal_day_event_wrap">
+<div class="modal fade" id="modal_day_event" tabindex="-1" role="dialog" 
+	aria-labelledby="myModalLabel"><!-- data-backdrop="static" -->
+<div class="modal-dialog modal-dialog-invite" role="document">
+<div class="modal-content modal-content-invite">
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title" id="myModalLabel"><span id="day_event_date"></span>&nbsp;일정</h4>
+</div>
+<div id="modal_day_event_body" class="modal-body modal-body-invite"></div>
+<div class="modal-footer modal-footer-invite">
+	<button type="button" id="btn_day_event_close" class="btn btn-default" data-dismiss="modal">닫기</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--  // Modal	 -->
+
+
+
+
+<script type="text/javascript">
+$('.day').off('click').on('click', function() {
+	
+	var eventDate = $(this).attr('data-eventDate');
+	var dayDate = $(this).attr('data-dayDate');
+	var dayDate2 = $(this).attr('data-dayDate2');
+	
+	$.ajax({
+	//	url: 'event_day_list.do?dayDate=' + dayDate + "&eventDate=" + escape(encodeURIComponent(eventDate)),
+		url: 'event_day_list.do?dayDate=' + dayDate + "&dayDate2=" + dayDate2,
+		type: 'GET',
+		async: false,
+		cache: false,
+		success: function(data) {
+			console.log("data: " + data);
+			
+			$('#modal_day_event_body').empty();
+			$('#modal_day_event_body').append(data);
+			$('#day_event_date').text(eventDate);
+			
+			$('#modal_day_event_open').click();
+		},
+		error: function(data) {
+			alert("실패...");
+			alert(data);
+		}
+	});
+});
+</script>

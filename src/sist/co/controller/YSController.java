@@ -171,7 +171,7 @@ public class YSController {
 			@RequestParam (value = "eventSeq", defaultValue = "0") int eventSeq) throws Exception {
 	
 		logger.info("YSController NewsFeedList2 " + new Date());
-		logger.info("link: " + link + ", eventSeq: " + eventSeq);
+//		logger.info("link: " + link + ", eventSeq: " + eventSeq);
 	
 		NewsFeedListDTO newsfeedlistDTO = null;
 		
@@ -181,7 +181,7 @@ public class YSController {
 		else if ( link.equals("event") )	newsfeedlistDTO = new NewsFeedListDTO("event", null, eventSeq, 0);
 		else								newsfeedlistDTO = new NewsFeedListDTO("main", null, 0, 0);
 		
-		logger.info("member: " + member.toString());
+//		logger.info("member: " + member.toString());
 		List<NewsFeedDTO> NewsFeedList = newsFeedService.getNewsFeedList(newsfeedlistDTO);
 		List<NewsFeedDTO> NewsFeedList2 = newsFeedService.getAllNewsFeedList();
 
@@ -206,9 +206,9 @@ public class YSController {
 			event.setM_id(loginMember.getM_id());
 			
 			EventDTO eventInvite = eventService.selectEventInvite(event);
-			if ( eventInvite != null ) {
+			/*if ( eventInvite != null ) {
 				logger.info("eventInvite: " + eventInvite.toString());
-			}
+			}*/
 			
 			model.addAttribute("eventInvite", eventInvite);
 			model.addAttribute("event", session.getAttribute("event"));

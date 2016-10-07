@@ -55,6 +55,8 @@
 	<definition name="event_detail.tiles" extends="event_calendar.tiles">
 		<put-attribute name="center_main" value="/WEB-INF/views/event/event_detail.jsp"/>
 	</definition>
+	
+	<definition name="form_event_day_list.tiles" template="/WEB-INF/views/event/form_event_day_list.jsp"></definition>
 
 <!-- 그룹 리스트 출력 -->
 

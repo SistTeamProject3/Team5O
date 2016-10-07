@@ -2,6 +2,7 @@ package sist.co.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import sist.co.util.CalendarUtil;
@@ -57,6 +59,8 @@ public class EventController {
 
 		calendar.setM_id(member.getM_id());
 		calendar.setYyyymm(yyyymm);
+		calendar.setSubstrS(1);
+		calendar.setSubstrE(7);
 		
 		List<EventDTO> eventList = new ArrayList<EventDTO>();
 		eventList = eventService.selectEventList(calendar);
@@ -88,6 +92,8 @@ public class EventController {
 
 		calendar.setM_id(member.getM_id());
 		calendar.setYyyymm(yyyymm);
+		calendar.setSubstrS(1);
+		calendar.setSubstrE(7);
 		
 		List<EventDTO> eventList = new ArrayList<EventDTO>();
 		eventList = eventService.selectEventList(calendar);
@@ -245,6 +251,7 @@ public class EventController {
 		return "redirect:/event_detail.do?seq=" + seq;
 	}
 	
+	// 이벤트 참여 여부 반영
 	@RequestMapping(value="update_event_invite.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String event_invite(Model model, EventDTO event) throws Exception {
 		
@@ -255,4 +262,29 @@ public class EventController {
 		return "redirect:/event_detail.do?seq=" + event.getE_seq();
 	}
 	
+	// 달력 '일'의 세부 이벤트 리스트 불러오기
+	@RequestMapping(value="event_day_list.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String event_day_list(Model model, HttpServletRequest reqeust, String dayDate, String dayDate2) throws Exception {
+		
+		logger.info("event_day_list.do 접근 " + new Date());
+		logger.info("dayDate: " + dayDate + ", dayDate2: " + dayDate2);
+		// ajax로 인코딩한 한글 데이터를 받아올 때 URLDecoder를 사용해야 함
+	//	logger.info("dayDate: " + dayDate + ", eventDate: " + URLDecoder.decode(eventDate, "UTF-8"));
+		
+		CalendarDTO calendar = new CalendarDTO();
+		calendar.setM_id(((MemberDTO) reqeust.getSession().getAttribute("login")).getM_id());
+		calendar.setYyyymm(dayDate);
+		calendar.setSubstrS(1);
+		calendar.setSubstrE(10);
+		
+		List<EventDTO> eventDayList = eventService.selectEventDayList(calendar);
+		model.addAttribute("eventDayList", eventDayList);
+		
+		calendar.setYyyymm(dayDate2);
+		
+		List<EventDTO> eventInviteList = eventService.selectEventInviteList(calendar);
+		model.addAttribute("eventInviteList", eventInviteList);
+		
+		return "form_event_day_list.tiles";
+	}
 }

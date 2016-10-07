@@ -34,6 +34,10 @@ public class EventDAO {
 		return true;
 	}
 	
+	public List<EventDTO> selectEventDayList(CalendarDTO calendar) {
+		return sqlSession.selectList(ns + "selectEventDayList", calendar);
+	}
+	
 	public List<EventDTO> selectEventList(CalendarDTO calendar) {
 		return sqlSession.selectList(ns + "selectEventList", calendar);
 	}

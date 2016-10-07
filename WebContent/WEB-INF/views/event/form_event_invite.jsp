@@ -6,18 +6,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <fmt:requestEncoding value="UTF-8"/>
-<%-- 
-<%
-List<EventInviteMemberDTO> eventInviteMemberList = (List<EventInviteMemberDTO>) request.getAttribute("eventInviteMemberList");
 
-for ( int i = 0; i < eventInviteMemberList.size(); i++ ) {
-	System.out.println("eventInviteMemberList 개수: " + eventInviteMemberList.get(i).getEi_write_date());
-}
-
-pageContext.setAttribute("eventInviteMemberList", eventInviteMemberList);
-
-%>
---%>
 <link rel="stylesheet" type="text/css" href="css/jquery.mCustomScrollbar.css"/>
 <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
 
@@ -166,7 +155,7 @@ pageContext.setAttribute("eventInviteMemberList", eventInviteMemberList);
 				
 				<!--		친구할 초대 검색		-->
 				<div class="invite_content_head">
-					<input type="text" id="invite_friend_search" class="form-control typeahead" placeholder="닉네임을 검색해주세요."
+					<input type="text" id="invite_friend_search" class="form-control typeahead" placeholder="이름을 검색해주세요."
 						contenteditable="true" style="width: 100%; height:100%; padding: 5px;" />
 				</div>
 				<!--	 // 친구할 초대 검색		-->

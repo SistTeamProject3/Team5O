@@ -36,6 +36,11 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
+	public List<EventDTO> selectEventDayList(CalendarDTO calendar) throws Exception {
+		return eventDAO.selectEventDayList(calendar);
+	}
+
+	@Override
 	public List<EventDTO> selectEventList(CalendarDTO calendar) throws Exception {
 		return eventDAO.selectEventList(calendar);
 	}

@@ -13,6 +13,7 @@ public interface EventService {
 	void addEvent(EventDTO event) throws Exception;
 	boolean updateEvent(EventDTO event) throws Exception;
 	boolean deleteEvent(int seq) throws Exception;
+	List<EventDTO> selectEventDayList(CalendarDTO calendar) throws Exception;
 	List<EventDTO> selectEventList(CalendarDTO calendar) throws Exception;
 	List<EventDTO> selectEventInviteList(CalendarDTO calendar) throws Exception;
 	EventDTO selectEventDetail(int seq) throws Exception;

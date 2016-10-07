@@ -33,6 +33,7 @@ pageContext.setAttribute("day", day);
 %>
 
 <style type="text/css">
+
 .tbl_event_write th {
 	text-align: right;
 	padding-right: 10px;
@@ -195,6 +196,7 @@ $('#event_test').click(function() {
 */
 
 $(document).ready(function () {
+	
 	/*		'이벤트 만들기'로 이벤트 모달을 오픈할 경우 처리		*/
 	$('#event_write_form').click(function() {
 	//	$('#frm_event_write').attr('action', 'event_write.do');
@@ -206,7 +208,11 @@ $(document).ready(function () {
 	$('#event_update').click(function() {
 		$('#frm_event_write').attr('action', 'event_update.do');
 		$('#event_write').text("이벤트 수정하기");
-		$('#e_seq').val('${ event.e_seq }');
+		$('#event_name').val('${ event.e_title }');
+		$('#e_location').val('${ event.e_location }');
+		$('#start_date').val('${ event.e_start_date }');
+		$('#end_date').val('${ event.e_end_date }');
+		$('#e_content').val('${ event.e_content }');
 	});
 	/*	 // '이벤트 수정하기'로 이벤트 모달을 오픈할 경우 처리		*/
 	
@@ -330,6 +336,8 @@ $(document).ready(function () {
 	
 	/*		// 날짜-시간 		  */
 	
+	var eventSeq = '${ event.e_seq }';
+	
 	// 이벤트 만들기 버튼 클릭
 	$('#event_write').click(function() {
 		
@@ -341,6 +349,12 @@ $(document).ready(function () {
 			$('#m_id').val('${ login.m_id }');
 			$('#m_name').val('${ login.m_name }');
 			$('#e_seq').val(0);
+			
+			var btnInsert = $('#event_write').text();
+			
+			if ( btnInsert == '이벤트 수정하기' ) {
+				$('#e_seq').val(eventSeq);
+			}
 			
 			// 위치 값이 공백이면 '위치 없음'으로 저장
 			var location = $('#e_location').val();

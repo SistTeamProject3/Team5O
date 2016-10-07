@@ -8,6 +8,9 @@ public class CalendarUtil {
 	public static String two(int tt){
 		return (tt+"").length()>1?(tt+""):"0"+tt;
 	}
+	public static String yy(int year) {
+		return String.valueOf(year).substring(2, 4);
+	}
 	public static String yyyymm(int year, int month){
 		return ""+year+two(month);
 	}
