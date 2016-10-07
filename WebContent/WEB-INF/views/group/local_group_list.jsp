@@ -7,6 +7,31 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <fmt:requestEncoding value="utf-8" />
+ <script type="text/javascript">
+$(document).on("click",".g_join",function() {
+	var g_id = $(this).attr("id");
+	var g_seq = $(this).attr("data-set");
+	var g_manager = $(this).attr("manager");
+	var m_id = $("#m_id").attr("value");
+	var r_date= 0;
+	/* alert(g_id); */
+/* 	var all_data ={"g_seq":g_seq, "g_manager":g_manager, "m_id":m_id, "r_date":0}; */
+	 $.ajax({
+		 type:"POST",
+		/*  data: all_data, */
+		/*  url:"group_join_request.do", */
+			url: "group_join_request.do?g_seq="+g_seq+"&g_manager="+g_manager+"&m_id="+m_id,
+		 success: function(result){
+			/* alert(result); */
+		 	$("#"+g_id).attr('src','image/request.jpg'); 
+	    }, error: function(){
+	    	alert(result);
+	    }
+	});
+	
+	
+});
+</script> 
 <script type="text/javascript">
 var s_num1 =1;
 var l_num1 =10;
