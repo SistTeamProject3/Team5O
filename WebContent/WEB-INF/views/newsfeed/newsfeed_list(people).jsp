@@ -73,11 +73,18 @@ function news_scrollEvent(){
 
 <!-- 한영선: 뉴스피드 테이블 1 (댓글리스트 출력 제외한 나머지 전부) -->
 <div class="table" data-seq="${news.n_seq }" id="newsfeedlist_top${news.n_seq }">
-${news.n_seq }
+
 	<table class="newsfeed_list_table${news.n_seq }" style="width: 80%"  border="1px solid black">
 		<tr>
 			
-			<td width=80px; rowspan="2"><img alt="사진없음" src="upload/${login.m_profile}" height="50px" width="50px"></td>
+			<td width=80px; rowspan="2">
+			<c:if test="${login.m_profile eq 'member_basic.jpg'}">
+				<img alt="사진없음" src="./image/${login.m_profile}" height="50px" width="50px">
+				</c:if>
+				<c:if test="${login.m_profile ne 'member_basic.jpg'}">
+				<img alt="사진없음" src="upload/${login.m_profile}" height="50px" width="50px">
+				</c:if>
+			</td>
 			<td align=left>작성자 : <a onclick="location.href='time_line.do?m_id=${news.m_id}'">${news.m_id}</a></td>
 			<td>
 			

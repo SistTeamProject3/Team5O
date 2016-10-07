@@ -13,6 +13,7 @@ $(window).bind('scroll', function(){
 });
 
 function news_scrollEvent(){
+
 	 $(window).unbind('scroll');
      var lastseq = $(".table:last").attr("data-seq");
  	  $.ajax({
@@ -71,9 +72,10 @@ function news_scrollEvent(){
 <br><br>
 
 <!-- 한영선: 뉴스피드 테이블 1 (댓글리스트 출력 제외한 나머지 전부) -->
+<div class="table2" data-seq="${news.n_seq }" id="newsfeedlist_total${news.n_seq }" style="width: 80%; border: 1px solid black;">
 <div class="table" data-seq="${news.n_seq }" id="newsfeedlist_top${news.n_seq }">
-${news.n_seq }
-	<table class="newsfeed_list_table${news.n_seq }" style="width: 80%"  border="1px solid black">
+
+	<table class="newsfeed_list_table${news.n_seq }" style="width: 100%; ">
 		<tr>
 			
 			<td width=80px; rowspan="2">
@@ -133,7 +135,7 @@ ${news.n_seq }
 			<td colspan="3"  align=left>
 				
 				<c:if test="${ param.viewPage eq 'main' }">
-					<pre width="50px">${news.n_content}</pre>
+					<pre width="50px" style="background-color: white">${news.n_content}</pre>
 				</c:if>
 				<c:if test="${news.n_tag_where ne NULL}">
 					<strong>${news.n_tag_where}</strong>&nbsp;에서
@@ -154,7 +156,7 @@ ${news.n_seq }
 			</td>
 		</tr>
 		<!-- // 한영선: "태그3가지(장소,친구,기분상태)" (in 뉴스피드 테이블 1)  -->
-	
+
 		<!-- 한영선: "이미지첨부 글인 경우, 이미지 출력부분" (in 뉴스피드 테이블 1)  -->
 		<c:if test="${news.n_form_num eq 1}" >
 				<tr>
@@ -195,7 +197,15 @@ ${news.n_seq }
 		
 		<!-- 한영선: 댓글 입력  (in 뉴스피드 테이블 1)  -->
 		<tr id ="show_comment${news.n_seq }" style="display: none;">
-		<td>프사사진</td>
+		<td>
+		${login.m_id }
+<%-- 			<c:if test="${login.m_profile eq 'member_basic.jpg'}">
+			<img alt="사진없음" src="./image/${login.m_profile}" height="50px" width="50px">
+			</c:if>
+			<c:if test="${login.m_profile ne 'member_basic.jpg'}">
+			<img alt="사진없음" src="upload/${login.m_profile}" height="50px" width="50px">
+			</c:if> --%>
+		</td>
 			<td colspan="2"><input type="text"  style="width:100%;" id="n_content${news.n_seq }" name="n_content" onkeydown="onKeyDown_comment('${news.n_seq }')"></td>
 		</tr>
 		<!-- // 한영선: 댓글 입력  (in 뉴스피드 테이블 1)  -->
@@ -212,7 +222,15 @@ ${news.n_seq }
 		
 			<c:if test="${news.n_seq eq news2.n_parent}">	
 				<tr class="comment2${news.n_seq }"style="display: none;">
-					<td rowspan="2">프사</td>
+					<td rowspan="2">
+<%-- 					<c:if test="${login.m_profile eq 'member_basic.jpg'}">
+					<img alt="사진없음" src="./image/${login.m_profile}" height="50px" width="50px">
+					</c:if>
+					<c:if test="${login.m_profile ne 'member_basic.jpg'}">
+					<img alt="사진없음" src="upload/${login.m_profile}" height="50px" width="50px">
+					</c:if> --%>
+					</td>
+					
 					<td colspan="2" align="left">&nbsp;<Strong>${news2.m_id }</Strong> &nbsp;&nbsp;${news2.n_content }</td>
 				</tr>
 				<tr class="comment3${news.n_seq }"  align="left"style="display: none;">
@@ -226,6 +244,7 @@ ${news.n_seq }
 
 </c:if>
 </c:if>
+</div>
 
 </c:forEach> 
 
@@ -328,7 +347,7 @@ function onKeyDown_comment(val)
 {
     if(event.keyCode == 13)
 	{
-	 	var s = "<tr><td rowspan='2'>프사</td><td colspan='2' align='left'>&nbsp;<Strong>${login.m_id }</Strong> &nbsp;&nbsp;"+
+	 	var s = "<tr><td rowspan='2'></td><td colspan='2' align='left'>&nbsp;<Strong>${login.m_id }</Strong> &nbsp;&nbsp;"+
 	 	$("#n_content"+val).val()+"</td></tr><tr><td colspan='2' align='left'>&nbsp;<a>좋아요</a>&nbsp;·&nbsp;<a>답글달기</a>&nbsp;·&nbsp;방금전</td></tr>";
 		
 	 	$("#newsfeedlist_bottom"+val).prepend(s); 

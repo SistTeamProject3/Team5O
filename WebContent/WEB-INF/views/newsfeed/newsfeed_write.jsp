@@ -22,6 +22,7 @@ width:20%;
 }
 
 
+
 </style>
   
 <form name="frmForm" id="_frmForm" action="writeNewsFeed.do" method="post" enctype="multipart/form-data">
@@ -34,11 +35,18 @@ width:20%;
 
 <table class="ys_write_table" style="width: 80%" border="1px solid black">
    <tr>
-      <td colspan="4">상태</td>
+      <td colspan="4">뉴스피드 작성</td>
    </tr>
    
    <tr>
-      <th width=300px; rowspan="2">프사사진</th>
+      <th width=300px; rowspan="2">
+      <c:if test="${login.m_profile eq 'member_basic.jpg'}">
+				<img alt="사진없음" src="./image/${login.m_profile}" height="50px" width="50px">
+				</c:if>
+				<c:if test="${login.m_profile ne 'member_basic.jpg'}">
+				<img alt="사진없음" src="upload/${login.m_profile}" height="50px" width="50px">
+				</c:if>
+      </th>
       <td>
 
       <textarea id="ta" name="n_content" style="overflow: hidden"></textarea>
@@ -105,23 +113,31 @@ width:20%;
    <td colspan="4">
     
 		<input type=file  name="fileloadd" id="image" style='display: none;'>
-		<img src='image/news_file.jpg' name="_file2" id="_file2" border='0' onclick='hideAll();'>
-
+		<img src='image/photo.jpg' name="_file2" id="_file2" border='0' onclick='hideAll();'>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="#none"><img src="image/tag.jpg" id="viewFriend" onclick="return false;"></a>
+		&nbsp;&nbsp;&nbsp;&nbsp; 
+		<a href="#none"> <img src="image/face.jpg" id="viewFeel" onclick="return false;"></a>
+		&nbsp;&nbsp;&nbsp;&nbsp; 
+		<a href="#none"> <img src="image/place.jpg" id="viewWhere" onclick="return false;"></a>
+		<!-- 
 		&nbsp;&nbsp;&nbsp;&nbsp;
 		<span  style="color:blue" class="fa fa-users fa-2x" id="viewFriend"  onclick="return false;"></span>
-		&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="fa fa-smile-o fa-2x" id="viewFeel"  onclick="return false;"></span>
 		&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="fa fa-map-marker fa-2x"  id="viewWhere"  onclick="return false;"></span>
-
+		 -->
       <span style="float:right;"> 
          <select name="n_show" >
             <option value="1">전체공개</option>
             <option value="2">친구만</option>
             <option value="3">나만보기</option>
          </select>
-            
-         <img alt="게시하기"  id ="finish" src="image/temp.jpg">
+           
+         &nbsp;&nbsp;
+         <a href="#" id="finish"><Strong>글쓰기</Strong></a>   
+         &nbsp;&nbsp;
+  <!--        <img alt="게시하기"  id ="finish" src="image/temp.jpg"> -->
          </span>
    </td>
 

@@ -173,14 +173,18 @@ public class NewsfeedController {
 		NewsFeedListDTO newsfeedlistDTO = null;
 		
 		/*System.out.println("수정전"+member.getM_id());*/
-		String peopleName[] = member.getM_id().split(",");
-		member.setM_id(peopleName[0]);
-		
+
+		String peopleName_final="";
 		/*System.out.println("수정후"+member.getM_id());*/
 		
 		// 공동 작업
 		if ( link.equals("main") ) 			newsfeedlistDTO = new NewsFeedListDTO("main", null, 0);
-		else if ( link.equals("people") ) 	newsfeedlistDTO = new NewsFeedListDTO("people", member.getM_id(), 0);
+		else if ( link.equals("people") ) 	{
+			String peopleName[] = member.getM_id().split(",");
+			member.setM_id(peopleName[0]);
+			peopleName_final=peopleName[0];
+			newsfeedlistDTO = new NewsFeedListDTO("people", member.getM_id(), 0);
+		}
 		else if ( link.equals("event") )	newsfeedlistDTO = new NewsFeedListDTO("event", null, eventSeq);
 		else								newsfeedlistDTO = new NewsFeedListDTO("main", null, 0);
 		
@@ -216,7 +220,7 @@ public class NewsfeedController {
 	  
 	         model.addAttribute("member", member);
 	         model.addAttribute("imgpath", imgpath);*/
-	         model.addAttribute("peopleName", peopleName[0]);
+	         model.addAttribute("peopleName", peopleName_final);
 	         
 	         return "time_line.tiles";
 	      }
@@ -238,12 +242,12 @@ public class NewsfeedController {
 @RequestMapping(value="test2.do", 
          method={RequestMethod.GET, RequestMethod.POST})
    public String test2(Model model, int lastseq){
-      /*logger.info("YSController test2" + new Date());*/
+      logger.info("YSController test2" + new Date());
       
       List<NewsFeedDTO> NewsFeedList  =  newsFeedService.addPrintNewsFeed(lastseq);
       List<NewsFeedDTO> NewsFeedList2 = newsFeedService.getAllNewsFeedList();
       if(NewsFeedList.size()==0){
-         /*System.out.println("null이다");*/
+         System.out.println("null이다");
          
       }else{
         for (int i = 0; i < NewsFeedList.size(); i++) {
