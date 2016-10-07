@@ -134,9 +134,9 @@ function news_scrollEvent(){
 		<tr>
 			<td colspan="3"  align=left>
 				
-				<c:if test="${ param.viewPage eq 'main' }">
+				
 					<pre width="50px" style="background-color: white">${news.n_content}</pre>
-				</c:if>
+				
 				<c:if test="${news.n_tag_where ne NULL}">
 					<strong>${news.n_tag_where}</strong>&nbsp;에서
 				</c:if>
