@@ -57,9 +57,9 @@
 </div>
 
 <br>
-
+<div style="width: 100%;" align="center">
 <div>
-	<table class="table table-condensed">
+	<table class="table table-condensed" style="width: 1200px;">
 		<tr>
 			<th colspan="2"><h6>내가 관리하는 그룹</h6></th>
 		</tr>
@@ -72,7 +72,7 @@
 					<button class="up_g_n btn btn-danger" data-set="${glist.g_seq}">수정</button>
 					</span>					
 					</td>
-					<td><button class="update_gn btn btn-danger" id="update_gn${glist.g_seq}" data-set="${glist.g_seq }" >그룹 명 수정 </button></td>
+					<td align="right"><button class="update_gn btn btn-danger" id="update_gn${glist.g_seq}" data-set="${glist.g_seq }" >그룹 명 수정 </button></td>
 				</tr>
 			</c:if>
 		</c:forEach>
@@ -80,7 +80,7 @@
 </div>
 <br>
 <div>
-	<table class="table table-condensed">
+	<table class="table table-condensed" style="width: 1200px;">
 		<tr>
 			<th colspan="2"><h6>가입한 그룹</h6></th>
 		</tr>
@@ -93,6 +93,7 @@
 			</c:if>
 		</c:forEach>
 	</table>
+</div>
 </div>
 <!-- 모달 -->
 <!-- 여기부터 모달 입니다. -->
