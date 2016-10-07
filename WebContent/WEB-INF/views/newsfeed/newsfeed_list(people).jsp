@@ -13,12 +13,13 @@ $(window).bind('scroll', function(){
 });
 
 function news_scrollEvent(){
+	var peopleName='${peopleName }';
 	 $(window).unbind('scroll');
      var lastseq = $(".table:last").attr("data-seq");
  	  $.ajax({
  	        type: 'POST',
  	        url: 'test2.do',
- 	        data: {'lastseq' : lastseq ,'viewPage' : 'main','eventSeq' : '0'},
+ 	        data: {'lastseq' : lastseq ,'viewPage' : 'people','eventSeq' : '0','m_id':peopleName},
  			async: false ,
  			cache: false,
  	        success: function(data) {
@@ -76,14 +77,7 @@ ${news.n_seq }
 	<table class="newsfeed_list_table${news.n_seq }" style="width: 80%"  border="1px solid black">
 		<tr>
 			
-			<td width=80px; rowspan="2">
-				<c:if test="${login.m_profile eq 'member_basic.jpg'}">
-				<img alt="사진없음" src="./image/${login.m_profile}" height="50px" width="50px">
-				</c:if>
-				<c:if test="${login.m_profile ne 'member_basic.jpg'}">
-				<img alt="사진없음" src="upload/${login.m_profile}" height="50px" width="50px">
-				</c:if>
-			</td>
+			<td width=80px; rowspan="2"><img alt="사진없음" src="upload/${login.m_profile}" height="50px" width="50px"></td>
 			<td align=left>작성자 : <a onclick="location.href='time_line.do?m_id=${news.m_id}'">${news.m_id}</a></td>
 			<td>
 			

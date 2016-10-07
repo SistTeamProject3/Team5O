@@ -55,8 +55,7 @@ width:20%;
                <div id="image_preview">
                  <img src="#" width="150px" height="100px"/>
                    <a class='fa fa-times' onclick="remove_div(this)"></a>
-                   
-                 
+
                 </div>         
             </div>
       </div>
@@ -104,6 +103,7 @@ width:20%;
 
    <tr> 
    <td colspan="4">
+    
 		<input type=file  name="fileloadd" id="image" style='display: none;'>
 		<img src='image/news_file.jpg' name="_file2" id="_file2" border='0' onclick='hideAll();'>
 
@@ -160,7 +160,6 @@ function hideAll(){
 
 
 function getState(val) {
-	
 		$("#printFeel").text("");
 		$("#printFeel").append("나는지금  "+val);
 		$("#feel").hide();
@@ -178,7 +177,6 @@ function onKeyDown()
 {
      if(event.keyCode == 13)
      {
-		
 		$("#nowFriend").show();
 		$("#nowFriend").prepend($("#_friend").val()+",");
 	/* 	$("#_friend").val(""); */
@@ -304,7 +302,6 @@ $("#finish").click(function() {
 		alert("본문 텍스트 작성은 필수입니다!!!!!!!!!");
 	}
 	else{
-	   alert("피니쉬!!!!");
 	   alert($("#_frmForm").serialize());
 	   $("#_frmForm").attr({"target":"_self", "action":"writeNewsFeed.do"}).submit();
 	}

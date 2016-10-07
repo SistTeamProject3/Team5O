@@ -90,6 +90,11 @@ public class NewsFeedImpl implements NewsFeedService {
 		return newsFeeDAO.getAllNewsFeedList();
 	}
 
+	@Override
+	public void updateNewsfeed(NewsFeedDTO dto) {
+		newsFeeDAO.updateNewsfeed(dto);
+	}
+
 	
 	
 
