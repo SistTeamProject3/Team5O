@@ -172,6 +172,7 @@ public class NewsfeedController {
 		String peopleName = "";
 		NewsFeedListDTO newsfeedlistDTO = null;
 		
+
 		// 공동 작업
 		if ( link.equals("main") ) 			newsfeedlistDTO = new NewsFeedListDTO("main", null, 0, 0);
 		else if ( link.equals("people") ) {
@@ -184,6 +185,7 @@ public class NewsfeedController {
 		else								newsfeedlistDTO = new NewsFeedListDTO("main", null, 0, 0);
 		
 //		logger.info("member: " + member.toString());
+
 		
 		List<NewsFeedDTO> NewsFeedList = newsFeedService.getNewsFeedList(newsfeedlistDTO);
 		List<NewsFeedDTO> NewsFeedList2 = newsFeedService.getAllNewsFeedList();
@@ -230,7 +232,9 @@ public class NewsfeedController {
 	  
 	         model.addAttribute("member", member);
 	         model.addAttribute("imgpath", imgpath);*/
+
 	         model.addAttribute("peopleName", peopleName);
+
 	         
 	         return "time_line.tiles";
 	      }
@@ -238,6 +242,7 @@ public class NewsfeedController {
 		return "main.tiles";
 }   
    
+
 	@RequestMapping(value = "test2.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String test2(Model model,
 			@RequestParam (value = "link", defaultValue = "") String link,
@@ -246,6 +251,7 @@ public class NewsfeedController {
 		
 		logger.info("YSController test2 " + new Date());
 		logger.info("link: " + link + ", eventSeq: " + eventSeq + ", lastSeq: " + lastSeq);
+
 
 		NewsFeedListDTO newsfeedlistDTO = null;
 

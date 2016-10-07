@@ -33,7 +33,7 @@ width:20%;
 <input type="hidden" name="n_event_seq" value="${ param.eventSeq }" />
 <%-- </c:if> --%>
 
-<table class="ys_write_table" style="width: 80%" border="1px solid black">
+<table class="ys_write_table  table table-condensed table-bordered " style="width: 800px" >
    <tr>
       <td colspan="4">뉴스피드 작성</td>
    </tr>
@@ -41,11 +41,13 @@ width:20%;
    <tr>
       <th width=300px; rowspan="2">
       <c:if test="${login.m_profile eq 'member_basic.jpg'}">
+
             <img alt="사진없음" src="./image/${login.m_profile}" height="50px" width="50px">
             </c:if>
             <c:if test="${login.m_profile ne 'member_basic.jpg'}">
             <img alt="사진없음" src="upload/${login.m_profile}" height="50px" width="50px">
             </c:if>
+
       </th>
       <td>
 
@@ -127,6 +129,7 @@ width:20%;
       &nbsp;&nbsp;&nbsp;&nbsp;
       <span class="fa fa-map-marker fa-2x"  id="viewWhere"  onclick="return false;"></span>
        -->
+
       <span style="float:right;"> 
          <select name="n_show" >
             <option value="1">전체공개</option>

@@ -57,6 +57,7 @@
 						<c:when test="${param.n_tag_feel eq 2}"><strong>슬퍼요</strong><img src="image/sad.jpg"></c:when>
 						<c:otherwise><strong>피곤해요</strong><img src="image/tired.jpg"></c:otherwise>
 					</c:choose>
+					<i class="fa fa-times" aria-hidden="true" onclick="deleteArea('nowFeel_2${param.n_seq }')"></i>
 				</c:if>	
 				</div>	
 		</td>
