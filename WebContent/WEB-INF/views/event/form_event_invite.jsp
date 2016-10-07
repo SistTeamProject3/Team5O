@@ -474,9 +474,18 @@ $(document).ready(function () {
 	
 	var searchMemberList = new Array();
 	
-	<c:forEach var="member" items="${ EventInviteMemberList }">
-	searchMemberList.push('${ member.m_name }');
+	<c:forEach var="member" items="${ eventInviteMemberList }">
+		searchMemberList.push('${ member.m_name }');
 	</c:forEach>
+	
+	 /* 
+	var EventInviteMemberList = '${ EventInviteMemberList }';
+	
+	for ( var member in EventInviteMemberList ) {
+		searchMemberList.push(member.m_name);
+	}
+	 */
+	alert(searchMemberList);
 	
 	$('.typeahead').typeahead({
 		source : searchMemberList
