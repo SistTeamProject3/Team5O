@@ -18,6 +18,10 @@
 	max-height: 100px;
 }
 
+.tbl_event_day_list {
+	width: 100%;
+}
+
 .tbl_event_day_list td {
 	 padding: 5px;
 }
@@ -33,10 +37,10 @@
 	
 	<div>
 		<table class="tbl_event_day_list">
-		<col style="width: 40%;"><col style="width: 60%;">
+		<col style="width: 30%;"><col style="width: 70%;">
 		<c:forEach var='event' items='${ eventDayList }'>
 		<tr>
-			<td>
+			<td style="text-align: left;">
 				<!-- 타이틀 이미지 -->
 				<c:choose>
 				<c:when test="${ empty event.e_image }">
@@ -93,7 +97,7 @@
 	
 	<div>
 		<table class="tbl_event_day_list">
-		<col style="width: 40%;"><col style="width: 60%;">
+		<col style="width: 30%;"><col style="width: 70%;">
 		<c:forEach var='event' items='${ eventInviteList }'>
 		<tr>
 			<td>
