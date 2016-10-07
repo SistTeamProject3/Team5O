@@ -239,15 +239,29 @@ public class NewsfeedController {
 }   
    
 	@RequestMapping(value = "test2.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String test2(Model model, int lastseq) {
-		/* logger.info("YSController test2" + new Date()); */
-
-		NewsFeedListDTO newFeedListDTO = new NewsFeedListDTO()
+	public String test2(Model model,
+			@RequestParam (value = "link", defaultValue = "") String link,
+			@RequestParam (value = "eventSeq", defaultValue = "0") int eventSeq,
+			@RequestParam (value = "lastSeq", defaultValue = "0") int lastSeq) {
 		
-		List<NewsFeedDTO> NewsFeedList = newsFeedService.addPrintNewsFeed(lastseq);
+		logger.info("YSController test2 " + new Date());
+		logger.info("link: " + link + ", eventSeq: " + eventSeq + ", lastSeq: " + lastSeq);
+
+		NewsFeedListDTO newsfeedlistDTO = null;
+
+		// 공동 작업
+		if (link.equals("main"))			newsfeedlistDTO = new NewsFeedListDTO("main", null, 0, lastSeq);
+		else if (link.equals("event"))		newsfeedlistDTO = new NewsFeedListDTO("event", null, eventSeq, lastSeq);
+		else								newsfeedlistDTO = new NewsFeedListDTO("main", null, 0, lastSeq);
+
+		model.addAttribute("viewPage", link);
+		model.addAttribute("eventSeq", eventSeq);
+		
+		List<NewsFeedDTO> NewsFeedList = newsFeedService.addPrintNewsFeed(newsfeedlistDTO);
 		List<NewsFeedDTO> NewsFeedList2 = newsFeedService.getAllNewsFeedList();
+		
 		if (NewsFeedList.size() == 0) {
-			/* System.out.println("null이다"); */
+			System.out.println("null이다");
 
 		} else {
 			for (int i = 0; i < NewsFeedList.size(); i++) {
