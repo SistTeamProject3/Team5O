@@ -13,8 +13,9 @@ int s_num = (int)snum;
 
 Object lnum = request.getAttribute("l_num");
 int l_num = (int)lnum;
-
-
+/* 
+System.out.println("받은 값 S"+s_num+"L"+l_num);
+*/
 %>
  <script type="text/javascript">
 $(document).on("click",".g_join",function() {
@@ -23,7 +24,7 @@ $(document).on("click",".g_join",function() {
 	var g_manager = $(this).attr("manager");
 	var m_id = $("#m_id").attr("value");
 	var r_date= 0;
-	alert(g_id);
+	/* alert(g_id); */
 /* 	var all_data ={"g_seq":g_seq, "g_manager":g_manager, "m_id":m_id, "r_date":0}; */
 	 $.ajax({
 		 type:"POST",
@@ -31,7 +32,7 @@ $(document).on("click",".g_join",function() {
 		/*  url:"group_join_request.do", */
 			url: "group_join_request.do?g_seq="+g_seq+"&g_manager="+g_manager+"&m_id="+m_id,
 		 success: function(result){
-			alert(result);
+			/* alert(result); */
 		 	$("#"+g_id).attr('src','image/request.jpg'); 
 	    }, error: function(){
 	    	alert(result);

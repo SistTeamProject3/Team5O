@@ -64,13 +64,19 @@
 			</tr>
 			<tr class="news_write">
 				<td rowspan="2">
-				<c:if test="${!empty login.m_profile }">
+			<%-- 	<c:if test="${!empty login.m_profile }">
 				<img class="m_profile" alt="프로필" src="upload/${login.m_profile }">
 				</c:if>
 				<c:if test="${empty login.m_profile }">
 				<img class="m_profile" alt="프로필" src="image/basic_profile.jpg">
-				</c:if>
-				
+				</c:if> --%>
+  				<c:if test="${login.m_profile eq 'member_basic.jpg'}">
+  			 	<img alt="사진없음" src="image/${login.m_profile}" height="50px" width="50px">
+  				 </c:if>
+   				<c:if test="${login.m_profile ne 'member_basic.jpg'}">
+   				<img alt="사진없음" src="upload/${login.m_profile}" height="50px" width="50px">
+   				</c:if>				
+
 				</td>
 				<td colspan="3"><textarea class="form-control" id="n_content" name="n_content"
 						style="overflow: hidden; width: 100%;" placeholder="글쓰기.."></textarea>

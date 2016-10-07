@@ -20,7 +20,17 @@
 				<table> -->
 				<c:forEach items="${requset_list }" var="j_list" varStatus="i">
 				<tr class="j_list${i.count}">
-				<td rowspan="2" style="width: 20%;"><img alt="프로필" src="upload/${j_list.m_profile}"></td>
+				<td rowspan="2" style="width: 20%;">
+				<%-- 
+				<img alt="프로필" src="upload/${j_list.m_profile}" style="width: 50px; height: 50px;" >
+				 --%>
+				<c:if test="${j_list.m_profile eq 'member_basic.jpg'}">
+   				<img alt="사진없음" src="image/${j_list.m_profile}" class="m_profile">
+   				</c:if>
+   				<c:if test="${j_list.m_profile ne 'member_basic.jpg'}">
+   				<img alt="사진없음" src="upload/${j_list.m_profile}" class="m_profile">
+   				</c:if>	
+				</td>
 				<td style="width: 60%;">아이디 : ${j_list.m_id}</td>
 				<td rowspan="2" style="width: 10%;"><img alt="승인" src="image/yes.jpg" subscriber="${j_list.m_id}" icount="${i.count}"  class="g_join_yes" id="g_yes${j_list.j_seq }" data-set="${j_list.j_seq }"></td>
 				<td rowspan="2" style="width: 10%;"><img alt="거절" src="image/no.jpg" subscriber="${j_list.m_id}" icount="${i.count}" class="g_join_no" id="g_no${j_list.j_seq }" data-set="${j_list.j_seq }"></td>
@@ -81,7 +91,7 @@ $(".g_join_yes").click(function() {
 		 data :{"a_type" :0,"j_seq" : j_seq, "m_id" :subscriber, "g_seq" : g_seq},
 			url: "group_accept.do",
 		 success: function(result){
-			alert(result);
+			/* alert(result); */
 			$(".j_list"+count).hide();
 	    }, error: function(){
 	    	alert(result);
@@ -98,7 +108,7 @@ $(".g_join_no").click(function() {
 		 data :{"a_type" :1,"j_seq" : j_seq, "m_id" :subscriber, "g_seq" : g_seq},
 			url: "group_accept.do",
 		 success: function(result){
-			alert(result);
+			/* alert(result); */
 			$(".j_list"+count).hide();
 	    }, error: function(){
 	    	alert(result);

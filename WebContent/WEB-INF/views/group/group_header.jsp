@@ -194,7 +194,7 @@ $(document).ready(function() {
 	
 });
 $("#join_group").click(function() {
-	alert("클릭");
+	/* alert("클릭"); */
 	var g_seq = $("#g_seq").attr("value");
 	var m_id = $("#g_id").attr("value");
 	var g_manager = $("#gmanager").attr("value");
@@ -202,7 +202,7 @@ $("#join_group").click(function() {
 		 type:"POST",
 			url: "group_join_request.do?g_seq="+g_seq+"&g_manager="+g_manager+"&m_id="+m_id,
 		 success: function(result){
-			alert(result);
+			/* alert(result); */
 		 	$("#join_group").attr('src','image/request.jpg'); 
 	    }, error: function(){
 	    	alert(result);

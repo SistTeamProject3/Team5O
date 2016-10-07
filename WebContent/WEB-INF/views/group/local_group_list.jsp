@@ -100,19 +100,22 @@ var id = $("#m_id").attr("value");
   <input type="checkbox" class="chk_local" name="inlineCheckbox1" value="1"> 서울
 </label>
 <label class="checkbox-inline">
-  <input type="checkbox" class="chk_local"name="inlineCheckbox1" value="2"> 경기도
+  <input type="checkbox" class="chk_local"name="inlineCheckbox1" value="2"> 인천
 </label>
 <label class="checkbox-inline">
-  <input type="checkbox" class="chk_local"name="inlineCheckbox1" value="3"> 강원도
+  <input type="checkbox" class="chk_local"name="inlineCheckbox1" value="3"> 대구
 </label>
 <label class="checkbox-inline">
-  <input type="checkbox" class="chk_local"name="inlineCheckbox1" value="4"> 충청도
+  <input type="checkbox" class="chk_local"name="inlineCheckbox1" value="4"> 대전
 </label>
 <label class="checkbox-inline">
-  <input type="checkbox" class="chk_local" name="inlineCheckbox1" value="5"> 전라도
+  <input type="checkbox" class="chk_local" name="inlineCheckbox1" value="5"> 부산
 </label>
 <label class="checkbox-inline">
-  <input type="checkbox" class="chk_local" name="inlineCheckbox1" value="6"> 경상도
+  <input type="checkbox" class="chk_local" name="inlineCheckbox1" value="6"> 광주
+</label>
+<label class="checkbox-inline">
+  <input type="checkbox" class="chk_local" name="inlineCheckbox1" value="7"> 제주
 </label>
 </td>
 <td align="left">

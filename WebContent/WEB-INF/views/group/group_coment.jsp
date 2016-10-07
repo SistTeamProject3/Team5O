@@ -58,12 +58,25 @@ $(document).ready(function() {
 <c:forEach items="${clist }" var="clist" varStatus="i">
 <tr>
 <td class="profile_flied">
+
+   <c:if test="${clist.m_profile eq 'member_basic.jpg'}">
+   <img alt="사진없음" src="image/${clist.m_profile}" class="c_profile">
+   </c:if>
+   <c:if test="${clist.m_profile ne 'member_basic.jpg'}">
+   <img alt="사진없음" src="upload/${clist.m_profile}" class="c_profile">
+   </c:if>
+<%-- 
+
 <c:if test="${!empty clist.m_profile }">
 <img class="c_profile" alt="프로필" src="upload/${clist.m_profile }">
 </c:if>
 <c:if test="${empty clist.m_profile }">
 <img class="c_profile" alt="프로필" src="image/basic_profile.jpg">
 </c:if>
+
+ --%>
+
+
 </td>
 <td class="c_name"><h6>${clist.m_id }</h6></td>
 <td class="c_content"><h6>${clist.n_content }</h6></td>

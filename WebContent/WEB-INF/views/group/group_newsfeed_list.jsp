@@ -44,12 +44,20 @@ width: 60%;
 	<!-- 기본 사항 -->
 			<tr>
 				<td rowspan="2" style="width: 50px;">
+<%-- 			
 				<c:if test="${g_nlist.m_profile eq null}">
 				<img class="profile" alt="프로필" src="image/basic_profile.jpg">
 				</c:if>
 				<c:if test="${g_nlist.m_profile ne null}">
 				<img class="profile" alt="프로필" src="upload/${g_nlist.m_profile}">
-				</c:if>
+				</c:if> 
+--%>
+				<c:if test="${g_nlist.m_profile eq 'member_basic.jpg'}">
+  			 	<img alt="사진없음" src="image/${g_nlist.m_profile}" height="50px" width="50px">
+  				</c:if>
+   				<c:if test="${g_nlist.m_profile ne 'member_basic.jpg'}">
+   				<img alt="사진없음" src="upload/${g_nlist.m_profile}" height="50px" width="50px">
+   				</c:if>		
 				</td>
 				<td align="left">작성자 : ${g_nlist.m_id}</td>
 			</tr>

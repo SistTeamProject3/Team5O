@@ -27,10 +27,10 @@ li.liA {
 </style>
 <script>
 function filedowns(filename){
-	   alert("filedowns");
+	   /* alert("filedowns"); */
 	   var doc=document.delfileup;
 	   doc.filename.value=filename;
-	   alert(filename);
+	  /*  alert(filename); */
 	   doc.submit();
 	}
 	

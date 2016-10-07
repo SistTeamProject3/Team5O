@@ -74,12 +74,22 @@ $(document).ready(function(){
 				<table>
 				<tr>
 				<td style="width: 20%;">
+				
+				
+				<%-- 	
 				<c:if test="${!empty alist.m_profile }">
 				<img class="m_profile" alt="프로필" src="upload/${alist.m_profile }">
 				</c:if>
 				<c:if test="${empty alist.m_profile }">
 				<img class="m_profile" alt="프로필" src="image/basic_profile.jpg">
-				</c:if>
+				</c:if> 
+				--%>
+				<c:if test="${alist.m_profile eq 'member_basic.jpg'}">
+   				<img alt="사진없음" src="image/${alist.m_profile}" class="m_profile">
+   				</c:if>
+   				<c:if test="${alist.m_profile ne 'member_basic.jpg'}">
+   				<img alt="사진없음" src="upload/${alist.m_profile}" class="m_profile">
+   				</c:if>
 				</td>
 				<td style="width: 80%;">
 				<h5><a href="#">${alist.m_name}</a></h5>

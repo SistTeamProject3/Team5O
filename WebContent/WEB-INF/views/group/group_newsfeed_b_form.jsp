@@ -35,7 +35,7 @@ $(document).ready(function() {
 		}
 	});
 	$("#rbtn"+a).click(function() {
-		alert("실행");
+		/* alert("실행"); */
 		$.ajax({
 			type:"POST",
 			url: "vote_result.do?n_vote_seq="+a,

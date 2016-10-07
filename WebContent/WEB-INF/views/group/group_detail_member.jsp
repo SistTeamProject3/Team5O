@@ -44,13 +44,13 @@ $(document).ready(function(){
     	 var m_id = $(this).attr("data-set");
     	 var g_seq = $("#g_seq").attr("value");
     	 var i =  $(this).attr("i-count");
-    	 alert(i);
+    	/*  alert(i); */
     	 
     	 $.ajax({
     		 type:"POST",
     			url: "group_mem_out.do?g_seq="+g_seq+"&m_id="+m_id,
     		 success: function(result){
-    			alert(result);
+    			/* alert(result); */
     			$("#profileTable"+i).hide();
     	    }, error: function(){
     	    	alert(result);
@@ -94,12 +94,20 @@ $(document).ready(function(){
 				<table id="profileTable${i.count }">
 				<tr>
 				<td style="width: 20%;">
+				<c:if test="${mlist.m_profile eq 'member_basic.jpg'}">
+   				<img alt="사진없음" src="image/${mlist.m_profile}" class="m_profile">
+   				</c:if>
+   				<c:if test="${mlist.m_profile ne 'member_basic.jpg'}">
+   				<img alt="사진없음" src="upload/${mlist.m_profile}" class="m_profile">
+   				</c:if>	
+			<%-- 	
 				<c:if test="${!empty mlist.m_profile && mlist.m_profile ne 'member_basic.jpg'}">
 				<img class="m_profile" alt="프로필" src="upload/${mlist.m_profile}">
 				</c:if>
 				<c:if test="${empty mlist.m_profile || mlist.m_profile eq 'member_basic.jpg' }">
 				<img class="m_profile" alt="프로필" src="image/basic_profile.jpg">
 				</c:if>
+			 --%>
 				</td>
 				
 				<td style="width: 70%;">
