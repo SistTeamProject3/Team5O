@@ -197,7 +197,7 @@ $('#event_test').click(function() {
 $(document).ready(function () {
 	/*		'이벤트 만들기'로 이벤트 모달을 오픈할 경우 처리		*/
 	$('#event_write_form').click(function() {
-		$('#frm_event_write').attr('action', 'event_write.do');
+	//	$('#frm_event_write').attr('action', 'event_write.do');
 		$('#event_write').text("이벤트 만들기");
 	});
 	/*	 // '이벤트 만들기'로 이벤트 모달을 오픈할 경우 처리		*/
@@ -340,6 +340,7 @@ $(document).ready(function () {
 			// 작성자 저장 ※ form이 multi 방식으로 인코딩 되기 때문에 hidden으로 값을 넘겨줄 수 없음
 			$('#m_id').val('${ login.m_id }');
 			$('#m_name').val('${ login.m_name }');
+			$('#e_seq').val(0);
 			
 			// 위치 값이 공백이면 '위치 없음'으로 저장
 			var location = $('#e_location').val();
