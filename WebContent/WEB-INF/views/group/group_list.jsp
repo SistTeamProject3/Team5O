@@ -8,38 +8,44 @@
 <fmt:requestEncoding value="utf-8" />
 <script type="text/javascript">
 	$(document).ready(function() {
+		$(".b_name").hide();
+		
 		$("#top").click(function() {
-			$("#groupForm").attr({
-				"target" : "_self",
-				"action" : "group_list.do?category=top"
-			}).submit();
+			$("#groupForm").attr({"target" : "_self","action" : "group_list.do?category=top"}).submit();
 		});
 		$("#friends").click(function() {
-			$("#groupForm").attr({
-				"target" : "_self",
-				"action" : "group_list.do?category=membership"
-			}).submit();
+			$("#groupForm").attr({"target" : "_self","action" : "group_list.do?category=membership"}).submit();
 		});
 		$("#local").click(function() {
-			$("#groupForm").attr({
-				"target" : "_self",
-				"action" : "group_list.do?category=membership"
-			}).submit();
+			$("#groupForm").attr({"target" : "_self","action" : "group_list.do?category=local"}).submit();
 		});
 		$("#membership").click(function() {
-			$("#groupForm").attr({
-				"target" : "_self",
-				"action" : "group_list.do?category=membership"
-			}).submit();
+			$("#groupForm").attr({"target" : "_self","action" : "group_list.do?category=membership"}).submit();
 		});
+		
+		$(".update_gn").click(function() {
+			var seq= $(this).attr("data-set");
+			$(".b_name").not(this).hide();
+			$("#b_name"+seq).show();
+		});
+	
+		$(".up_g_n").click(function() {
+			var seq = $(this).attr("data-set");
+			var g_name = $("#up_name"+seq).val();
+			
+			$("#groupForm").attr({"target" : "_self","action" : "group_name_update.do?g_seq="+seq+"&g_name="+g_name}).submit();
+			
+		});
+		
 	});
+
 </script>
 <div style="width: 100%;">
-	<table style="width: 100%;">
+	<table style="width: 100%;" class="table table-striped">
 		<tr>
 			<td>
 				 <a href="#none" id="top">추천 그룹</a> <a href="#none" id="friends">친구의
-						그룹</a> <a href="#none" id="local">지역그룹</a> <b><a href="#none"
+						그룹</a> <a href="#none" id="local">지역그룹</a><b> <a href="#none"
 						id="membership">회원님의 그룹</a></b>
 			</td>
 		
@@ -51,17 +57,22 @@
 </div>
 
 <br>
-
+<div style="width: 100%;" align="center">
 <div>
-	<table>
+	<table class="table table-condensed" style="width: 1200px;">
 		<tr>
 			<th colspan="2"><h6>내가 관리하는 그룹</h6></th>
 		</tr>
 		<c:forEach items="${g_list}" var="glist" varStatus="i">
 			<c:if test="${glist.g_auth eq 3 }">
 				<tr>
-					<td><a href="group_detail.do?g_seq=${glist.g_seq}">${glist.g_name}</a></td>
-					<td></td>
+					<td align="left"><a href="group_detail.do?g_seq=${glist.g_seq}">${glist.g_name}</a>
+					<span class="b_name" id="b_name${glist.g_seq}">
+					<input type="text" value="${glist.g_name}" id="up_name${glist.g_seq }">
+					<button class="up_g_n btn btn-danger" data-set="${glist.g_seq}">수정</button>
+					</span>					
+					</td>
+					<td align="right"><button class="update_gn btn btn-danger" id="update_gn${glist.g_seq}" data-set="${glist.g_seq }" >그룹 명 수정 </button></td>
 				</tr>
 			</c:if>
 		</c:forEach>
@@ -69,19 +80,20 @@
 </div>
 <br>
 <div>
-	<table>
+	<table class="table table-condensed" style="width: 1200px;">
 		<tr>
 			<th colspan="2"><h6>가입한 그룹</h6></th>
 		</tr>
 		<c:forEach items="${g_list}" var="glist" varStatus="i">
 			<c:if test="${glist.g_auth ne 3}">
 				<tr>
-					<td><a href="group_detail.do?g_seq=${glist.g_seq}">${glist.g_name}</a></td>
+					<td align="left"><a href="group_detail.do?g_seq=${glist.g_seq}">${glist.g_name}</a></td>
 					<td></td>
 				</tr>
 			</c:if>
 		</c:forEach>
 	</table>
+</div>
 </div>
 <!-- 모달 -->
 <!-- 여기부터 모달 입니다. -->

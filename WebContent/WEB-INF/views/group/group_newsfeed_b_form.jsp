@@ -35,7 +35,7 @@ $(document).ready(function() {
 		}
 	});
 	$("#rbtn"+a).click(function() {
-		alert("실행");
+		/* alert("실행"); */
 		$.ajax({
 			type:"POST",
 			url: "vote_result.do?n_vote_seq="+a,
@@ -50,7 +50,7 @@ $(document).ready(function() {
 });
 </script>
 
-<table style="width: 100%; height: auto;" border="1">
+<table class="table table-bordered" style="width: 100%; height: auto;" >
 <tr>
 <td>
 <c:if test="${empty find}">
@@ -96,12 +96,13 @@ $(document).ready(function() {
 <a data-toggle="modal" data-target="#Modalaaa">
 <img  alt="결과보기" src="image/result.jpg" class="rbtn${vodto.n_vote_seq}"  id="rbtn${vodto.n_vote_seq }">
 </a>
-<button id="vbtn${vodto.n_vote_seq }">투표하기</button>
+<br/>
+<button id="vbtn${vodto.n_vote_seq }"  class="btn btn-danger">투표하기</button>
 </c:if>
 <c:if test="${!empty find}">
- <a data-toggle="modal" data-target="#Modalaaa">
+<a data-toggle="modal" data-target="#Modalaaa">
 <img  alt="결과보기" src="image/result.jpg"  id="rbtn${vodto.n_vote_seq }">
-</a> 
+</a>
 </c:if>
 </td>
 </tr>

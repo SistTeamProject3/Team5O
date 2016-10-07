@@ -5,7 +5,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 
-<table border="1">
+<table class="table table-striped">
 <%-- <c:if test="${empty list }">
 <tr>
 <td>투표 결과가 없습니다.</td>

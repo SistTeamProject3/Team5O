@@ -38,10 +38,7 @@ $(document).ready(function(){
 	});
     $(".videoclass").click(function() {
     	$("#md_video").attr("src",'');
-    	alert("모달값 "+ $("#md_video").attr("src"));
-    	alert("누른거"+$(this).attr("data-set"));
     	$("#md_video").attr("src",$(this).attr("data-set"));
-    	alert("모달값 "+ $("#md_video").attr("src"));
     }); 	
  
     
@@ -57,8 +54,8 @@ $(document).ready(function(){
 </div>
 <!-- 헤더 끝-->
 <hr>
-<div style="width: 100%; border: 1px solid black;">
-		<table style="width: 100%;" border="1">
+<div style="width: 100%;" class="table table-bordered">
+		<table style="width: 100%;" class="table table-bordered">
 			<tr>
 			<td align="left">
 			<form action="" id="photoForm" method="post">
@@ -72,12 +69,12 @@ $(document).ready(function(){
 			
 		</table>
 		<c:if test="${!empty g_videolist}">	
-			<table style="width: 100%;" border="1">
+			<table style="width: 100%;" class="table table-bordered">
 				<tr>
 				<c:forEach items="${g_videolist }" var="vlist" varStatus="i">
-					<td style="width: 25%; height: 200px;">
-					<a data-toggle="modal" data-target="#Modalvideo" data-backdrop="static">
-					<video controls="controls" class="videoclass" data-set="upload/${vlist.nf_video }">
+					<td style="width: 25%; height: 200px; margin-left: 5px; margin-right: 5px;" align="center" valign="middle">
+					<a data-toggle="modal" data-target="#Modalvideo">
+					<video  controls="controls" class="videoclass" data-set="upload/${vlist.nf_video }">
     					<source id="video${i.count }" src="upload/${vlist.nf_video }" type="video/mp4" />
 					</video>
 					</a>
@@ -104,14 +101,14 @@ $(document).ready(function(){
     <div class="modal-dialog modal-lg modal-center">
       <!-- Modal content-->
       <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" id="close" data-dismiss="modal">&times;</button>
-        	<video id="md_video" controls autoplay src="" type="video/mp4"></video>
-    			<!-- <source id="md_video" src=""/> -->
-		<!-- 	</video> -->
+      <!--   <div class="modal-header">
+    			<source id="md_video" src=""/>
+			</video>
 		
-        </div>
+        </div> -->
       	  <div class="modal-body">
+      	  <video id="md_video" controls autoplay src="" type="video/mp4"></video>
+      	  
         </div>
       </div>
     </div>

@@ -47,8 +47,9 @@ $(document).ready(function(){
 </div>
 <!-- 헤더 끝-->
 <hr>
-	<div style="width: 100%; border: 1px solid black;">
-		<table style="width: 100%;" border="1">
+<div class="table table-bordered">
+	<div style="width: 100%;" class="table table-striped">
+		<table style="width: 100%;" class="table table-bordered">
 			<tr>
 			<td align="left">
 			<form action="" id="fileForm" method="post">
@@ -56,7 +57,7 @@ $(document).ready(function(){
 				<ul class="ulA">
 					<li class="liA"><a href="#none" id="all_file">모든 파일</a>&nbsp;&nbsp;</li>
 					<li class="liA"><b><a href="#none" id="upload_file">업로드된 파일</a></b>&nbsp;&nbsp;</li>
-					<li class="liA"><a href="#none" id="share_text">공유 문서</a>&nbsp;&nbsp;</li>
+					<!-- <li class="liA"><a href="#none" id="share_text">공유 문서</a>&nbsp;&nbsp;</li> -->
 				</ul>
 			</form>
 			
@@ -64,8 +65,8 @@ $(document).ready(function(){
 		</table>
 		
 	</div>
-		<div style="width: 100%; border: 1px solid black;">
-	<table>
+		<div style="width: 100%;" class="table table-striped">
+	<table class="table table-hover">
 	<col width="auto"><col width="65%"><col width="20%"><col width="10%">
 	<c:if test="${empty g_flist}">
 	<tr>
@@ -101,7 +102,7 @@ $(document).ready(function(){
 	</table>
 	
 	</div>
-
+</div>
 </div>
 <form name="delfileup"  method="post" action="fileDownload.do">
    <input type="hidden" name="filename" value=""/>

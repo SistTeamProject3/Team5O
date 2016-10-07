@@ -78,7 +78,14 @@
 	<put-attribute name="center_main" value="/WEB-INF/views/group/recommend_group_list.jsp"/>
 </definition>
 
+<definition name="local_group_list.tiles" extends="group_list.tiles">
+	<put-attribute name="center_main" value="/WEB-INF/views/group/local_group_list.jsp"/>
+</definition>
+
 <definition name="list_table.tiles" template="/WEB-INF/views/group/list_table.jsp">
+</definition>
+
+<definition name="g_local_list_table.tiles" template="/WEB-INF/views/group/g_local_list_table.jsp">
 </definition>
 
 <definition name="group_newsfeed_list.tiles" template="/WEB-INF/views/group/group_newsfeed_list.jsp">

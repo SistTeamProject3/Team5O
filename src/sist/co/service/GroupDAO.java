@@ -233,4 +233,15 @@ public class GroupDAO {
 	public List<GroupPhotoDTO> group_add_coment(GroupPhotoDTO gdto)throws Exception{
 		return sqlSession.selectList(ns+"group_add_coment", gdto);
 	}
+	
+	public List<GroupMakeDTO> group_local_find(GroupMakeDTO gdto)throws Exception{
+		return sqlSession.selectList(ns+"group_local_find", gdto);
+	}
+	
+	public boolean group_name_update(GroupMakeDTO gdto)throws Exception{
+		 sqlSession.update(ns+"group_name_update", gdto);
+		 
+		 return true;
+	}
+	
 }
