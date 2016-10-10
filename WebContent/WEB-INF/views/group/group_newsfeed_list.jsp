@@ -202,12 +202,18 @@ width: 60%;
 	<!-- 댓글입력 -->
 		<tr id ="show_comment${g_nlist.n_seq }" style="display: none;">
 			<td>
-				<c:if test="${!empty login.m_profile }">
+				<%-- <c:if test="${!empty login.m_profile }">
 					<img class="m_profile" alt="프로필" src="upload/${login.m_profile }">
 				</c:if>
 				<c:if test="${empty login.m_profile }">
 					<img class="m_profile" alt="프로필" src="image/basic_profile.jpg">
-				</c:if>
+				</c:if> --%>
+				<c:if test="${login.m_profile eq 'member_basic.jpg'}">
+  			 	<img class="m_profile" alt="사진없음" src="image/${login.m_profile}">
+  				 </c:if>
+   				<c:if test="${login.m_profile ne 'member_basic.jpg'}">
+   				<img class="m_profile" alt="사진없음" src="upload/${login.m_profile}">
+   				</c:if>		
 			</td>
 			<td colspan="2">
 				<input type="text" style="width:100%;" id="n_content${g_nlist.n_seq }" name="n_content" onkeydown="onKeyDown_comment('${g_nlist.n_seq }')">
@@ -345,15 +351,16 @@ function onKeyDown_comment(val)
 
     if(event.keyCode == 13)
 	{
-    	
-    	
    	
+		
+    	
+    	
  	 	var s = "<table style='width: 100%;'><tr>";
  		s+="<td class='profile_flied'>";
- 		s+="<c:if test='${!empty login.m_profile }'>";
- 		s+="<img class='c_profile' alt='프로필' src='upload/${login.m_profile }'>";
- 		s+="</c:if><c:if test='${empty login.m_profile }'>";
- 		s+="<img class='c_profile' alt='프로필' src='image/basic_profile.jpg'>";
+ 		s+="<c:if test="${login.m_profile eq 'member_basic.jpg' }">";
+ 		s+=" <img class='m_profile' alt='사진없음' src='image/${login.m_profile}'>";
+ 		s+="</c:if><c:if test="${login.m_profile ne 'member_basic.jpg'}">";
+ 		s+="<img class='m_profile' alt='사진없음' src='upload/${login.m_profile}'>";
  		s+="</c:if></td><td class='c_name'>${login.m_id } :</td>";
  		s+="<td class='c_content'>"+$("#n_content"+val).val()+"</td>";
  		s+="<td class='c_time'>방금전</td></tr></table>"
