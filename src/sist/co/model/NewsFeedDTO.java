@@ -35,35 +35,38 @@ START WITH 1 INCREMENT BY 1
 public class NewsFeedDTO implements Serializable{
 
 	private int n_seq;
-   private int g_seq;
-   private int n_form_num;
-   private String m_id;
-   private String n_content;
-   private String n_tag_friend;
-   private String n_tag_where;
-   private String n_tag_feel;//1-기뻐요/2-슬퍼요/3-피곤해요
-   private int n_show;  //1-전체공개 / 2-친구만 / 3-나만보기
-   private String n_wdate;
-   private int n_report;
-   private int n_ref;
-   private int n_step;
-   private int n_depth;
-   private int n_parent;
-   private int n_del;
-   private int n_share;
-   private int n_event_seq;
-   private int n_vote_seq;
+	private int g_seq;
+	private int n_form_num;
+	private String m_id;
+	private String n_content;
+	private String n_tag_friend;
+	private String n_tag_where;
+	private String n_tag_feel;// 1-기뻐요/2-슬퍼요/3-피곤해요
+	private int n_show; // 1-전체공개 / 2-친구만 / 3-나만보기
+	private String n_wdate;
+	private int n_report;
+	private int n_ref;
+	private int n_step;
+	private int n_depth;
+	private int n_parent;
+	private int n_del;
+	private int n_share;
+	private int n_event_seq;
+	private int n_vote_seq;
 
-   private String filename;
-   private int n_likecount;
-   
-   public NewsFeedDTO() {}
+	private String filename;
+	private int n_likecount;
+
+	private String e_start_date;
+	private String e_title;
+
+	public NewsFeedDTO() {}
 
 public NewsFeedDTO(int n_seq, int g_seq, int n_form_num, String m_id, String n_content, String n_tag_friend,
 		String n_tag_where, String n_tag_feel, int n_show, String n_wdate, int n_report, int n_ref, int n_step,
 		int n_depth, int n_parent, int n_del, int n_share, int n_event_seq, int n_vote_seq, String filename,
-		int n_likecount) {
-	super();
+		int n_likecount, String e_start_date, String e_title) {
+	
 	this.n_seq = n_seq;
 	this.g_seq = g_seq;
 	this.n_form_num = n_form_num;
@@ -85,6 +88,8 @@ public NewsFeedDTO(int n_seq, int g_seq, int n_form_num, String m_id, String n_c
 	this.n_vote_seq = n_vote_seq;
 	this.filename = filename;
 	this.n_likecount = n_likecount;
+	this.e_start_date = e_start_date;
+	this.e_title = e_title;
 }
 
 public int getN_seq() {
@@ -255,6 +260,22 @@ public void setN_likecount(int n_likecount) {
 	this.n_likecount = n_likecount;
 }
 
+public String getE_start_date() {
+	return e_start_date;
+}
+
+public void setE_start_date(String e_start_date) {
+	this.e_start_date = e_start_date;
+}
+
+public String getE_title() {
+	return e_title;
+}
+
+public void setE_title(String e_title) {
+	this.e_title = e_title;
+}
+
 @Override
 public String toString() {
 	return "NewsFeedDTO [n_seq=" + n_seq + ", g_seq=" + g_seq + ", n_form_num=" + n_form_num + ", m_id=" + m_id
@@ -262,8 +283,11 @@ public String toString() {
 			+ ", n_tag_feel=" + n_tag_feel + ", n_show=" + n_show + ", n_wdate=" + n_wdate + ", n_report=" + n_report
 			+ ", n_ref=" + n_ref + ", n_step=" + n_step + ", n_depth=" + n_depth + ", n_parent=" + n_parent + ", n_del="
 			+ n_del + ", n_share=" + n_share + ", n_event_seq=" + n_event_seq + ", n_vote_seq=" + n_vote_seq
-			+ ", filename=" + filename + ", n_likecount=" + n_likecount + "]";
+			+ ", filename=" + filename + ", n_likecount=" + n_likecount + ", e_start_date=" + e_start_date
+			+ ", e_title=" + e_title + "]";
 }
+
+
 
 
 }

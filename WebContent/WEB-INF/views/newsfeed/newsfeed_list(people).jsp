@@ -13,43 +13,27 @@ $(window).bind('scroll', function(){
 });
 
 function news_scrollEvent(){
-
-	$(window).unbind('scroll');
-	var lastseq = $(".table:last").attr("data-seq");
-	var viewPage;
-	var eventSeq;
-	
-	if ( '${ param.viewPage }' == '' ) {
-		viewPage = '${ viewPage }';
-	} else {
-		viewPage = '${ param.viewPage }';
-	}
-	
-	if ( '${ param.eventSeq }' == '' ) {
-		eventSeq = '${ eventSeq }';
-	} else {
-		eventSeq = '${ param.eventSeq }';
-	}
- 	
-	$.ajax({
-		type: 'POST',
-		url: 'test2.do',
-		data: {'lastSeq' : lastseq ,'link' : viewPage, 'eventSeq' : eventSeq},
-		async: false ,
-		cache: false,
-		success: function(data) {
-			$('#scrolling').append(data); 
-			$(window).bind('scroll', function(){
-				if ($(window).scrollTop() == $(document).height() - $(window).height()){
-				news_scrollEvent();
-				}   
-			}); 
-		},
-		error: function(data) {
-			alert("error");
-		}
-	}); 
-
+	var peopleName='${peopleName }';
+	 $(window).unbind('scroll');
+     var lastseq = $(".table:last").attr("data-seq");
+ 	  $.ajax({
+ 	        type: 'POST',
+ 	        url: 'test2.do',
+ 	        data: {'lastseq' : lastseq ,'viewPage' : 'people','eventSeq' : '0','m_id':peopleName},
+ 			async: false ,
+ 			cache: false,
+ 	        success: function(data) {
+ 	        	  $('#scrolling').append(data); 
+ 	        	 $(window).bind('scroll', function(){
+ 	        		   if ($(window).scrollTop() == $(document).height() - $(window).height()){
+ 	        			  news_scrollEvent();
+ 	        		   }   
+ 	        	 }); 
+ 	        },
+ 	        error: function(data) {
+ 	      		alert("error");
+ 	        }
+ 	     }); 
 }
 
 </script>
@@ -102,7 +86,7 @@ function news_scrollEvent(){
 				<img alt="사진없음" src="upload/${login.m_profile}" height="50px" width="50px">
 				</c:if>
 			</td>
-			<td align=left>작성자 : <a href="time_line.do?m_id=${news.m_id}">${news.m_id}</a></td>
+			<td align=left>작성자 : <a onclick="location.href='time_line.do?m_id=${news.m_id}'">${news.m_id}</a></td>
 			<td>
 			
 			<!-- 한영선: "수정/삭제" (in 뉴스피드 테이블 1)  -->
@@ -150,9 +134,9 @@ function news_scrollEvent(){
 		<tr>
 			<td colspan="3"  align=left>
 				
-				<c:if test="${ param.viewPage eq 'main' }">
+				
 					<pre width="50px" style="background-color: white">${news.n_content}</pre>
-				</c:if>
+				
 				<c:if test="${news.n_tag_where ne NULL}">
 					<strong>${news.n_tag_where}</strong>&nbsp;에서
 				</c:if>

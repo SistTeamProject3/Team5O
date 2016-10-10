@@ -5,18 +5,21 @@ public class NewsFeedListDTO {
 	private String	viewPage;
 	private String	m_id;
 	private int		seq;
+	private int		lastSeq;
 	
 	public NewsFeedListDTO() {}
 	
-	public NewsFeedListDTO(String viewPage, String m_id, int seq) {
+	public NewsFeedListDTO(String viewPage, String m_id, int seq, int lastSeq) {
 		this.viewPage = viewPage;
 		this.m_id = m_id;
 		this.seq = seq;
+		this.lastSeq = lastSeq;
 	}
 
 	@Override
 	public String toString() {
-		return "NewsFeedListDTO [viewPage=" + viewPage + ", m_id=" + m_id + ", seq=" + seq + "]";
+		return "NewsFeedListDTO [viewPage=" + viewPage + ", m_id=" + m_id + ", seq=" + seq + ", lastSeq=" + lastSeq
+				+ "]";
 	}
 
 	public String getViewPage() {
@@ -41,5 +44,13 @@ public class NewsFeedListDTO {
 
 	public void setSeq(int seq) {
 		this.seq = seq;
+	}
+
+	public int getLastSeq() {
+		return lastSeq;
+	}
+
+	public void setLastSeq(int lastSeq) {
+		this.lastSeq = lastSeq;
 	}
 }

@@ -33,6 +33,7 @@ pageContext.setAttribute("day", day);
 %>
 
 <style type="text/css">
+
 .tbl_event_write th {
 	text-align: right;
 	padding-right: 10px;
@@ -47,7 +48,7 @@ pageContext.setAttribute("day", day);
 </style>
 
 <!-- 	Modal	 -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
+<div class="modal fade" id="modal_event_write" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
 <div class="modal-header">
@@ -65,14 +66,17 @@ pageContext.setAttribute("day", day);
 			<td style="border: 1px solid #505050; border-radius: 2px; height: 200px;">
 				<div id="image_wrap_before">
 					
+					<!-- 보류
 					<span>
 						<a href="#" id="title_image_choice" class="btn btn-default" 
 						style="width: 50%; float: left; border-radius: 0px;">주제 선택</a>
 					</span>
+					-->
 					
+					<!-- 주제 선택 구현 시 'width: 50%'로 변경 필요 -->
 					<span>
 						<a href="#" id="image_upload" class="btn btn-default" 
-						style="width: 50%; border-radius: 0px;">사진 업로드</a>
+						style="width: 100%; border-radius: 0px;">사진 업로드</a>
 						<!-- 파일 업로드 버튼 '찾아보기' 숨김 -->
 						<input type="file" id="btn_image_upload" name="image_name" accept="image/*" />
 					</span>
@@ -161,6 +165,7 @@ pageContext.setAttribute("day", day);
 		</tr>
 		</table>
 		
+		<input type="hidden" id="e_seq" name="e_seq" />
 		<input type="hidden" id="m_id" name="m_id" />
 		<input type="hidden" id="m_name" name="m_name" />
 		<input type="hidden" id="e_image" name="e_image" />
@@ -179,6 +184,8 @@ pageContext.setAttribute("day", day);
 </div>
 <!--  // Modal	 -->
 
+<input type="hidden" id="event_work" />
+
 <!--		script			-->
 <!--		▼ ▼ ▼ ▼			-->
 <script type="text/javascript">
@@ -189,6 +196,26 @@ $('#event_test').click(function() {
 */
 
 $(document).ready(function () {
+	
+	/*		'이벤트 만들기'로 이벤트 모달을 오픈할 경우 처리		*/
+	$('#event_write_form').click(function() {
+	//	$('#frm_event_write').attr('action', 'event_write.do');
+		$('#event_write').text("이벤트 만들기");
+	});
+	/*	 // '이벤트 만들기'로 이벤트 모달을 오픈할 경우 처리		*/
+	
+	/*		'이벤트 수정하기'로 이벤트 모달을 오픈할 경우 처리		*/
+	$('#event_update').click(function() {
+		$('#frm_event_write').attr('action', 'event_update.do');
+		$('#event_write').text("이벤트 수정하기");
+		$('#event_name').val('${ event.e_title }');
+		$('#e_location').val('${ event.e_location }');
+		$('#start_date').val('${ event.e_start_date }');
+		$('#end_date').val('${ event.e_end_date }');
+		$('#e_content').val('${ event.e_content }');
+	});
+	/*	 // '이벤트 수정하기'로 이벤트 모달을 오픈할 경우 처리		*/
+	
 	// 이벤트 만들기 팝업 초기 설정
 	$('#event_write_form').click(function() {
 		// 이벤트 제목 커서 이동
@@ -309,6 +336,8 @@ $(document).ready(function () {
 	
 	/*		// 날짜-시간 		  */
 	
+	var eventSeq = '${ event.e_seq }';
+	
 	// 이벤트 만들기 버튼 클릭
 	$('#event_write').click(function() {
 		
@@ -319,6 +348,13 @@ $(document).ready(function () {
 			// 작성자 저장 ※ form이 multi 방식으로 인코딩 되기 때문에 hidden으로 값을 넘겨줄 수 없음
 			$('#m_id').val('${ login.m_id }');
 			$('#m_name').val('${ login.m_name }');
+			$('#e_seq').val(0);
+			
+			var btnInsert = $('#event_write').text();
+			
+			if ( btnInsert == '이벤트 수정하기' ) {
+				$('#e_seq').val(eventSeq);
+			}
 			
 			// 위치 값이 공백이면 '위치 없음'으로 저장
 			var location = $('#e_location').val();

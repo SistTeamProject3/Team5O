@@ -19,10 +19,14 @@ public class EventDTO implements Serializable {
 	private String	e_write_date;
 	private String	e_image;
 	
+	private int		ei_join;
+	
 	public EventDTO() {}
 
+
 	public EventDTO(int e_seq, int e_type, int g_seq, String m_id, String m_name, String e_title, String e_content,
-			String e_location, String e_start_date, String e_end_date, String e_write_date, String e_image) {
+			String e_location, String e_start_date, String e_end_date, String e_write_date, String e_image,
+			int ei_join) {
 		this.e_seq = e_seq;
 		this.e_type = e_type;
 		this.g_seq = g_seq;
@@ -35,6 +39,7 @@ public class EventDTO implements Serializable {
 		this.e_end_date = e_end_date;
 		this.e_write_date = e_write_date;
 		this.e_image = e_image;
+		this.ei_join = ei_join;
 	}
 
 	@Override
@@ -42,7 +47,7 @@ public class EventDTO implements Serializable {
 		return "EventDTO [e_seq=" + e_seq + ", e_type=" + e_type + ", g_seq=" + g_seq + ", m_id=" + m_id + ", m_name="
 				+ m_name + ", e_title=" + e_title + ", e_content=" + e_content + ", e_location=" + e_location
 				+ ", e_start_date=" + e_start_date + ", e_end_date=" + e_end_date + ", e_write_date=" + e_write_date
-				+ ", e_image=" + e_image + "]";
+				+ ", e_image=" + e_image + ", ei_join=" + ei_join + "]";
 	}
 
 	public int getE_seq() {
@@ -139,5 +144,15 @@ public class EventDTO implements Serializable {
 
 	public void setE_image(String e_image) {
 		this.e_image = e_image;
+	}
+
+
+	public int getEi_join() {
+		return ei_join;
+	}
+
+
+	public void setEi_join(int ei_join) {
+		this.ei_join = ei_join;
 	}
 }

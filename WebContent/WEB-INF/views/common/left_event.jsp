@@ -21,7 +21,7 @@
 
 <ul class="event_left_menu">
 	<li><a href="event_calendar.do">달력</a></li>
-	<li><a href="#" id="event_write_form" data-toggle="modal" data-target="#myModal" onclick="return false">만들기</a></li>
+	<li><a href="#" id="event_write_form" data-toggle="modal" data-target="#modal_event_write" onclick="return false">만들기</a></li>
 </ul>
 
 <jsp:include page="../event/form_event_write.jsp" />

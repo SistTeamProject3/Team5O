@@ -9,17 +9,23 @@ public class EventInviteDTO implements Serializable {
 	
 	private int		e_seq;
 	private String	m_id;
+	private int		ei_join;
+	private String	ei_write_date;
 	
 	public EventInviteDTO() {}
 
-	public EventInviteDTO(int e_seq, String m_id) {
+	public EventInviteDTO(int e_seq, String m_id, int ei_join, String ei_write_date) {
+		super();
 		this.e_seq = e_seq;
 		this.m_id = m_id;
+		this.ei_join = ei_join;
+		this.ei_write_date = ei_write_date;
 	}
 
 	@Override
 	public String toString() {
-		return "EventInviteDTO [e_seq=" + e_seq + ", m_id=" + m_id + "]";
+		return "EventInviteDTO [e_seq=" + e_seq + ", m_id=" + m_id + ", ei_join=" + ei_join + ", ei_write_date="
+				+ ei_write_date + "]";
 	}
 
 	public int getE_seq() {
@@ -37,37 +43,20 @@ public class EventInviteDTO implements Serializable {
 	public void setM_id(String m_id) {
 		this.m_id = m_id;
 	}
-	
-	
-	/*private int eventSeq;
-	private List<String> memberList;
-	
-	
 
-	public EventInviteDTO(int eventSeq, List<String> memberList) {
-		this.eventSeq = eventSeq;
-		this.memberList = memberList;
+	public int getEi_join() {
+		return ei_join;
 	}
 
-	@Override
-	public String toString() {
-		return "EventInviteDTO [eventSeq=" + eventSeq + ", memberList=" + memberList + "]";
+	public void setEi_join(int ei_join) {
+		this.ei_join = ei_join;
 	}
 
-	public int getEventSeq() {
-		return eventSeq;
+	public String getEi_write_date() {
+		return ei_write_date;
 	}
 
-	public void setEventSeq(int eventSeq) {
-		this.eventSeq = eventSeq;
+	public void setEi_write_date(String ei_write_date) {
+		this.ei_write_date = ei_write_date;
 	}
-
-	public List<String> getMemberList() {
-		return memberList;
-	}
-
-	public void setMemberList(List<String> memberList) {
-		this.memberList = memberList;
-	}
-	*/
 }

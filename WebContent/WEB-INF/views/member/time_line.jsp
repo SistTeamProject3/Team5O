@@ -15,7 +15,15 @@
 
 
 
-타임라인이당!
+<jsp:include page="../newsfeed/newsfeed_write.jsp">
+	<jsp:param name="viewPage" value="main" />
+	<jsp:param name="eventSeq" value="0" />
+</jsp:include> 
+
+<jsp:include page="../newsfeed/newsfeed_list(people).jsp">
+	<jsp:param name="viewPage" value="people" />
+	<jsp:param name="eventSeq" value="0" />
+</jsp:include> 
 
 
 
