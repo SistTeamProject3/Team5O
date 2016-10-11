@@ -78,6 +78,11 @@
 		UPDATE TP3_MEMBER SET M_PASSWORD=#{m_password} WHERE M_ID=#{m_id}
 	</update>
 
+	<update id="del_m_profile" parameterType="sist.co.model.MemberDTO">
+		UPDATE TP3_MEMBER SET M_PROFILE='member_basic.jpg' WHERE M_ID=#{m_id}
+	</update>
+
+
 	<select id="m_phoneAf" parameterType="sist.co.model.MemberDTO" resultType="java.lang.Integer">
 		SELECT NVL(COUNT(*),0) FROM TP3_MEMBER WHERE M_PHONE=#{m_phone}
 	</select>

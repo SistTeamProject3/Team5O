@@ -56,7 +56,7 @@ public class MemBerController {
 	
 	@RequestMapping(value="login.do", method=RequestMethod.GET)
 	public String login(Model model){
-		logger.info("환영합니다 login login" + new Date());
+		/*logger.info("환영합니다 login login" + new Date());*/
 		return "login.tiles";
 	}	
 	
@@ -67,7 +67,7 @@ public class MemBerController {
 	
 	@RequestMapping(value="loginAf.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String loginAf (HttpServletRequest request, MemberDTO member, Model model) throws Exception{
-		logger.info("환영합니다 loginAf loginAf" + new Date());
+		/*logger.info("환영합니다 loginAf loginAf" + new Date());*/
 		
 		MemberDTO login = null;
 		login =  MemberService.login(member);
@@ -77,17 +77,13 @@ public class MemBerController {
 			request.getSession().setMaxInactiveInterval(60*60*24);
 
 			return "main.tiles";
-
 		}else{
-			
 			return "redirect:/login.do";
 		}
 	}
-	
-	
 	@RequestMapping(value="regi.do", method=RequestMethod.GET)
 	public String regi(Model model){
-		logger.info("환영합니다 regi regi" + new Date());
+		/*logger.info("환영합니다 regi regi" + new Date());*/
 		return "regi.tiles";
 	}
 	
@@ -113,11 +109,10 @@ public class MemBerController {
 		MemberService.add_member(member);
 		return "redirect:/login.do";
 	}
-	
 
 	@RequestMapping(value="my_page.do", method=RequestMethod.GET)
 	public String mypage(Model model){
-		logger.info("환영합니다 mypage mypage" + new Date());
+		/*logger.info("환영합니다 mypage mypage" + new Date());*/
 		return "my_page.tiles";
 	}
 	
@@ -131,11 +126,10 @@ public class MemBerController {
 	}
 	/*영선  */
 	
-	
 	@RequestMapping(value="change_m_mypage1.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public MemberDTO change_m_mypage1(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
-		logger.info("환영합니다 change_m_mypage1 change_m_mypage1" + new Date());
+		/*logger.info("환영합니다 change_m_mypage1 change_m_mypage1" + new Date());*/
 
 		MemberService.change_m_office(member);
 
@@ -150,7 +144,7 @@ public class MemBerController {
 	@RequestMapping(value="change_m_mypage2.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public MemberDTO change_m_mypage2(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
-		logger.info("환영합니다 change_m_mypage2 change_m_mypage2" + new Date());
+		/*logger.info("환영합니다 change_m_mypage2 change_m_mypage2" + new Date());*/
 		MemberService.change_m_highschool(member);
 		MemberDTO login = null;
 		login =  MemberService.login2(member);
@@ -163,7 +157,7 @@ public class MemBerController {
 	@RequestMapping(value="change_m_mypage3.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public MemberDTO change_m_mypage3(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
-		logger.info("환영합니다 change_m_mypage3 change_m_mypage3" + new Date());
+		/*logger.info("환영합니다 change_m_mypage3 change_m_mypage3" + new Date());*/
 		MemberService.change_m_university(member);
 
 		MemberDTO login = null;
@@ -179,7 +173,7 @@ public class MemBerController {
 	@RequestMapping(value="change_m_marriage.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public MemberDTO change_m_marriage(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
-		logger.info("환영합니다 change_m_marriage change_m_marriage" + new Date());
+		/*logger.info("환영합니다 change_m_marriage change_m_marriage" + new Date());*/
 
 		MemberService.change_m_marriage(member);
 		
@@ -195,7 +189,7 @@ public class MemBerController {
 	@RequestMapping(value="change_m_content.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public MemberDTO change_m_content(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
-		logger.info("환영합니다 change_m_content change_m_content" + new Date());
+		/*logger.info("환영합니다 change_m_content change_m_content" + new Date());*/
 
 		MemberService.change_m_content(member);
 		
@@ -211,7 +205,7 @@ public class MemBerController {
 	@RequestMapping(value="change_m_address.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public MemberDTO change_m_address(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
-		logger.info("환영합니다 SistMemberController change_m_address" + new Date());
+		/*logger.info("환영합니다 SistMemberController change_m_address" + new Date());*/
 		
 		MemberService.change_m_address(member);
 		
@@ -226,11 +220,8 @@ public class MemBerController {
 	@RequestMapping(value="change_m_nickname.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public MemberDTO change_m_nickname(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
-		logger.info("환영합니다 change_m_nickname change_m_nickname" + new Date());
-		
-		System.out.println("자 여긴 들어옴??? 닉넴 변경임 ㅎㅎ"+member.getM_nickname());
+		/*logger.info("환영합니다 change_m_nickname change_m_nickname" + new Date());*/
 		MemberService.change_m_nickname(member);
-		
 		MemberDTO login = null;
 		login =  MemberService.login2(member);
 		
@@ -243,7 +234,7 @@ public class MemBerController {
 	@RequestMapping(value="change_m_gender.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public MemberDTO change_m_gender(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
-		logger.info("환영합니다 change_m_gender change_m_gender" + new Date());
+		/*logger.info("환영합니다 change_m_gender change_m_gender" + new Date());*/
 		
 		MemberService.change_m_gender(member);
 		
@@ -258,7 +249,7 @@ public class MemBerController {
 	@RequestMapping(value="change_m_phone.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public MemberDTO change_m_phone(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
-		logger.info("환영합니다 SistMemberController change_m_phone" + new Date());
+		/*logger.info("환영합니다 SistMemberController change_m_phone" + new Date());*/
 		
 		MemberService.change_m_phone(member);
 		
@@ -273,7 +264,7 @@ public class MemBerController {
 	@RequestMapping(value="change_m_pwd.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public MemberDTO change_m_pwd(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
-		logger.info("환영합니다 SistMemberController change_m_pwd" + new Date());
+		/*logger.info("환영합니다 SistMemberController change_m_pwd" + new Date());*/
 		
 		MemberService.change_m_pwd(member);
 		
@@ -287,11 +278,25 @@ public class MemBerController {
 	}
 	
 	
+	@RequestMapping(value="del_m_profile.do", method={RequestMethod.GET, RequestMethod.POST})
+	public MemberDTO del_m_profile(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
+		/*logger.info("환영합니다 del_m_profile del_m_profile" + new Date());*/
+		
+		MemberService.del_m_profile(member);
+		
+		MemberDTO login = null;
+		login =  MemberService.login2(member);
+		
+		request.getSession().setAttribute("login", login);
+		request.getSession().setMaxInactiveInterval(60*60*24);
+		
+		return login;
+	}
 	
 	@RequestMapping(value="m_phoneAf.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public MsgMember m_phoneAf(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
-		logger.info("환영합니다 SistMemberController m_phoneAf" + new Date());
+		/*logger.info("환영합니다 SistMemberController m_phoneAf" + new Date());*/
 		
 		int count= MemberService.m_phoneAf(member);
 		
@@ -309,7 +314,7 @@ public class MemBerController {
 	@RequestMapping(value="check_m_pwd.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public MsgMember check_m_pwd(HttpServletRequest request,MemberDTO member, Model model) throws Exception{
-		logger.info("환영합니다 SistMemberController m_phoneAf" + new Date());
+		/*logger.info("환영합니다 SistMemberController m_phoneAf" + new Date());*/
 		
 		int count= MemberService.check_m_pwd(member);
 		
@@ -331,28 +336,29 @@ public class MemBerController {
 	public String change_m_profile(HttpServletRequest request,MemberDTO member,
 		@RequestParam(value="fileload_j", required=false) MultipartFile fileload, Model model)throws Exception{
 		
-		logger.info("환영~ change_m_profile change_m_profile " + new Date());
+		/*logger.info("환영~ change_m_profile change_m_profile " + new Date());*/
 
 		NewsFeedListDTO newsfeedlistDTO = new NewsFeedListDTO("main", null, 0, 0);
 		List<NewsFeedDTO> NewsFeedList =  newsFeedService.getNewsFeedList(newsfeedlistDTO);
         model.addAttribute("NewsFeedList",NewsFeedList);
-		
+        
 		member.setM_profile(fileload.getOriginalFilename());
 		String fupload = request.getServletContext().getRealPath("/upload");	
 		String f = member.getM_profile();
 		String newFile = FUpUtil.getNewFile(f);
 		logger.info(fupload+"/" + newFile);
-		
 		member.setM_profile(newFile);
 		
-		try {
-			File file = new File(fupload+"/"+newFile);
-			
-			FileUtils.writeByteArrayToFile(file, fileload.getBytes());
-			
-			MemberService.change_m_profile(member);
-		} catch (Exception e) {
-			logger.info("pdsupload 실패!");
+		if(fileload.getSize()==0){
+			MemberService.del_m_profile(member);
+		}else{
+			try {
+				File file = new File(fupload+"/"+newFile);
+				FileUtils.writeByteArrayToFile(file, fileload.getBytes());
+				MemberService.change_m_profile(member);
+			} catch (Exception e) {
+				logger.info("pdsupload 실패!");
+			}
 		}
 		MemberDTO login = null;
 		
@@ -370,31 +376,12 @@ public class MemBerController {
 		logger.info("자기소개!" + new Date());
 		return "modify_content.jsp";
 	}*/
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	@RequestMapping(value="check_member.do", method=RequestMethod.POST)
 	@ResponseBody
 	public MsgMember check_member( HttpServletRequest request, MemberDTO member, Model model) throws Exception{
-
 		
-		logger.info("MemberController getID " + new Date());	
+		/*logger.info("MemberController getID " + new Date());*/
 		
 		int count= MemberService.check_member(member);
 		int random = (int)(Math.random()*10000000)+10000000;
@@ -444,19 +431,11 @@ public class MemBerController {
 			} 
 			}
 		return msg;
-		
 	}
-
 	private static class SMTPAuthenticator extends javax.mail.Authenticator {
 		 
 		  public PasswordAuthentication getPasswordAuthentication() {
 			  return new PasswordAuthentication("jossi8918", "tjdghks89"); // Google id, pwd, 주의) @gmail.com 은 제외하세요
 		  }
 	}
-	
-	
-	
-
-	
-	
 }

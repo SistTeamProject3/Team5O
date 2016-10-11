@@ -21,6 +21,8 @@ public interface MemberService {
 	boolean change_m_gender(MemberDTO member) throws Exception;
 	boolean change_m_phone(MemberDTO member) throws Exception;
 	boolean change_m_pwd(MemberDTO member) throws Exception;
+	boolean del_m_profile(MemberDTO member) throws Exception;
+	
 	
 	MemberDTO login2(MemberDTO member) throws Exception;
 }

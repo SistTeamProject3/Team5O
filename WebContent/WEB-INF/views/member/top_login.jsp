@@ -20,7 +20,7 @@
 <body>
 
  	<form id="_frmForm">
-	<div>
+	<div align="center">
 	<i class="fa fa-envira" aria-hidden="true"></i>
 	
 	<table>
@@ -32,9 +32,9 @@
 	<tr>
 		<td><input class="form-control" type="text" name="m_id" id="_id" size="20"></td>
 		<td><input class="form-control" type="password" name="m_password" id="_pwd"size="20"></td>
-		<td><button type="button" onclick="top_login()" id="_login" class="btn btn-default" title="로그인">로그인</button>	</td>
+		<td><button type="button" onclick="top_login()" id="_login" class="btn btn-success" title="로그인">로그인</button>	</td>
 		<td>
-		<button type="button" onclick="top_regi()" id="_regi" class="btn btn-default" title="회원가입">회원가입</button>
+		<button type="button" onclick="top_regi()" id="_regi" class="btn btn-success" title="회원가입">회원가입</button>
 
 		</td>
 	</tr>

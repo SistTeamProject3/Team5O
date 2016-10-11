@@ -43,7 +43,8 @@ function modify_marriage2(){
 
 </head>
 <body>
-	
+	<br><br>
+	<h4>
 	<input type="hidden" id="_id" value="${login.m_id }">
 	결혼/연애 상태
 	<hr>
@@ -61,15 +62,15 @@ function modify_marriage2(){
 		
 		</div>
 	</div>
-	<button id="_add_marriage" onclick="modify_marriage()">결혼/연애 상태 수정</button>
+	<a id="_add_marriage" onclick="modify_marriage()" class="btn btn-success">결혼/연애 상태 수정</a>
 
 	<div id="_radio">
 	<input type="radio" id="m_marriage1" name="m_marriage" value="0" checked="checked">싱글
 	<input type="radio" id="m_marriage2" name="m_marriage" value="1">연애중
 	<input type="radio" id="m_marriage3" name="m_marriage" value="2">결혼
-	<button onclick="modify_marriage2()" id="_modify_btn">완료</button>
+	<a onclick="modify_marriage2()" id="_modify_btn" class="btn btn-success">완료</a>
 	</div>
-	
+	</h4>
 
 <script type="text/javascript">
 $("#_radio").hide();

@@ -20,17 +20,13 @@
 
 <div id="body_wrap">
 	<div id="main_wrap">
-		<div id="header_wrap">
+		<div id="login_header_wrap">
 			<tiles:insertAttribute name="top_inc"/>
 		</div>	
 		
 		<div id="middle_wrap">
 			<tiles:insertAttribute name="login_main"/>
-		</div>	
-		
-		<div id="footer_wrap">
-			<tiles:insertAttribute name="bottom_inc"/>		
-		</div>			
+		</div>
 	</div>
 </div>
 

@@ -7,8 +7,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <fmt:requestEncoding value="utf-8" />
 
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -19,10 +17,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-
 <body>
-
-
 <div class="modal fade yss">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -30,20 +25,37 @@
     </div>
   </div> 
 </div> 
-
-<div style="height: 110px; border: 1px solid black ;">
-	<div style="float: left;" >
-		<img alt="사진없음" src="upload/${login.m_profile}"class="img-thumbnail" height="150px" width="150px" data-toggle="modal" data-target=".yss" >
-	</div>
-	<div style="float: left;">
+<div style="border: 1px solid; width: 100%;">
+<table>
+<tr>
+	<td rowspan="3">
+		<c:if test="${login.m_profile eq 'member_basic.jpg'}">
+		<img style="float: left;" alt="사진없음" src="./image/${login.m_profile}" height="100px" width="100px" data-toggle="modal" data-target=".yss" onmouseover="over()" onmouseout="out()" >
+		</c:if>
+		<c:if test="${login.m_profile ne 'member_basic.jpg'}">
+		<img style="float: left;" alt="사진없음" src="upload/${login.m_profile}" height="100px" width="100px" data-toggle="modal" data-target=".yss" onmouseover="over()" onmouseout="out()" >
+		</c:if>
+	</td>
+</tr>
+<tr>
+	<td>
+		<label data-toggle="modal" data-target=".yss">사진 변경</label>
+	</td>
+</tr>
+<tr>
+	<td>
 		${login.m_nickname }
-	</div>
-	
+	</td>
+</tr>
+<tr>
+</table>
 </div>
-	<table>
+
+<table>
 		<tr><td><a href="time_line.do">타임라인&nbsp;&nbsp;&nbsp;</a></td><td><a href="my_page.do">정보&nbsp;&nbsp;&nbsp;</a></td><td><a href="">친구&nbsp;&nbsp;&nbsp;</a></td></tr>
-		
 	</table>
 <br>
+<br><br>
+
 </body>
 </html>
