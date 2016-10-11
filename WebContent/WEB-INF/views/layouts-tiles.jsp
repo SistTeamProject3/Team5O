@@ -37,9 +37,9 @@
 			</div>	
 		</div>	
 		
-		<div id="footer_wrap">
+		<%-- <div id="footer_wrap">
 			<tiles:insertAttribute name="bottom_inc"/>		
-		</div>			
+		</div>	 --%>		
 	</div>
 </div>
 

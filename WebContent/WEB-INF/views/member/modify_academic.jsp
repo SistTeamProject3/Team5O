@@ -99,36 +99,34 @@ function academicCode(event) {
 <title>Insert title here</title>
 </head>
 <body>
-
-
-	<input type="hidden" id="_id" value="${login.m_id }">
+<br><br>
+	<h4>
 	직장
 	<hr>
-	
+	<input type="hidden" id="_id" value="${login.m_id }">
 	<div id="test2">
-	
 	<c:if test="${login.m_office eq null}">
-		<button id="_add_office" value="modify_office">직장 추가</button>
+		<a id="_add_office" value="modify_office" class="btn btn-success">직장 추가</a>
 	</c:if>
-	<input type="text" size="30" id="_office" value="" onkeypress="return academicCode(event)" maxlength="30">
-	<button onclick="change_m_mypage1()" id="_add_office2">확인</button>
-	
+	<input type="text" id="_office" value="" onkeypress="return academicCode(event)" maxlength="30">
+	<a onclick="change_m_mypage1()" id="_add_office2" class="btn btn-success">확인</a>
 	<div id="_basics_office">${login.m_office}</div>
-	<button value="modify_office" id="_modify_office">수정</button>
-	
+	<a value="modify_office" id="_modify_office" class="btn btn-success">수정</a>
 	</div>
 	<hr>
 	고등학교
 	<hr>
 	<div id="test3">
 	<c:if test="${login.m_highschool eq null}">
-		<button id="_add_highschool" value="modify_highschool">고등학교 추가</button>
+		<a id="_add_highschool" value="modify_highschool" class="btn btn-success">고등학교 추가</a>
+		<!-- <button id="_add_highschool" value="modify_highschool">고등학교 추가</button> -->
 	</c:if>
-	<input type="text" size="30" id="_highschool" value="" onkeypress="return academicCode(event)" maxlength="30">
-	<button onclick="change_m_mypage2()" id="_add_highschool2">확인</button>
-	
+	<input type="text" id="_highschool" value="" onkeypress="return academicCode(event)" maxlength="30">
+	<a onclick="change_m_mypage2()" id="_add_highschool2" class="btn btn-success">확인</a>
+	<!-- <button onclick="change_m_mypage2()" id="_add_highschool2">확인</button> -->
 	<div id="_basics_highschool">${login.m_highschool}</div>
-	<button value="modify_highschool" id="_modify_highschool">수정</button>
+	<a value="modify_highschool" id="_modify_highschool" class="btn btn-success">수정</a>
+	<!-- <button value="modify_highschool" id="_modify_highschool">수정</button> -->
 
 	</div>
 	<hr>
@@ -137,17 +135,15 @@ function academicCode(event) {
 	
 	<div id="test4">
 	<c:if test="${login.m_university eq null}">
-		<button id="_add_university" value="modify_university">대학교 추가</button>
+		<a id="_add_university" value="modify_university" class="btn btn-success">대학교 추가</a>
 	</c:if>
-		<input type="text" size="30" id="_university" value="" onkeypress="return academicCode(event)" maxlength="30">
-		<button onclick="change_m_mypage3()" id="_add_university2">확인</button>
-
+		<input type="text" id="_university" value="" onkeypress="return academicCode(event)" maxlength="30">
+		<a onclick="change_m_mypage3()" id="_add_university2" class="btn btn-success">확인</a>
 	<div id="_basics_university">${login.m_university}</div>
-	<button value="modify_university" id="_modify_university">수정</button>
-
+		<a value="modify_university" id="_modify_university" class="btn btn-success">수정</a>
 	</div>
 	<hr>
-
+	</h4>
 
 <script type="text/javascript">
 
@@ -175,7 +171,7 @@ $('#_university').hide();
 $('#_add_university2').hide();
 
 $(function(){
-	$("button").click(function(){
+	$("a").click(function(){
 	var btn = $(this).attr("value");
 	
 	if(btn=="modify_office"){

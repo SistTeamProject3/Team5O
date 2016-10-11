@@ -33,11 +33,7 @@
 				<tiles:insertAttribute name="my_page2"/>
 				</div>
 			</div>		
-		</div>
-		
-		<div id="footer_wrap">
-			<tiles:insertAttribute name="bottom_inc2"/>		
-		</div>			
+		</div>	
 	</div>
 </div>
 

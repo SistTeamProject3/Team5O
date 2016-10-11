@@ -13,88 +13,137 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
-
-
-<div id="_nickname">
-
-${login.m_nickname}
-<button onclick="modify_nickname1()">수정</button>
+<br><br>
+<h4>패스워드</h4>
+<hr>
+<a onclick="modify_pwd1()" id="_modify_pwd" class="btn btn-success">패스워드 변경</a>
+<div id="ch_pwd">
+<h4>현재 비밀번호&nbsp;&nbsp;&nbsp;<input type="password" style="ime-mode:disabled; display: inline; width: 200px;" class="form-control" id ="_pwd" placeholder="현재 비밀번호">
+<a onclick="check_pwd()" id="_check_pwd" class="btn btn-success">패스워드 확인</a>
+</h4>
 </div>
-<div id="_m_nickname">
-<input type="text" id="m_nickname" onkeypress="return nameCode(event)" maxlength="5">
-<button onclick="modify_nickname()">확인</button>
-<button onclick="nick_cancel()">취소</button>
+
+<div id="new_pwd">
+<h4>
+<table style="margin: auto;">
+<col width="300px;">
+<tr><td align="left">
+새로운 비밀번호</td><td align="right"><input type="password" style="ime-mode:disabled; display: inline; width: 200px;" class="form-control" id ="new_pwd1" placeholder="비밀번호 입력">
+</td></tr>
+<tr><td align="left">
+새로운 비밀번호 확인</td><td align="right"><input type="password" style="ime-mode:disabled; display: inline; width: 200px;" class="form-control" id ="new_pwd2" placeholder="비밀번호 재입력" onkeyup="che_pwd()">
+</td></tr>
+</table>
+</h4>
+</div>
+<div id="_checkPwd">
+
+</div>
+<div>
+<a id="_pwd_ok" onclick="modify_pwd()" class="btn btn-success">확인</a>
+<a id="_pwd_cancel" onclick="pwd_cancel()" class="btn btn-success">취소</a>
+<!-- <button type="button" id="_pwd_ok" onclick="modify_pwd()">확인</button>
+<button type="button" id="_pwd_cancel" onclick="pwd_cancel()">취소</button> -->
+</div>
+
+
+<hr>
+<h4>
+닉네임
+</h4>
+<hr>
+<!-- <div style="height:50px;"><font size="4">닉네임</font></div> -->
+<table id="_nickname" style="margin: auto;">
+<col width="100px;"><col width="100px;">
+<tr>
+<td align="left">
+<div>
+<h4>
+${login.m_nickname}
+</h4>
+</div>
+</td>
+<td align="right">
+<a onclick="modify_nickname1()" class="btn btn-success">수정</a>
+</tr>
+</table>
+
+<div id="_m_nickname" style="float: inherit;">
+<input type="text" style="ime-mode:disabled; display: inline; width: 100px;" class="form-control" id="m_nickname" maxlength="5">
+<a onclick="modify_nickname()" class="btn btn-success">확인</a>
+<a onclick="nick_cancel()" class="btn btn-success">취소</a>
+<!-- <button onclick="modify_nickname()">확인</button>
+<button onclick="nick_cancel()">취소</button> -->
 </div>
 
 <hr>
-
-<div id="_phone">
+<h4>
+휴대전화번호
+</h4>
+<hr>
+<h4>
+<table id="_phone" style="margin: auto;">
+<col width="100px;"><col width="100px;">
+<tr><td align="left">
 ${login.m_phone} 
-<button onclick="modify_phone1()">수정</button>
-</div>
-
+</td>
+<td align="right">
+<a onclick="modify_phone1()" class="btn btn-success">수정</a>
+<!-- <button onclick="modify_phone1()">수정</button> -->
+</td>
+</tr>
+</table>
+</h4>
 <div id="_m_phone">
 
-<select id="_m_phone1" name="m_phone1">
+<select id="_m_phone1" class="form-control" name="m_phone1" style="display: inline; width: 100px;">
 <option>010</option>
 	<option>011</option>
 	<option>016</option>
 	<option>018</option>
 </select>
 -
-<input id="_m_phone2" type="text" size="10" style="ime-mode:disabled;" onkeydown="return phoneCode(event)" maxlength="4"> 
+<input id="_m_phone2" type="text" class="form-control" style="ime-mode:disabled; ime-mode:disabled; display: inline; width: 100px;" onkeydown="return phoneCode(event)" maxlength="4"> 
 -
-<input id="_m_phone3" type="text" size="10" style="ime-mode:disabled;" onkeydown="return phoneCode(event)" maxlength="4"> 
-
-<button id="_check_phone1" onclick="check_phone()">휴대전화 중복확인</button>
+<input id="_m_phone3" type="text" class="form-control" style="ime-mode:disabled; display: inline; width: 100px;" onkeydown="return phoneCode(event)" maxlength="4"> 
+<a id="_check_phone1" onclick="check_phone()" class="btn btn-success">휴대전화 중복확인</a>
+<a id="_check_phone2" onclick="modify_phone()" class="btn btn-success">확인</a>
+<a onclick="phone_cancel()" class="btn btn-success">취소</a>
+<!-- <button id="_check_phone1" onclick="check_phone()">휴대전화 중복확인</button>
 <button id="_check_phone2" onclick="modify_phone()">확인</button>
-<button onclick="phone_cancel()">취소</button>
+<button onclick="phone_cancel()">취소</button> -->
 </div>
-
+<h4>
 <hr>
-
-
-<button type="button" onclick="modify_pwd1()" id="_modify_pwd">패스워드 변경</button>
-<div id="ch_pwd">
-현재 비밀번호<input type="text" id ="_pwd">
-<button type="button" onclick="check_pwd()" id="_check_pwd">패스워드 확인</button>
-</div>
-<div id="new_pwd">
-새로운 비밀번호<input type="text" id ="new_pwd1" placeholder="비밀번호 입력">
-새로운 비밀번호 확인<input type="text" id ="new_pwd2" placeholder="비밀번호 재입력" onkeyup="che_pwd()">
-</div>
-<div id="_checkPwd">
-
-</div>
-<div>
-<button type="button" id="_pwd_ok" onclick="modify_pwd()">확인</button>
-<button type="button" id="_pwd_cancel" onclick="pwd_cancel()">취소</button>
-</div>
-
+성별
 <hr>
+<table id="_gender" style="margin: auto;">
+<col width="100px;"><col width="100px;">
+<tr>
+<td align="left">
+	<c:if test="${login.m_gender eq 0}" >
+		남자
+	</c:if>
+	<c:if test="${login.m_gender eq 1}">
+		여자
+	</c:if>
+</td>
 
+<td align="right"><a onclick="modify_gender1()" class="btn btn-success">수정</a></td>
 
+</tr>
 
-
-
-
-
-<div id="_gender">
-<c:if test="${login.m_gender eq 0}" >
-	남자
-</c:if>
-<c:if test="${login.m_gender eq 1}">
-	여자
-</c:if>
-<button onclick="modify_gender1()">수정</button>
-</div>
+</table>
 
 <div id="_m_gender">
 <input type="radio" id="m_gender1" name="m_gender_" value="0" checked="checked">남자
 <input type="radio" id="m_gender2" name="m_gender_" value="1">여자
-<button onclick="modify_gender()">확인</button>
-<button onclick="gender_cancel()">취소</button>
+<a onclick="modify_gender()" class="btn btn-success">확인</a>
+<a onclick="gender_cancel()" class="btn btn-success">취소</a>
+<!-- <button onclick="modify_gender()">확인</button>
+<button onclick="gender_cancel()">취소</button> -->
 </div>
+</h4>
 <hr>
 
 
@@ -173,12 +222,12 @@ function modify_nickname(){
 	url:"./change_m_nickname.do",
 	data:{"m_id":id,"m_nickname":nick},
 	success:function(msg){
-		$("#_nickname").html(msg.m_nickname + '<button onclick="modify_nickname1()">수정</button>');
+		$("#_nickname").html(msg.m_nickname + '<a onclick="modify_nickname1()" class="btn btn-success">수정</a>');
 		$("#_nickname").show();
 		$("#_m_nickname").hide();
 	},
 	error:function(request,error){
-		alert("닉 변경 실패.");
+		alert("변경 실패.");
 	}
 })
 }
@@ -193,7 +242,6 @@ function check_phone(){
 	data:"m_phone="+phone,
 	
 	success:function(msg){
-		alert("성공??");
 		output(msg);
 	},
 	error:function(request,error){
@@ -224,7 +272,7 @@ function modify_phone(){
 	data:{"m_id":id,"m_phone":phone},
 	
 	success:function(msg){
-		$("#_phone").html(msg.m_phone + '<button onclick="modify_phone1()">수정</button>');
+		$("#_phone").html(msg.m_phone + '<a onclick="modify_phone1()">수정</a>');
 		$("#_phone").show();
 		$("#_m_phone").hide();
 		$("#_check_phone1").show();
@@ -323,7 +371,7 @@ function modify_gender(){
 	                   break;
 	    }
 		
-		$("#_gender").html(ged + '<button onclick="modify_gender1()">수정</button>');
+		$("#_gender").html(ged + '<a onclick="modify_gender1()">수정</a>');
 		$("#_gender").show();
 		$("#_m_gender").hide();
 		

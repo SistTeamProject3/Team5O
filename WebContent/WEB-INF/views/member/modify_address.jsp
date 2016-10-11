@@ -70,16 +70,17 @@
 
 </head>
 <body>
-	
+	<br><br>
+	<h4>
 	<div id="db_address">
-	${login.m_address} <button type="button" onclick="modify_()">수정</button>
+	${login.m_address} <a onclick="modify_()" class="btn btn-success">수정</a> <!-- <button type="button" onclick="modify_()">수정</button> -->
 	</div>
 	
 	<div id = "_address">
 	<form>
 	<table>
 	
-	<col width="100px;"><col width="auto"><col width="100px;"><col width="auto">
+	<col width="100px;"><col width="300px;"><col width="185px;"><col width="100px;">
 	<!-- 주소  API 넣기 -->
 	<tr>
 		<td>*주소</td>
@@ -88,13 +89,13 @@
 		</td>
 		<td></td>
 		<td>
-			<input type="button" class="btn btn-info" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+			<input type="button" class="btn btn-success" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 		</td>
 	</tr>
 	
 	</table>
 	<table>
-	<col width="100px;">
+	<col width="100px;"><col width="300px;"><col width="300px;">
 	<tr>
 	<%
 	MemberDTO str = (MemberDTO)session.getAttribute("login"); 
@@ -111,15 +112,15 @@
 	</tr>
 	<tr>
 		<td colspan="3" align="right">
-			<button class="btn btn-info" onclick="modify_add()">확인</button>
-			<button class="btn btn-info" onclick="add_cancel()">취소</button>
+			<button class="btn btn-success" onclick="modify_add()">확인</button>
+			<button class="btn btn-success" onclick="add_cancel()">취소</button>
 		</td>
 	</tr>
 	</table>
 	<input type="hidden" value="${login.m_id }" id ="_id">
 	</form>
 	</div>
-
+	</h4>
 
 <script type="text/javascript">
 $("#_address").hide();
