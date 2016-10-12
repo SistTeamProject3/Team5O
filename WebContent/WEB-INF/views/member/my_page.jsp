@@ -52,7 +52,7 @@
 </div>
 
 <table>
-		<tr><td><a href="time_line.do">타임라인&nbsp;&nbsp;&nbsp;</a></td><td><a href="my_page.do">정보&nbsp;&nbsp;&nbsp;</a></td><td><a href="">친구&nbsp;&nbsp;&nbsp;</a></td></tr>
+		<tr><td><a href="time_line.do">타임라인&nbsp;&nbsp;&nbsp;</a></td><td><a href="my_page.do">정보&nbsp;&nbsp;&nbsp;</a></td></tr>
 	</table>
 <br>
 <br><br>

@@ -34,6 +34,11 @@ pageContext.setAttribute("day", day);
 
 <style type="text/css">
 
+.modal-header {
+	color: white;
+	background-color: #3B5998;
+}
+
 .tbl_event_write th {
 	text-align: right;
 	padding-right: 10px;
@@ -55,7 +60,7 @@ pageContext.setAttribute("day", day);
 	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		<span aria-hidden="true">&times;</span>
 	</button>
-	<h4 class="modal-title" id="myModalLabel">이벤트 만들기</h4>
+	<h4 class="modal-title" id="myModalLabel" style="font-weight: bold;">이벤트 만들기</h4>
 </div>
 <div class="modal-body">
 	<form id="frm_event_write" action="event_write.do" method="POST" enctype="multipart/form-data">
@@ -75,7 +80,7 @@ pageContext.setAttribute("day", day);
 					
 					<!-- 주제 선택 구현 시 'width: 50%'로 변경 필요 -->
 					<span>
-						<a href="#" id="image_upload" class="btn btn-default" 
+						<a href="#" id="image_upload" class="btn btn-success" 
 						style="width: 100%; border-radius: 0px;">사진 업로드</a>
 						<!-- 파일 업로드 버튼 '찾아보기' 숨김 -->
 						<input type="file" id="btn_image_upload" name="image_name" accept="image/*" />
@@ -199,7 +204,9 @@ $(document).ready(function () {
 	
 	/*		'이벤트 만들기'로 이벤트 모달을 오픈할 경우 처리		*/
 	$('#event_write_form').click(function() {
-	//	$('#frm_event_write').attr('action', 'event_write.do');
+		$('#frm_event_write').attr('action', 'event_write.do');
+		$('.modal-header').css('background-color', '#3B5998');
+		$('#myModalLabel').text("이벤트 만들기");
 		$('#event_write').text("이벤트 만들기");
 	});
 	/*	 // '이벤트 만들기'로 이벤트 모달을 오픈할 경우 처리		*/
@@ -207,6 +214,8 @@ $(document).ready(function () {
 	/*		'이벤트 수정하기'로 이벤트 모달을 오픈할 경우 처리		*/
 	$('#event_update').click(function() {
 		$('#frm_event_write').attr('action', 'event_update.do');
+		$('#myModalLabel').text("이벤트 수정하기");
+		$('.modal-header').css('background-color', '#D9534F');
 		$('#event_write').text("이벤트 수정하기");
 		$('#event_name').val('${ event.e_title }');
 		$('#e_location').val('${ event.e_location }');

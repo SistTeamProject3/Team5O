@@ -116,7 +116,7 @@
 <!-- 달력: 이벤트 '일'의 세부 이벤트 리스트 불러오기 -->
 <select id="selectEventDayList" parameterType="sist.co.model.CalendarDTO" resultType="sist.co.model.EventDTO">
 	SELECT * FROM TP3_EVENT
-	WHERE SUBSTR(E_WRITE_DATE, 1, 10)=#{yyyymm}
+	WHERE SUBSTR(E_START_DATE, 1, 10)=#{yyyymm}
 	AND M_ID=#{m_id}
 	ORDER BY E_START_DATE ASC
 </select>

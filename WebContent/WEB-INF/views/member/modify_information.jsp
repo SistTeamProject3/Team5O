@@ -54,7 +54,7 @@
 <hr>
 <!-- <div style="height:50px;"><font size="4">닉네임</font></div> -->
 <table id="_nickname" style="margin: auto;">
-<col width="100px;"><col width="100px;">
+<col width="150px;"><col width="150px;">
 <tr>
 <td align="left">
 <div>
@@ -83,7 +83,7 @@ ${login.m_nickname}
 <hr>
 <h4>
 <table id="_phone" style="margin: auto;">
-<col width="100px;"><col width="100px;">
+<col width="150px;"><col width="150px;">
 <tr><td align="left">
 ${login.m_phone} 
 </td>
@@ -118,7 +118,7 @@ ${login.m_phone}
 성별
 <hr>
 <table id="_gender" style="margin: auto;">
-<col width="100px;"><col width="100px;">
+<col width="150px;"><col width="150px;">
 <tr>
 <td align="left">
 	<c:if test="${login.m_gender eq 0}" >
@@ -272,7 +272,7 @@ function modify_phone(){
 	data:{"m_id":id,"m_phone":phone},
 	
 	success:function(msg){
-		$("#_phone").html(msg.m_phone + '<a onclick="modify_phone1()">수정</a>');
+		$("#_phone").html(msg.m_phone + '<a onclick="modify_phone1()" class="btn btn-success">수정</a>');
 		$("#_phone").show();
 		$("#_m_phone").hide();
 		$("#_check_phone1").show();
@@ -371,7 +371,7 @@ function modify_gender(){
 	                   break;
 	    }
 		
-		$("#_gender").html(ged + '<a onclick="modify_gender1()">수정</a>');
+		$("#_gender").html(ged + '<a onclick="modify_gender1()" class="btn btn-success">수정</a>');
 		$("#_gender").show();
 		$("#_m_gender").hide();
 		

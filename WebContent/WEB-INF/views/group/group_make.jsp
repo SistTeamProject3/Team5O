@@ -27,7 +27,7 @@ $(document).ready(function() {
 	<table border="1" style="width: 100%;" class="table table-bordered">
 		<thead>
 			<tr>
-				<th>새 그룹 만들기</th>
+				<th style="background-color: #3B5998;color: white;">새 그룹 만들기</th>
 			</tr>
 		</thead>
 		<tbody>

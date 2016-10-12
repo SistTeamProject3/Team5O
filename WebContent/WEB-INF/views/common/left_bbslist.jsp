@@ -26,8 +26,6 @@ ul {
 
 </style> 
 
-left_bbslist
-
 <div id="top_menu_wrap">
 	<div id="_top_menu">
 		<ul class="navi">
@@ -66,9 +64,9 @@ left_bbslist
 <!--         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div> -->
-      	  <div class="modal-body">
+      	 <!--  <div class="modal-body"> -->
           <jsp:include page="/WEB-INF/views/group/group_make.jsp"></jsp:include>
-        </div>
+       <!--  </div> -->
       </div>
     </div>
   </div>

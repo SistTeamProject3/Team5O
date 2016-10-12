@@ -15,19 +15,27 @@
 
 <style>
 #header_wrap div{
-	 background-color: #fadfbc;
+	 background-color: #3B5998;
+}
+
+.tbl_top_main td {
+	padding-right: 10px;
 }
 
 </style>
 
 <div>
-<table style="text-align: center; margin: auto;">
+<table class="tbl_top_main" style="text-align: center; margin: auto;">
 <col width="50px;">
 <col width="auto;">
 <col width="auto;">
 <col width="40px;">
 <col width="auto;">
 <tr>
+<td>
+	<a href="NewsFeedList2.do"><i class="fa fa-home fa-2x" aria-hidden="true"></i></a>
+</td>
+
 <td>
 	<div>
 	<c:if test="${login.m_profile eq 'member_basic.jpg'}">
@@ -46,16 +54,11 @@
     </a>
 	</c:if>
 </td>
-<td>
-	<a href="NewsFeedList2.do"><i class="fa fa-home fa-2x" aria-hidden="true"></i></a>
-</td>
+<!-- 
 <td>
 	<a class="btn btn-default" href="#">친구찾기</a>
 </td>
-
-<td>
-	
-</td>
+-->
 <td>
 	<div class="btn-group">
 	  <a class="btn btn-default dropdown-toggle"  aria-expanded="false" href="#" data-toggle="dropdown"><span class="caret"></span></a>

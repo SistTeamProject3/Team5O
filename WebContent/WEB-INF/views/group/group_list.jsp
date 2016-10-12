@@ -110,9 +110,9 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
       
         </div> -->
-      	  <div class="modal-body">
+<!--       	  <div class="modal-body"> -->
          <jsp:include page="/WEB-INF/views/group/group_make.jsp"></jsp:include>
-        </div>
+       <!--  </div> -->
       </div>
     </div>
   </div>

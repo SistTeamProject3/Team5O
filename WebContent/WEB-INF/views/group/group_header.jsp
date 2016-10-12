@@ -61,6 +61,10 @@
 	top: -110px;
 	left: 170px;
 }
+.m_profile{
+	width: 100px;
+	height: 100px;
+}
 </style>
 <form action="" id="fileForm" method="post" enctype="multipart/form-data">
 	<input type="file" id="fileupload" name="fileload">

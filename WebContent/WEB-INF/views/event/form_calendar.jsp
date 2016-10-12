@@ -29,7 +29,12 @@
 	padding-left: 10px;
 	text-align: left;
 	vertical-align: top;
-	border-top: 1px solid #303030;
+	border-top: 1px solid #AAA;
+}
+
+.day:HOVER {
+	background-color: #A9F5E1;
+	cursor: pointer;
 }
 
 .event_title_wrap {
@@ -145,13 +150,13 @@ lastDay: ${ lastDay } --%>
 					</c:forEach>
 					
 					<c:if test="${ eventYear == year 
-					&& (eventMonth-1) == month 
-					&& eventDay == calCnt.count }">
+								&& (eventMonth-1) == month 
+								&& eventDay == calCnt.count }">
 						
 						<c:choose>
 						<c:when test="${ dayListCnt < 3 }">
 							<div class="event_title_wrap">
-								<a href="event_detail.do?seq=${ event.e_seq }"  style="font-size: 10pt;">
+								<a href="event_detail.do?seq=${ event.e_seq }" style="font-size: 10pt;">
 									<span><img src="image/event/calendar_list_symbol_02.png" 
 									class="list_symbol" /></span>
 									${ event.e_title }

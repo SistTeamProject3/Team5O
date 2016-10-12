@@ -7,7 +7,7 @@
 
 <div id="top_menu_wrap">
 	<div id="_top_menu">
-		<ul class="navi">
+		<ul class="navi" style="list-style: none;">
 			<li><a href="outfriendsearchmain.do" title="친구검색">친구검색</a></li> <!-- 친구검색 : 좌측 리스트, 우측리스트 중에 좌측리스트에 해당. 이건 친구 외 검색의 메인을 보여줌(==알수도있는친구) -->
 			<li><a href="infriendsearch.do" title="친구목록">친구목록</a></li>
 			<!-- <li><a href="friendlist.do" title="친구목록">친구목록</a></li> -->	<!-- header에 놓일 anchor, right side menu에 나타날 목록(넣을까말까) -->
