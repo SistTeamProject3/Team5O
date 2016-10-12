@@ -64,7 +64,8 @@ function infriends(){
 		<c:set var="myindex" value="${0 }"/>
 		<c:forEach items="${finformlist}" var="finform" varStatus="vsinform">
 			<c:if test="${finformlist.value.m_name eq searchword}">
-			<c:set var="pathone" value="${imgpath }\\${finform.value.m_profile }"/>
+			<%-- <c:set var="pathone" value="${imgpath }\\${finform.value.m_profile }"/> --%>
+			<c:set var="pathone" value="upload/${finform.value.m_profile }"/>
 			<td>
 				<c:set var="myindex" value="${value+1 }"/>
 				<div class="row text-center">
@@ -123,7 +124,8 @@ function infriends(){
 	</tr>
 	<tr>
 	<c:forEach items="${finformlist}" var="finform" varStatus="vsinform"> <!-- (수정할점0908) 이름으로 order by 해야함-->
-		<c:set var="pathone" value="${imgpath }\\${finform.value.m_profile }"/>
+		<%-- <c:set var="pathone" value="${imgpath }\\${finform.value.m_profile }"/> --%>
+		<c:set var="pathone" value="upload/${finform.value.m_profile }"/>
 		<%-- <c:if test="${vsinform.count%5 eq 0}"> --%>
 		<c:if test="${vsinform.index%4 eq 0}">
 			</tr><tr>	

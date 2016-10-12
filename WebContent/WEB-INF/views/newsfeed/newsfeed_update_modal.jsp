@@ -16,7 +16,7 @@
   
 <form name="frmForm2" id="_frmForm2" action="writeNewsFeed.do" method="post" enctype="multipart/form-data">
 <input type="hidden" name="n_seq" value="${param.n_seq }">
-<table class="ys_update_table${param.n_seq }" style="width: 100%" border="1px solid black">
+<table class="ys_update_table${param.n_seq } table  table-condensed table-bordered " style="width: 100%" border="1px solid black">
 	<tr>
 		<td colspan="4">수정하세여</td>
 	</tr>
@@ -51,6 +51,7 @@
 
 				<div id="nowFeel_2${param.n_seq }">
 				<c:if test="${param.n_tag_feel ne ''}">
+				<input type='hidden' name='n_tag_feel' value="${param.n_tag_feel }">
 					&nbsp;&nbsp;&nbsp;나는 지금
 					<c:choose>
 						<c:when test="${param.n_tag_feel eq 1}"><strong>기뻐요</strong><img src="image/happy.jpg" width="5px" height="5px"></c:when>
@@ -90,7 +91,19 @@
 	<td colspan="4">
 	
 		<input type=file  name="fileloadd" id="image_2${param.n_seq }" style='display: none;'> 
-		<img src='image/news_file.jpg' name="_file2${param.n_seq }" id="_file2_2${param.n_seq }" border='0' onclick='hideAll2(${param.n_seq });'>
+		<img src='image/photo.jpg' name="_file2${param.n_seq }" id="_file2_2${param.n_seq }" border='0' onclick='hideAll2(${param.n_seq });'>
+
+
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="#none"><img src="image/tag.jpg" id="viewFriend_2${param.n_seq }" onclick="return false;"></a>
+		&nbsp;&nbsp;&nbsp;&nbsp; 
+		<a href="#none"> <img src="image/face.jpg" id="viewFeel_2${param.n_seq }" onclick="return false;"></a>
+		&nbsp;&nbsp;&nbsp;&nbsp; 
+		<a href="#none"> <img src="image/place.jpg" id="viewWhere_2${param.n_seq }" onclick="return false;"></a>
+<input type='hidden' name='n_tag_feel' value="">
+
+<%-- 
+
 
 		&nbsp;&nbsp;&nbsp;&nbsp;
 		<span  style="color:blue" class="fa fa-users fa-2x" id="viewFriend_2${param.n_seq }"  onclick="return false;"></span>
@@ -98,7 +111,7 @@
 		<span class="fa fa-smile-o fa-2x" id="viewFeel_2${param.n_seq }"  onclick="return false;"></span>
 		&nbsp;&nbsp;&nbsp;&nbsp;
 		<span class="fa fa-map-marker fa-2x"  id="viewWhere_2${param.n_seq }"  onclick="return false;"></span>
-
+ --%>
 	</td>
 
 	</tr>
@@ -311,8 +324,8 @@ function finish(){
 		alert("본문 텍스트 작성은 필수입니다!!!!!!!!!");
 	}
 	else{
-	   alert("피니쉬!!!!");
-	   alert($("#_frmForm2").serialize());
+	  
+	/*    alert($("#_frmForm2").serialize()); */
 	   $("#_frmForm2").attr({"target":"_self", "action":"updateNewsFeed.do"}).submit();
 	}
 }

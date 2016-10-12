@@ -33,7 +33,8 @@
 		<c:if test="${blockfS.count%2 eq 1}">
 			<tr>
 		</c:if>
-		<c:set var="pathone" value="${imgpath }\\${knowf.m_profile }"/>
+		<%-- <c:set var="pathone" value="${imgpath }\\${knowf.m_profile }"/> --%>
+		<c:set var="pathone" value="upload/${knowf.m_profile }"/>
 		<td><img src="${pathone}" alt="이미지없음" width="150px" height="100px"></td>
 		<td style="text-align: left; vertical-align: middle;">
 			<p>${blockf.m_nickname }</p>

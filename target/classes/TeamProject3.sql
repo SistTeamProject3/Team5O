@@ -3,8 +3,6 @@
 DROP TABLE TP3_MEMBER
 CASCADE CONSTRAINTS;
 
-SELECT * FROM TP3_MEMBER;
-
 CREATE TABLE TP3_MEMBER(
 	M_ID			VARCHAR2(64)	PRIMARY KEY,
 	M_NAME			VARCHAR2(20)	NOT NULL,
@@ -28,6 +26,53 @@ CREATE TABLE TP3_MEMBER(
 
 SELECT * FROM TP3_MEMBER
 WHERE M_ID = 'qwer';
+
+SELECT * FROM TP3_MEMBER;
+
+DELETE FROM TP3_MEMBER
+WHERE M_PHONE != '01012345678';
+
+UPDATE TP3_MEMBER SET
+M_ADDRESS = '서울-아무곳'
+WHERE M_ADDRESS = '한국-쌍용';
+
+INSERT INTO TP3_MEMBER
+VALUES('stevejobs@apple.com', '스티브잡스', '스티브잡스', '12341234', 
+'01012341111', SYSDATE, '19500505', 'member_01.jpg', '내가 돌아왔다', '내가 돌아왔다', '내가 돌아왔다', '2', '외국-애플', 0, 0, '내가 돌아왔다', NULL, 0);
+INSERT INTO TP3_MEMBER
+VALUES('bill', '빌게이츠', '빌게이츠', '12341234', 
+'01012341112', SYSDATE, '19500505', 'member_02.jpg', '내 핸드폰 아이폰7', '내 핸드폰 아이폰7', '내 핸드폰 아이폰7', '2', '외국-마소', 0, 0, '마소짱', NULL, 0);
+INSERT INTO TP3_MEMBER
+VALUES('gyohwang', '교황', '교황', '12341234', 
+'01012341113', SYSDATE, '19500505', 'member_03.jpg', '나무아미타불', '나무아미타불', '나무아미타불', '2', '외국-교황청', 0, 0, '나무아미타불', NULL, 0);
+INSERT INTO TP3_MEMBER
+VALUES('gerk', '마꾸저커버그', '마꾸저커버그', '12341234', 
+'01012341114', SYSDATE, '19500505', 'member_04.jpg', '인스타그램 최고', '인스타그램 최고', '인스타그램 최고', '2', '외국-페이스북', 0, 0, '인스타그램 최고', NULL, 0);
+INSERT INTO TP3_MEMBER
+VALUES('obama', '오바마', '오바마', '12341234', 
+'01012341115', SYSDATE, '19500505', 'member_05.jpg', '다음 대통령 트럼프', '다음 대통령 트럼프', '다음 대통령 트럼프', '2', '외국-백악관', 0, 0, '다음 대통령 트럼프', NULL, 0);
+INSERT INTO TP3_MEMBER
+VALUES('northkim', '김정은', '김정은', '12341234', 
+'01012341116', SYSDATE, '19500505', 'member_06.jpg', '간나 통일하래', '간나 통일하래', '간나 통일하래', '2', '조선-인민공화국', 0, 0, '간나 통일하래', NULL, 0);
+INSERT INTO TP3_MEMBER
+VALUES('ahyoung', '권아영', '권아영', '12341234', 
+'01012341117', SYSDATE, '19500505', 'member_07.jpg', '아 와우하고 싶다', '아 와우하고 싶다', '아 와우하고 싶다', '2', '한국-쌍용', 0, 0, '아 와우하고 싶다', NULL, 0);
+INSERT INTO TP3_MEMBER
+VALUES('yongho', '조용호', '조용호', '12341234', 
+'01012341118', SYSDATE, '19500505', 'member_08.jpg', '니들 다 백수', '니들 다 백수', '니들 다 백수', '2', '한국-쌍용', 0, 0, '니들 다 백수', NULL, 0);
+INSERT INTO TP3_MEMBER
+VALUES('youngsun', '한영선', '한영선', '12341234', 
+'01012341119', SYSDATE, '19500505', 'member_09.jpg', '후라이드 닭똥집 최고♥', '후라이드 닭똥집 최고♥', '후라이드 닭똥집 최고♥', '2', '한국-쌍용', 0, 0, '후라이드 닭똥집 최고♥', NULL, 0);
+INSERT INTO TP3_MEMBER
+VALUES('hongmin', '김홍민', '김홍민', '12341234', 
+'01012341120', SYSDATE, '19500505', 'member_10.jpg', '앙 홍만띠 행님들 별풍 100개 감사합니다 행님', '앙 홍만띠 행님들 별풍 100개 감사합니다 행님', '앙 홍만띠 행님들 별풍 100개 감사합니다 행님', '2', '한국-쌍용', 0, 0, '앙 홍만띠 행님들 별풍 100개 감사합니다 행님', NULL, 0);
+INSERT INTO TP3_MEMBER
+VALUES('hyejung', '선혜정', '선혜정', '12341234', 
+'01012341121', SYSDATE, '19500505', 'member_11.jpg', '라이어', '라이어', '라이어', '2', '한국-쌍용', 0, 0, '라이어', NULL, 0);
+INSERT INTO TP3_MEMBER
+VALUES('suji', '수지', '수지', '12341234', 
+'01012341122', SYSDATE, '19500505', 'member_12.jpg', '아 덕후 새X들 상대하기 존X 귀찬네', '아 덕후 새X들 상대하기 존X 귀찬네', '아 덕후 새X들 상대하기 존X 귀찬네', '2', '한국-방송국', 0, 0, '아 덕후 새X들 상대하기 존X 귀찬네', NULL, 0);
+
 
 insert into TP3_MEMBER
 values('qwer', 'qwer', 'qwer', 'qwer', '01012345678', sysdate, '881111',
@@ -344,7 +389,7 @@ SELECT * FROM TP3_EVENT
 	AND M_ID='asd';
 
 -- [ 그룹 ] --
-SELECT * FROM TP3_GROUPJOIN; 
+SELECT * FROM TP3_MAKEGROUP; 
 
 DROP TABLE TP3_MAKEGROUP;
 
@@ -365,8 +410,7 @@ DROP TABLE TP3_GROUPMEMBER;
 CREATE TABLE TP3_GROUPMEMBER(
 g_seq NUMBER NOT NULL,
 m_id VARCHAR2(100) NOT NULL,
-g_auth NUMBER(1) NOT NULL,
-g_sysdate date NOT NULL
+g_auth NUMBER(1) NOT NULL
 );
 
 

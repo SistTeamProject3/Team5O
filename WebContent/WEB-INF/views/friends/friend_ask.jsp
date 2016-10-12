@@ -81,7 +81,8 @@ function cancle(val){
 		<c:if test="${ansfS.count%2 eq 1}">
 			<tr>
 		</c:if>
-		<c:set var="pathone" value="${imgpath }\\${ansf.m_profile }"/>
+		<%-- <c:set var="pathone" value="${imgpath }\\${ansf.m_profile }"/> --%>
+		<c:set var="pathone" value="upload/${ansf.m_profile }"/>
 		<td><img src="${pathone}" alt="이미지없음" width="150px" height="100px"></td>
 		<td style="text-align: left; vertical-align: middle;">${ansf.m_nickname }</td> 
 		<td style="text-align: center; vertical-align: middle;">

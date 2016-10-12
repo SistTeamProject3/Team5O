@@ -18,7 +18,8 @@
 
 <div style="height: 100px; border: 1px solid black ;">
 	<div style="border: 1px; background-color: blue; width: 100px; height: 100px; float: left;" >
-		${imgpath }\\${member.m_profile}
+		<%-- ${imgpath }\\${member.m_profile} --%>
+		upload/${member.m_profile}
 	</div>
 	<div style="border:1px; background-color:red; float: left;">
 		${member.m_id }

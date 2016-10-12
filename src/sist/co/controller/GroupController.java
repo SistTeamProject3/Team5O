@@ -51,19 +51,23 @@ public class GroupController {
 	/*	logger.info(" group_make " + new Date());*/
 		// 그룹 만들기
 		groupService.group_make(group);
+		System.out.println("1");
 		// 만든 그룹으로 가기 위해 작성
+		System.out.println(group.toString());
 		GroupMakeDTO Mdto = groupService.select_make_group(group);
-		
+		System.out.println("2");
 		// 그룹에 멤버 넣기
 		GroupMemberDTO member = new GroupMemberDTO();
+		System.out.println("3");
 		member.setM_id(Mdto.getG_manager());
 		member.setG_seq(Mdto.getG_seq());
 		member.setG_auth(3);
-		
+		System.out.println(" 맴버 "+member.toString());
 		groupService.add_group_manager(member);
 		// 멤버 들어가는 것 확인
+		System.out.println("3.5");
 		model.addAttribute("Mdto", Mdto);
-
+		System.out.println("4");
 		return "redirect:/group_detail.do?g_seq="+Mdto.getG_seq();
 	}
 	// 그룹 리스트 출력

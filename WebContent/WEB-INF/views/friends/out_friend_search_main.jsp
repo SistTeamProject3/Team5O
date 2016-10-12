@@ -54,7 +54,8 @@ function befriends(val){
 		<c:if test="${fsflistinfS.count%2 eq 1}">
 			<tr>
 		</c:if>
-		<c:set var="pathone" value="${imgpath }\\${fsflistinf.m_profile }"/>
+		<%-- <c:set var="pathone" value="${imgpath }\\${fsflistinf.m_profile }"/> --%>
+		<c:set var="pathone" value="upload/${fsflistinf.m_profile }"/>
 		<td><img src="${pathone}" alt="이미지없음" width="150px" height="100px"></td>
 		<td style="text-align: left; vertical-align: middle;">
 			${fsflistinf.m_id }

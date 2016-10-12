@@ -32,7 +32,8 @@
 	</c:if>
 	<c:if test="${fn:length(finformlist) ne 0}">	
 		<c:forEach items="${finformlist}" var="finform" varStatus="vsinform"> <!-- (수정할점0908) 이름으로 order by 해야함-->
-			<c:set var="pathone" value="${imgpath }\\${finform.value.m_profile }"/>
+			<%-- <c:set var="pathone" value="${imgpath }\\${finform.value.m_profile }"/> --%>
+			<c:set var="pathone" value="upload/${finform.value.m_profile }"/>
 			<c:if test="${vsinform.index%4 eq 0}">
 				<br>
 			</c:if> 

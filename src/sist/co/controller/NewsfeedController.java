@@ -92,7 +92,7 @@ public class NewsfeedController {
 		System.out.println("newFile===" + newFile);
 		System.out.println("newFile===" + newFile);*/
 
-		System.out.println("getSize" + fileload.getSize());
+	/*	System.out.println("getSize" + fileload.getSize());*/
 		if (fileload.getSize() == 0) {
 			try {
 				File file = new File(fupload + "/" + newFile);
@@ -288,7 +288,7 @@ public class NewsfeedController {
       public String updateShow(Model model, String val){ 
       /*logger.info("YSController updateShow" + new Date());*/
       
-      System.out.println("val=="+val);
+     /* System.out.println("val=="+val);*/
       String[] arr = val.split(",");
       
       int updatenum=Integer.parseInt(arr[0]);

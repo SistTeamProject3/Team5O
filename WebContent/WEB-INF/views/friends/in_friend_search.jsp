@@ -32,10 +32,11 @@
 	</c:if>
 	<c:if test="${fn:length(finformlist) ne 0}">	
 		<c:forEach items="${finformlist}" var="finform" varStatus="vsinform"> <!-- (수정할점0908) 이름으로 order by 해야함-->
-			<c:set var="pathone" value="${imgpath }\\${finform.value.m_profile }"/>
+			<%-- <c:set var="pathone" value="${imgpath }\\${finform.value.m_profile }"/> --%>
+			<c:set var="pathone" value="upload/${finform.value.m_profile }"/>
 			<c:if test="${vsinform.index%4 eq 0}">
 				<br>
-			</c:if> 
+			</c:if>
 	        <div class="col-sm-6 hero-feature"> <!-- 크기관련 문제부분 : 한 열에 2개 출력(col-sm-6).  한 열에 2개 출력(col-md-3).-->
 	            <div class="thumbnail">
 	              <!-- (수정할거:0905)사진 크기에 따라 변하면 안됌.  -->

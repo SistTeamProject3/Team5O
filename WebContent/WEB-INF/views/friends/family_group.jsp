@@ -32,7 +32,8 @@
 		<c:if test="${famfS.count%2 eq 1}">
 			<tr>
 		</c:if>
-		<c:set var="pathone" value="${imgpath }\\${famf.m_profile }"/>
+		<%-- <c:set var="pathone" value="${imgpath }\\${famf.m_profile }"/> --%>
+		<c:set var="pathone" value="upload/${famf.m_profile }"/>
 		<td><img src="${pathone}" alt="이미지없음" width="150px" height="100px"></td>
 		<td style="text-align: left; vertical-align: middle;">
 			<p>${famf.m_nickname }</p>
