@@ -194,13 +194,13 @@
 						<div class="search_friend_info ${ friend.m_name }" style="height: 55px;">
 							<table	<c:if test="${ empty friend.ei_write_date }">class="tbl_search_friend ${ friend.m_name }"</c:if>
 									<c:if test="${ !empty friend.ei_write_date }">class="tbl_search_friend_off ${ friend.m_name }"</c:if>
-								 data-m_id="${ friend.m_id }" data-m_name="${ friend.m_name }">
+								 data-m_id="${ friend.m_id }" data-m_name="${ friend.m_name }" data-m_profile="${ friend.m_profile }">
 								<%-- <col width="70px" /><col width="300px" /><col width="70px" /> --%>
 								<col width="70px" /><col width="500px" /><col width="70px" />
 								<tr>
 									<td>
-										<img alt="프로필 사진" src="image/event/profile_base.jpg" 
-											width="50px" height="50px" />
+										<img alt="프로필 사진" src="upload/${ friend.m_profile }" 
+										width="50px" height="50px" />
 									</td>
 									<td style="text-align: left;">
 										${ friend.m_name }
@@ -318,9 +318,10 @@ $(document).ready(function () {
 		
 		var m_id = $(this).attr('data-m_id');
 		var m_name = $(this).attr('data-m_name');
+		var m_profile = $(this).attr('data-m_profile');
 		var choiceFriendTag = "<div id = choice-" + m_name + ">"
 							+ "<div class='add_choice_friend_info'>"
-							+ "<img alt='프로필 사진' src='image/event/profile_base.jpg'" 
+							+ "<img alt='프로필 사진' src='upload/" + m_profile + "'" 
 							+ "class='choice_friend_profile_image' />"
 							+ "<div class='choice_friend_info'>"
 							+ m_name
