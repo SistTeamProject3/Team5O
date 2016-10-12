@@ -24,10 +24,10 @@ $(document).ready(function() {
 <div style="width: 100%;">
 <form action="group_make.do" method="post" id="group_make_Form">
 	<input type="hidden" value="${login.m_id }" id="g_manager" name="g_manager">
-	<table border="1" style="width: 100%;">
+	<table border="1" style="width: 100%;" class="table table-bordered">
 		<thead>
 			<tr>
-				<th>새 그룹 만들기</th>
+				<th style="background-color: #3B5998;color: white;">새 그룹 만들기</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -37,18 +37,18 @@ $(document).ready(function() {
 			<tr>
 				<td><input type="text" value="" name="g_name" id="g_name" style="width: 100%;"></td>
 			</tr>
-			<tr>
+<!-- 			<tr>
 				<th>사람 추가</th>
 			</tr>
 			<tr>
 				<td><input type="text" value="" id="" name="" placeholder="이름 또는 이메일 주소 입력..." style="width: 100%;"></td>
-			</tr>
+			</tr> -->
 			<tr>
 				<th>공개 범위 선택</th>
 			</tr>
 			<tr>
 				<td>
-					<select name="g_type" id="g_type" style="width: 100%;">
+					<select name="g_type" id="g_type" style="width: 100%;" class="form-control">
 						<option value="1">공개 그룹</option>
 						<option value="2">비공개 그룹</option>
 						<option value="3">비밀 그룹</option>
@@ -58,7 +58,10 @@ $(document).ready(function() {
 		</tbody>
 		<tfoot>
 			<tr>
-				<td><button type="button" class="btn btn-default" data-dismiss="modal">취소</button><a href="#"><img id="create" alt="만들기" src="image/make.jpg"></a></td>
+				<td>
+				<button type="button" class="btn btn-default" data-dismiss="modal" style="width: 100px; height: 30px;">취소</button>
+				<a href="#"><img id="create" alt="만들기" src="image/make.jpg" width="100px" height="30px"></a>
+				</td>
 			</tr>
 		</tfoot>
 	</table>

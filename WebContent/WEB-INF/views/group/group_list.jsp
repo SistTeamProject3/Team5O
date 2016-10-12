@@ -40,16 +40,18 @@
 	});
 
 </script>
-<div style="width: 100%;">
-	<table style="width: 100%;" class="table table-striped">
+<div style="width: 100%;" align="center">
+	<table style="width: 1200px;" class="table table-striped">
+		
 		<tr>
 			<td>
-				 <a href="#none" id="top">추천 그룹</a> <a href="#none" id="friends">친구의
-						그룹</a> <a href="#none" id="local">지역그룹</a><b> <a href="#none"
-						id="membership">회원님의 그룹</a></b>
+				<a href="#none" id="top">추천 그룹</a>
+				<!--  <a href="#none" id="friends">친구의 그룹</a> --> 
+				<a href="#none" id="local">지역그룹</a>
+				<b> <a href="#none" id="membership">회원님의 그룹</a></b>
 			</td>
 		
-			<td>
+			<td align="right">
 				<a href="#none" data-toggle="modal" data-target="#myModal"><img alt="그룹 생성" src="image/making_group.jpg"></a>
 			</td>
 		</tr>
@@ -104,12 +106,13 @@
     <div class="modal-dialog">
       <!-- Modal content-->
       <div class="modal-content">
-        <div class="modal-header">
+<!--         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
+      
+        </div> -->
+<!--       	  <div class="modal-body"> -->
          <jsp:include page="/WEB-INF/views/group/group_make.jsp"></jsp:include>
-        </div>
-      	  <div class="modal-body">
-        </div>
+       <!--  </div> -->
       </div>
     </div>
   </div>

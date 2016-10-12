@@ -16,9 +16,12 @@
 	<img  src="upload/${login.m_profile}" alt="사진없음" class="img-thumbnail" width="150px" height="150px">
 	<br />
 		<div>
-		<a href="#" onclick="modify_img()">수정</a>
+		<a href="#" onclick="modify_img()" class="btn btn-success">수정</a>
+		<input type="hidden" value="member_basic.jpg" name="m_profile" id = "_m_profile">
 		</div>
-		<button onclick="modify_profile()" id="_add_profile">확인</button>
+		
+		<button type="button" class="btn btn-success" onclick="modify_profile()" id="_add_profile2">삭제</button>
+		<button type="button" class="btn btn-success" onclick="modify_profile()" id="_add_profile1">확인</button>
 
 		<div id="_file">	
 		<label for="image">
@@ -32,11 +35,12 @@
 
 <script type="text/javascript">
 
-$('#_add_profile').hide();
-
+$('#_add_profile1').hide();
+$('#_add_profile2').hide();
 function modify_img() {
 	$("#_file").show();
-	$("#_add_profile").hide();
+	$("#_add_profile2").show();
+	$("#_add_profile1").hide();
 }
 
 
@@ -55,7 +59,8 @@ $('#image').on('change', function() {
         $('#image_preview img').attr('src', blobURL);
         $('#image_preview').slideDown(); //업로드한 이미지 미리보기 
         
-        $('#_add_profile').show();
+        $('#_add_profile2').hide();
+        $('#_add_profile1').show();
        $(this).slideUp(); //파일 양식 감춤 
     }
 });
@@ -91,6 +96,7 @@ function modify_profile() {
 	$("#fileup").attr({"target":"_self", "action":"change_m_profile.do"}).submit();
 	
 }
+
 
 
 

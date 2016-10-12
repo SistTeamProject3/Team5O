@@ -273,14 +273,15 @@ public class EventController {
 		
 		CalendarDTO calendar = new CalendarDTO();
 		calendar.setM_id(((MemberDTO) reqeust.getSession().getAttribute("login")).getM_id());
-		calendar.setYyyymm(dayDate);
+		calendar.setYyyymm(dayDate2);
 		calendar.setSubstrS(1);
 		calendar.setSubstrE(10);
 		
 		List<EventDTO> eventDayList = eventService.selectEventDayList(calendar);
 		model.addAttribute("eventDayList", eventDayList);
 		
-		calendar.setYyyymm(dayDate2);
+		// dayDate를 사용할 필요가 없어짐, 변경 필요
+	//	calendar.setYyyymm(dayDate2);
 		
 		List<EventDTO> eventInviteList = eventService.selectEventInviteList(calendar);
 		model.addAttribute("eventInviteList", eventInviteList);

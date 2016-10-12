@@ -6,6 +6,9 @@
 
 <fmt:requestEncoding value="UTF-8"/>
 
+<link rel="stylesheet" type="text/css" href="css/jquery.mCustomScrollbar.css"/>
+<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+
 <style type="text/css">
 
 .title_image_wrap {
@@ -20,10 +23,16 @@
 
 .tbl_event_day_list {
 	width: 100%;
+	border-radius: 20px;
 }
 
 .tbl_event_day_list td {
 	 padding: 5px;
+}
+
+.tbl_event_day_list tr {
+	border-bottom: 1px solid #AAA;
+	border-radius: 20px;
 }
 
 </style>
@@ -35,7 +44,7 @@
 	
 	<br/>
 	
-	<div>
+	<div class="mCustomScrollbar" data-mcs-theme="minimal-dark">
 		<table class="tbl_event_day_list">
 		<col style="width: 30%;"><col style="width: 70%;">
 		<c:forEach var='event' items='${ eventDayList }'>

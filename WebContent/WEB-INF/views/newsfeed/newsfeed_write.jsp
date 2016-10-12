@@ -33,7 +33,7 @@ width:20%;
 <input type="hidden" name="n_event_seq" value="${ param.eventSeq }" />
 <%-- </c:if> --%>
 
-<table class="ys_write_table  table table-condensed table-bordered " style="width: 800px" >
+<table class="ys_write_table  table table-condensed table-bordered " style="width: 100%" >
    <tr>
       <td colspan="4">뉴스피드 작성</td>
    </tr>

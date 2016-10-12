@@ -88,7 +88,7 @@ function news_scrollEvent(){
 <br><br>
 
 <!-- 한영선: 뉴스피드 테이블 1 (댓글리스트 출력 제외한 나머지 전부) -->
-<div class="table2" data-seq="${news.n_seq }" id="newsfeedlist_total${news.n_seq }" style="width: 800px;">
+<div class="table2" data-seq="${news.n_seq }" id="newsfeedlist_total${news.n_seq }" style="width: 100%">
 <div class="table" data-seq="${news.n_seq }" id="newsfeedlist_top${news.n_seq }">
 
 	<table class="newsfeed_list_table${news.n_seq } table  table-condensed table-bordered " style="width: 100%; ">

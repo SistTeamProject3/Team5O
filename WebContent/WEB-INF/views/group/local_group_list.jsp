@@ -101,23 +101,23 @@ var id = $("#m_id").attr("value");
 	 	
 	});
 </script>
-<div style="width: 100%;">
-	<table style="width: 100%;" class="table table-striped">
+<div style="width: 100%;" align="center">
+	<table style="width: 1200px;" class="table table-striped">
 		<tr>
 			<td>
 				<a href="#none" id="top">추천 그룹</a>
-				<a href="#none" id="friends">친구의 그룹</a>
+				<!-- <a href="#none" id="friends">친구의 그룹</a> -->
 				<b><a href="#none" id="local">지역그룹</a></b>
 				<a href="#none" id="membership">회원님의 그룹</a>
 			</td>
-			<td>
+			<td align="right">
 				<a href="#none" data-toggle="modal" data-target="#myModal"><img alt="그룹 생성" src="image/making_group.jpg"></a>
 			</td>
 		</tr>
 	</table>
 </div>
-
-<table class="table table-striped" >
+<div style="width: 100%;" align="center">
+<table class="table table-striped" style="width: 1200px;" >
 <tr>
 <td align="center" style="width: 80px;">지역 : </td>
 <td align="left" style="width: 500px;">
@@ -148,8 +148,29 @@ var id = $("#m_id").attr("value");
 </td>
 </tr>
 </table>
+</div>
 <div id="s_div">
 
+</div>
+
+
+<div class="container">
+  <!-- Trigger the modal with a button -->
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+<!--         <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+      
+        </div> -->
+      	  <!-- <div class="modal-body"> -->
+         <jsp:include page="/WEB-INF/views/group/group_make.jsp"></jsp:include>
+       <!--  </div> -->
+      </div>
+    </div>
+  </div>
 </div>
 <form action="group_list.do" id="groupForm" method="post">
 	<input type="hidden" value="1" name="s_num">

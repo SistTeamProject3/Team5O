@@ -16,25 +16,20 @@
 #middle_wrap tr{
 	height: 70px;
 }
-table {
-	margin-left: 15%;
-	margin-right: 15%;
+#middle_wrap table {
+	margin-left: 25%;
+	/* margin-right: 15%; */
 }
-
 </style>
-
 <script>
 var a_number = "";
 var count_ = 0;				//인증 횟수용
 var checkemail_ = 0;		//이메일인증 눌렀는지 체크
-var check_aa_number_ = 1;	//인증번호 성공했는지 확인.
+var check_aa_number_ = 0;	//인증번호 성공했는지 확인.
 var checkpwd_= 0;			//패스워드 입력했나 확인.
 var checkadd_= 0;			//우편번호 찾기 했는지 확인.
 var checkphone_= 0;			//폰 번호 중복찾기 했는지 확인.
-
-
-
-
+var id_count = 0;			//아이디 카운트
 
     function sample6_execDaumPostcode() {
         new daum.Postcode({
@@ -81,13 +76,10 @@ var checkphone_= 0;			//폰 번호 중복찾기 했는지 확인.
     }
 
    function LastDay() {
-	   
-	   
     	var Year = $("#birth_year").val();		
     	var Month = $("#birth_month").val();		
     	var date = new Date(Year, Month, 0);
     	var lastDay = date.getDate();				
-    	
     	var htmlTag = "";
     	
     	for ( var i = 1; i < lastDay+1; i++ ) {
@@ -97,8 +89,6 @@ var checkphone_= 0;			//폰 번호 중복찾기 했는지 확인.
     	$("#birth_day").html(htmlTag);
     	$("#birth_day option:eq(0)").attr("selected", "selected");
     }
-    
-   
    
 	function change_email() {
 		var mail = $("#_mail").val();
@@ -111,25 +101,22 @@ var checkphone_= 0;			//폰 번호 중복찾기 했는지 확인.
 		}else{
 			$("#_id2").val("");
 			$("#_id2").attr("readonly", false);
-		
 		}		
 	}
 	function aa_number() {
 		
 		var a_usernumber = $("#_a_number").val();
-		
 		if(a_number!=a_usernumber){
-			
 			count_ = count_+1;	
-			
-			$("#aa_number_check").html("인증 " + count + "회 실패");
+			check_aa_number_ = 0;
+			$("#aa_number_check").html("인증 " + count_ + "회 실패");
 
-			if(count == 5){
+			if(count_ == 5){
 				alert("로그인창으로 이동됩니다.");
 				location.href="login.do";
 			}
 			
-		}else if(a_usernumber != ""){
+		}else if(a_usernumber != "" && a_number == a_usernumber){
 			$("#aa_number_check").html("인증성공!");
 			check_aa_number_ = 1;
 		}
@@ -166,17 +153,22 @@ var checkphone_= 0;			//폰 번호 중복찾기 했는지 확인.
 	}	
 	function output(msg) {
 		
-		if(msg.message=='Sucs'){
-			$("#check_member").html("사용할 수 없는 아이디 입니다.");
+		if(id_count == 1){
+			if(msg.message=='Sucs'){
+				$("#check_member").html("사용할 수 없는 아이디 입니다.");
+				checkemail_ = 0;
+			}else{
+				$("#check_member").html("사용할 수 있는 아이디 입니다.");
+				$("#_id1").attr("readonly", true);
+				$("#_id2").attr("readonly", true);
+				
+				checkemail_ = 1;
+				a_number = msg.message;
+				
+				alert("이메일 확인 후 승인번호를 입력하세요");
+			}
 		}else{
-			$("#check_member").html("사용할 수 있는 아이디 입니다.");
-			$("#_id1").attr("readonly", true);
-			$("#_id2").attr("readonly", true);
-			
-			checkemail_ = 1;
-			a_number = msg.message;
-			
-			alert("이메일 확인 후 승인번호를 입력하세요");
+			alert("아이디를 6자리 이상 입력해주세요.");	
 		}
 	}
 	function check_phone() {
@@ -193,14 +185,12 @@ var checkphone_= 0;			//폰 번호 중복찾기 했는지 확인.
 		}
 	}
 	function check_phone2(a){
-		alert("여긴 오나?");
 		$.ajax({
 		type:"POST",
 		url:"m_phoneAf.do",
 		data:"m_phone="+a,
 		
 		success:function(msg){
-			alert("성공??");
 			outputphone(msg);
 		},
 		error:function(request,error){
@@ -225,9 +215,7 @@ var checkphone_= 0;			//폰 번호 중복찾기 했는지 확인.
 
 	
 	function add_member_cancel() {
-		
 		location.href="login.do";
-		
 	}
 	
 	function add_member() {
@@ -242,10 +230,8 @@ var checkphone_= 0;			//폰 번호 중복찾기 했는지 확인.
 			birthday = "0"+birthday;
 		}
 		
-		
 		var m_phone = $("#_m_phone1").val() +  $("#_m_phone2").val() + $("#_m_phone3").val();
 		var m_birthday = $("#birth_year").val() + birthmonth + birthday;
-		
 		
 		$("#_m_phone").attr("value", m_phone);
 		$("#_m_birthday").attr("value", m_birthday);
@@ -291,22 +277,6 @@ var checkphone_= 0;			//폰 번호 중복찾기 했는지 확인.
 			$("#_m_address").attr("value", address);
 			$("#_addmember").attr({"target":"_self", "action":"regiAf.do"}).submit();
 		}
-
-		/* if($("#_userid").val()== ""){
-			alert($("#_userid").attr("data-msg") + " 입력해 주십시오");
-			$("#_userid").focus();
-		}else if($("#_name").val()== ""){
-			alert($("#_name").attr("data-msg") + " 입력해 주십시오");
-			$("#_name").focus();
-		}else if($("#_email").val()== ""){
-			alert($("#_email").attr("data-msg") + " 입력해 주십시오");
-			$("#_email").focus();
-		}else if($("#_pwd").val()== ""){
-			alert($("#_pwd").attr("data-msg") + " 입력해 주십시오");
-			$("#_pwd").focus();
-		}else{
-			$("#_frmForm").attr({"target":"_self", "action":"regiAf.do"}).submit();
-		} */
 	}
 	
 	function checkpwd(){
@@ -314,16 +284,30 @@ var checkphone_= 0;			//폰 번호 중복찾기 했는지 확인.
 		var check_pwd1 = $("#_pwd1").val();
 		var check_pwd2 = $("#_pwd2").val();
 		
-		if(check_pwd1!=""){
-			if(check_pwd1 != check_pwd2){
-				$("#_checkPwd").html("비밀번호가 틀립니다.");
-				checkpwd_ = 0;
-			}else{
-				$("#_checkPwd").html("동일한 패스워드입니다.");
-				checkpwd_ = 1;
+		if(check_pwd1.length < 8){
+			$("#_checkPwd").html("8자리 이상 입력해주세요.");
+		}else{
+			if(check_pwd1!=""){
+				if(check_pwd1 != check_pwd2){
+					$("#_checkPwd").html("비밀번호가 틀립니다.");
+					checkpwd_ = 0;
+				}else{
+					$("#_checkPwd").html("동일한 패스워드입니다.");
+					checkpwd_ = 1;
+				}	
 			}
 		}
 	}
+	function checkid(){
+		var check_id1 = $("#_id1").val();
+		if(check_id1.length < 8){
+			$("#check_member").html("6자리 이상 입력해주세요.");
+		}else{
+			$("#check_member").html("좋은 아이디 입니다. 중복체크를 해주세요.");
+			id_count = 1;
+		}
+	}
+	
 	function phoneCode(event) {
 		event = event || window.event;
 		var keyID = (event.which) ? event.which : event.keyCode;
@@ -377,17 +361,14 @@ var checkphone_= 0;			//폰 번호 중복찾기 했는지 확인.
 	}
 
 </script>
-
-
-
 </head>
 <body>
-
-
-
+<div style="background-image: ./image/member/2.jpg">
+<h4 style="margin-right: 40%;">(*)는 필수항목입니다.</h4>
+<hr/>
 <form class="form-horizontal" name="addmember" id="_addmember">
   <fieldset>
-    <legend>(*)는 필수항목입니다.</legend>
+    
     <table>
     <col width="100px;"><col width="300px;"><col width="50px;">
     <col width="300px;"><col width="150px;"><col width="150px;"><col width="150px;">
@@ -396,14 +377,14 @@ var checkphone_= 0;			//폰 번호 중복찾기 했는지 확인.
 			*아이디
 		</td>
 		<td>
-			<input class="form-control" id="_id1" type="text" name="m_id1" size="30" placeholder="Email" onkeypress="return idCode(event)" maxlength="12">
+			<input class="form-control" id="_id1" type="text" name="m_id1" size="30" onkeyup="checkid()" placeholder="Email" onkeypress="return idCode(event)" maxlength="12">
 			<input type="hidden" id="_m_id" name="m_id">
 		</td>
 		<td>
 			@
 		</td>
 		<td>
-			<input class="form-control" id="_id2" type="text" name="m_id2" size="30" onkeypress="return idCode(event)" maxlength="12">
+			<input class="form-control" id="_id2" type="text" name="m_id2" size="30"  onkeypress="return idCode(event)" maxlength="12">
 		</td>
 		<td>
 			<select class="form-control" onchange="change_email()" id="_mail">
@@ -415,7 +396,7 @@ var checkphone_= 0;			//폰 번호 중복찾기 했는지 확인.
 		</td>
 		
 		<td>
-			<button type="button" class="btn btn-info" onclick="check_id()">*아이디 중복체크</button>		
+			<button type="button" class="btn btn-success" onclick="check_id()">*아이디 중복체크</button>		
 		</td>
 		<td>
 			<div id="check_member"></div>
@@ -428,7 +409,7 @@ var checkphone_= 0;			//폰 번호 중복찾기 했는지 확인.
 		</td>
 		<td></td>
 		<td style="text-align: left;">
-			<button type="button" class="btn btn-info"  onclick="aa_number()">*인증확인</button>
+			<button type="button" class="btn btn-success"  onclick="aa_number()">*인증확인</button>
 		</td>
 		<td colspan="2">
 			<div id="aa_number_check"></div>
@@ -440,7 +421,7 @@ var checkphone_= 0;			//폰 번호 중복찾기 했는지 확인.
 			*비밀번호
 		</td>	
 		<td>
-		<input class="form-control" id="_pwd1" name="m_password" type="password" placeholder="Password" onkeypress="return pwdCode(event)" maxlength="12">
+		<input class="form-control" id="_pwd1" name="m_password" type="password" placeholder="Password" onkeyup="checkpwd()" onkeypress="return pwdCode(event)" maxlength="12">
 		</td>
 		<td>
 			*확인
@@ -487,7 +468,7 @@ var checkphone_= 0;			//폰 번호 중복찾기 했는지 확인.
 		</td>
 		<td></td>
 		<td>
-			<input type="button" class="btn btn-info" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+			<input type="button" class="btn btn-success" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 		</td>
 	</tr>
 	
@@ -536,23 +517,19 @@ var checkphone_= 0;			//폰 번호 중복찾기 했는지 확인.
 		<td>월</td>
 		<td>	
 			<select id="birth_day" class="form-control" name="m_birthday_day"> 
-			
 			</select>
 			<script type="text/javascript">
 			LastDay();
 			</script>
 		</td>
 		<td>일</td>
-		
 		<td style="text-align: right;">결혼유무</td>
 		
 		<td>
 			<input type="radio" name="m_marriage" value="0" checked="checked">싱글
-			
 		</td>
 		<td>
 			<input type="radio" name="m_marriage" value="1">연애중
-			
 		</td>
 		<td>
 			<input type="radio" name="m_marriage" value="2">결혼	
@@ -583,7 +560,7 @@ var checkphone_= 0;			//폰 번호 중복찾기 했는지 확인.
 		<td>
 			<input class="form-control" id="_m_phone3" type="text" placeholder="5678" style="ime-mode:disabled;" onkeydown="return phoneCode(event)" maxlength="4"> 
 		</td>
-		<td><button type="button" id="_check_phone1" onclick="check_phone()" class="btn btn-info">휴대전화 중복확인</button>
+		<td><button type="button" id="_check_phone1" onclick="check_phone()" class="btn btn-success">휴대전화 중복확인</button>
 	</tr>
 	</table>
 	<table>
@@ -618,23 +595,13 @@ var checkphone_= 0;			//폰 번호 중복찾기 했는지 확인.
 		<input type="hidden" id="_m_phone" name = "m_phone" value="">
 		<input type="hidden" id="_m_birthday" name = "m_birthday" value="">
 		
-		<button type="button" class="btn btn-info" onclick="add_member()">가입완료</button>
+		<button type="button" class="btn btn-success" onclick="add_member()">가입완료</button>
 		</td>
-		<td><button type="button" class="btn btn-info" onclick="add_member_cancel()">취소</button></td>
+		<td><button type="button" class="btn btn-success" onclick="add_member_cancel()">취소</button></td>
 	</tr>
-	
-	
 	</table>
   </fieldset>
 </form>
-
-
-
-
-
-
-
-
-
+</div>
 </body>
 </html>

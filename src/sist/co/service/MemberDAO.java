@@ -91,6 +91,11 @@ public class MemberDAO {
 		sqlSession.update(ns+"change_m_pwd", member);
 		return true;
 	}
+	public boolean del_m_profile(MemberDTO member) throws Exception{
+		sqlSession.update(ns+"del_m_profile", member);
+		return true;
+	}
+	
 	
 	
 	public int m_phoneAf(MemberDTO member)throws Exception {

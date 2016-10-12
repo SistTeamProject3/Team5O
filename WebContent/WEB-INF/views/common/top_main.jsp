@@ -15,33 +15,35 @@
 
 <style>
 #header_wrap div{
-	 background-color: #fadfbc;
+	 background-color: #3B5998;
+}
+
+.tbl_top_main td {
+	padding-right: 10px;
 }
 
 </style>
 
-<div style="padding-left: 10%; padding-top: 8px; padding-bottom: 8px;">
-<table style="text-align: center;">
-<col width="150px;">
+<div>
+<table class="tbl_top_main" style="text-align: center; margin: auto;">
+<col width="50px;">
 <col width="auto;">
 <col width="auto;">
 <col width="40px;">
 <col width="auto;">
-
-
 <tr>
-	<td>
-	<i class="fa fa-home fa-2x" aria-hidden="true"></i>
-	</td>
 <td>
-	<input type="text" class="form-control" placeholder="사람 이름 또는 장소" >
+	<a href="NewsFeedList2.do"><i class="fa fa-home fa-2x" aria-hidden="true"></i></a>
 </td>
-<td>	
-	<i class="fa fa-search fa-2x" aria-hidden="true"></i>
-</td>
+
 <td>
-	<div style="border: 2px solid;">
-	<img alt="사진없음" src="upload/${login.m_profile}"class="img-thumbnail" height="50px" width="50px">
+	<div>
+	<c:if test="${login.m_profile eq 'member_basic.jpg'}">
+	<img alt="사진없음" src="./image/${login.m_profile}" height="50px" width="50px">
+	</c:if>
+	<c:if test="${login.m_profile ne 'member_basic.jpg'}">
+	<img alt="사진없음" src="upload/${login.m_profile}" height="50px" width="50px">
+	</c:if>
 	</div>
 
 </td>
@@ -52,16 +54,11 @@
     </a>
 	</c:if>
 </td>
-<td>
-	<a class="btn btn-default" href="NewsFeedList2.do">홈</a>
-</td>
+<!-- 
 <td>
 	<a class="btn btn-default" href="#">친구찾기</a>
 </td>
-
-<td>
-	
-</td>
+-->
 <td>
 	<div class="btn-group">
 	  <a class="btn btn-default dropdown-toggle"  aria-expanded="false" href="#" data-toggle="dropdown"><span class="caret"></span></a>
