@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1 class="text-danger">Welcome Hell</h1>
+	<!-- <h1 class="text-danger">Welcome Hell</h1> -->
 	
 	<div style="margin-top: 200px; font-size: 20pt;">
 		<p class="text-muted">emiya muljondao jebal  - Myuonueri</p>
