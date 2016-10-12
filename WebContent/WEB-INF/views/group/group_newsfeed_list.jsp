@@ -59,7 +59,7 @@ width: 60%;
                <img alt="사진없음" src="upload/${g_nlist.m_profile}" height="50px" width="50px">
                </c:if>      
             </td>
-            <td align="left">작성자 : ${g_nlist.m_id}</td>
+            <td align="left">작성자 : ${g_nlist.m_name}</td>
          </tr>
          <tr>
             <td align="left">${g_nlist.n_wdate}</td>

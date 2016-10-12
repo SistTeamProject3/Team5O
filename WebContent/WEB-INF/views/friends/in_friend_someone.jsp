@@ -20,8 +20,8 @@
 }
 </style>
 
+<!-- <h1>in_friend_someone</h1> -->
 <h1>in_friend_someone</h1>
-
 
 
 <form name="originflist" action="">	<!-- 검색 버튼을 누르면, 기존의 table은 사라지고 검색 table 보여줌 -->

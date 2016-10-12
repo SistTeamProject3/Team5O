@@ -25,7 +25,7 @@
     </div>
   </div> 
 </div> 
-<div style="border: 1px solid; width: 100%;">
+<div class="form-control" style=" width: 100%; height: 100%;">
 <table>
 <tr>
 	<td rowspan="3">

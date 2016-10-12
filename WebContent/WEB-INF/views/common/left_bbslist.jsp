@@ -32,8 +32,8 @@ ul {
 
 			<li><a href="my_page.do" title="프로필 수정">프로필 수정</a>
 			<li><a href="NewsFeedList2.do?m_id=${login.m_id }" title="뉴스피드">뉴스피드</a></li>
-			<li><a href="event_calendar.do">일정</a></li>
 			<li><a href="friendmain.do" title="친구">친구</a></li>
+			<li><a href="event_calendar.do">일정</a></li>
 			<li class="menu_item">
 			<!-- <a href="#none" onclick="location.href='group_list.do?category=membership&m_id=aa'" title="그룹">그룹</a> -->
 			<form action="" id="groupForm" method="post">

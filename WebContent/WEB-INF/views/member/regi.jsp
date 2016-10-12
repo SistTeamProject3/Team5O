@@ -180,7 +180,6 @@ var id_count = 0;			//아이디 카운트
 			alert("번호를 입력하세요");
 		}else{
 			var phone = phone1+phone2+phone3;
-			alert("여긴 체크하는곳임");
 			check_phone2(phone);
 		}
 	}
@@ -199,7 +198,6 @@ var id_count = 0;			//아이디 카운트
 	})
 	}
 	function outputphone(msg) {
-		alert("ajax끝");
 		if(msg.message=='Sucs'){
 			alert("사용할 수 없는 핸드폰 번호 입니다.");
 		}else{
@@ -300,7 +298,7 @@ var id_count = 0;			//아이디 카운트
 	}
 	function checkid(){
 		var check_id1 = $("#_id1").val();
-		if(check_id1.length < 8){
+		if(check_id1.length < 6){
 			$("#check_member").html("6자리 이상 입력해주세요.");
 		}else{
 			$("#check_member").html("좋은 아이디 입니다. 중복체크를 해주세요.");
