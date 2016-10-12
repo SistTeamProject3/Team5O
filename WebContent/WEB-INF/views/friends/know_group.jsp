@@ -13,7 +13,7 @@
 
 <!-- 프로필사진 경로 : C:\springstudy\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\SpringSample\upload -->
 
-<h1>know_group</h1>
+<h1>아는 친구</h1>
 
 <form>
 <table class="table table-striped table-hover ">

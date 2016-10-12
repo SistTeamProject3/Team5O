@@ -6,8 +6,8 @@
 <fmt:requestEncoding value="utf-8"/>
 <script type="text/javascript" src="js/friend.js"></script>
 
-<h4>right_friendssearch</h4>
-
+<!-- <h4>right_friendssearch</h4> -->
+<h4>친구 검색</h4>
 <table class="table table-striped">
 	<tr>
 		<td>

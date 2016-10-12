@@ -11,7 +11,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/st.js"></script>
 <script src="javascript/friends.js"></script> <!-- ay -->
 
-<h1>friend_search - 친구내/외검색</h1>
+<h1>친구 검색 - 친구내/외검색</h1>
 
 <!-- <form class="navbar-form navbar-left" role="search">
 	<div class="form-group">

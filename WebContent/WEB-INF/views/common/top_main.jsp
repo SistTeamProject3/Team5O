@@ -24,7 +24,7 @@
 
 </style>
 
-<div>
+<div style="padding: 5px 0">
 <table class="tbl_top_main" style="text-align: center; margin: auto;">
 <col width="50px;">
 <col width="auto;">
@@ -33,7 +33,7 @@
 <col width="auto;">
 <tr>
 <td>
-	<a href="NewsFeedList2.do"><i class="fa fa-home fa-2x" aria-hidden="true"></i></a>
+	<a href="NewsFeedList2.do"><i class="fa fa-home fa-2x" aria-hidden="true" style="color: #fff;"></i></a>
 </td>
 
 <td>

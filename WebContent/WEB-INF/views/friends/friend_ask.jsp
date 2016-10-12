@@ -62,7 +62,7 @@ function cancle(val){
 
 <!-- 프로필사진 경로 : C:\springstudy\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\SpringSample\upload -->
 
-<h1>friend_ask</h1>
+<h1>친구요청</h1>
 <form>
 <table class="table table-striped table-hover ">
 	<colgroup>

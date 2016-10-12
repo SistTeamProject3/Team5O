@@ -13,7 +13,7 @@
 
 <!-- 프로필사진 경로 : C:\springstudy\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\SpringSample\upload -->
 
-<h1>family_group</h1>
+<h1>가족 그룹</h1>
 
 <table class="table table-striped table-hover ">
 	<colgroup>

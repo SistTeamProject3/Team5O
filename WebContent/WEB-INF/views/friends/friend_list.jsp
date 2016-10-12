@@ -27,7 +27,7 @@ function infriends(){
 </head>
 <body>
 
-<h1>friend_list - 친구 내 검색</h1>
+<h1>친구 리스트 - 친구 내 검색</h1>
 
 <form name="erer">
 <p>

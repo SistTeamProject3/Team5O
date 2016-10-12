@@ -20,11 +20,14 @@
 <body>
 
  	<form id="_frmForm">
-	<div align="center">
+	<div style="float: left; font-size: 45px; padding-left: 250px; padding-top: 20px; color: #fff; font-weight: bold; ">fakebook</div>
+	
+	<div align="center" style="background-color: #3B5998; padding: 25px 0; ">
 	<i class="fa fa-envira" aria-hidden="true"></i>
 	
 	<table>
-	<tr>
+	
+	<tr style="color: #ffffff;">
 		<td>이메일 또는 휴대폰</td>
 		<td>비밀번호</td>
 		
