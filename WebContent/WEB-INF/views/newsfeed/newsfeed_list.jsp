@@ -13,9 +13,8 @@ $(window).bind('scroll', function(){
 });
 
 function news_scrollEvent(){
-
 	$(window).unbind('scroll');
-	var lastseq = $(".table:last").attr("data-seq");
+	var lastseq = $(".table2:last").attr("data-seq");
 	var viewPage;
 	var eventSeq;
 	
@@ -91,9 +90,8 @@ function news_scrollEvent(){
 <div class="table2" data-seq="${news.n_seq }" id="newsfeedlist_total${news.n_seq }" style="width: 100%">
 <div class="table" data-seq="${news.n_seq }" id="newsfeedlist_top${news.n_seq }">
 
-	<table class="newsfeed_list_table${news.n_seq } table  table-condensed table-bordered " style="width: 100%; ">
+	<table class="newsfeed_list_table${news.n_seq } table  table-condensed table-bordered " style="width: 100%;"  data-seq=${news.n_seq } >
 		<tr>
-			
 			<td width=80px; rowspan="2">
 				<c:if test="${login.m_profile eq 'member_basic.jpg'}">
 				<img alt="사진없음" src="./image/${login.m_profile}" height="50px" width="50px">
@@ -214,7 +212,7 @@ function news_scrollEvent(){
 		<!-- 한영선: 댓글 입력  (in 뉴스피드 테이블 1)  -->
 		<tr id ="show_comment${news.n_seq }" style="display: none;">
 		<td>
-		${login.m_id }
+		${login.m_name}
 <%-- 			<c:if test="${login.m_profile eq 'member_basic.jpg'}">
 			<img alt="사진없음" src="./image/${login.m_profile}" height="50px" width="50px">
 			</c:if>
